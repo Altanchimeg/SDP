@@ -13,15 +13,22 @@
         <item name="windowNoTitle">true</item>
     </style>
 
-    <style name="AppTheme.AppBarOverlay" parent="ThemeOverlay.AppCompat.Dark.ActionBar" />
-
-    <style name="AppTheme.PopupOverlay" parent="ThemeOverlay.AppCompat.Light">
+    <style name="AppTheme.AppBarOverlay" parent="ThemeOverlay.AppCompat.Dark.ActionBar">
         <item name="android:background">@drawable/background</item>
     </style>
 
+    <style name="AppTheme.PopupOverlay" parent="ThemeOverlay.AppCompat.Light"></style>
+
     <style name="AppTheme.LeftMenu" parent="ThemeOverlay.AppCompat.Light">
-        <item name="android:background">@color/colorBackground</item>
+                <item name="android:background">@color/colorBackground</item>
     </style>
 
+    <!-- Left Menu Profile-->
+    <style name="LeftMenuTextView">
+        <item name="android:textColor">@android:color/white</item>
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:textSize">@dimen/mainFontSize</item>
+    </style>
 
 </resources>
