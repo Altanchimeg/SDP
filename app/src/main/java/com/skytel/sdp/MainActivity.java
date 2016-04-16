@@ -4,11 +4,15 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
 import android.view.View;
+import android.widget.ListView;
 
+import com.skytel.sdp.ui.LeftMenuListAdapter;
 import com.skytel.sdp.ui.NumberChoiceFragment;
 import com.skytel.sdp.ui.NumberOrderFragment;
 
 public class MainActivity extends AppCompatActivity {
+    ListView leftMenuListView;
+    LeftMenuListAdapter leftMenuListAdapter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -18,6 +22,10 @@ public class MainActivity extends AppCompatActivity {
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
         toolbar.setTitle(getTitle());
+
+        leftMenuListView = (ListView) findViewById(R.id.leftMenuListView);
+        leftMenuListAdapter = new LeftMenuListAdapter(this, getResources().getStringArray(R.array.leftmenu_array));
+        leftMenuListView.setAdapter(leftMenuListAdapter);
 
     }
 

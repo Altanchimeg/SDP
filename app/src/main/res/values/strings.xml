@@ -1,3 +1,15 @@
 <resources>
     <string name="app_name">SDP</string>
+    <!-- Left Menu -->
+    <string-array name="leftmenu_array">
+        <item>Шинэ дугаар</item>
+        <item>Скайдиллер</item>
+        <item>Үйлчилгээ</item>
+        <item>Бүртгэл</item>
+        <item>Мэдээлэл</item>
+        <item>Төлөвлөгөө</item>
+        <item>Санал хүсэлт</item>
+        <item>Тохиргоо</item>
+        <item>Гарах</item>
+    </string-array>
 </resources>
