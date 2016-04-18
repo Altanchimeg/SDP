@@ -8,7 +8,7 @@ public interface Constants {
     int MENU_SKYDEALER = 1;
     int MENU_SERVICE = 2;
     int MENU_REGISTRATION = 3;
-    int MENU_NEWS = 4;
+    int MENU_INFORMATION = 4;
     int MENU_PLAN = 5;
     int MENU_FEEDBACK = 6;
     int MENU_SETTINGS = 7;

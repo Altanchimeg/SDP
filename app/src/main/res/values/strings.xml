@@ -14,15 +14,15 @@
     </string-array>
 
     <string-array name="leftmenu_ic_array">
-        <item>ic_new_number_light</item>
-        <item>ic_skydealer_light</item>
-        <item>ic_service_light</item>
-        <item>ic_register_light</item>
-        <item>ic_info_light</item>
-        <item>ic_plan_light</item>
-        <item>ic_feedback_light</item>
-        <item>ic_settings_light</item>
-        <item>ic_exit_light</item>
+        <item>ic_new_number_dark</item>
+        <item>ic_skydealer_dark</item>
+        <item>ic_service_dark</item>
+        <item>ic_register_dark</item>
+        <item>ic_info_dark</item>
+        <item>ic_plan_dark</item>
+        <item>ic_feedback_dark</item>
+        <item>ic_settings_dark</item>
+        <item>ic_exit_dark</item>
     </string-array>
 
     <string name="title_activity_forget_password">ForgetPasswordActivity</string>

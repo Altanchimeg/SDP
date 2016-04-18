@@ -6,4 +6,7 @@
 
     <dimen name="mainFontSize">14sp</dimen>
     <dimen name="fab_margin">16dp</dimen>
+    <dimen name="leftmenuFontSize">30sp</dimen>
+    <dimen name="leftmenu_margin">10dp</dimen>
+
 </resources>

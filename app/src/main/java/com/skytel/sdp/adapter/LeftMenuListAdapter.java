@@ -62,6 +62,7 @@ public class LeftMenuListAdapter extends BaseAdapter {
 
 //		viewHolder.mMenu.setTypeface(roboto_light);
         viewHolder.leftMenuName.setText(mMenus[position] + "");
+        viewHolder.leftMenuName.setTextColor(mContext.getResources().getColor(R.color.colorMenuText));
         try {
             Drawable d = mContext.getResources().getDrawable(mContext.getResources().getIdentifier(mIcons[position], "drawable", mContext.getPackageName()));
             viewHolder.leftMenuIcon.setBackground(d);

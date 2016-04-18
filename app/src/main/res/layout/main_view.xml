@@ -98,9 +98,20 @@
         <ListView
             android:id="@+id/leftMenuListView"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            android:layout_height="398dp"
+            android:layout_marginTop="@dimen/leftmenu_margin"
+            android:divider="@null"
+            android:dividerHeight="20.0sp"
             ></ListView>
 
+        <ImageView
+            android:id="@+id/skytel_logo"
+            android:layout_width="50dp"
+            android:layout_height="25dp"
+            android:background="@drawable/skytel_logo_white"
+            android:layout_gravity="bottom|right"
+            android:baselineAlignBottom="true"
+            />
 
     </LinearLayout>
 
