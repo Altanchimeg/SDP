@@ -20,7 +20,7 @@
     <style name="AppTheme.PopupOverlay" parent="ThemeOverlay.AppCompat.Light"></style>
 
     <style name="AppTheme.LeftMenu" parent="ThemeOverlay.AppCompat.Light">
-                <item name="android:background">@color/colorBackground</item>
+        <item name="android:background">@color/colorBackground</item>
     </style>
 
     <!-- Left Menu Profile-->

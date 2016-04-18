@@ -59,6 +59,7 @@ public class LeftMenuListAdapter extends BaseAdapter {
 
 //		viewHolder.mMenu.setTypeface(roboto_light);
         viewHolder.leftMenuName.setText(mMenus[position]+"");
+        
         return v;
 
     }
