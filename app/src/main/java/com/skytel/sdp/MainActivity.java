@@ -6,7 +6,7 @@ import android.support.v7.widget.Toolbar;
 import android.view.View;
 import android.widget.ListView;
 
-import com.skytel.sdp.ui.LeftMenuListAdapter;
+import com.skytel.sdp.adapter.LeftMenuListAdapter;
 import com.skytel.sdp.ui.NumberChoiceFragment;
 import com.skytel.sdp.ui.NumberOrderFragment;
 
@@ -29,6 +29,7 @@ public class MainActivity extends AppCompatActivity {
 
     }
 
+    // New number choice
     public void numberChoiceView(View v) {
         NumberChoiceFragment numberChoiceFragment = new NumberChoiceFragment();
         getSupportFragmentManager().beginTransaction()
@@ -36,6 +37,7 @@ public class MainActivity extends AppCompatActivity {
                 .commit();
     }
 
+    // New number order
     public void numberOrderView(View v) {
         NumberOrderFragment numberOrderFragment = new NumberOrderFragment();
         getSupportFragmentManager().beginTransaction()
