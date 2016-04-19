@@ -51,9 +51,9 @@
                     android:orientation="vertical">
 
                     <TextView
-                        android:onClick="numberChoiceView"
-                        android:clickable="true"
                         style="@style/LeftMenuTextView"
+                        android:clickable="true"
+                        android:onClick="numberChoiceView"
                         android:text="Данс" />
 
                     <TextView
@@ -71,9 +71,9 @@
                     android:orientation="vertical">
 
                     <TextView
-                        android:onClick="numberOrderView"
-                        android:clickable="true"
                         style="@style/LeftMenuTextView"
+                        android:clickable="true"
+                        android:onClick="numberOrderView"
                         android:text="Бүс" />
 
                     <TextView
@@ -101,17 +101,16 @@
             android:layout_height="398dp"
             android:layout_marginTop="@dimen/leftmenu_margin"
             android:divider="@null"
-            android:dividerHeight="20.0sp"
-            ></ListView>
+            android:dividerHeight="20sp"></ListView>
 
         <ImageView
             android:id="@+id/skytel_logo"
             android:layout_width="50dp"
             android:layout_height="25dp"
-            android:background="@drawable/skytel_logo_white"
             android:layout_gravity="bottom|right"
+            android:background="@drawable/skytel_logo_white"
             android:baselineAlignBottom="true"
-            />
+            android:visibility="gone" />
 
     </LinearLayout>
 
