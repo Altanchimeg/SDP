@@ -9,110 +9,108 @@
     android:showDividers="middle"
     tools:context=".MainActivity">
 
-    <!--
-    This layout is a two-pane layout for the Items
-    master/detail flow.
-
-    -->
-
-    <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-        xmlns:tools="http://schemas.android.com/tools"
-        android:id="@+id/left_menu"
+    <ScrollView
         android:layout_width="@dimen/leftmenu_width"
         android:layout_height="match_parent"
-        android:orientation="vertical"
-        android:theme="@style/AppTheme.LeftMenu"
-        tools:context=".MainActivity">
+        android:scrollbars="none">
 
         <LinearLayout
+            android:id="@+id/left_menu"
             android:layout_width="match_parent"
-            android:layout_height="120dp"
-            android:orientation="vertical">
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center_horizontal"
-                android:paddingTop="20dp"
-                android:text="Сайн уу, Алтанчимэг"
-                android:textColor="@android:color/white" />
+            android:layout_height="match_parent"
+            android:orientation="vertical"
+            android:theme="@style/AppTheme.LeftMenu"
+            tools:context=".MainActivity">
 
             <LinearLayout
                 android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:orientation="horizontal"
-                android:weightSum="2">
+                android:layout_height="120dp"
+                android:orientation="vertical">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_horizontal"
+                    android:paddingTop="20dp"
+                    android:text="Сайн уу, Алтанчимэг"
+                    android:textColor="@android:color/white" />
 
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
-                    android:layout_weight="1"
-                    android:gravity="center"
-                    android:orientation="vertical">
+                    android:orientation="horizontal"
+                    android:weightSum="2">
 
-                    <TextView
-                        style="@style/LeftMenuTextView"
-                        android:clickable="true"
-                        android:onClick="loginView"
-                        android:text="Данс" />
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:layout_weight="1"
+                        android:gravity="center"
+                        android:orientation="vertical">
 
-                    <TextView
-                        style="@style/LeftMenuTextView"
-                        android:text="1,000,000"
-                        android:textColor="@color/colorSkytelYellow" />
+                        <TextView
+                            style="@style/LeftMenuTextView"
+                            android:clickable="true"
+                            android:onClick="loginView"
+                            android:text="Данс" />
 
-                </LinearLayout>
+                        <TextView
+                            style="@style/LeftMenuTextView"
+                            android:text="1,000,000"
+                            android:textColor="@color/colorSkytelYellow" />
 
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:layout_weight="1"
-                    android:gravity="center"
-                    android:orientation="vertical">
+                    </LinearLayout>
 
-                    <TextView
-                        style="@style/LeftMenuTextView"
-                        android:clickable="true"
-                        android:onClick="loginView"
-                        android:text="Бүс" />
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:layout_weight="1"
+                        android:gravity="center"
+                        android:orientation="vertical">
 
-                    <TextView
-                        style="@style/LeftMenuTextView"
-                        android:text="Баруун"
-                        android:textAllCaps="true"
-                        android:textColor="@color/colorSkytelYellow" />
+                        <TextView
+                            style="@style/LeftMenuTextView"
+                            android:clickable="true"
+                            android:onClick="loginView"
+                            android:text="Бүс" />
+
+                        <TextView
+                            style="@style/LeftMenuTextView"
+                            android:text="Баруун"
+                            android:textAllCaps="true"
+                            android:textColor="@color/colorSkytelYellow" />
+
+                    </LinearLayout>
 
                 </LinearLayout>
 
             </LinearLayout>
 
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:layout_marginBottom="2dp"
+                android:layout_marginTop="2dp"
+                android:background="@color/colorSkytelYellow"></View>
+
+            <ListView
+                android:id="@+id/leftMenuListView"
+                android:layout_width="match_parent"
+                android:layout_height="398dp"
+                android:layout_marginTop="@dimen/leftmenu_margin"
+                android:divider="@null"></ListView>
+
+            <ImageView
+                android:id="@+id/skytel_logo"
+                android:layout_width="50dp"
+                android:layout_height="25dp"
+                android:layout_gravity="bottom|right"
+                android:background="@drawable/skytel_logo_white"
+                android:baselineAlignBottom="true"
+                android:visibility="gone" />
+
         </LinearLayout>
-
-        <View
-            android:layout_width="match_parent"
-            android:layout_height="1dp"
-            android:layout_marginBottom="5dp"
-            android:layout_marginTop="5dp"
-            android:background="@color/colorSkytelYellow"></View>
-
-        <ListView
-            android:id="@+id/leftMenuListView"
-            android:layout_width="match_parent"
-            android:layout_height="398dp"
-            android:layout_marginTop="@dimen/leftmenu_margin"
-            android:divider="@null"
-            android:dividerHeight="20sp"></ListView>
-
-        <ImageView
-            android:id="@+id/skytel_logo"
-            android:layout_width="50dp"
-            android:layout_height="25dp"
-            android:layout_gravity="bottom|right"
-            android:background="@drawable/skytel_logo_white"
-            android:baselineAlignBottom="true"
-            android:visibility="gone" />
-
-    </LinearLayout>
+    </ScrollView>
 
     <FrameLayout
         android:id="@+id/main_detail_container"

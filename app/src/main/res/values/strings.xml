@@ -23,15 +23,15 @@
     </string-array>
 
     <string-array name="leftmenu_ic_array">
-        <item>ic_new_number_dark</item>
-        <item>ic_skydealer_dark</item>
-        <item>ic_service_dark</item>
-        <item>ic_register_dark</item>
-        <item>ic_info_dark</item>
-        <item>ic_plan_dark</item>
-        <item>ic_feedback_dark</item>
-        <item>ic_settings_dark</item>
-        <item>ic_exit_dark</item>
+        <item>ic_new_number</item>
+        <item>ic_skydealer</item>
+        <item>ic_service</item>
+        <item>ic_register</item>
+        <item>ic_info</item>
+        <item>ic_plan</item>
+        <item>ic_feedback</item>
+        <item>ic_settings</item>
+        <item>ic_exit</item>
     </string-array>
 
     <!-- Feedback -->

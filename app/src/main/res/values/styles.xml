@@ -23,6 +23,17 @@
         <item name="android:background">@color/colorBackground</item>
     </style>
 
+
+    <style name="MyAlertDialogStyle" parent="Theme.AppCompat.Light.Dialog.Alert">
+        <!-- Used for the buttons -->
+        <item name="android:background">@android:color/white</item>
+        <item name="android:windowTitleStyle">@style/MyTitleTextStyle</item>
+    </style>
+
+    <style name="MyTitleTextStyle">
+        <item name="android:textAppearance">@style/TextAppearance.AppCompat.Title</item>
+    </style>
+
     <!-- Left Menu Profile-->
     <style name="LeftMenuTextView">
         <item name="android:textColor">@android:color/white</item>
@@ -31,7 +42,11 @@
         <item name="android:textSize">@dimen/mainFontSize</item>
     </style>
 
-
+    <style name="DialogButton">
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:background">@android:color/transparent</item>
+    </style>
 
 
 </resources>

@@ -4,4 +4,5 @@
     <color name="colorSkytelYellow">#e14913</color>
     <color name="colorMenuText">#999999</color>
     <color name="colorSkytelBlue">#00359B</color>
+    <color name="colorMenuBackgroundSelected">#424242</color>
 </resources>

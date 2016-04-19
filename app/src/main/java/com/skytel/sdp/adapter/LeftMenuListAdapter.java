@@ -2,6 +2,7 @@ package com.skytel.sdp.adapter;
 
 import android.content.Context;
 import android.graphics.drawable.Drawable;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -10,12 +11,14 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
+import com.skytel.sdp.MainActivity;
 import com.skytel.sdp.R;
 
 /**
  * Created by bayarkhuu on 4/16/2016.
  */
 public class LeftMenuListAdapter extends BaseAdapter {
+    String TAG = LeftMenuListAdapter.class.getName();
     private Context mContext;
     private String[] mMenus;
     private String[] mIcons;
@@ -63,11 +66,21 @@ public class LeftMenuListAdapter extends BaseAdapter {
 //		viewHolder.mMenu.setTypeface(roboto_light);
         viewHolder.leftMenuName.setText(mMenus[position] + "");
         viewHolder.leftMenuName.setTextColor(mContext.getResources().getColor(R.color.colorMenuText));
+        Log.d(TAG, "MainActivity.currentMenu " + MainActivity.currentMenu);
+        Log.d(TAG, "position " + position);
+        Drawable d = null;
+        if (MainActivity.currentMenu == position) {
+            viewHolder.leftMenuItemContainer.setBackgroundColor(mContext.getResources().getColor(R.color.colorMenuBackgroundSelected));
+            d = mContext.getResources().getDrawable(mContext.getResources().getIdentifier(mIcons[position] + "_light", "drawable", mContext.getPackageName()));
+        } else {
+            viewHolder.leftMenuItemContainer.setBackgroundResource(android.R.color.transparent);
+            d = mContext.getResources().getDrawable(mContext.getResources().getIdentifier(mIcons[position], "drawable", mContext.getPackageName()));
+        }
         try {
-            Drawable d = mContext.getResources().getDrawable(mContext.getResources().getIdentifier(mIcons[position], "drawable", mContext.getPackageName()));
             viewHolder.leftMenuIcon.setBackground(d);
         } catch (Exception e) {
         }
+
 
         return v;
 
@@ -78,12 +91,14 @@ public class LeftMenuListAdapter extends BaseAdapter {
         //        public View underline;
         public ImageView leftMenuIcon;
         //      public LinearLayout container;
+        public LinearLayout leftMenuItemContainer;
 
         public CompleteListViewHolder(View base) {
             leftMenuName = (TextView) base.findViewById(R.id.leftMenuName);
             //     underline = (View) base.findViewById(R.id.underline);
             leftMenuIcon = (ImageView) base.findViewById(R.id.leftMenuIcon);
             //   container = (LinearLayout) base.findViewById(R.id.container);
+            leftMenuItemContainer = (LinearLayout) base.findViewById(R.id.leftMenuItemContainer);
         }
     }
 }
