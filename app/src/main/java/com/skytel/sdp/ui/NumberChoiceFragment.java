@@ -76,10 +76,16 @@ public class NumberChoiceFragment extends Fragment {
 
         @Override
         public Fragment getItem(int i) {
-            Fragment fragment = new DemoObjectFragment();
-            Bundle args = new Bundle();
-            args.putInt(DemoObjectFragment.ARG_OBJECT, i + 1); // Our object is just an integer :-P
-            fragment.setArguments(args);
+//            Fragment fragment = new DemoObjectFragment();
+//            Bundle args = new Bundle();
+//            args.putInt(DemoObjectFragment.ARG_OBJECT, i + 1); // Our object is just an integer :-P
+//            fragment.setArguments(args);
+            Fragment fragment;
+            if (i == 0) {
+                fragment = new NumberOrderFragment();
+            } else {
+                fragment = new NumberOrderReportFragment();
+            }
             return fragment;
         }
 
@@ -95,7 +101,7 @@ public class NumberChoiceFragment extends Fragment {
         }
     }
 
-    public static class DemoObjectFragment extends Fragment {
+ /*   public static class DemoObjectFragment extends Fragment {
 
         public static final String ARG_OBJECT = "object";
 
@@ -108,5 +114,5 @@ public class NumberChoiceFragment extends Fragment {
                     Integer.toString(args.getInt(ARG_OBJECT)));
             return rootView;
         }
-    }
+    }*/
 }
