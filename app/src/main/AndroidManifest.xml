@@ -18,6 +18,7 @@
             </intent-filter>
         </activity>
         <activity
+            android:theme="@android:style/Theme.NoTitleBar.Fullscreen"
             android:name="com.skytel.sdp.LoginActivity"
            >
             </activity>

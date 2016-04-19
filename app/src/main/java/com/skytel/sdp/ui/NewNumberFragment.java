@@ -20,6 +20,7 @@ public class NewNumberFragment extends Fragment {
 
     public NewNumberFragment() {
     }
+
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -63,6 +64,7 @@ public class NewNumberFragment extends Fragment {
 
         return rootView;
     }
+
     public static class DemoCollectionPagerAdapter extends FragmentStatePagerAdapter {
 
         public DemoCollectionPagerAdapter(FragmentManager fm) {
@@ -71,7 +73,7 @@ public class NewNumberFragment extends Fragment {
 
         @Override
         public Fragment getItem(int i) {
-//
+
             Fragment fragment;
             if (i == 0) {
                 fragment = new NumberChoiceFragment();
