@@ -14,6 +14,7 @@ import com.skytel.sdp.ui.DealerRegistrationFragment;
 import com.skytel.sdp.ui.FeedbackFragment;
 import com.skytel.sdp.ui.HandsetChangeFragment;
 import com.skytel.sdp.ui.InformationFragment;
+import com.skytel.sdp.ui.NewNumberFragment;
 import com.skytel.sdp.ui.NumberChoiceFragment;
 import com.skytel.sdp.ui.NumberOrderFragment;
 import com.skytel.sdp.ui.PlanFragment;
@@ -41,9 +42,9 @@ public class MainActivity extends AppCompatActivity {
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                 switch (position) {
                     case Constants.MENU_NEWNUMBER:
-                        NumberChoiceFragment numberChoiceFragment = new NumberChoiceFragment();
+                        NewNumberFragment newNumberFragment = new NewNumberFragment();
                         getSupportFragmentManager().beginTransaction()
-                                .replace(R.id.main_detail_container, numberChoiceFragment)
+                                .replace(R.id.main_detail_container, newNumberFragment)
                                 .commit();
                         break;
                     case Constants.MENU_SKYDEALER:

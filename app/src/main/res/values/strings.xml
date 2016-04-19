@@ -49,4 +49,7 @@
         <item>Ажилтан</item>
     </string-array>
 
+    <!-- New number Tabs -->
+    <string name="tab_newnumber_order">Шинэ дугаарын захиалга</string>
+    <string name="tab_order_report">Захиалгын тайлан</string>
 </resources>
