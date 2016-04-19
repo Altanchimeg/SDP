@@ -53,7 +53,7 @@
                     <TextView
                         style="@style/LeftMenuTextView"
                         android:clickable="true"
-                        android:onClick="numberChoiceView"
+                        android:onClick="loginView"
                         android:text="Данс" />
 
                     <TextView
@@ -73,7 +73,7 @@
                     <TextView
                         style="@style/LeftMenuTextView"
                         android:clickable="true"
-                        android:onClick="numberOrderView"
+                        android:onClick="loginView"
                         android:text="Бүс" />
 
                     <TextView

@@ -1,5 +1,6 @@
 package com.skytel.sdp;
 
+import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
@@ -96,12 +97,10 @@ public class MainActivity extends AppCompatActivity {
 
     }
 
-    // New number choice
-    public void numberChoiceView(View v) {
-        NumberChoiceFragment numberChoiceFragment = new NumberChoiceFragment();
-        getSupportFragmentManager().beginTransaction()
-                .replace(R.id.main_detail_container, numberChoiceFragment)
-                .commit();
+    // Login
+    public void loginView(View v) {
+        Intent intent = new Intent(this, LoginActivity.class);
+        startActivity(intent);
     }
 
     // New number order

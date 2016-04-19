@@ -31,4 +31,7 @@
         <item name="android:textSize">@dimen/mainFontSize</item>
     </style>
 
+
+
+
 </resources>

@@ -1,5 +1,6 @@
 <resources>
     <string name="app_name">Service Dealer Program</string>
+
     <!-- Left Menu -->
     <string-array name="leftmenu_array">
         <item>Шинэ дугаар</item>
@@ -25,6 +26,27 @@
         <item>ic_exit_dark</item>
     </string-array>
 
-    <string name="title_activity_forget_password">ForgetPasswordActivity</string>
+    <!-- Feedback -->
+    <string name="text_choose_type">Дуу хоолойн төрлөө сонгоно уу?</string>
+    <string-array name="voice_type">
+        <item>Санал хүсэлт</item>
+        <item>Талархал</item>
+        <item>Гомдол</item>
+        <item>Мэдээлэл</item>
+    </string-array>
+
+    <string name="text_user_phonenumber">Хэрэглэгчийн утасны дугаар</string>
+    <string name="text_write_voice">Хэрэглэгчийн дуу хоолойг бичнэ үү?</string>
+    <string name="btn_send">ИЛГЭЭХ</string>
+
+    <!-- Login -->
+    <string name="text_username">Нэвтрэх нэр</string>
+    <string name="text_password">Нууц үг</string>
+    <string name="btn_login">НЭВТРЭХ</string>
+    <string name="btn_forget_password">Нууц үг мартсэн?</string>
+    <string-array name="radioGroupDealer">
+        <item>Диллер</item>
+        <item>Ажилтан</item>
+    </string-array>
 
 </resources>
