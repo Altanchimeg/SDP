@@ -10,7 +10,7 @@
     tools:context=".MainActivity">
 
     <ScrollView
-        android:layout_width="@dimen/leftmenu_width"
+        android:layout_width="200dp"
         android:layout_height="match_parent"
         android:scrollbars="none"
         android:theme="@style/AppTheme.LeftMenu"

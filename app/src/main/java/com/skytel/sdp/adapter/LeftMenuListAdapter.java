@@ -15,7 +15,7 @@ import com.skytel.sdp.MainActivity;
 import com.skytel.sdp.R;
 
 /**
- * Created by bayarkhuu on 4/16/2016.
+ * Created by altanchimeg on 4/16/2016.
  */
 public class LeftMenuListAdapter extends BaseAdapter {
     String TAG = LeftMenuListAdapter.class.getName();
@@ -31,7 +31,6 @@ public class LeftMenuListAdapter extends BaseAdapter {
         mIcons = context.getResources().getStringArray(R.array.leftmenu_ic_array);
         mLayoutInflater = (LayoutInflater) mContext
                 .getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-
     }
 
     @Override

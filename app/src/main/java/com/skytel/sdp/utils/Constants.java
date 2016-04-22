@@ -1,7 +1,7 @@
 package com.skytel.sdp.utils;
 
 /**
- * Created by bayarkhuu on 4/18/2016.
+ * Created by Altanchimeg on 4/18/2016.
  */
 public interface Constants {
     int MENU_NEWNUMBER = 0;

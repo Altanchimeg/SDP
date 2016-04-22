@@ -9,7 +9,7 @@ import android.view.ViewGroup;
 import com.skytel.sdp.R;
 
 /**
- * Created by bayarkhuu on 4/14/2016.
+ * Created by altanchimeg on 4/14/2016.
  */
 public class NumberOrderFragment extends Fragment {
     public NumberOrderFragment() {
