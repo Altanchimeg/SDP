@@ -1,14 +1,10 @@
 package com.skytel.sdp.ui;
 
 import android.os.Bundle;
-import android.support.design.widget.TabLayout;
-import android.support.v4.view.PagerTabStrip;
-import android.support.v4.view.ViewPager;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.support.v4.app.*;
-import android.widget.TextView;
 
 import com.skytel.sdp.R;
 

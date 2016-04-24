@@ -4,7 +4,6 @@ import android.app.Dialog;
 import android.content.Context;
 import android.content.Intent;
 import android.support.v4.app.Fragment;
-import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -20,8 +19,7 @@ import com.skytel.sdp.ui.DealerRegistrationFragment;
 import com.skytel.sdp.ui.FeedbackFragment;
 import com.skytel.sdp.ui.HandsetChangeFragment;
 import com.skytel.sdp.ui.InformationFragment;
-import com.skytel.sdp.ui.NewNumberFragment;
-import com.skytel.sdp.ui.NumberChoiceFragment;
+import com.skytel.sdp.ui.LeftMenuNewNumberFragment;
 import com.skytel.sdp.ui.NumberOrderFragment;
 import com.skytel.sdp.ui.PlanFragment;
 import com.skytel.sdp.ui.SettingsFragment;
@@ -46,7 +44,7 @@ public class MainActivity extends AppCompatActivity {
 
 
         if (savedInstanceState == null) {
-            changeMenu(new NewNumberFragment());
+            changeMenu(new LeftMenuNewNumberFragment());
         }
 
         leftMenuListView = (ListView) findViewById(R.id.leftMenuListView);
@@ -57,7 +55,7 @@ public class MainActivity extends AppCompatActivity {
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                 switch (position) {
                     case Constants.MENU_NEWNUMBER:
-                        changeMenu(new NewNumberFragment());
+                        changeMenu(new LeftMenuNewNumberFragment());
                         break;
                     case Constants.MENU_SKYDEALER:
                         changeMenu(new ChargeCardFragment());
@@ -111,7 +109,6 @@ public class MainActivity extends AppCompatActivity {
         transaction.setCustomAnimations(R.anim.enter, R.anim.exit, R.anim.pop_enter, R.anim.pop_exit);
         transaction
                 .replace(R.id.main_detail_container, fragment)
-                .addToBackStack(null)
                 .commit();
     }
 

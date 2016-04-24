@@ -13,12 +13,12 @@ import android.view.ViewGroup;
 
 import com.skytel.sdp.R;
 
-public class NewNumberFragment extends Fragment {
+public class LeftMenuSkyDealerFragment extends Fragment {
 
-    DemoCollectionPagerAdapter mDemoCollectionPagerAdapter;
+    FragmentPagerAdapter fragmentPagerAdapter;
     ViewPager mViewPager;
 
-    public NewNumberFragment() {
+    public LeftMenuSkyDealerFragment() {
     }
 
     @Override
@@ -30,15 +30,15 @@ public class NewNumberFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
 
-        View rootView = inflater.inflate(R.layout.fragment_new_number, container, false);
+        View rootView = inflater.inflate(R.layout.fragment_tab_pager, container, false);
 
-        mDemoCollectionPagerAdapter = new DemoCollectionPagerAdapter(getActivity().getSupportFragmentManager());
+        fragmentPagerAdapter = new FragmentPagerAdapter(getActivity().getSupportFragmentManager());
 
         // Set up the ViewPager, attaching the adapter.
-        mViewPager = (ViewPager) rootView.findViewById(R.id.pager_new_number);
-        mViewPager.setAdapter(mDemoCollectionPagerAdapter);
+        mViewPager = (ViewPager) rootView.findViewById(R.id.pager_view);
+        mViewPager.setAdapter(fragmentPagerAdapter);
 
-        TabLayout tabLayout = (TabLayout) rootView.findViewById(R.id.tab_new_number);
+        TabLayout tabLayout = (TabLayout) rootView.findViewById(R.id.tab_view);
         tabLayout.addTab(tabLayout.newTab().setText(getText(R.string.tab_newnumber_order)));
         tabLayout.addTab(tabLayout.newTab().setText(getText(R.string.tab_order_report)));
         tabLayout.setTabGravity(TabLayout.GRAVITY_FILL);
@@ -65,9 +65,9 @@ public class NewNumberFragment extends Fragment {
         return rootView;
     }
 
-    public static class DemoCollectionPagerAdapter extends FragmentStatePagerAdapter {
+    public static class FragmentPagerAdapter extends FragmentStatePagerAdapter {
 
-        public DemoCollectionPagerAdapter(FragmentManager fm) {
+        public FragmentPagerAdapter(FragmentManager fm) {
             super(fm);
         }
 
@@ -91,7 +91,7 @@ public class NewNumberFragment extends Fragment {
 
         @Override
         public CharSequence getPageTitle(int position) {
-            return "OBJECT " + (position + 1);
+            return "" + (position + 1);
         }
     }
 
