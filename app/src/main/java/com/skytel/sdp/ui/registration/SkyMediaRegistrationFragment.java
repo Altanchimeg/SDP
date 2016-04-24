@@ -1,4 +1,4 @@
-package com.skytel.sdp.ui;
+package com.skytel.sdp.ui.registration;
 
 
 import android.os.Bundle;
@@ -9,18 +9,20 @@ import android.view.ViewGroup;
 
 import com.skytel.sdp.R;
 
+public class SkyMediaRegistrationFragment extends Fragment {
 
-public class InformationFragment extends Fragment {
 
-
-    public InformationFragment() {
+    public SkyMediaRegistrationFragment() {
     }
-
+    @Override
+    public void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+    }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        View rootView = inflater.inflate(R.layout.main_information, container, false);
+        View rootView = inflater.inflate(R.layout.main_skymedia_registration, container, false);
         return rootView;
     }
 

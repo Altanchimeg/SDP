@@ -1,4 +1,4 @@
-package com.skytel.sdp.ui;
+package com.skytel.sdp.ui.information;
 
 
 import android.os.Bundle;
@@ -9,25 +9,18 @@ import android.view.ViewGroup;
 
 import com.skytel.sdp.R;
 
-/**
- * @author Altanchimeg
- *
- */
-public class SkyDealerChargeCardFragment extends Fragment {
+
+public class InformationFragment extends Fragment {
 
 
-    public SkyDealerChargeCardFragment() {
+    public InformationFragment() {
     }
 
-    @Override
-    public void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-    }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        View rootView =  inflater.inflate(R.layout.main_charge_card, container, false);
+        View rootView = inflater.inflate(R.layout.main_information, container, false);
         return rootView;
     }
 

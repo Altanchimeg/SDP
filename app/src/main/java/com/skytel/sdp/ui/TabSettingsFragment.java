@@ -12,13 +12,18 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.skytel.sdp.R;
+import com.skytel.sdp.ui.settings.ChangePasswordFragment;
+import com.skytel.sdp.ui.skydealer.ChargeCardFragment;
+import com.skytel.sdp.ui.skydealer.PostPaidPaymentFragment;
+import com.skytel.sdp.ui.skydealer.SalesReportFragment;
+import com.skytel.sdp.ui.skydealer.SkymediaPaymentFragment;
 
-public class LeftMenuNewNumberFragment extends Fragment {
+public class TabSettingsFragment extends Fragment {
 
     FragmentPagerAdapter fragmentPagerAdapter;
     ViewPager mViewPager;
 
-    public LeftMenuNewNumberFragment() {
+    public TabSettingsFragment() {
     }
 
     @Override
@@ -39,8 +44,8 @@ public class LeftMenuNewNumberFragment extends Fragment {
         mViewPager.setAdapter(fragmentPagerAdapter);
 
         TabLayout tabLayout = (TabLayout) rootView.findViewById(R.id.tab_view);
-        tabLayout.addTab(tabLayout.newTab().setText(getText(R.string.tab_newnumber_order)));
-        tabLayout.addTab(tabLayout.newTab().setText(getText(R.string.tab_order_report)));
+        tabLayout.addTab(tabLayout.newTab().setText(getText(R.string.tab_settings_changepassword)));
+
         tabLayout.setTabGravity(TabLayout.GRAVITY_FILL);
 
         mViewPager.addOnPageChangeListener(new TabLayout.TabLayoutOnPageChangeListener(tabLayout));
@@ -74,19 +79,14 @@ public class LeftMenuNewNumberFragment extends Fragment {
         @Override
         public Fragment getItem(int i) {
 
-            Fragment fragment;
-            if (i == 0) {
-                fragment = new NewNumberChoiceFragment();
-            } else {
-                fragment = new NewNumberOrderReportFragment();
-            }
+            Fragment fragment = new ChangePasswordFragment();
             return fragment;
         }
 
         @Override
         public int getCount() {
             // For this contrived example, we have a 100-object collection.
-            return 2;
+            return 1;
         }
 
         @Override

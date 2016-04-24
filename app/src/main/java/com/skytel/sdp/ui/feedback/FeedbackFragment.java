@@ -1,4 +1,4 @@
-package com.skytel.sdp.ui;
+package com.skytel.sdp.ui.feedback;
 
 
 import android.os.Bundle;
@@ -10,12 +10,12 @@ import android.view.ViewGroup;
 import com.skytel.sdp.R;
 
 
-public class SkyDealerPostpaidPaymentFragment extends Fragment {
+public class FeedbackFragment extends Fragment {
 
 
-    public SkyDealerPostpaidPaymentFragment() {
+    public FeedbackFragment() {
+
     }
-
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -24,7 +24,7 @@ public class SkyDealerPostpaidPaymentFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        View rootView =  inflater.inflate(R.layout.main_postpaid_payment, container, false);
+        View rootView = inflater.inflate(R.layout.main_feedback, container, false);
         return rootView;
     }
 

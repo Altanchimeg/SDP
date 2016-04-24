@@ -1,4 +1,4 @@
-package com.skytel.sdp.ui;
+package com.skytel.sdp.ui.service;
 
 
 import android.os.Bundle;
@@ -9,10 +9,11 @@ import android.view.ViewGroup;
 
 import com.skytel.sdp.R;
 
-public class SkymediaRegistrationFragment extends Fragment {
+
+public class ValueAddedServiceFragment extends Fragment {
 
 
-    public SkymediaRegistrationFragment() {
+    public ValueAddedServiceFragment() {
     }
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -22,7 +23,7 @@ public class SkymediaRegistrationFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        View rootView = inflater.inflate(R.layout.main_skymedia_registration, container, false);
+        View rootView = inflater.inflate(R.layout.main_value_added_service, container, false);
         return rootView;
     }
 

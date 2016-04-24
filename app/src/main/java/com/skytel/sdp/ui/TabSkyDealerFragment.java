@@ -12,13 +12,17 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.skytel.sdp.R;
+import com.skytel.sdp.ui.skydealer.ChargeCardFragment;
+import com.skytel.sdp.ui.skydealer.PostPaidPaymentFragment;
+import com.skytel.sdp.ui.skydealer.SalesReportFragment;
+import com.skytel.sdp.ui.skydealer.SkymediaPaymentFragment;
 
-public class LeftMenuSkyDealerFragment extends Fragment {
+public class TabSkyDealerFragment extends Fragment {
 
     FragmentPagerAdapter fragmentPagerAdapter;
     ViewPager mViewPager;
 
-    public LeftMenuSkyDealerFragment() {
+    public TabSkyDealerFragment() {
     }
 
     @Override
@@ -79,13 +83,13 @@ public class LeftMenuSkyDealerFragment extends Fragment {
 
             Fragment fragment;
             if (i == 0) {
-                fragment = new SkyDealerChargeCardFragment();
+                fragment = new ChargeCardFragment();
             } else if(i==1){
-                fragment = new SkyDealerPostpaidPaymentFragment();
+                fragment = new PostPaidPaymentFragment();
             } else if(i==2){
-                fragment = new SkyDealerSkymediaPaymentFragment();
+                fragment = new SkymediaPaymentFragment();
             } else {
-                fragment = new SkyDealerReportFragment();
+                fragment = new SalesReportFragment();
             }
             return fragment;
         }

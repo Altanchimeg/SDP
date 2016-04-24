@@ -1,4 +1,4 @@
-package com.skytel.sdp.ui;
+package com.skytel.sdp.ui.service;
 
 
 import android.os.Bundle;
@@ -9,10 +9,11 @@ import android.view.ViewGroup;
 
 import com.skytel.sdp.R;
 
-public class DealerRegistrationFragment extends Fragment {
+
+public class HandsetChangeFragment extends Fragment {
 
 
-    public DealerRegistrationFragment() {
+    public HandsetChangeFragment() {
     }
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -22,7 +23,7 @@ public class DealerRegistrationFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        View rootView = inflater.inflate(R.layout.main_dealer_registration, container, false);
+        View rootView = inflater.inflate(R.layout.main_handset_change, container, false);
         return rootView;
     }
 

@@ -14,16 +14,16 @@ import android.widget.Button;
 import android.widget.ListView;
 
 import com.skytel.sdp.adapter.LeftMenuListAdapter;
-import com.skytel.sdp.ui.LeftMenuSkyDealerFragment;
-import com.skytel.sdp.ui.SkyDealerChargeCardFragment;
-import com.skytel.sdp.ui.DealerRegistrationFragment;
-import com.skytel.sdp.ui.FeedbackFragment;
-import com.skytel.sdp.ui.HandsetChangeFragment;
-import com.skytel.sdp.ui.InformationFragment;
-import com.skytel.sdp.ui.LeftMenuNewNumberFragment;
-import com.skytel.sdp.ui.NewNumberOrderFragment;
-import com.skytel.sdp.ui.PlanFragment;
-import com.skytel.sdp.ui.SettingsFragment;
+import com.skytel.sdp.ui.TabRegistrationFragment;
+import com.skytel.sdp.ui.TabServiceFragment;
+import com.skytel.sdp.ui.TabSettingsFragment;
+import com.skytel.sdp.ui.TabSkyDealerFragment;
+import com.skytel.sdp.ui.registration.DealerRegistrationFragment;
+import com.skytel.sdp.ui.feedback.FeedbackFragment;
+import com.skytel.sdp.ui.information.InformationFragment;
+import com.skytel.sdp.ui.TabNewNumberFragment;
+import com.skytel.sdp.ui.plan.PlanFragment;
+import com.skytel.sdp.ui.settings.ChangePasswordFragment;
 import com.skytel.sdp.utils.Constants;
 
 public class MainActivity extends AppCompatActivity {
@@ -45,7 +45,7 @@ public class MainActivity extends AppCompatActivity {
 
 
         if (savedInstanceState == null) {
-            changeMenu(new LeftMenuNewNumberFragment());
+            changeMenu(new TabNewNumberFragment());
         }
 
         leftMenuListView = (ListView) findViewById(R.id.leftMenuListView);
@@ -56,16 +56,16 @@ public class MainActivity extends AppCompatActivity {
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                 switch (position) {
                     case Constants.MENU_NEWNUMBER:
-                        changeMenu(new LeftMenuNewNumberFragment());
+                        changeMenu(new TabNewNumberFragment());
                         break;
                     case Constants.MENU_SKYDEALER:
-                        changeMenu(new LeftMenuSkyDealerFragment());
+                        changeMenu(new TabSkyDealerFragment());
                         break;
                     case Constants.MENU_SERVICE:
-                        changeMenu(new HandsetChangeFragment());
+                        changeMenu(new TabServiceFragment());
                         break;
                     case Constants.MENU_REGISTRATION:
-                        changeMenu(new DealerRegistrationFragment());
+                        changeMenu(new TabRegistrationFragment());
                         break;
                     case Constants.MENU_INFORMATION:
                         changeMenu(new InformationFragment());
@@ -77,7 +77,7 @@ public class MainActivity extends AppCompatActivity {
                         changeMenu(new FeedbackFragment());
                         break;
                     case Constants.MENU_SETTINGS:
-                        changeMenu(new SettingsFragment());
+                        changeMenu(new TabSettingsFragment());
 
                         break;
                     case Constants.MENU_LOGOUT:
@@ -95,14 +95,6 @@ public class MainActivity extends AppCompatActivity {
     public void loginView(View v) {
         Intent intent = new Intent(this, LoginActivity.class);
         startActivity(intent);
-    }
-
-    // New number order
-    public void numberOrderView(View v) {
-        NewNumberOrderFragment numberOrderFragment = new NewNumberOrderFragment();
-        getSupportFragmentManager().beginTransaction()
-                .replace(R.id.main_detail_container, numberOrderFragment)
-                .commit();
     }
 
     private void changeMenu(Fragment fragment) {

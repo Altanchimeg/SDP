@@ -90,6 +90,7 @@
         <item name="android:background">@color/colorTabBackground</item>
         <item name="android:minHeight">?attr/actionBarSize</item>
         <item name="android:textColor">@color/colorTabTextColor</item>
+        <item name="android:textSize">@dimen/mainFontSize</item>
     </style>
 
     <!--Main View -->

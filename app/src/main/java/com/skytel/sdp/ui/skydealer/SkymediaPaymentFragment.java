@@ -1,4 +1,4 @@
-package com.skytel.sdp.ui;
+package com.skytel.sdp.ui.skydealer;
 
 
 import android.os.Bundle;
@@ -10,10 +10,11 @@ import android.view.ViewGroup;
 import com.skytel.sdp.R;
 
 
-public class HandsetChangeFragment extends Fragment {
+public class SkymediaPaymentFragment extends Fragment {
 
 
-    public HandsetChangeFragment() {
+    public SkymediaPaymentFragment() {
+
     }
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -23,7 +24,8 @@ public class HandsetChangeFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        View rootView = inflater.inflate(R.layout.main_handset_change, container, false);
+
+        View rootView =  inflater.inflate(R.layout.main_skymedia_payment, container, false);
         return rootView;
     }
 

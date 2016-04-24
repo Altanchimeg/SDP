@@ -78,6 +78,19 @@
     <string name="tab_skydealer_skymediapayment">СКАЙмедиа төлбөр төлөлт</string>
     <string name="tab_skydealer_report">Борлуулалтын тайлан</string>
 
+    <!-- Service Tabs-->
+    <string name="tab_service_handsetchange">Гар солилт</string>
+    <string name="tab_service_valueaddedservice">Нэмэлт үйлчилгээ</string>
+    <string name="tab_service_report">Үйлчилгээний тайлан</string>
+
+    <!-- Registration Tabs-->
+    <string name="tab_registration_dealer">Шинэ гэрээт</string>
+    <string name="tab_registration_skymedia">Шинэ СКАЙмедиа</string>
+    <string name="tab_registration_report">Бүртгэлийн тайлан</string>
+
+    <!-- Settings Tabs-->
+    <string name="tab_settings_changepassword">Нууц үг солих</string>
+
 
     <!-- Right View -->
     <!-- Number Choice-->
