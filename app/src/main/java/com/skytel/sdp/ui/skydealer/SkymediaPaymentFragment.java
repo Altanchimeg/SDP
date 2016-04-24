@@ -1,4 +1,4 @@
-package com.skytel.sdp.ui;
+package com.skytel.sdp.ui.skydealer;
 
 
 import android.os.Bundle;
@@ -9,15 +9,13 @@ import android.view.ViewGroup;
 
 import com.skytel.sdp.R;
 
-/**
- * Created by Altanchimeg on 4/18/2016.
- */
-public class NumberOrderReportFragment extends Fragment {
+
+public class SkymediaPaymentFragment extends Fragment {
 
 
-    public NumberOrderReportFragment() {
+    public SkymediaPaymentFragment() {
+
     }
-
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -26,8 +24,9 @@ public class NumberOrderReportFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        View rootView =  inflater.inflate(R.layout.main_number_order_report, container, false);
-        return  rootView;
+
+        View rootView =  inflater.inflate(R.layout.main_skymedia_payment, container, false);
+        return rootView;
     }
 
 }

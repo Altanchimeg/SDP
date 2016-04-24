@@ -1,4 +1,4 @@
-package com.skytel.sdp.ui;
+package com.skytel.sdp.ui.plan;
 
 
 import android.os.Bundle;
@@ -10,11 +10,10 @@ import android.view.ViewGroup;
 import com.skytel.sdp.R;
 
 
-public class SkymediaPaymentFragment extends Fragment {
+public class PlanFragment extends Fragment {
 
 
-    public SkymediaPaymentFragment() {
-
+    public PlanFragment() {
     }
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -24,8 +23,7 @@ public class SkymediaPaymentFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-
-        View rootView =  inflater.inflate(R.layout.main_skymedia_payment, container, false);
+        View rootView = inflater.inflate(R.layout.main_plan, container, false);
         return rootView;
     }
 

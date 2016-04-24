@@ -5,6 +5,17 @@
     <string name="yes">Тийм</string>
     <string name="no">Үгүй</string>
     <string name="confirm">Баталгаажуулах</string>
+    <string name="order">Захиалах</string>
+    <string name="do_search">Хайлт хийх</string>
+    <string name="search">Хайх</string>
+    <string name="unit_package">Нэгжийн багц</string>
+    <string name="start_date">Эхлэх огноо</string>
+    <string name="end_date">Дуусах огноо</string>
+    <string name="all">Бүгд</string>
+    <string name="successful">Амжилттай</string>
+    <string name="unsuccessful">Амжилтгүй</string>
+    <string name="waiting">Хүлээгдэж буй</string>
+    <string name="opened">Нээгдсэн</string>
 
     <!-- Dialog -->
     <string name="dialog_confirm">Та энэ захиалгыг баталгаажуулах уу</string>
@@ -51,7 +62,7 @@
     <string name="text_username">Нэвтрэх нэр</string>
     <string name="text_password">Нууц үг</string>
     <string name="btn_login">НЭВТРЭХ</string>
-    <string name="btn_forget_password">Нууц үг мартсэн?</string>
+    <string name="btn_forget_password">Нууц үг мартсан?</string>
     <string-array name="radioGroupDealer">
         <item>Диллер</item>
         <item>Ажилтан</item>
@@ -60,4 +71,40 @@
     <!-- New number Tabs -->
     <string name="tab_newnumber_order">Шинэ дугаарын захиалга</string>
     <string name="tab_order_report">Захиалгын тайлан</string>
+
+    <!-- Sky dealer Tabs -->
+    <string name="tab_skydealer_chargecard">Карт цэнэглэлт</string>
+    <string name="tab_skydealer_postpaidpayment">ДТҮ төлбөр төлөлт</string>
+    <string name="tab_skydealer_skymediapayment">СКАЙмедиа төлбөр төлөлт</string>
+    <string name="tab_skydealer_report">Борлуулалтын тайлан</string>
+
+    <!-- Service Tabs-->
+    <string name="tab_service_handsetchange">Гар солилт</string>
+    <string name="tab_service_valueaddedservice">Нэмэлт үйлчилгээ</string>
+    <string name="tab_service_report">Үйлчилгээний тайлан</string>
+
+    <!-- Registration Tabs-->
+    <string name="tab_registration_dealer">Шинэ гэрээт</string>
+    <string name="tab_registration_skymedia">Шинэ СКАЙмедиа</string>
+    <string name="tab_registration_report">Бүртгэлийн тайлан</string>
+
+    <!-- Settings Tabs-->
+    <string name="tab_settings_changepassword">Нууц үг солих</string>
+
+
+    <!-- Right View -->
+    <!-- Number Choice-->
+    <string name="chosen_number">Таны сонгосон дугаар</string>
+    <string name="chosen_number_tariff">Сонгосон дугаартаа харгалзах үнэ тарифаа сонгоно уу</string>
+    <string name="chosen_number_price">Шинэ дугаарын үнэ</string>
+    <string name="chosen_number_extra_unit">Дагалдах нэгж</string>
+    
+    <!-- Number Order Report-->
+    <string name="ordered_number">Захиалсан утасны дугаар</string>
+    <string name="ordered_date">Захиалсан огноо</string>
+    <string name="order_service_type">Үйлчилгээний төрөл</string>
+    <string name="order_status">Захиалгын төлөв</string>
+    <string name="mainstream_number">Энгийн дугаар</string>
+    <string name="lucky_number">Азын дугаар</string>
+
 </resources>

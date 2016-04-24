@@ -4,11 +4,7 @@
     android:layout_height="match_parent"
     android:orientation="vertical">
 
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:layout_marginRight="200dp"
-        android:background="@android:color/holo_orange_light">
+    <LinearLayout style="@style/MainViewContainer">
 
         <TextView
             android:layout_width="wrap_content"
@@ -17,10 +13,89 @@
 
     </LinearLayout>
 
+    <LinearLayout style="@style/RightViewContainer">
 
-    <LinearLayout
-        android:layout_alignParentRight="true"
-        android:layout_width="200dp"
-        android:layout_height="match_parent"
-        android:background="@android:color/holo_purple"></LinearLayout>
+        <View style="@style/DividerStyle"></View>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:gravity="center"
+            android:orientation="vertical">
+
+            <TextView
+                style="@style/RightViewTextView"
+                android:text="@string/chosen_number"></TextView>
+
+            <TextView
+                style="@style/RightViewTextViewBlue"
+                android:text="9*******"></TextView>
+
+            <LinearLayout style="@style/RightViewGroupContainer">
+
+                <TextView
+                    style="@style/RightViewTextView"
+                    android:text="@string/chosen_number_tariff"></TextView>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:background="@drawable/right_view_table_background"
+                    android:orientation="vertical">
+
+                    <RelativeLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content">
+
+                        <TextView
+                            style="@style/RightViewTextViewYellow"
+                            android:text="@string/chosen_number_price" />
+
+                        <TextView
+                            style="@style/RightViewTextViewYellow"
+                            android:layout_alignParentRight="true"
+                            android:text="@string/chosen_number_extra_unit" />
+
+                    </RelativeLayout>
+
+                    <RelativeLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:background="@drawable/right_view_table_background">
+
+                        <TextView
+                            style="@style/RightViewTextView"
+                            android:text="5000₮"></TextView>
+
+                        <TextView
+                            style="@style/RightViewTextView"
+                            android:layout_alignParentRight="true"
+                            android:text="1000 нэгж, 30 хоног"></TextView>
+                    </RelativeLayout>
+
+                    <RelativeLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content">
+
+                        <TextView
+                            style="@style/RightViewTextView"
+                            android:text="10000₮"></TextView>
+
+                        <TextView
+                            style="@style/RightViewTextView"
+                            android:layout_alignParentRight="true"
+                            android:text="6000 нэгж, 30 хоног"></TextView>
+                    </RelativeLayout>
+
+                </LinearLayout>
+
+                <Button
+                    style="@style/ButtonStyle"
+                    android:layout_marginTop="@dimen/fifth_padding"
+                    android:text="@string/order"></Button>
+
+            </LinearLayout>
+        </LinearLayout>
+
+    </LinearLayout>
 </RelativeLayout>

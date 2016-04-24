@@ -1,4 +1,4 @@
-package com.skytel.sdp.ui;
+package com.skytel.sdp.ui.skydealer;
 
 
 import android.os.Bundle;
@@ -9,10 +9,12 @@ import android.view.ViewGroup;
 
 import com.skytel.sdp.R;
 
-public class ServiceReportFragment extends Fragment {
+
+public class SalesReportFragment extends Fragment {
 
 
-    public ServiceReportFragment() {
+    public SalesReportFragment() {
+
     }
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -22,8 +24,7 @@ public class ServiceReportFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-
-        View rootView = inflater.inflate(R.layout.main_service_report, container, false);
+       View rootView = inflater.inflate(R.layout.main_skydealer_report, container, false);
         return rootView;
     }
 

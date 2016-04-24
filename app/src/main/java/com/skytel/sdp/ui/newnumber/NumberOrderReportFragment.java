@@ -1,4 +1,4 @@
-package com.skytel.sdp.ui;
+package com.skytel.sdp.ui.newnumber;
 
 
 import android.os.Bundle;
@@ -9,12 +9,15 @@ import android.view.ViewGroup;
 
 import com.skytel.sdp.R;
 
+/**
+ * Created by Altanchimeg on 4/18/2016.
+ */
+public class NumberOrderReportFragment extends Fragment {
 
-public class HandsetChangeFragment extends Fragment {
 
-
-    public HandsetChangeFragment() {
+    public NumberOrderReportFragment() {
     }
+
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -23,8 +26,8 @@ public class HandsetChangeFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        View rootView = inflater.inflate(R.layout.main_handset_change, container, false);
-        return rootView;
+        View rootView =  inflater.inflate(R.layout.main_number_order_report, container, false);
+        return  rootView;
     }
 
 }

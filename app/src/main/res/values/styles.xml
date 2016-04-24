@@ -48,5 +48,110 @@
         <item name="android:background">@android:color/transparent</item>
     </style>
 
+    <style name="ButtonStyle">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:background">@drawable/btn_blue</item>
+        <item name="android:textColor">@android:color/white</item>
+        <item name="android:textAllCaps">true</item>
+        <item name="android:textSize">@dimen/mainFontSize</item>
+        <item name="android:padding">@dimen/main_padding</item>
+    </style>
+
+    <style name="EditTextStyle">
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:textColorHint">@color/colorRightViewTextColor</item>
+        <item name="android:textColor">@color/colorRightViewTextColor</item>
+        <item name="android:textSize">@dimen/mainFontSize</item>
+        <item name="android:padding">@dimen/main_padding</item>
+    </style>
+
+    <style name="LoginEditTextStyle">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:layout_gravity">center_horizontal</item>
+        <item name="android:backgroundTint">@android:color/primary_text_dark_nodisable</item>
+        <item name="android:singleLine">true</item>
+        <item name="android:textColor">@android:color/primary_text_dark_nodisable</item>
+        <item name="android:textColorHint">@android:color/primary_text_dark_nodisable</item>
+    </style>
+
+    <!-- Tab Style-->
+    <style name="TabLayoutContainerStyle">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:background">@color/colorTabBackground</item>
+    </style>
+
+    <style name="TabLayoutStyle">
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:background">@color/colorTabBackground</item>
+        <item name="android:minHeight">?attr/actionBarSize</item>
+        <item name="android:textColor">@color/colorTabTextColor</item>
+        <item name="android:textSize">@dimen/mainFontSize</item>
+    </style>
+
+    <!--Main View -->
+    <style name="MainViewContainer">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">match_parent</item>
+        <item name="android:layout_marginRight">@dimen/rightview_width</item>
+    </style>
+
+    <!-- Right View -->
+    <style name="RightViewContainer">
+        <item name="android:layout_width">@dimen/rightview_width</item>
+        <item name="android:layout_height">match_parent</item>
+        <item name="android:layout_alignParentRight">true</item>
+        <item name="android:orientation">horizontal</item>
+    </style>
+
+    <style name="RightViewGroupContainer">
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:gravity">center_horizontal</item>
+        <item name="android:orientation">vertical</item>
+        <item name="android:padding">@dimen/main_padding</item>
+    </style>
+
+    <style name="RightViewTextView">
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:textColor">@color/colorRightViewTextColor</item>
+        <item name="android:textSize">@dimen/mainFontSize</item>
+        <item name="android:padding">@dimen/main_padding</item>
+        <item name="android:gravity">center_horizontal</item>
+    </style>
+
+    <style name="RightViewTextViewBold" parent="RightViewTextView">
+        <item name="android:textStyle">bold</item>
+    </style>
+
+    <style name="RightViewTextViewBlue" parent="RightViewTextView">
+        <item name="android:textColor">@color/colorSkytelBlue</item>
+        <item name="android:textSize">@dimen/secondFontSize</item>
+    </style>
+
+    <style name="RightViewTextViewYellow" parent="RightViewTextView">
+        <item name="android:textColor">@color/colorSkytelYellow</item>
+    </style>
+
+    <style name="RightViewButtonYellow">
+        <item name="android:layout_width">@dimen/btn_yellow_width</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:textColor">@color/colorSkytelYellow</item>
+        <item name="android:padding">@dimen/small_padding</item>
+        <item name="android:background">@drawable/btn_yellow</item>
+        <item name="android:textSize">@dimen/yellowBtnFontSize</item>
+        <item name="android:layout_margin">@dimen/small_padding</item>
+    </style>
+
+    <style name="DividerStyle">
+        <item name="android:layout_width">@dimen/divider_width</item>
+        <item name="android:layout_height">match_parent</item>
+        <item name="android:background">@color/colorDivider</item>
+    </style>
 
 </resources>

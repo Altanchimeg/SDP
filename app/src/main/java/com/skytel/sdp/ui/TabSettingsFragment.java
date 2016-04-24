@@ -12,13 +12,18 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.skytel.sdp.R;
+import com.skytel.sdp.ui.settings.ChangePasswordFragment;
+import com.skytel.sdp.ui.skydealer.ChargeCardFragment;
+import com.skytel.sdp.ui.skydealer.PostPaidPaymentFragment;
+import com.skytel.sdp.ui.skydealer.SalesReportFragment;
+import com.skytel.sdp.ui.skydealer.SkymediaPaymentFragment;
 
-public class NewNumberFragment extends Fragment {
+public class TabSettingsFragment extends Fragment {
 
-    CollectionPagerAdapter mCollectionPagerAdapter;
+    FragmentPagerAdapter fragmentPagerAdapter;
     ViewPager mViewPager;
 
-    public NewNumberFragment() {
+    public TabSettingsFragment() {
     }
 
     @Override
@@ -30,17 +35,17 @@ public class NewNumberFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
 
-        View rootView = inflater.inflate(R.layout.fragment_new_number, container, false);
+        View rootView = inflater.inflate(R.layout.fragment_tab_pager, container, false);
 
-        mCollectionPagerAdapter = new CollectionPagerAdapter(getActivity().getSupportFragmentManager());
+        fragmentPagerAdapter = new FragmentPagerAdapter(getActivity().getSupportFragmentManager());
 
         // Set up the ViewPager, attaching the adapter.
-        mViewPager = (ViewPager) rootView.findViewById(R.id.pager_new_number);
-        mViewPager.setAdapter(mCollectionPagerAdapter);
+        mViewPager = (ViewPager) rootView.findViewById(R.id.pager_view);
+        mViewPager.setAdapter(fragmentPagerAdapter);
 
-        TabLayout tabLayout = (TabLayout) rootView.findViewById(R.id.tab_new_number);
-        tabLayout.addTab(tabLayout.newTab().setText(getText(R.string.tab_newnumber_order)));
-        tabLayout.addTab(tabLayout.newTab().setText(getText(R.string.tab_order_report)));
+        TabLayout tabLayout = (TabLayout) rootView.findViewById(R.id.tab_view);
+        tabLayout.addTab(tabLayout.newTab().setText(getText(R.string.tab_settings_changepassword)));
+
         tabLayout.setTabGravity(TabLayout.GRAVITY_FILL);
 
         mViewPager.addOnPageChangeListener(new TabLayout.TabLayoutOnPageChangeListener(tabLayout));
@@ -65,33 +70,28 @@ public class NewNumberFragment extends Fragment {
         return rootView;
     }
 
-    public static class CollectionPagerAdapter extends FragmentStatePagerAdapter {
+    public static class FragmentPagerAdapter extends FragmentStatePagerAdapter {
 
-        public CollectionPagerAdapter(FragmentManager fm) {
+        public FragmentPagerAdapter(FragmentManager fm) {
             super(fm);
         }
 
         @Override
         public Fragment getItem(int i) {
 
-            Fragment fragment;
-            if (i == 0) {
-                fragment = new NumberChoiceFragment();
-            } else {
-                fragment = new NumberOrderReportFragment();
-            }
+            Fragment fragment = new ChangePasswordFragment();
             return fragment;
         }
 
         @Override
         public int getCount() {
             // For this contrived example, we have a 100-object collection.
-            return 2;
+            return 1;
         }
 
         @Override
         public CharSequence getPageTitle(int position) {
-            return "OBJECT " + (position + 1);
+            return "" + (position + 1);
         }
     }
 

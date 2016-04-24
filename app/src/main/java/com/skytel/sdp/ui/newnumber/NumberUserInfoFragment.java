@@ -1,5 +1,4 @@
-package com.skytel.sdp.ui;
-
+package com.skytel.sdp.ui.newnumber;
 
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
@@ -9,11 +8,13 @@ import android.view.ViewGroup;
 
 import com.skytel.sdp.R;
 
-public class SkymediaRegistrationFragment extends Fragment {
-
-
-    public SkymediaRegistrationFragment() {
+/**
+ * Created by bayarkhuu on 4/14/2016.
+ */
+public class NumberUserInfoFragment extends Fragment {
+    public NumberUserInfoFragment() {
     }
+
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -22,8 +23,7 @@ public class SkymediaRegistrationFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        View rootView = inflater.inflate(R.layout.main_skymedia_registration, container, false);
+        View rootView = inflater.inflate(R.layout.main_number_order, container, false);
         return rootView;
     }
-
 }

@@ -1,24 +1,22 @@
-package com.skytel.sdp.ui;
+package com.skytel.sdp.ui.skydealer;
+
 
 import android.os.Bundle;
-import android.support.design.widget.TabLayout;
-import android.support.v4.view.PagerTabStrip;
-import android.support.v4.view.ViewPager;
+import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.support.v4.app.*;
-import android.widget.TextView;
 
 import com.skytel.sdp.R;
 
 /**
- * Created by altanchimeg on 4/14/2016.
+ * @author Altanchimeg
+ *
  */
-public class NumberChoiceFragment extends Fragment {
+public class ChargeCardFragment extends Fragment {
 
 
-    public NumberChoiceFragment() {
+    public ChargeCardFragment() {
     }
 
     @Override
@@ -29,9 +27,8 @@ public class NumberChoiceFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        View rootView = inflater.inflate(R.layout.main_number_choice, container, false);
+        View rootView =  inflater.inflate(R.layout.main_charge_card, container, false);
         return rootView;
     }
-
 
 }

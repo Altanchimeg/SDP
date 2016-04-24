@@ -1,4 +1,4 @@
-package com.skytel.sdp.ui;
+package com.skytel.sdp.ui.registration;
 
 
 import android.os.Bundle;
@@ -9,16 +9,11 @@ import android.view.ViewGroup;
 
 import com.skytel.sdp.R;
 
-/**
- * @author Altanchimeg
- *
- */
-public class ChargeCardFragment extends Fragment {
+public class DealerRegistrationFragment extends Fragment {
 
 
-    public ChargeCardFragment() {
+    public DealerRegistrationFragment() {
     }
-
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -27,7 +22,7 @@ public class ChargeCardFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        View rootView =  inflater.inflate(R.layout.main_charge_card, container, false);
+        View rootView = inflater.inflate(R.layout.main_dealer_registration, container, false);
         return rootView;
     }
 

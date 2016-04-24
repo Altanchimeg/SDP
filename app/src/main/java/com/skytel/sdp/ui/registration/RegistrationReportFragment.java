@@ -1,4 +1,4 @@
-package com.skytel.sdp.ui;
+package com.skytel.sdp.ui.registration;
 
 
 import android.os.Bundle;
@@ -10,10 +10,10 @@ import android.view.ViewGroup;
 import com.skytel.sdp.R;
 
 
-public class PlanFragment extends Fragment {
+public class RegistrationReportFragment extends Fragment {
 
 
-    public PlanFragment() {
+    public RegistrationReportFragment() {
     }
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -23,7 +23,7 @@ public class PlanFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        View rootView = inflater.inflate(R.layout.main_plan, container, false);
+        View rootView = inflater.inflate(R.layout.main_registration_report, container, false);
         return rootView;
     }
 

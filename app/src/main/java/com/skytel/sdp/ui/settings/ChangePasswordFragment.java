@@ -1,4 +1,4 @@
-package com.skytel.sdp.ui;
+package com.skytel.sdp.ui.settings;
 
 
 import android.os.Bundle;
@@ -10,10 +10,10 @@ import android.view.ViewGroup;
 import com.skytel.sdp.R;
 
 
-public class FeedbackFragment extends Fragment {
+public class ChangePasswordFragment extends Fragment {
 
 
-    public FeedbackFragment() {
+    public ChangePasswordFragment() {
 
     }
     @Override
@@ -24,7 +24,7 @@ public class FeedbackFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        View rootView = inflater.inflate(R.layout.main_feedback, container, false);
+        View rootView = inflater.inflate(R.layout.main_change_password, container, false);
         return rootView;
     }
 

@@ -1,4 +1,4 @@
-package com.skytel.sdp.ui;
+package com.skytel.sdp.ui.feedback;
 
 
 import android.os.Bundle;
@@ -10,10 +10,11 @@ import android.view.ViewGroup;
 import com.skytel.sdp.R;
 
 
-public class AdditionalServiceFragment extends Fragment {
+public class FeedbackFragment extends Fragment {
 
 
-    public AdditionalServiceFragment() {
+    public FeedbackFragment() {
+
     }
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -23,7 +24,7 @@ public class AdditionalServiceFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        View rootView = inflater.inflate(R.layout.main_additional_service, container, false);
+        View rootView = inflater.inflate(R.layout.main_feedback, container, false);
         return rootView;
     }
 
