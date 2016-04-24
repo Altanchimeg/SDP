@@ -1,20 +1,19 @@
 package com.skytel.sdp.ui;
 
+
 import android.os.Bundle;
+import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.support.v4.app.*;
 
 import com.skytel.sdp.R;
 
-/**
- * Created by bayarkhuu on 4/14/2016.
- */
-public class NumberChoiceFragment extends Fragment {
+
+public class SkyDealerPostpaidPaymentFragment extends Fragment {
 
 
-    public NumberChoiceFragment() {
+    public SkyDealerPostpaidPaymentFragment() {
     }
 
     @Override
@@ -25,9 +24,8 @@ public class NumberChoiceFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        View rootView = inflater.inflate(R.layout.main_number_choice, container, false);
+        View rootView =  inflater.inflate(R.layout.main_postpaid_payment, container, false);
         return rootView;
     }
-
 
 }

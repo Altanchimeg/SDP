@@ -12,10 +12,10 @@ import com.skytel.sdp.R;
 /**
  * Created by Altanchimeg on 4/18/2016.
  */
-public class NumberOrderReportFragment extends Fragment {
+public class NewNumberOrderReportFragment extends Fragment {
 
 
-    public NumberOrderReportFragment() {
+    public NewNumberOrderReportFragment() {
     }
 
     @Override

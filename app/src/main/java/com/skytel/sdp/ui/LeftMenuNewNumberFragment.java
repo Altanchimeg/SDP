@@ -76,9 +76,9 @@ public class LeftMenuNewNumberFragment extends Fragment {
 
             Fragment fragment;
             if (i == 0) {
-                fragment = new NumberChoiceFragment();
+                fragment = new NewNumberChoiceFragment();
             } else {
-                fragment = new NumberOrderReportFragment();
+                fragment = new NewNumberOrderReportFragment();
             }
             return fragment;
         }

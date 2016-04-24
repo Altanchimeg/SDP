@@ -72,6 +72,13 @@
     <string name="tab_newnumber_order">Шинэ дугаарын захиалга</string>
     <string name="tab_order_report">Захиалгын тайлан</string>
 
+    <!-- Sky dealer Tabs -->
+    <string name="tab_skydealer_chargecard">Карт цэнэглэлт</string>
+    <string name="tab_skydealer_postpaidpayment">ДТҮ төлбөр төлөлт</string>
+    <string name="tab_skydealer_skymediapayment">СКАЙмедиа төлбөр төлөлт</string>
+    <string name="tab_skydealer_report">Борлуулалтын тайлан</string>
+
+
     <!-- Right View -->
     <!-- Number Choice-->
     <string name="chosen_number">Таны сонгосон дугаар</string>

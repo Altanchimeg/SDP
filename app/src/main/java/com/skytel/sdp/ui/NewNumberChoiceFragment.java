@@ -1,22 +1,20 @@
 package com.skytel.sdp.ui;
 
-
 import android.os.Bundle;
-import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.support.v4.app.*;
 
 import com.skytel.sdp.R;
 
 /**
- * @author Altanchimeg
- *
+ * Created by bayarkhuu on 4/14/2016.
  */
-public class ChargeCardFragment extends Fragment {
+public class NewNumberChoiceFragment extends Fragment {
 
 
-    public ChargeCardFragment() {
+    public NewNumberChoiceFragment() {
     }
 
     @Override
@@ -27,8 +25,9 @@ public class ChargeCardFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        View rootView =  inflater.inflate(R.layout.main_charge_card, container, false);
+        View rootView = inflater.inflate(R.layout.main_number_choice, container, false);
         return rootView;
     }
+
 
 }

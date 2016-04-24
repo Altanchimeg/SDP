@@ -10,10 +10,10 @@ import android.view.ViewGroup;
 import com.skytel.sdp.R;
 
 
-public class SkymediaPaymentFragment extends Fragment {
+public class SkyDealerSkymediaPaymentFragment extends Fragment {
 
 
-    public SkymediaPaymentFragment() {
+    public SkyDealerSkymediaPaymentFragment() {
 
     }
     @Override

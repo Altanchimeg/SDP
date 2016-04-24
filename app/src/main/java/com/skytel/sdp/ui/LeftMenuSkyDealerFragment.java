@@ -39,8 +39,11 @@ public class LeftMenuSkyDealerFragment extends Fragment {
         mViewPager.setAdapter(fragmentPagerAdapter);
 
         TabLayout tabLayout = (TabLayout) rootView.findViewById(R.id.tab_view);
-        tabLayout.addTab(tabLayout.newTab().setText(getText(R.string.tab_newnumber_order)));
-        tabLayout.addTab(tabLayout.newTab().setText(getText(R.string.tab_order_report)));
+        tabLayout.addTab(tabLayout.newTab().setText(getText(R.string.tab_skydealer_chargecard)));
+        tabLayout.addTab(tabLayout.newTab().setText(getText(R.string.tab_skydealer_postpaidpayment)));
+        tabLayout.addTab(tabLayout.newTab().setText(getText(R.string.tab_skydealer_skymediapayment)));
+        tabLayout.addTab(tabLayout.newTab().setText(getText(R.string.tab_skydealer_report)));
+
         tabLayout.setTabGravity(TabLayout.GRAVITY_FILL);
 
         mViewPager.addOnPageChangeListener(new TabLayout.TabLayoutOnPageChangeListener(tabLayout));
@@ -76,9 +79,13 @@ public class LeftMenuSkyDealerFragment extends Fragment {
 
             Fragment fragment;
             if (i == 0) {
-                fragment = new NumberChoiceFragment();
+                fragment = new SkyDealerChargeCardFragment();
+            } else if(i==1){
+                fragment = new SkyDealerPostpaidPaymentFragment();
+            } else if(i==2){
+                fragment = new SkyDealerSkymediaPaymentFragment();
             } else {
-                fragment = new NumberOrderReportFragment();
+                fragment = new SkyDealerReportFragment();
             }
             return fragment;
         }
@@ -86,7 +93,7 @@ public class LeftMenuSkyDealerFragment extends Fragment {
         @Override
         public int getCount() {
             // For this contrived example, we have a 100-object collection.
-            return 2;
+            return 4;
         }
 
         @Override

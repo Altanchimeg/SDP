@@ -14,13 +14,14 @@ import android.widget.Button;
 import android.widget.ListView;
 
 import com.skytel.sdp.adapter.LeftMenuListAdapter;
-import com.skytel.sdp.ui.ChargeCardFragment;
+import com.skytel.sdp.ui.LeftMenuSkyDealerFragment;
+import com.skytel.sdp.ui.SkyDealerChargeCardFragment;
 import com.skytel.sdp.ui.DealerRegistrationFragment;
 import com.skytel.sdp.ui.FeedbackFragment;
 import com.skytel.sdp.ui.HandsetChangeFragment;
 import com.skytel.sdp.ui.InformationFragment;
 import com.skytel.sdp.ui.LeftMenuNewNumberFragment;
-import com.skytel.sdp.ui.NumberOrderFragment;
+import com.skytel.sdp.ui.NewNumberOrderFragment;
 import com.skytel.sdp.ui.PlanFragment;
 import com.skytel.sdp.ui.SettingsFragment;
 import com.skytel.sdp.utils.Constants;
@@ -58,7 +59,7 @@ public class MainActivity extends AppCompatActivity {
                         changeMenu(new LeftMenuNewNumberFragment());
                         break;
                     case Constants.MENU_SKYDEALER:
-                        changeMenu(new ChargeCardFragment());
+                        changeMenu(new LeftMenuSkyDealerFragment());
                         break;
                     case Constants.MENU_SERVICE:
                         changeMenu(new HandsetChangeFragment());
@@ -98,7 +99,7 @@ public class MainActivity extends AppCompatActivity {
 
     // New number order
     public void numberOrderView(View v) {
-        NumberOrderFragment numberOrderFragment = new NumberOrderFragment();
+        NewNumberOrderFragment numberOrderFragment = new NewNumberOrderFragment();
         getSupportFragmentManager().beginTransaction()
                 .replace(R.id.main_detail_container, numberOrderFragment)
                 .commit();
