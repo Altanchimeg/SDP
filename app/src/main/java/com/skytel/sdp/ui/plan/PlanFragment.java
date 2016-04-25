@@ -23,7 +23,7 @@ public class PlanFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        View rootView = inflater.inflate(R.layout.main_plan, container, false);
+        View rootView = inflater.inflate(R.layout.plan, container, false);
         return rootView;
     }
 

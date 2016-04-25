@@ -23,7 +23,7 @@ public class HandsetChangeFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        View rootView = inflater.inflate(R.layout.main_handset_change, container, false);
+        View rootView = inflater.inflate(R.layout.handset_change, container, false);
         return rootView;
     }
 

@@ -1,0 +1,151 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+
+    <LinearLayout
+        style="@style/MainViewContainer"
+        android:layout_alignParentTop="true"
+        android:layout_centerHorizontal="true">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Number Order Report" />
+
+    </LinearLayout>
+
+    <ScrollView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentRight="true"
+        android:scrollbars="none">
+
+        <LinearLayout style="@style/RightViewContainer">
+
+            <View style="@style/DividerStyle"></View>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:gravity="center"
+                android:orientation="vertical">
+
+                <LinearLayout style="@style/RightViewGroupContainer">
+
+                    <TextView
+                        style="@style/RightViewTextViewBlue"
+                        android:text="@string/do_search"></TextView>
+                </LinearLayout>
+
+                <EditText
+                    style="@style/EditTextStyle"
+                    android:hint="@string/ordered_number" />
+
+                <TextView
+                    style="@style/RightViewTextViewBold"
+                    android:layout_gravity="start"
+                    android:text="@string/card_package_type" />
+
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
+
+                    <EditText
+                        style="@style/EditTextStyle"
+                        android:hint="@string/unit_package" />
+                </RelativeLayout>
+
+                <TextView
+                    style="@style/RightViewTextViewBold"
+                    android:layout_gravity="start"
+                    android:text="@string/ordered_date" />
+
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
+
+                    <EditText
+                        style="@style/EditTextStyle"
+                        android:hint="@string/start_date" />
+
+                    <ImageView
+                        android:layout_width="20dp"
+                        android:layout_height="20dp"
+                        android:layout_alignParentRight="true"
+                        android:layout_centerVertical="true"
+                        android:layout_marginRight="@dimen/main_padding"
+                        android:background="@drawable/ic_exit" />
+                </RelativeLayout>
+
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
+
+                    <EditText
+                        style="@style/EditTextStyle"
+                        android:hint="@string/end_date" />
+
+                    <ImageView
+                        android:layout_width="20dp"
+                        android:layout_height="20dp"
+                        android:layout_alignParentRight="true"
+                        android:layout_centerVertical="true"
+                        android:layout_marginRight="@dimen/main_padding"
+                        android:background="@drawable/ic_exit" />
+                </RelativeLayout>
+
+                <TextView
+                    style="@style/RightViewTextViewBold"
+                    android:layout_gravity="start"
+                    android:text="@string/order_status" />
+
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal">
+
+                    <Button
+                        style="@style/RightViewButtonYellow"
+                        android:background="@drawable/btn_yellow_selected"
+                        android:text="@string/all"
+                        android:textColor="@android:color/white" />
+
+                    <Button
+                        style="@style/RightViewButtonYellow"
+                        android:text="@string/successful" />
+
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal">
+
+
+                    <Button
+                        style="@style/RightViewButtonYellow"
+                        android:text="@string/unsuccessful" />
+
+                    <Button
+                        style="@style/RightViewButtonYellow"
+                        android:visibility="invisible" />
+
+                </LinearLayout>
+
+                <Button
+                    style="@style/ButtonStyle"
+                    android:layout_marginBottom="@dimen/main_padding"
+                    android:layout_marginLeft="@dimen/main_padding"
+                    android:layout_marginRight="@dimen/main_padding"
+                    android:layout_marginTop="@dimen/third_padding"
+
+                    android:text="@string/search"></Button>
+
+
+            </LinearLayout>
+
+        </LinearLayout>
+    </ScrollView>
+</RelativeLayout>

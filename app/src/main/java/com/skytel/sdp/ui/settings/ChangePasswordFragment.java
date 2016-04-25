@@ -24,7 +24,7 @@ public class ChangePasswordFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        View rootView = inflater.inflate(R.layout.main_change_password, container, false);
+        View rootView = inflater.inflate(R.layout.change_password, container, false);
         return rootView;
     }
 

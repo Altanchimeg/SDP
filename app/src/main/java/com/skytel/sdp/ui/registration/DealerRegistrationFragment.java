@@ -22,7 +22,7 @@ public class DealerRegistrationFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        View rootView = inflater.inflate(R.layout.main_dealer_registration, container, false);
+        View rootView = inflater.inflate(R.layout.dealer_registration, container, false);
         return rootView;
     }
 

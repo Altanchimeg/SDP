@@ -24,7 +24,7 @@ public class PostPaidPaymentFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        View rootView =  inflater.inflate(R.layout.main_postpaid_payment, container, false);
+        View rootView =  inflater.inflate(R.layout.postpaid_payment, container, false);
         return rootView;
     }
 

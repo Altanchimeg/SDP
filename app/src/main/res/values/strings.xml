@@ -16,6 +16,9 @@
     <string name="unsuccessful">Амжилтгүй</string>
     <string name="waiting">Хүлээгдэж буй</string>
     <string name="opened">Нээгдсэн</string>
+    <string name="phone_number">Утасны дугаар</string>
+    <string name="pin_code">Пин код</string>
+    <string name="charge">Цэнэглэх</string>
 
     <!-- Dialog -->
     <string name="dialog_confirm">Та энэ захиалгыг баталгаажуулах уу</string>
@@ -106,5 +109,13 @@
     <string name="order_status">Захиалгын төлөв</string>
     <string name="mainstream_number">Энгийн дугаар</string>
     <string name="lucky_number">Азын дугаар</string>
+
+    <!-- SkyDealer Charge Card-->
+    <string name="insert_charge_number">Цэнэглэх дугаар оруулна уу</string>
+
+    <!-- SkyDealer Report-->
+    <string name="card_package_type">Картын багцын төрөл</string>
+
+
 
 </resources>

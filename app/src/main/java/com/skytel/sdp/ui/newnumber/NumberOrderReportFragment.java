@@ -26,7 +26,7 @@ public class NumberOrderReportFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        View rootView =  inflater.inflate(R.layout.main_number_order_report, container, false);
+        View rootView =  inflater.inflate(R.layout.number_order_report, container, false);
         return  rootView;
     }
 

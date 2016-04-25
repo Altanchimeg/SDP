@@ -23,7 +23,7 @@ public class RegistrationReportFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        View rootView = inflater.inflate(R.layout.main_registration_report, container, false);
+        View rootView = inflater.inflate(R.layout.registration_report, container, false);
         return rootView;
     }
 

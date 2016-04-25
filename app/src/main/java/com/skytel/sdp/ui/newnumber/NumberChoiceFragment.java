@@ -25,7 +25,7 @@ public class NumberChoiceFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        View rootView = inflater.inflate(R.layout.main_number_choice, container, false);
+        View rootView = inflater.inflate(R.layout.number_choice, container, false);
         return rootView;
     }
 

@@ -25,7 +25,7 @@ public class SkymediaPaymentFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
 
-        View rootView =  inflater.inflate(R.layout.main_skymedia_payment, container, false);
+        View rootView =  inflater.inflate(R.layout.skymedia_payment, container, false);
         return rootView;
     }
 
