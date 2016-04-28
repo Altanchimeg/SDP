@@ -9,7 +9,7 @@ import android.support.v4.app.*;
 import com.skytel.sdp.R;
 
 /**
- * Created by bayarkhuu on 4/14/2016.
+ * Created by Altanchimeg on 4/14/2016.
  */
 public class NumberChoiceFragment extends Fragment {
 
