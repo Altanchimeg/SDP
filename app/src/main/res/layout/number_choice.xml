@@ -90,6 +90,7 @@
                 </LinearLayout>
 
                 <Button
+                    android:id="@+id/numberChoiceOrder"
                     style="@style/ButtonStyle"
                     android:layout_marginTop="@dimen/fifth_padding"
                     android:text="@string/order"></Button>

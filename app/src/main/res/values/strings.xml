@@ -101,7 +101,7 @@
     <string name="chosen_number_tariff">Сонгосон дугаартаа харгалзах үнэ тарифаа сонгоно уу</string>
     <string name="chosen_number_price">Шинэ дугаарын үнэ</string>
     <string name="chosen_number_extra_unit">Дагалдах нэгж</string>
-    
+
     <!-- Number Order Report-->
     <string name="ordered_number">Захиалсан утасны дугаар</string>
     <string name="ordered_date">Захиалсан огноо</string>
@@ -116,6 +116,7 @@
     <!-- SkyDealer Report-->
     <string name="card_package_type">Картын багцын төрөл</string>
 
-
+    <!-- Service -->
+    <string name="take_epassport_picture">Цахим үнэмлэхний зургийг дарна уу</string>
 
 </resources>

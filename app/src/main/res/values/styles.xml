@@ -148,10 +148,19 @@
         <item name="android:layout_margin">@dimen/small_padding</item>
     </style>
 
+    <style name="RightViewTakePictureView">
+        <item name="android:layout_width">100dp</item>
+        <item name="android:layout_height">100dp</item>
+        <item name="android:background">@color/colorMenuText</item>
+        <item name="android:src">@android:drawable/ic_menu_camera</item>
+        <item name="android:padding">@dimen/second_padding</item>
+    </style>
+
     <style name="DividerStyle">
         <item name="android:layout_width">@dimen/divider_width</item>
         <item name="android:layout_height">match_parent</item>
         <item name="android:background">@color/colorDivider</item>
     </style>
+
 
 </resources>

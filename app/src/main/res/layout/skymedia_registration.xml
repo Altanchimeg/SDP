@@ -1,13 +1,55 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
-    android:orientation="vertical"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    android:orientation="vertical">
 
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Skymedia Registration"
-        />
-</LinearLayout>
+    <LinearLayout style="@style/MainViewContainer">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Sky Media Registration" />
+
+    </LinearLayout>
+
+    <LinearLayout style="@style/RightViewContainer">
+
+        <View style="@style/DividerStyle"></View>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:gravity="center"
+            android:orientation="vertical">
+
+            <LinearLayout style="@style/RightViewGroupContainer">
+
+                <TextView
+                    style="@style/RightViewTextViewBlue"
+                    android:text="@string/take_epassport_picture"></TextView>
+            </LinearLayout>
+
+            <LinearLayout style="@style/RightViewGroupContainer">
+
+                <ImageView style="@style/RightViewTakePictureView" />
+            </LinearLayout>
+
+            <LinearLayout style="@style/RightViewGroupContainer">
+
+                <ImageView style="@style/RightViewTakePictureView" />
+            </LinearLayout>
+
+
+            <Button
+                style="@style/ButtonStyle"
+                android:layout_marginBottom="@dimen/main_padding"
+                android:layout_marginLeft="@dimen/main_padding"
+                android:layout_marginRight="@dimen/main_padding"
+                android:layout_marginTop="@dimen/second_padding"
+                android:text="@string/order"></Button>
+
+        </LinearLayout>
+
+    </LinearLayout>
+</RelativeLayout>

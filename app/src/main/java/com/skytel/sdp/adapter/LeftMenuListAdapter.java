@@ -73,7 +73,7 @@ public class LeftMenuListAdapter extends BaseAdapter {
             viewHolder.leftMenuItemContainer.setBackgroundColor(mContext.getResources().getColor(R.color.colorMenuBackgroundSelected));
             d = mContext.getResources().getDrawable(mContext.getResources().getIdentifier(mIcons[position] + "_light", "drawable", mContext.getPackageName()));
         } else {
-            viewHolder.leftMenuItemContainer.setBackgroundResource(android.R.color.transparent);
+            viewHolder.leftMenuItemContainer.setBackgroundColor(mContext.getResources().getColor(R.color.colorBackground));
             d = mContext.getResources().getDrawable(mContext.getResources().getIdentifier(mIcons[position], "drawable", mContext.getPackageName()));
         }
         try {
