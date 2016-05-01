@@ -119,6 +119,7 @@
         <item name="android:layout_width">match_parent</item>
         <item name="android:layout_height">match_parent</item>
         <item name="android:layout_marginRight">@dimen/rightview_width</item>
+        <item name="android:orientation">vertical</item>
     </style>
 
     <!-- Main View Center Box -->
