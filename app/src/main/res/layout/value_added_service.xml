@@ -1,13 +1,135 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
-    android:orientation="vertical"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    android:gravity="center"
+    android:orientation="vertical">
 
-    <TextView
+    <LinearLayout
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Add Service"
-        />
+        android:orientation="horizontal">
+
+        <LinearLayout
+            style="@style/MainViewCenterBoxContainer"
+            android:layout_marginRight="@dimen/second_padding">
+
+            <TextView
+                style="@style/MainViewTextViewBlue"
+                android:text="@string/service_select_vas_type" />
+
+            <EditText
+                style="@style/MainViewCenterBoxEditText"
+                android:hint="SkyMelody" />
+
+            <TextView
+                style="@style/MainViewTextViewBlue"
+                android:layout_gravity="center"
+                android:layout_margin="@dimen/second_padding"
+                android:text="@string/service_select_service_status" />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:orientation="horizontal">
+
+                <Button
+                    style="@style/ButtonYellowFill"
+                    android:text="@string/active" />
+
+                <Button
+                    style="@style/ButtonGrey"
+                    android:text="@string/decline" />
+
+            </LinearLayout>
+
+        </LinearLayout>
+
+        <LinearLayout
+            style="@style/MainViewCenterBoxContainer"
+            android:layout_marginLeft="@dimen/second_padding">
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+                <TextView
+                    style="@style/MainViewTextViewYellow"
+                    android:layout_width="match_parent"
+                    android:background="@drawable/border"
+                    android:text="@string/service_type" />
+
+                <TextView
+                    style="@style/MainViewTextViewYellow"
+                    android:layout_width="150dp"
+                    android:layout_alignParentRight="true"
+                    android:background="@drawable/border"
+                    android:text="@string/tariff" />
+
+            </RelativeLayout>
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+                <TextView
+                    style="@style/MainViewTextViewGrey"
+                    android:layout_width="match_parent"
+                    android:background="@drawable/border"
+                    android:text="@string/service_prepaid" />
+
+                <TextView
+                    style="@style/MainViewTextViewGrey"
+                    android:layout_width="150dp"
+                    android:layout_alignParentRight="true"
+                    android:background="@drawable/border"
+                    android:text="40₮ (1 өдөр)" />
+
+            </RelativeLayout>
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+                <TextView
+                    style="@style/MainViewTextViewGrey"
+                    android:layout_width="match_parent"
+                    android:background="@drawable/border"
+                    android:text="@string/service_postpaid" />
+
+                <TextView
+                    style="@style/MainViewTextViewGrey"
+                    android:layout_width="150dp"
+                    android:layout_alignParentRight="true"
+                    android:background="@drawable/border"
+                    android:text="40₮ (1 өдөр)" />
+
+            </RelativeLayout>
+
+            <TextView
+                style="@style/MainViewTextViewBlue"
+                android:layout_gravity="center"
+                android:layout_margin="@dimen/second_padding"
+                android:text="@string/insert_phone_number" />
+
+            <EditText
+                style="@style/MainViewCenterBoxEditText"
+                android:hint="@string/phone_number" />
+
+        </LinearLayout>
+
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="200dp"
+        android:layout_height="wrap_content">
+
+        <Button
+            style="@style/ButtonStyle"
+            android:layout_marginTop="@dimen/second_padding"
+            android:text="@string/send_order" />
+    </LinearLayout>
+
 </LinearLayout>

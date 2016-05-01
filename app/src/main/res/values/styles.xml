@@ -58,6 +58,27 @@
         <item name="android:padding">@dimen/main_padding</item>
     </style>
 
+    <style name="ButtonYellow">
+        <item name="android:layout_width">@dimen/btn_yellow_width</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:textColor">@color/colorSkytelYellow</item>
+        <item name="android:padding">@dimen/small_padding</item>
+        <item name="android:background">@drawable/btn_yellow</item>
+        <item name="android:textSize">@dimen/yellowBtnFontSize</item>
+        <item name="android:layout_margin">@dimen/small_padding</item>
+    </style>
+
+    <style name="ButtonGrey" parent="ButtonYellow">
+        <item name="android:textColor">@color/colorMenuText</item>
+        <item name="android:background">@drawable/btn_grey</item>
+    </style>
+
+    <style name="ButtonYellowFill" parent="ButtonYellow">
+        <item name="android:background">@drawable/btn_yellow_fill</item>
+        <item name="android:textColor">@android:color/white</item>
+    </style>
+
+
     <style name="EditTextStyle">
         <item name="android:layout_width">wrap_content</item>
         <item name="android:layout_height">wrap_content</item>
@@ -100,6 +121,34 @@
         <item name="android:layout_marginRight">@dimen/rightview_width</item>
     </style>
 
+    <!-- Main View Center Box -->
+    <style name="MainViewCenterBoxContainer">
+        <item name="android:layout_width">@dimen/center_box_width</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:orientation">vertical</item>
+    </style>
+
+    <!-- Main View TextView Blue -->
+    <style name="MainViewTextViewBlue">
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:textSize">@dimen/secondFontSize</item>
+        <item name="android:textColor">@color/colorSkytelBlue</item>
+        <item name="android:padding">@dimen/main_padding</item>
+    </style>
+
+    <style name="MainViewTextViewYellow" parent="MainViewTextViewBlue">
+        <item name="android:textColor">@color/colorSkytelYellow</item>
+    </style>
+
+    <style name="MainViewTextViewGrey" parent="MainViewTextViewBlue">
+        <item name="android:textColor">@color/colorMenuText</item>
+    </style>
+
+    <style name="MainViewCenterBoxEditText" parent="EditTextStyle">
+        <item name="android:layout_width">match_parent</item>
+    </style>
+
     <!-- Right View -->
     <style name="RightViewContainer">
         <item name="android:layout_width">@dimen/rightview_width</item>
@@ -136,16 +185,6 @@
 
     <style name="RightViewTextViewYellow" parent="RightViewTextView">
         <item name="android:textColor">@color/colorSkytelYellow</item>
-    </style>
-
-    <style name="RightViewButtonYellow">
-        <item name="android:layout_width">@dimen/btn_yellow_width</item>
-        <item name="android:layout_height">wrap_content</item>
-        <item name="android:textColor">@color/colorSkytelYellow</item>
-        <item name="android:padding">@dimen/small_padding</item>
-        <item name="android:background">@drawable/btn_yellow</item>
-        <item name="android:textSize">@dimen/yellowBtnFontSize</item>
-        <item name="android:layout_margin">@dimen/small_padding</item>
     </style>
 
     <style name="RightViewTakePictureView">

@@ -3,6 +3,8 @@
     <color name="colorBackground">#212121</color>
     <color name="colorSkytelYellow">#e14913</color>
     <color name="colorSkytelPressed">#80e14913</color>
+    <color name="colorGrey">#ebebeb</color>
+    <color name="colorGreyPressed">#80fafafa</color>
     <color name="colorMenuText">#999999</color>
     <color name="colorTabBackground">#e8eaf6</color>
     <color name="colorTabTextColor">#424242</color>

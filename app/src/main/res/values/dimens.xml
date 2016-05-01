@@ -2,6 +2,7 @@
     <!-- Default screen margins, per the Android Design guidelines. -->
     <dimen name="leftmenu_width">200dp</dimen>
     <dimen name="rightview_width">280dp</dimen>
+    <dimen name="center_box_width">400dp</dimen>
     <dimen name="divider_width">2dp</dimen>
     <dimen name="small_padding">5dp</dimen>
     <dimen name="main_padding">10dp</dimen>
@@ -10,6 +11,7 @@
     <dimen name="forth_padding">40dp</dimen>
     <dimen name="fifth_padding">50dp</dimen>
 
+    <dimen name="btnCorderRadius">4dp</dimen>
     <dimen name="yellowBtnFontSize">10sp</dimen>
     <dimen name="mainFontSize">14sp</dimen>
     <dimen name="secondFontSize">18sp</dimen>

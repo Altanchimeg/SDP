@@ -18,7 +18,18 @@
     <string name="opened">Нээгдсэн</string>
     <string name="phone_number">Утасны дугаар</string>
     <string name="pin_code">Пин код</string>
+    <string name="code">Код</string>
     <string name="charge">Цэнэглэх</string>
+    <string name="do_payment">Төлбөр төлөх</string>
+    <string name="contract_number">Гэрээний дугаар</string>
+    <string name="payment_value">Төлбөрийн дүн</string>
+    <string name="send_order">Захиалга илгээх</string>
+    <string name="active">Идэвхижүүлэх</string>
+    <string name="decline">Цуцлах</string>
+    <string name="service_type">Үйлчилгээний төрөл</string>
+    <string name="tariff">Үнэ тариф</string>
+    <string name="service_prepaid">Урьдчилсан төлбөрт</string>
+    <string name="service_postpaid">Дараа төлбөрт</string>
 
     <!-- Dialog -->
     <string name="dialog_confirm">Та энэ захиалгыг баталгаажуулах уу</string>
@@ -94,6 +105,16 @@
     <!-- Settings Tabs-->
     <string name="tab_settings_changepassword">Нууц үг солих</string>
 
+    <!-- Main View -->
+
+    <!-- Skydealer -->
+    <string name="skydealer_insert_payment_number">Төлбөр төлөх утасны дугаар оруулна уу</string>
+    <string name="skydealer_insert_payment_usercode">Хэрэглэгчийн код оруулна уу</string>
+
+    <!-- Service -->
+    <string name="service_select_vas_type">Нэмэлт үйлчилгээний төрөл сонгоно уу</string>
+    <string name="service_select_service_status">Үйлчилгээний төлөв сонгоно уу</string>
+    <string name="insert_phone_number">Утасны дугаар оруулна уу</string>
 
     <!-- Right View -->
     <!-- Number Choice-->
@@ -105,7 +126,6 @@
     <!-- Number Order Report-->
     <string name="ordered_number">Захиалсан утасны дугаар</string>
     <string name="ordered_date">Захиалсан огноо</string>
-    <string name="order_service_type">Үйлчилгээний төрөл</string>
     <string name="order_status">Захиалгын төлөв</string>
     <string name="mainstream_number">Энгийн дугаар</string>
     <string name="lucky_number">Азын дугаар</string>

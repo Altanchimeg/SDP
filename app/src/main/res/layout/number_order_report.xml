@@ -85,7 +85,7 @@
                 <TextView
                     style="@style/RightViewTextViewBold"
                     android:layout_gravity="start"
-                    android:text="@string/order_service_type" />
+                    android:text="@string/service_type" />
 
                 <LinearLayout
                     android:layout_width="wrap_content"
@@ -93,11 +93,11 @@
                     android:orientation="horizontal">
 
                     <Button
-                        style="@style/RightViewButtonYellow"
+                        style="@style/ButtonYellow"
                         android:text="@string/all" />
 
                     <Button
-                        style="@style/RightViewButtonYellow"
+                        style="@style/ButtonYellow"
                         android:text="@string/mainstream_number" />
 
                 </LinearLayout>
@@ -108,13 +108,13 @@
                     android:orientation="horizontal">
 
                     <Button
-                        style="@style/RightViewButtonYellow"
+                        style="@style/ButtonYellow"
                         android:background="@drawable/btn_yellow_selected"
                         android:text="@string/lucky_number"
                         android:textColor="@android:color/white" />
 
                     <Button
-                        style="@style/RightViewButtonYellow"
+                        style="@style/ButtonYellow"
                         android:visibility="invisible" />
 
                 </LinearLayout>
@@ -130,13 +130,13 @@
                     android:orientation="horizontal">
 
                     <Button
-                        style="@style/RightViewButtonYellow"
+                        style="@style/ButtonYellow"
                         android:background="@drawable/btn_yellow_selected"
                         android:text="@string/all"
                         android:textColor="@android:color/white" />
 
                     <Button
-                        style="@style/RightViewButtonYellow"
+                        style="@style/ButtonYellow"
                         android:text="@string/successful" />
 
                 </LinearLayout>
@@ -147,11 +147,11 @@
                     android:orientation="horizontal">
 
                     <Button
-                        style="@style/RightViewButtonYellow"
+                        style="@style/ButtonYellow"
                         android:text="@string/waiting" />
 
                     <Button
-                        style="@style/RightViewButtonYellow"
+                        style="@style/ButtonYellow"
                         android:text="@string/unsuccessful" />
 
                 </LinearLayout>
@@ -162,11 +162,11 @@
                     android:orientation="horizontal">
 
                     <Button
-                        style="@style/RightViewButtonYellow"
+                        style="@style/ButtonYellow"
                         android:text="@string/opened" />
 
                     <Button
-                        style="@style/RightViewButtonYellow"
+                        style="@style/ButtonYellow"
                         android:visibility="invisible" />
 
                 </LinearLayout>

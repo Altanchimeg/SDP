@@ -107,13 +107,13 @@
                     android:orientation="horizontal">
 
                     <Button
-                        style="@style/RightViewButtonYellow"
+                        style="@style/ButtonYellow"
                         android:background="@drawable/btn_yellow_selected"
                         android:text="@string/all"
                         android:textColor="@android:color/white" />
 
                     <Button
-                        style="@style/RightViewButtonYellow"
+                        style="@style/ButtonYellow"
                         android:text="@string/successful" />
 
                 </LinearLayout>
@@ -125,11 +125,11 @@
 
 
                     <Button
-                        style="@style/RightViewButtonYellow"
+                        style="@style/ButtonYellow"
                         android:text="@string/unsuccessful" />
 
                     <Button
-                        style="@style/RightViewButtonYellow"
+                        style="@style/ButtonYellow"
                         android:visibility="invisible" />
 
                 </LinearLayout>
