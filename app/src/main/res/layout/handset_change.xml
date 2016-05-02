@@ -6,13 +6,82 @@
 
     <LinearLayout
         style="@style/MainViewContainer"
-        android:layout_alignParentTop="true"
-        android:layout_centerHorizontal="true">
+        android:gravity="center">
 
         <TextView
-            android:layout_width="wrap_content"
+            style="@style/MainViewTextViewBlue"
+
+            android:layout_margin="@dimen/second_padding"
+            android:text="@string/choose_handset_change_type" />
+
+        <RelativeLayout
+            android:layout_width="@dimen/center_box_width"
             android:layout_height="wrap_content"
-            android:text="Number Order Report" />
+            android:layout_margin="@dimen/main_padding"
+            android:orientation="horizontal">
+
+            <Spinner
+
+                android:id="@+id/choose_handset_change"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:backgroundTint="@color/colorMenuText"
+                android:entries="@array/handset_change_type"
+                android:focusable="false"
+                android:spinnerMode="dropdown">
+
+            </Spinner>
+
+        </RelativeLayout>
+
+        <RelativeLayout
+            android:layout_width="@dimen/center_box_width"
+            android:layout_height="wrap_content"
+            android:layout_margin="@dimen/main_padding"
+            android:orientation="horizontal">
+
+            <EditText
+                style="@style/MainViewCenterBoxEditText"
+                android:hint="@string/phone_number" />
+
+        </RelativeLayout>
+
+        <RelativeLayout
+            android:layout_width="@dimen/center_box_width"
+            android:layout_height="wrap_content"
+            android:layout_margin="@dimen/main_padding"
+            android:orientation="horizontal">
+
+            <EditText
+                style="@style/MainViewCenterBoxEditText"
+                android:hint="@string/sim_card_serial" />
+
+        </RelativeLayout>
+
+        <LinearLayout
+            style="@style/MainViewCenterBoxContainer"
+            >
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="@dimen/main_padding">
+
+                <TextView
+                    style="@style/MainViewTextViewYellow"
+                    android:layout_width="match_parent"
+                    android:background="@drawable/border"
+                    android:text="@string/tariff" />
+
+                <TextView
+                    style="@style/MainViewTextViewGrey"
+                    android:layout_width="150dp"
+                    android:layout_alignParentRight="true"
+                    android:background="@drawable/border"
+                    android:text="5000₮" />
+
+            </RelativeLayout>
+        </LinearLayout>
 
     </LinearLayout>
 
