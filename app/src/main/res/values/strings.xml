@@ -31,6 +31,7 @@
     <string name="service_prepaid">Урьдчилсан төлбөрт</string>
     <string name="service_postpaid">Дараа төлбөрт</string>
     <string name="sim_card_serial">Сим карт сериал</string>
+    <string name="description_order">Захиалгатай холбоотой тайлбар</string>
 
     <!-- Dialog -->
     <string name="dialog_confirm">Та энэ захиалгыг баталгаажуулах уу</string>
@@ -147,4 +148,41 @@
         <item>3G->3G</item>
     </string-array>
 
+    <!-- REGISTRATION -->
+    <string name="last_name">Овог</string>
+    <string name="first_name">Нэр</string>
+    <string name="reg_number">Регистрийн дугаар</string>
+    <string name="contact_number">Холбоо барих дугаар</string>
+
+    <!-- New Dealer  -->
+    <string name="dealer_info">Гэрээт борлуулагчийн мэдээлэл</string>
+    <string name="address_buy_card">Карт борлуулах байршил</string>
+    <string name="chanel_sales">Борлуулалтын суваг</string>
+    <string-array name="chanel_sales_type">
+        <item>Скайдиллер</item>
+        <item>Б гэрээт</item>
+    </string-array>
+    <string name="discount_percent">Хөнгөлөлтийн хувь</string>
+    <string name="skydealer_number">Скайдиллерийн утасны дугаар</string>
+
+    <!-- New Skymedia  -->
+    <string name="user_info">Хэрэглэгчийн мэдээлэл</string>
+    <string name="address_detail">Оршин суугаа хаяг дэлгэрэнгүй</string>
+    <string name="aimag_city">Аймаг/Хот</string>
+    <string name="sum_district">Сум/Дүүрэг</string>
+    <string name="bag_khoroo">Баг/Хороо</string>
+    <string name="building_street">Байр/Гудамж</string>
+    <string name="entrance_fence">Орц/Хашаа</string>
+    <string name="door_number">Тоот</string>
+
+    <!-- New user -->
+    <string name="hobby">Хобби</string>
+    <string name="job">Эрхэлдэг ажил</string>
+
+    <!-- Number search -->
+    <string-array name="prefix">
+    <item>БҮГД</item>
+    <item>9110</item>
+    </string-array>
+    <string name="insert_search_number">Хайх дугаараа оруулна уу</string>
 </resources>

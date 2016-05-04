@@ -14,11 +14,11 @@
             android:layout_margin="@dimen/second_padding"
             android:text="@string/choose_handset_change_type" />
 
-        <RelativeLayout
+        <LinearLayout
             android:layout_width="@dimen/center_box_width"
             android:layout_height="wrap_content"
             android:layout_margin="@dimen/main_padding"
-            android:orientation="horizontal">
+            android:orientation="vertical">
 
             <Spinner
 
@@ -32,35 +32,19 @@
 
             </Spinner>
 
-        </RelativeLayout>
-
-        <RelativeLayout
-            android:layout_width="@dimen/center_box_width"
-            android:layout_height="wrap_content"
-            android:layout_margin="@dimen/main_padding"
-            android:orientation="horizontal">
 
             <EditText
                 style="@style/MainViewCenterBoxEditText"
                 android:hint="@string/phone_number" />
 
-        </RelativeLayout>
-
-        <RelativeLayout
-            android:layout_width="@dimen/center_box_width"
-            android:layout_height="wrap_content"
-            android:layout_margin="@dimen/main_padding"
-            android:orientation="horizontal">
 
             <EditText
                 style="@style/MainViewCenterBoxEditText"
                 android:hint="@string/sim_card_serial" />
 
-        </RelativeLayout>
+        </LinearLayout>
 
-        <LinearLayout
-            style="@style/MainViewCenterBoxContainer"
-            >
+        <LinearLayout style="@style/MainViewCenterBoxContainer">
 
             <RelativeLayout
                 android:layout_width="match_parent"

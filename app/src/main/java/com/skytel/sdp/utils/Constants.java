@@ -14,5 +14,8 @@ public interface Constants {
     int MENU_SETTINGS = 7;
     int MENU_LOGOUT = 8;
 
+    /* Data */
+    String SERVER_URL = "";
+
 
 }

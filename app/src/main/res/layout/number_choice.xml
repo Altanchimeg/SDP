@@ -6,10 +6,31 @@
 
     <LinearLayout style="@style/MainViewContainer">
 
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Number Choice" />
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="@dimen/main_padding"
+        android:orientation="horizontal">
+        <Spinner
+            style="@style/MainViewCenterBoxEditText"
+            android:layout_width="@dimen/leftmenu_width"
+            android:id="@+id/prefix"
+            android:backgroundTint="@color/colorMenuText"
+            android:entries="@array/prefix"
+            android:focusable="false"
+            android:spinnerMode="dropdown">
+        </Spinner>
+        <EditText
+            style="@style/MainViewCenterBoxEditText"
+            android:layout_width="@dimen/center_box_width"
+            android:hint="@string/insert_search_number" />
+        <Button
+            android:id="@+id/numberSearch"
+            style="@style/ButtonStyle"
+            android:layout_marginLeft="@dimen/third_padding"
+            android:text="@string/search"></Button>
+
+        </LinearLayout>
 
         <GridView
             android:id="@+id/newNumbersList"

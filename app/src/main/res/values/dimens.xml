@@ -3,6 +3,7 @@
     <dimen name="leftmenu_width">200dp</dimen>
     <dimen name="rightview_width">280dp</dimen>
     <dimen name="center_box_width">400dp</dimen>
+
     <dimen name="divider_width">2dp</dimen>
     <dimen name="small_padding">5dp</dimen>
     <dimen name="main_padding">10dp</dimen>

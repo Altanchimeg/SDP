@@ -202,5 +202,12 @@
         <item name="android:background">@color/colorDivider</item>
     </style>
 
-
+    <!-- TextArea Style /using Edittext/ -->
+    <style name="TextAreaStyle"  parent="EditTextStyle">
+        <item name="android:layout_width">@dimen/center_box_width</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:background">@drawable/border</item>
+        <item name="android:layout_marginTop">@dimen/main_padding</item>
+        <item name="android:lines">8</item>
+    </style>
 </resources>
