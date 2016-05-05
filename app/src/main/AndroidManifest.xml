@@ -18,10 +18,8 @@
             </intent-filter>
         </activity>
         <activity
-            android:theme="@android:style/Theme.NoTitleBar.Fullscreen"
             android:name="com.skytel.sdp.LoginActivity"
-           >
-            </activity>
+            android:theme="@android:style/Theme.NoTitleBar.Fullscreen"></activity>
         <activity android:name=".ForgetPasswordActivity"></activity>
     </application>
 
