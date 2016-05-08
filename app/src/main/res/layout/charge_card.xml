@@ -4,12 +4,52 @@
     android:layout_height="match_parent"
     android:orientation="vertical">
 
-    <LinearLayout style="@style/MainViewContainer">
+    <LinearLayout
+        style="@style/MainViewContainer"
+        android:orientation="horizontal"
+        android:weightSum="2">
 
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Number Choice" />
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:gravity="center"
+            android:orientation="vertical">
+
+            <TextView
+                style="@style/MainViewTextViewBlue"
+                android:text="@string/select_package_type" />
+
+            <ListView
+                android:id="@+id/package_type_list_view"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:cacheColorHint="@android:color/transparent"
+                android:divider="@null"
+                android:scrollbars="none"></ListView>
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:gravity="center"
+            android:orientation="vertical">
+
+            <TextView
+                style="@style/MainViewTextViewBlue"
+                android:text="@string/select_card_type" />
+
+            <ListView
+                android:id="@+id/card_type_list_view"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:cacheColorHint="@android:color/transparent"
+                android:divider="@null"
+                android:scrollbars="none"></ListView>
+
+
+        </LinearLayout>
 
     </LinearLayout>
 
@@ -30,10 +70,12 @@
                     android:text="@string/insert_charge_number"></TextView>
 
                 <EditText
+                    android:id="@+id/charge_card_phone_number"
                     style="@style/EditTextStyle"
                     android:hint="@string/phone_number" />
 
                 <EditText
+                    android:id="@+id/charge_card_pin_code"
                     style="@style/EditTextStyle"
                     android:hint="@string/pin_code" />
 
@@ -42,6 +84,7 @@
 
             <Button
                 style="@style/ButtonStyle"
+                android:id="@+id/charge_card_order_btn"
                 android:layout_marginBottom="@dimen/main_padding"
                 android:layout_marginLeft="@dimen/main_padding"
                 android:layout_marginRight="@dimen/main_padding"

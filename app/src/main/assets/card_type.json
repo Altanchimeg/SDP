@@ -1,0 +1,22 @@
+{
+  "card_type": [
+    {
+      "id": "1",
+      "package_type": "0",
+      "name": "C500",
+      "description": "500 нэгж, хоноггүй"
+    },
+    {
+      "id": "2",
+      "package_type": "0",
+      "name": "C1000",
+      "description": "1000 нэгж, хоноггүй"
+    },
+    {
+      "id": "3",
+      "package_type": "1",
+      "name": "NET1000",
+      "description": "1000₮ (100MB, хоноггүй)"
+    }
+  ]
+}

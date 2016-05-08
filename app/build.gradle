@@ -29,5 +29,8 @@ dependencies {
     compile 'joda-time:joda-time:2.7'
     compile 'com.squareup.okhttp3:okhttp:3.2.0'
     compile 'org.json:json:20141113'
+    compile 'com.j256.ormlite:ormlite-android:4.48'
+    compile 'com.j256.ormlite:ormlite-jdbc:4.48'
+    compile 'com.j256.ormlite:ormlite-core:4.48'
 
 }

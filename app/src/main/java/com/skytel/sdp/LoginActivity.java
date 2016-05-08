@@ -3,13 +3,19 @@ package com.skytel.sdp;
 import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
+import android.widget.EditText;
 import android.widget.Toast;
 
 import com.skytel.sdp.utils.Constants;
+import com.skytel.sdp.utils.PrefManager;
+
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
 
 import java.io.IOException;
 
@@ -20,10 +26,14 @@ import okhttp3.OkHttpClient;
 import okhttp3.Request;
 import okhttp3.Response;
 
-public class LoginActivity extends Activity {
+public class LoginActivity extends Activity implements Constants {
+    String TAG = LoginActivity.class.getName();
+
     private OkHttpClient client;
     private Context context;
     private Button mBtnLogin;
+    private EditText mEtUserName;
+    private EditText mEtPassword;
 
 
     @Override
@@ -33,12 +43,22 @@ public class LoginActivity extends Activity {
         this.context = this;
         client = new OkHttpClient();
 
+        if (PrefManager.getSessionInstance().getIsLoggedIn()) {
+            Intent intent = new Intent(LoginActivity.this, MainActivity.class);
+            startActivity(intent);
+            finish();
+        }
+
+        mEtUserName = (EditText) findViewById(R.id.et_username);
+        mEtPassword = (EditText) findViewById(R.id.et_password);
+
         mBtnLogin = (Button) findViewById(R.id.btn_login);
         mBtnLogin.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 try {
-                    runLogin();
+                    Toast.makeText(context, "Please wait", Toast.LENGTH_SHORT).show();
+                    runLoginFunction();
                 } catch (Exception e) {
                     e.printStackTrace();
                 }
@@ -47,9 +67,12 @@ public class LoginActivity extends Activity {
 
     }
 
-    public void runLogin() throws Exception {
+    public void runLoginFunction() throws Exception {
         StringBuilder url = new StringBuilder();
-        url.append(Constants.SERVER_URL+".login.json?login=91919199&pass=asd1234");
+        url.append(SERVER_URL);
+        url.append(FUNCTION_LOGIN);
+        url.append("?login=" + mEtUserName.getText().toString());
+        url.append("&pass=" + mEtPassword.getText().toString());
 
         System.out.print(url + "\n");
 
@@ -68,6 +91,12 @@ public class LoginActivity extends Activity {
                     public void run() {
                         //     progressDialog.dismiss();
                         Toast.makeText(context, "Error on Failure!", Toast.LENGTH_LONG).show();
+                        // Used for debug
+//                        PrefManager.getSessionInstance().setIsLoggedIn(true);
+//                        Intent intent = new Intent(LoginActivity.this, MainActivity.class);
+//                        startActivity(intent);
+//                        finish();
+
                     }
                 });
             }
@@ -86,53 +115,36 @@ public class LoginActivity extends Activity {
                 String resp = response.body().string();
                 System.out.println("resp " + resp);
 
-/*
                 try {
                     JSONArray jsonarray = new JSONArray(resp);
                     for (int i = 0; i < jsonarray.length(); i++) {
                         JSONObject obj2 = jsonarray.getJSONObject(i);
-                        String f_name = obj2.getString("f_name");
-                        String cKal = obj2.getString("cKal");
-                        String duration = obj2.getString("duration");
-                        // String date = obj2.getString("date");
-                        Winner winner = new Winner();
-                        winner.setFbName(f_name);
-                        winner.setcKal(cKal);
-                        winner.setDuration(duration);
-                        winner.setDate(new Date());
+                        int result_code = obj2.getInt("result_code");
+                        String auth_token = obj2.getString("auth_token");
+                        String error_desc = obj2.getString("error_desc");
 
-                        dataManager.createNewWinner(winner);
+                        Log.d(TAG, "result_code " + result_code);
+                        Log.d(TAG, "auth_token " + auth_token);
+                        Log.d(TAG, "error_desc " + error_desc);
 
-                        Log.d(TAG, "f_name " + f_name);
-                        Log.d(TAG, "cKal " + cKal);
-                        Log.d(TAG, "duration " + duration);
-                        //  Log.d(TAG, "date " + date);
+                        if (result_code == RESULT_CODE_SUCCESS) {
+                            PrefManager.getSessionInstance().setIsLoggedIn(true);
+                            Intent intent = new Intent(LoginActivity.this, MainActivity.class);
+                            startActivity(intent);
+                            finish();
+                        }
                     }
 
                     runOnUiThread(new Runnable() {
                         @Override
                         public void run() {
-                            recyclerView.setAdapter(new ChallengeWinnerAdapter(getActivity()));
+
                         }
                     });
 
 
                 } catch (JSONException e) {
                     e.printStackTrace();
-                }
-*/
-
-                if (resp.equals("1")) {
-                    Intent intent = new Intent(context, LoginActivity.class);
-                    startActivity(intent);
-                } else {
-                    runOnUiThread(new Runnable() {
-                        @Override
-                        public void run() {
-                            //     progressDialog.dismiss();
-                            Toast.makeText(context, "Invalid login!", Toast.LENGTH_LONG).show();
-                        }
-                    });
                 }
             }
         });

@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Left Menu -->
+    <string-array name="leftmenu_array">
+        <item>Шинэ дугаар</item>
+        <item>Скайдиллер</item>
+        <item>Үйлчилгээ</item>
+        <item>Бүртгэл</item>
+        <item>Мэдээлэл</item>
+        <item>Төлөвлөгөө</item>
+        <item>Санал хүсэлт</item>
+        <item>Тохиргоо</item>
+        <item>Гарах</item>
+    </string-array>
+
+    <string-array name="leftmenu_ic_array">
+        <item>ic_new_number</item>
+        <item>ic_skydealer</item>
+        <item>ic_service</item>
+        <item>ic_register</item>
+        <item>ic_info</item>
+        <item>ic_plan</item>
+        <item>ic_feedback</item>
+        <item>ic_settings</item>
+        <item>ic_exit</item>
+    </string-array>
+
+    <string-array name="voice_type">
+        <item>Санал хүсэлт</item>
+        <item>Талархал</item>
+        <item>Гомдол</item>
+        <item>Мэдээлэл</item>
+    </string-array>
+
+    <string-array name="radioGroupDealer">
+        <item>Диллер</item>
+        <item>Ажилтан</item>
+    </string-array>
+
+    <string-array name="handset_change_type">
+        <item>2G->3G</item>
+        <item>3G->3G</item>
+    </string-array>
+
+    <string-array name="chanel_sales_type">
+        <item>Скайдиллер</item>
+        <item>Б гэрээт</item>
+    </string-array>
+
+    <!-- Number search -->
+    <string-array name="prefix">
+        <item>БҮГД</item>
+        <item>9110</item>
+    </string-array>
+
+    <string-array name="skydealer_charge_card_types">
+        <item>Нэгжийн багц</item>
+        <item>Дата багц</item>
+        <item>IP карт</item>
+        <item>Смарт карт</item>
+    </string-array>
+
+</resources>

@@ -1,6 +1,8 @@
 package com.skytel.sdp.ui.newnumber;
 
+import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -9,10 +11,24 @@ import android.widget.Button;
 import android.widget.GridView;
 import android.widget.Toast;
 
+import com.skytel.sdp.MainActivity;
 import com.skytel.sdp.R;
+import com.skytel.sdp.utils.Constants;
+import com.skytel.sdp.utils.PrefManager;
 
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
+
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
+
+import okhttp3.Call;
+import okhttp3.Callback;
+import okhttp3.Headers;
+import okhttp3.Request;
+import okhttp3.Response;
 
 /**
  * Created by Altanchimeg on 4/14/2016.
@@ -55,8 +71,11 @@ public class NumberChoiceFragment extends Fragment {
 */
             }
         });
+
+
         return rootView;
     }
+
 
 
 }

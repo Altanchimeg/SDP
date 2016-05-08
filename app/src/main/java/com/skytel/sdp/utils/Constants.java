@@ -14,8 +14,21 @@ public interface Constants {
     int MENU_SETTINGS = 7;
     int MENU_LOGOUT = 8;
 
-    /* Data */
-    String SERVER_URL = "";
+    /* Preference */
+    String PREF_NAME = "sdp";
+    String PREF_ISLOGGEDIN = "is_logged_in";
 
+
+    /* Service Functions */
+    String SERVER_URL = "http://192.168.1.1/";
+    String FUNCTION_LOGIN = "login.json";
+    String FUNCTION_CHARGE = "charge.json";
+
+    int RESULT_CODE_SUCCESS = 0;
+
+    int CONST_UNIT_PACKAGE = 0;
+    int CONST_DATA_PACKAGE = 1;
+    int CONST_IP_CARD = 2;
+    int CONST_SMART_CARD = 3;
 
 }

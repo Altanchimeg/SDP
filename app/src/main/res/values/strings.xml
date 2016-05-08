@@ -36,39 +36,9 @@
     <!-- Dialog -->
     <string name="dialog_confirm">Та энэ захиалгыг баталгаажуулах уу</string>
 
-    <!-- Left Menu -->
-    <string-array name="leftmenu_array">
-        <item>Шинэ дугаар</item>
-        <item>Скайдиллер</item>
-        <item>Үйлчилгээ</item>
-        <item>Бүртгэл</item>
-        <item>Мэдээлэл</item>
-        <item>Төлөвлөгөө</item>
-        <item>Санал хүсэлт</item>
-        <item>Тохиргоо</item>
-        <item>Гарах</item>
-    </string-array>
-
-    <string-array name="leftmenu_ic_array">
-        <item>ic_new_number</item>
-        <item>ic_skydealer</item>
-        <item>ic_service</item>
-        <item>ic_register</item>
-        <item>ic_info</item>
-        <item>ic_plan</item>
-        <item>ic_feedback</item>
-        <item>ic_settings</item>
-        <item>ic_exit</item>
-    </string-array>
 
     <!-- Feedback -->
     <string name="text_choose_type">Дуу хоолойн төрлөө сонгоно уу?</string>
-    <string-array name="voice_type">
-        <item>Санал хүсэлт</item>
-        <item>Талархал</item>
-        <item>Гомдол</item>
-        <item>Мэдээлэл</item>
-    </string-array>
 
     <string name="text_user_phonenumber">Хэрэглэгчийн утасны дугаар</string>
     <string name="text_write_voice">Хэрэглэгчийн дуу хоолойг бичнэ үү?</string>
@@ -79,10 +49,6 @@
     <string name="text_password">Нууц үг</string>
     <string name="btn_login">НЭВТРЭХ</string>
     <string name="btn_forget_password">Нууц үг мартсан?</string>
-    <string-array name="radioGroupDealer">
-        <item>Диллер</item>
-        <item>Ажилтан</item>
-    </string-array>
 
     <!-- New number Tabs -->
     <string name="tab_newnumber_order">Шинэ дугаарын захиалга</string>
@@ -113,6 +79,7 @@
     <string name="skydealer_insert_payment_number">Төлбөр төлөх утасны дугаар оруулна уу</string>
     <string name="skydealer_insert_payment_usercode">Хэрэглэгчийн код оруулна уу</string>
 
+
     <!-- Service -->
     <string name="service_select_vas_type">Нэмэлт үйлчилгээний төрөл сонгоно уу</string>
     <string name="service_select_service_status">Үйлчилгээний төлөв сонгоно уу</string>
@@ -134,6 +101,8 @@
 
     <!-- SkyDealer Charge Card-->
     <string name="insert_charge_number">Цэнэглэх дугаар оруулна уу</string>
+    <string name="select_package_type">Багцын төрөл сонгоно уу</string>
+    <string name="select_card_type">Картын төрөл сонгоно уу</string>
 
     <!-- SkyDealer Report-->
     <string name="card_package_type">Картын багцын төрөл</string>
@@ -143,10 +112,6 @@
 
     <!-- Handset change -->
     <string name="choose_handset_change_type">Гар солилтын төрөл сонгоно уу</string>
-    <string-array name="handset_change_type">
-        <item>2G->3G</item>
-        <item>3G->3G</item>
-    </string-array>
 
     <!-- REGISTRATION -->
     <string name="last_name">Овог</string>
@@ -158,10 +123,6 @@
     <string name="dealer_info">Гэрээт борлуулагчийн мэдээлэл</string>
     <string name="address_buy_card">Карт борлуулах байршил</string>
     <string name="chanel_sales">Борлуулалтын суваг</string>
-    <string-array name="chanel_sales_type">
-        <item>Скайдиллер</item>
-        <item>Б гэрээт</item>
-    </string-array>
     <string name="discount_percent">Хөнгөлөлтийн хувь</string>
     <string name="skydealer_number">Скайдиллерийн утасны дугаар</string>
 
@@ -179,10 +140,6 @@
     <string name="hobby">Хобби</string>
     <string name="job">Эрхэлдэг ажил</string>
 
-    <!-- Number search -->
-    <string-array name="prefix">
-    <item>БҮГД</item>
-    <item>9110</item>
-    </string-array>
     <string name="insert_search_number">Хайх дугаараа оруулна уу</string>
+
 </resources>

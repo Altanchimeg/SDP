@@ -3,17 +3,21 @@ package com.skytel.sdp;
 import android.app.Dialog;
 import android.content.Context;
 import android.content.Intent;
+import android.os.AsyncTask;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.ListView;
+import android.widget.Toast;
 
 import com.skytel.sdp.adapter.LeftMenuListAdapter;
+import com.skytel.sdp.database.DataManager;
 import com.skytel.sdp.ui.TabRegistrationFragment;
 import com.skytel.sdp.ui.TabServiceFragment;
 import com.skytel.sdp.ui.TabSettingsFragment;
@@ -27,17 +31,22 @@ import com.skytel.sdp.ui.settings.ChangePasswordFragment;
 import com.skytel.sdp.utils.Constants;
 
 public class MainActivity extends AppCompatActivity {
+    String TAG = MainActivity.class.getName();
+
     public static int currentMenu = Constants.MENU_NEWNUMBER;
-    ListView leftMenuListView;
-    LeftMenuListAdapter leftMenuListAdapter;
-    FragmentTransaction transaction;
+    private ListView leftMenuListView;
+    private LeftMenuListAdapter leftMenuListAdapter;
+    private FragmentTransaction transaction;
     private Context context;
+    private DataManager dataManager;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         context = this;
+
+        dataManager = new DataManager(this);
 
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
@@ -89,6 +98,8 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
+        new LongOperation().execute();
+
     }
 
     // Login
@@ -128,5 +139,49 @@ public class MainActivity extends AppCompatActivity {
             }
         });
     }
+
+    private class LongOperation extends AsyncTask<String, Void, Boolean> {
+
+        @Override
+        protected Boolean doInBackground(String... params) {
+            try {
+                if (dataManager.resetCardTypes()) {
+                    dataManager.setCardTypes();
+                }
+
+                return true;
+            } catch (
+                    Exception e
+                    )
+
+            {
+                return false;
+            }
+        }
+
+        @Override
+        protected void onPostExecute(Boolean result) {
+            //  progressDialog.dismiss();
+            if (result) {
+                Log.d(TAG, "AsyncTask Finished");
+
+            } else {
+                  Toast.makeText(context, "Error!", Toast.LENGTH_LONG).show();
+            }
+        }
+
+        @Override
+        protected void onPreExecute() {
+            Log.d(TAG, "Load Asyns started");
+            //   progressDialog = new ProgressDialog(context);
+            //   progressDialog.setCancelable(true);
+            //  progressDialog.show(context, getResources().getString(R.string.please_wait), getResources().getString(R.string.checking));
+        }
+
+        @Override
+        protected void onProgressUpdate(Void... values) {
+        }
+    }
+
 
 }
