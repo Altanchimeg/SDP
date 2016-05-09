@@ -99,17 +99,17 @@ public class DataManager implements Constants {
                 cardType.setDesciption(jO.getString("description"));
 
                 switch (jO.getInt("package_type")) {
-                    case CONST_UNIT_PACKAGE:
-                        cardType.setPackageTypeEnum(PackageTypeEnum.UNIT_PACKAGE);
+                    case CONST_COLOR_DATA_PACKAGE:
+                        cardType.setPackageTypeEnum(PackageTypeEnum.COLOR_DATA_PACKAGE);
                         break;
-                    case CONST_DATA_PACKAGE:
-                        cardType.setPackageTypeEnum(PackageTypeEnum.DATA_PACKAGE);
+                    case CONST_SKYTEL_NODAY_PACKAGE:
+                        cardType.setPackageTypeEnum(PackageTypeEnum.SKYTEL_NODAY_PACKAGE);
                         break;
-                    case CONST_IP_CARD:
-                        cardType.setPackageTypeEnum(PackageTypeEnum.IP_CARD);
+                    case CONST_SKYTEL_DAY_PACKAGE:
+                        cardType.setPackageTypeEnum(PackageTypeEnum.SKYTEL_DAY_PACKAGE);
                         break;
-                    case CONST_SMART_CARD:
-                        cardType.setPackageTypeEnum(PackageTypeEnum.SMART_CARD);
+                    case CONST_SMART_PACKAGE:
+                        cardType.setPackageTypeEnum(PackageTypeEnum.SMART_PACKAGE);
                         break;
                 }
                 try {

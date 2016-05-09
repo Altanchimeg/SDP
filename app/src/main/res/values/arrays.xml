@@ -54,10 +54,10 @@
     </string-array>
 
     <string-array name="skydealer_charge_card_types">
-        <item>Нэгжийн багц</item>
-        <item>Дата багц</item>
-        <item>IP карт</item>
-        <item>Смарт карт</item>
+        <item>Өнгөлөг DATA/CALL</item>
+        <item>Скайтел хоноггүй</item>
+        <item>Скайтел хоногтой</item>
+        <item>Смарт карт/Олон улс</item>
     </string-array>
 
 </resources>

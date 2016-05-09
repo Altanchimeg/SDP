@@ -3,10 +3,10 @@ package com.skytel.sdp.enums;
 import com.skytel.sdp.utils.Constants;
 
 public enum PackageTypeEnum implements Constants{
-    UNIT_PACKAGE(CONST_UNIT_PACKAGE),
-    DATA_PACKAGE(CONST_DATA_PACKAGE),
-    IP_CARD(CONST_IP_CARD),
-    SMART_CARD(CONST_SMART_CARD);
+    COLOR_DATA_PACKAGE(CONST_COLOR_DATA_PACKAGE),
+    SKYTEL_NODAY_PACKAGE(CONST_SKYTEL_NODAY_PACKAGE),
+    SKYTEL_DAY_PACKAGE(CONST_SKYTEL_DAY_PACKAGE),
+    SMART_PACKAGE(CONST_SMART_PACKAGE);
 
     private final int value;
 

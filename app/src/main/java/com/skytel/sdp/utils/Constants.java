@@ -26,9 +26,9 @@ public interface Constants {
 
     int RESULT_CODE_SUCCESS = 0;
 
-    int CONST_UNIT_PACKAGE = 0;
-    int CONST_DATA_PACKAGE = 1;
-    int CONST_IP_CARD = 2;
-    int CONST_SMART_CARD = 3;
+    int CONST_COLOR_DATA_PACKAGE = 0;
+    int CONST_SKYTEL_NODAY_PACKAGE = 1;
+    int CONST_SKYTEL_DAY_PACKAGE = 2;
+    int CONST_SMART_PACKAGE = 3;
 
 }

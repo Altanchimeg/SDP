@@ -83,17 +83,17 @@ public class ChargeCardFragment extends Fragment {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                 switch (position) {
-                    case Constants.CONST_UNIT_PACKAGE:
-                        packageTypeEnum = PackageTypeEnum.UNIT_PACKAGE;
+                    case Constants.CONST_COLOR_DATA_PACKAGE:
+                        packageTypeEnum = PackageTypeEnum.COLOR_DATA_PACKAGE;
                         break;
-                    case Constants.CONST_DATA_PACKAGE:
-                        packageTypeEnum = PackageTypeEnum.DATA_PACKAGE;
+                    case Constants.CONST_SKYTEL_NODAY_PACKAGE:
+                        packageTypeEnum = PackageTypeEnum.SKYTEL_NODAY_PACKAGE;
                         break;
-                    case Constants.CONST_IP_CARD:
-                        packageTypeEnum = PackageTypeEnum.IP_CARD;
+                    case Constants.CONST_SKYTEL_DAY_PACKAGE:
+                        packageTypeEnum = PackageTypeEnum.SKYTEL_DAY_PACKAGE;
                         break;
-                    case Constants.CONST_SMART_CARD:
-                        packageTypeEnum = PackageTypeEnum.SMART_CARD;
+                    case Constants.CONST_SMART_PACKAGE:
+                        packageTypeEnum = PackageTypeEnum.SMART_PACKAGE;
                         break;
                 }
                 mCardTypeListView.setAdapter(new ChargeCardTypeAdapter(getActivity(), packageTypeEnum));
@@ -126,7 +126,7 @@ public class ChargeCardFragment extends Fragment {
             }
         });
 
-        for (CardType cardType : mDataManager.getCardTypeByPackageType(PackageTypeEnum.UNIT_PACKAGE)) {
+        for (CardType cardType : mDataManager.getCardTypeByPackageType(PackageTypeEnum.COLOR_DATA_PACKAGE)) {
             Log.d(TAG, "cardTypeName " + cardType.getName());
         }
 
