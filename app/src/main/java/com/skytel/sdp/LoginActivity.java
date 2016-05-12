@@ -34,7 +34,7 @@ public class LoginActivity extends Activity implements Constants {
     private Button mBtnLogin;
     private EditText mEtUserName;
     private EditText mEtPassword;
-
+    private PrefManager prefManager;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -42,8 +42,9 @@ public class LoginActivity extends Activity implements Constants {
         setContentView(R.layout.activity_login);
         this.context = this;
         client = new OkHttpClient();
+        prefManager = new PrefManager(this);
 
-        if (PrefManager.getSessionInstance().getIsLoggedIn()) {
+        if (prefManager.getIsLoggedIn()) {
             Intent intent = new Intent(LoginActivity.this, MainActivity.class);
             startActivity(intent);
             finish();
@@ -71,8 +72,8 @@ public class LoginActivity extends Activity implements Constants {
         StringBuilder url = new StringBuilder();
         url.append(SERVER_URL);
         url.append(FUNCTION_LOGIN);
-        url.append("?login=" + mEtUserName.getText().toString());
-        url.append("&pass=" + mEtPassword.getText().toString());
+       // url.append("?login=" + mEtUserName.getText().toString());
+       // url.append("&pass=" + mEtPassword.getText().toString());
 
         System.out.print(url + "\n");
 
@@ -116,24 +117,22 @@ public class LoginActivity extends Activity implements Constants {
                 System.out.println("resp " + resp);
 
                 try {
-                    JSONArray jsonarray = new JSONArray(resp);
-                    for (int i = 0; i < jsonarray.length(); i++) {
-                        JSONObject obj2 = jsonarray.getJSONObject(i);
-                        int result_code = obj2.getInt("result_code");
-                        String auth_token = obj2.getString("auth_token");
-                        String error_desc = obj2.getString("error_desc");
+                    JSONObject jsonObj = new JSONObject(resp);
+                    int result_code = jsonObj.getInt("result_code");
+                    String auth_token = jsonObj.getString("auth_token");
+             //       String error_desc = jsonObj.getString("error_desc");
 
-                        Log.d(TAG, "result_code " + result_code);
-                        Log.d(TAG, "auth_token " + auth_token);
-                        Log.d(TAG, "error_desc " + error_desc);
+                    Log.d(TAG, "result_code " + result_code);
+                    Log.d(TAG, "auth_token " + auth_token);
+             //       Log.d(TAG, "error_desc " + error_desc);
 
-                        if (result_code == RESULT_CODE_SUCCESS) {
-                            PrefManager.getSessionInstance().setIsLoggedIn(true);
-                            Intent intent = new Intent(LoginActivity.this, MainActivity.class);
-                            startActivity(intent);
-                            finish();
-                        }
+                    if (result_code == RESULT_CODE_SUCCESS) {
+                        prefManager.setIsLoggedIn(true);
+                        Intent intent = new Intent(LoginActivity.this, MainActivity.class);
+                        startActivity(intent);
+                        finish();
                     }
+
 
                     runOnUiThread(new Runnable() {
                         @Override

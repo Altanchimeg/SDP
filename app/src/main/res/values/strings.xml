@@ -49,6 +49,8 @@
     <string name="text_password">Нууц үг</string>
     <string name="btn_login">НЭВТРЭХ</string>
     <string name="btn_forget_password">Нууц үг мартсан?</string>
+    <string name="rb_employee">Ажилтан</string>
+    <string name="rb_dealer">Диллер</string>
 
     <!-- New number Tabs -->
     <string name="tab_newnumber_order">Шинэ дугаарын захиалга</string>
@@ -141,5 +143,7 @@
     <string name="job">Эрхэлдэг ажил</string>
 
     <string name="insert_search_number">Хайх дугаараа оруулна уу</string>
+
+
 
 </resources>

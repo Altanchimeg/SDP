@@ -20,7 +20,7 @@ public interface Constants {
 
 
     /* Service Functions */
-    String SERVER_URL = "http://192.168.1.1/";
+    String SERVER_URL = "http://10.1.120.98/dealer/";
     String FUNCTION_LOGIN = "login.json";
     String FUNCTION_CHARGE = "charge.json";
 

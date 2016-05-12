@@ -32,11 +32,6 @@
         <item>Мэдээлэл</item>
     </string-array>
 
-    <string-array name="radioGroupDealer">
-        <item>Диллер</item>
-        <item>Ажилтан</item>
-    </string-array>
-
     <string-array name="handset_change_type">
         <item>2G->3G</item>
         <item>3G->3G</item>
