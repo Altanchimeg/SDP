@@ -17,6 +17,7 @@ public interface Constants {
     /* Preference */
     String PREF_NAME = "sdp";
     String PREF_ISLOGGEDIN = "is_logged_in";
+    String PREF_ISLOGGEDOUT = "is_logged_out";
 
 
     /* Service Functions */

@@ -14,8 +14,8 @@
 
         <ImageView
             android:id="@+id/skytel_logo_color"
-            android:layout_width="@dimen/center_box_width"
-            android:layout_height="@dimen/leftmenu_width"
+            android:layout_width="@dimen/leftmenu_width"
+            android:layout_height="@dimen/logo_height"
             android:background="@drawable/skytel_logo_white"
             android:layout_marginBottom="@dimen/second_padding"/>
 
@@ -68,7 +68,7 @@
 
             <View
                 android:layout_width="@dimen/divider_width"
-                android:layout_height="match_parent"
+                android:layout_height="@dimen/third_padding"
                 android:layout_marginLeft="@dimen/main_padding"
                 android:layout_marginRight="@dimen/main_padding"
                 android:background="@color/colorMenuText"></View>
