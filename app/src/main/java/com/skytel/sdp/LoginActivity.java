@@ -72,8 +72,8 @@ public class LoginActivity extends Activity implements Constants {
         StringBuilder url = new StringBuilder();
         url.append(SERVER_URL);
         url.append(FUNCTION_LOGIN);
-       // url.append("?login=" + mEtUserName.getText().toString());
-       // url.append("&pass=" + mEtPassword.getText().toString());
+        url.append("?login=" + mEtUserName.getText().toString());
+        url.append("&pass=" + mEtPassword.getText().toString());
 
         System.out.print(url + "\n");
 
@@ -119,18 +119,25 @@ public class LoginActivity extends Activity implements Constants {
                 try {
                     JSONObject jsonObj = new JSONObject(resp);
                     int result_code = jsonObj.getInt("result_code");
-                    String auth_token = jsonObj.getString("auth_token");
-             //       String error_desc = jsonObj.getString("error_desc");
 
-                    Log.d(TAG, "result_code " + result_code);
-                    Log.d(TAG, "auth_token " + auth_token);
-             //       Log.d(TAG, "error_desc " + error_desc);
 
                     if (result_code == RESULT_CODE_SUCCESS) {
+                        String auth_token = jsonObj.getString("auth_token");
+
+                        Log.d(TAG, "result_code " + result_code);
+                        Log.d(TAG, "auth_token " + auth_token);
+
                         prefManager.setIsLoggedIn(true);
                         Intent intent = new Intent(LoginActivity.this, MainActivity.class);
                         startActivity(intent);
                         finish();
+                    }
+                    else{
+                        String result_msg = jsonObj.getString("result_msg");
+
+                        Log.d(TAG, "result_code " + result_code);
+                        Log.d(TAG, "result_msg " + result_msg);
+                        
                     }
 
 

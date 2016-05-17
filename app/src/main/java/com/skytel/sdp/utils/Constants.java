@@ -21,7 +21,7 @@ public interface Constants {
 
 
     /* Service Functions */
-    String SERVER_URL = "http://10.1.120.98/dealer/";
+    String SERVER_URL = "http://10.1.120.178:8080/cosax-service-dealer/";
     String FUNCTION_LOGIN = "login.json";
     String FUNCTION_CHARGE = "charge.json";
 

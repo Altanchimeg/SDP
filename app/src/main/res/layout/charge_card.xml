@@ -21,13 +21,13 @@
 
             <ListView
                 android:id="@+id/package_type_list_view"
-                android:layout_width="wrap_content"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:cacheColorHint="@android:color/transparent"
                 android:divider="@null"
                 android:scrollbars="none"
                 android:choiceMode="singleChoice"
-                android:listSelector="@color/colorSkytelYellow"></ListView>
+                android:listSelector="@drawable/bg_listview"></ListView>
         </LinearLayout>
 
         <LinearLayout
@@ -42,13 +42,13 @@
 
             <ListView
                 android:id="@+id/card_type_list_view"
-                android:layout_width="wrap_content"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:cacheColorHint="@android:color/transparent"
                 android:divider="@null"
                 android:scrollbars="none"
                 android:choiceMode="singleChoice"
-                android:listSelector="@color/colorSkytelYellow"></ListView>
+                android:listSelector="@drawable/bg_listview"></ListView>
 
 
         </LinearLayout>
