@@ -58,6 +58,10 @@
         <item name="android:padding">@dimen/main_padding</item>
     </style>
 
+    <style name="ButtonLightGreen" parent="ButtonStyle">
+        <item name="android:background">@color/colorLighGreen</item>
+    </style>
+
     <style name="ButtonYellow">
         <item name="android:layout_width">@dimen/btn_yellow_width</item>
         <item name="android:layout_height">wrap_content</item>

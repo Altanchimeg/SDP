@@ -124,6 +124,8 @@ public class LoginActivity extends Activity implements Constants {
                     if (result_code == RESULT_CODE_SUCCESS) {
                         String auth_token = jsonObj.getString("auth_token");
 
+                        prefManager.saveAuthToken(PREF_AUTH_TOKEN, auth_token);
+
                         Log.d(TAG, "result_code " + result_code);
                         Log.d(TAG, "auth_token " + auth_token);
 
@@ -137,6 +139,7 @@ public class LoginActivity extends Activity implements Constants {
 
                         Log.d(TAG, "result_code " + result_code);
                         Log.d(TAG, "result_msg " + result_msg);
+
                         
                     }
 

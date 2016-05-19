@@ -36,6 +36,18 @@ public class PrefManager implements Constants {
         editor.commit();
     }
 
+    public void saveAuthToken(String key,String value) {
+        editor .putString(key, value);
+        editor.commit();
+    }
+
+    public String getAuthToken(String key) {
+        if (pref!= null) {
+            return pref.getString(key, "");
+        }
+        return "";
+    }
+
 
 
 }

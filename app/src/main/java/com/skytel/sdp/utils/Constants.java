@@ -18,14 +18,18 @@ public interface Constants {
     String PREF_NAME = "sdp";
     String PREF_ISLOGGEDIN = "is_logged_in";
     String PREF_ISLOGGEDOUT = "is_logged_out";
+    String PREF_AUTH_TOKEN = "auth_token";
 
 
     /* Service Functions */
-    String SERVER_URL = "http://10.1.120.178:8080/cosax-service-dealer/";
+    String SERVER_URL = "http://10.1.90.65:8080/cosax-service-dealer/";
     String FUNCTION_LOGIN = "login.json";
     String FUNCTION_CHARGE = "charge.json";
+    String FUNCTION_GET_INVOICE = "getinvoice.json";
+    String FUNCTION_DO_PAYMENT = "dopayment.json";
 
     int RESULT_CODE_SUCCESS = 0;
+    String RESULT_STATUS_SUCCESS = "success";
 
     int CONST_COLOR_DATA_PACKAGE = 0;
     int CONST_SKYTEL_NODAY_PACKAGE = 1;

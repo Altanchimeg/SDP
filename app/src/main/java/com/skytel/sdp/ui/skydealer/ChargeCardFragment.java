@@ -60,12 +60,16 @@ public class ChargeCardFragment extends Fragment {
     private ListView mPackageTypeListView;
     private ListView mCardTypeListView;
 
+    private PrefManager prefManager;
+
     public ChargeCardFragment() {
     }
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
+
         super.onCreate(savedInstanceState);
+
     }
 
     @Override
@@ -75,7 +79,7 @@ public class ChargeCardFragment extends Fragment {
         mContext = getActivity();
         mDataManager = new DataManager(mContext);
         client = new OkHttpClient();
-
+        prefManager = new PrefManager(mContext);
         // Set Package Type List
         mPackageTypeListView = (ListView) rootView.findViewById(R.id.package_type_list_view);
         mPackageTypeListView.setAdapter(new ChargeCardPackageTypeAdapter(getActivity()));
@@ -150,9 +154,11 @@ public class ChargeCardFragment extends Fragment {
         });
 
         System.out.print(url + "\n");
+        System.out.println(prefManager.getAuthToken(Constants.PREF_AUTH_TOKEN)+"");
 
         Request request = new Request.Builder()
                 .url(url.toString())
+                .addHeader("AUTH_TOKEN",prefManager.getAuthToken(Constants.PREF_AUTH_TOKEN))
                 .build();
 
         client.newCall(request).enqueue(new Callback() {
@@ -186,21 +192,28 @@ public class ChargeCardFragment extends Fragment {
                 System.out.println("resp " + resp);
 
                 try {
-                    JSONArray jsonarray = new JSONArray(resp);
-                    for (int i = 0; i < jsonarray.length(); i++) {
-                        JSONObject obj2 = jsonarray.getJSONObject(i);
-                        int result_code = obj2.getInt("result_code");
-                        String dealer_id = obj2.getString("dealer_id");
-                        String balance = obj2.getString("balance");
+                    JSONObject jsonObj = new JSONObject(resp);
+                        int result_code = jsonObj.getInt("result_code");
 
                         Log.d(TAG, "result_code " + result_code);
-                        Log.d(TAG, "dealer_id " + dealer_id);
-                        Log.d(TAG, "balance " + balance);
 
                         if (result_code == Constants.RESULT_CODE_SUCCESS) {
+
+                            String dealer_id = jsonObj.getString("dealer_id");
+                            String balance = jsonObj.getString("balance");
+
+                            Log.d(TAG, "dealer_id " + dealer_id);
+                            Log.d(TAG, "balance " + balance);
+
                             Log.d(TAG,"Show the success message to user");
+
                         }
-                    }
+                        else{
+
+                            String result_msg = jsonObj.getString("result_msg");
+
+                            Log.d(TAG, "result_msg " + result_msg);
+                        }
 
 
                 } catch (JSONException e) {

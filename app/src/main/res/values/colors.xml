@@ -13,4 +13,5 @@
     <color name="colorSkytelBlue">#00359B</color>
     <color name="colorSkytelBluePressed">#8000359B</color>
     <color name="colorMenuBackgroundSelected">#424242</color>
+    <color name="colorLighGreen">#8bc34a</color>
 </resources>

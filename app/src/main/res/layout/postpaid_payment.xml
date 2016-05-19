@@ -11,58 +11,45 @@
             style="@style/MainViewTextViewBlue"
             android:text="@string/skydealer_insert_payment_number" />
 
-        <RelativeLayout
+        <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_margin="@dimen/main_padding"
-            android:orientation="horizontal">
+            android:orientation="vertical">
 
-            <ImageView
-                android:layout_width="30dp"
-                android:layout_height="30dp"
-                android:background="@drawable/ic_info" />
 
             <EditText
+                android:id="@+id/invoice_phone_number"
                 style="@style/MainViewCenterBoxEditText"
-                android:layout_marginLeft="40dp"
-                android:layout_marginRight="40dp"
                 android:hint="@string/phone_number" />
 
-            <ImageView
-                android:layout_width="30dp"
-                android:layout_height="30dp"
-                android:layout_alignParentRight="true"
-                android:background="@drawable/ic_info" />
+            <EditText
+                android:id="@+id/pin_code"
+                style="@style/MainViewCenterBoxEditText"
+                android:hint="@string/pin_code" />
 
-        </RelativeLayout>
+            <Button
+                android:id="@+id/get_invoice_btn"
+                style="@style/ButtonStyle"
+                android:layout_margin="@dimen/main_padding"
+                android:text="@string/get_code" />
+
+        </LinearLayout>
 
         <TextView
             style="@style/MainViewTextViewBlue"
             android:text="@string/skydealer_insert_payment_usercode" />
 
-        <RelativeLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_margin="@dimen/main_padding"
-            android:orientation="horizontal">
 
-            <ImageView
-                android:layout_width="30dp"
-                android:layout_height="30dp"
-                android:background="@drawable/ic_info" />
-
-            <EditText
-                style="@style/MainViewCenterBoxEditText"
-                android:layout_marginLeft="40dp"
-                android:layout_marginRight="40dp"
-                android:hint="@string/code" />
-
-        </RelativeLayout>
+        <EditText
+            android:id="@+id/confirm_code"
+            style="@style/MainViewCenterBoxEditText"
+            android:hint="@string/code" />
 
         <Button
-            android:layout_marginTop="@dimen/main_padding"
-            android:layout_marginLeft="50dp"
+            android:id="@+id/do_payment_btn"
             style="@style/ButtonStyle"
+            android:layout_width="match_parent"
+            android:layout_margin="@dimen/main_padding"
             android:text="@string/do_payment" />
 
     </LinearLayout>
