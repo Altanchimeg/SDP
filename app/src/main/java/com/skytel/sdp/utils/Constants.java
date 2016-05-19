@@ -36,4 +36,6 @@ public interface Constants {
     int CONST_SKYTEL_DAY_PACKAGE = 2;
     int CONST_SMART_PACKAGE = 3;
 
+    boolean DEBUG = false;
+
 }

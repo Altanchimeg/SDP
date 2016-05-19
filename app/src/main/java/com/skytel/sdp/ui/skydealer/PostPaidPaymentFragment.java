@@ -59,7 +59,7 @@ public class PostPaidPaymentFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        View rootView =  inflater.inflate(R.layout.postpaid_payment, container, false);
+        View rootView = inflater.inflate(R.layout.postpaid_payment, container, false);
 
         mContext = getActivity();
         mDataManager = new DataManager(mContext);
@@ -77,14 +77,6 @@ public class PostPaidPaymentFragment extends Fragment {
             public void onClick(View v) {
                 try {
                     runInvoiceFunction();
-                   /* mPincode.setEnabled(false);
-                    mInvoicePhoneNumber.setEnabled(false);
-                    mGetInvoiceBtn.setEnabled(false);
-                    mGetInvoiceBtn.setBackgroundColor(getResources().getColor(R.color.colorLighGreen));
-                    mGetInvoiceBtn.setText(getResources().getString(R.string.successful));
-                    mConfirmCode.setEnabled(true);
-                    mDoPaymentBtn.setEnabled(true);
-                    mDoPaymentBtn.setBackgroundResource(R.drawable.btn_blue);*/
                 } catch (Exception e) {
                     e.printStackTrace();
                 }
@@ -103,6 +95,7 @@ public class PostPaidPaymentFragment extends Fragment {
 
         return rootView;
     }
+
     public void runInvoiceFunction() throws Exception {
         final StringBuilder url = new StringBuilder();
         url.append(Constants.SERVER_URL);
@@ -122,7 +115,7 @@ public class PostPaidPaymentFragment extends Fragment {
 
         Request request = new Request.Builder()
                 .url(url.toString())
-                .addHeader("AUTH_TOKEN",prefManager.getAuthToken(Constants.PREF_AUTH_TOKEN))
+                .addHeader("AUTH_TOKEN", prefManager.getAuthToken(Constants.PREF_AUTH_TOKEN))
                 .build();
 
         client.newCall(request).enqueue(new Callback() {
@@ -161,7 +154,7 @@ public class PostPaidPaymentFragment extends Fragment {
                     //String result_msg = jsonObj.getString("result_msg");
                     String status = jsonObj.getString("status");
                     balance = jsonObj.getString("balance");
-                   // Log.d(TAG, "result_code " + result_code);
+                    // Log.d(TAG, "result_code " + result_code);
 
 
                    /* if (status == Constants.RESULT_STATUS_SUCCESS) {
@@ -174,7 +167,21 @@ public class PostPaidPaymentFragment extends Fragment {
                         Log.d(TAG, "Show the success message to user");
 
 
-                    }*/
+                    } */
+
+                    getActivity().runOnUiThread(new Runnable() {
+                        @Override
+                        public void run() {
+                            mPincode.setEnabled(false);
+                            mInvoicePhoneNumber.setEnabled(false);
+                            mGetInvoiceBtn.setEnabled(false);
+                            mGetInvoiceBtn.setBackgroundColor(getResources().getColor(R.color.colorLighGreen));
+                            mGetInvoiceBtn.setText(getResources().getString(R.string.successful));
+                            mConfirmCode.setEnabled(true);
+                            mDoPaymentBtn.setEnabled(true);
+                            mDoPaymentBtn.setBackgroundResource(R.drawable.btn_blue);
+                        }
+                    });
 
 
                 } catch (JSONException e) {
@@ -188,7 +195,7 @@ public class PostPaidPaymentFragment extends Fragment {
         final StringBuilder url = new StringBuilder();
         url.append(Constants.SERVER_URL);
         url.append(Constants.FUNCTION_DO_PAYMENT);
-        url.append("?amount=" +Integer.parseInt(balance));
+        url.append("?amount=" + Integer.parseInt(balance));
         url.append("&phone=" + mInvoicePhoneNumber.getText().toString());
         url.append("&pin=" + mPincode.getText().toString());
         url.append("&invoice_num=" + mConfirmCode.getText().toString());
@@ -201,11 +208,11 @@ public class PostPaidPaymentFragment extends Fragment {
         });
 
         System.out.print(url + "\n");
-        System.out.println(prefManager.getAuthToken(Constants.PREF_AUTH_TOKEN)+"");
+        System.out.println(prefManager.getAuthToken(Constants.PREF_AUTH_TOKEN) + "");
 
         Request request = new Request.Builder()
                 .url(url.toString())
-                .addHeader("AUTH_TOKEN",prefManager.getAuthToken(Constants.PREF_AUTH_TOKEN))
+                .addHeader("AUTH_TOKEN", prefManager.getAuthToken(Constants.PREF_AUTH_TOKEN))
                 .build();
 
         client.newCall(request).enqueue(new Callback() {

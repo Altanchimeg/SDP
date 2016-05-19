@@ -1,6 +1,7 @@
 package com.skytel.sdp;
 
 import android.app.Dialog;
+import android.app.DialogFragment;
 import android.content.Context;
 import android.content.Intent;
 import android.os.AsyncTask;
@@ -22,15 +23,15 @@ import com.skytel.sdp.ui.TabRegistrationFragment;
 import com.skytel.sdp.ui.TabServiceFragment;
 import com.skytel.sdp.ui.TabSettingsFragment;
 import com.skytel.sdp.ui.TabSkyDealerFragment;
-import com.skytel.sdp.ui.registration.DealerRegistrationFragment;
 import com.skytel.sdp.ui.feedback.FeedbackFragment;
 import com.skytel.sdp.ui.information.InformationFragment;
 import com.skytel.sdp.ui.TabNewNumberFragment;
 import com.skytel.sdp.ui.plan.PlanFragment;
-import com.skytel.sdp.ui.settings.ChangePasswordFragment;
+import com.skytel.sdp.utils.ConfirmDialog;
 import com.skytel.sdp.utils.Constants;
+import com.skytel.sdp.utils.PrefManager;
 
-public class MainActivity extends AppCompatActivity {
+public class MainActivity extends AppCompatActivity implements ConfirmDialog.OnDialogConfirmListener {
     String TAG = MainActivity.class.getName();
 
     public static int currentMenu = Constants.MENU_NEWNUMBER;
@@ -39,6 +40,7 @@ public class MainActivity extends AppCompatActivity {
     private FragmentTransaction transaction;
     private Context context;
     private DataManager dataManager;
+    private PrefManager prefManager;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -47,6 +49,7 @@ public class MainActivity extends AppCompatActivity {
         context = this;
 
         dataManager = new DataManager(this);
+        prefManager = new PrefManager(this);
 
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
@@ -90,7 +93,11 @@ public class MainActivity extends AppCompatActivity {
 
                         break;
                     case Constants.MENU_LOGOUT:
-                        logoutDialog();
+                        //                   logoutDialog();
+                        DialogFragment newFragment = ConfirmDialog.newInstance(
+                                R.string.confirm,R.string.app_name);
+                        newFragment.show(getFragmentManager(), "dialog");
+
                         break;
                 }
                 currentMenu = position;
@@ -116,6 +123,7 @@ public class MainActivity extends AppCompatActivity {
                 .commit();
     }
 
+/*
     private void logoutDialog() {
         final Dialog dialog = new Dialog(context, R.style.MyAlertDialogStyle);
         dialog.setContentView(R.layout.dialog_confirm);
@@ -135,9 +143,22 @@ public class MainActivity extends AppCompatActivity {
         dialogYes.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                dialog.dismiss();
+                // User Logout here
             }
         });
+    }
+*/
+
+    @Override
+    public void onDialogConfirm() {
+        Toast.makeText(this, "Confirmed", Toast.LENGTH_LONG).show();
+
+        prefManager.setIsLoggedIn(false);
+        dataManager.resetCardTypes();
+
+        finish();
+        Intent intent = new Intent(context, LoginActivity.class);
+        startActivity(intent);
     }
 
     private class LongOperation extends AsyncTask<String, Void, Boolean> {
@@ -166,7 +187,7 @@ public class MainActivity extends AppCompatActivity {
                 Log.d(TAG, "AsyncTask Finished");
 
             } else {
-                  Toast.makeText(context, "Error!", Toast.LENGTH_LONG).show();
+                Toast.makeText(context, "Error!", Toast.LENGTH_LONG).show();
             }
         }
 
@@ -182,6 +203,4 @@ public class MainActivity extends AppCompatActivity {
         protected void onProgressUpdate(Void... values) {
         }
     }
-
-
 }

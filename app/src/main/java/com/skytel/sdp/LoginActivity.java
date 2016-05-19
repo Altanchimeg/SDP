@@ -12,6 +12,7 @@ import android.widget.Toast;
 
 import com.skytel.sdp.utils.Constants;
 import com.skytel.sdp.utils.PrefManager;
+import com.skytel.sdp.utils.ValidationChecker;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -44,6 +45,18 @@ public class LoginActivity extends Activity implements Constants {
         client = new OkHttpClient();
         prefManager = new PrefManager(this);
 
+/**
+ * If code is running on Debug
+ */
+
+if(DEBUG)
+{
+    Intent intent = new Intent(LoginActivity.this, MainActivity.class);
+    startActivity(intent);
+    finish();
+}
+
+
         if (prefManager.getIsLoggedIn()) {
             Intent intent = new Intent(LoginActivity.this, MainActivity.class);
             startActivity(intent);
@@ -58,8 +71,12 @@ public class LoginActivity extends Activity implements Constants {
             @Override
             public void onClick(View v) {
                 try {
-                    Toast.makeText(context, "Please wait", Toast.LENGTH_SHORT).show();
-                    runLoginFunction();
+                    if (ValidationChecker.isValidationPassed(mEtUserName) && ValidationChecker.isValidationPassed(mEtPassword)) {
+                        Toast.makeText(context, "Please wait", Toast.LENGTH_SHORT).show();
+                        runLoginFunction();
+                    } else {
+                        Toast.makeText(context, "Please fill the field!", Toast.LENGTH_SHORT).show();
+                    }
                 } catch (Exception e) {
                     e.printStackTrace();
                 }
@@ -133,14 +150,13 @@ public class LoginActivity extends Activity implements Constants {
                         Intent intent = new Intent(LoginActivity.this, MainActivity.class);
                         startActivity(intent);
                         finish();
-                    }
-                    else{
+                    } else {
                         String result_msg = jsonObj.getString("result_msg");
 
                         Log.d(TAG, "result_code " + result_code);
                         Log.d(TAG, "result_msg " + result_msg);
 
-                        
+
                     }
 
 
