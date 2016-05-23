@@ -145,6 +145,11 @@
 
     <string name="insert_search_number">Хайх дугаараа оруулна уу</string>
 
-
+    <!-- Forget Password -->
+    <string name="forget">Нууц үг мартсан?</string>
+    <string name="forget_hint">*Таны утасруу баталгаажуулах код очно</string>
+    <string name="recover">Нууц үг шинэчлэх</string>
+    <string name="confirm_code">Баталгаажуулах код</string>
+    <string name="new_pass">Шинэ нууц үг</string>
 
 </resources>

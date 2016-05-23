@@ -174,5 +174,10 @@ if(DEBUG)
             }
         });
     }
+    public void forgetPasswordView(View view){
+        Intent intent = new Intent(LoginActivity.this, ForgetPasswordActivity.class);
+        startActivity(intent);
+        finish();
+    }
 
 }

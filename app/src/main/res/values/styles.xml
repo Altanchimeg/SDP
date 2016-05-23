@@ -150,6 +150,10 @@
         <item name="android:textColor">@color/colorMenuText</item>
     </style>
 
+    <style name="MainViewTextViewWhite" parent="MainViewTextViewBlue">
+        <item name="android:textColor">@color/colorWhite</item>
+    </style>
+
     <style name="MainViewCenterBoxEditText" parent="EditTextStyle">
         <item name="android:layout_width">match_parent</item>
     </style>

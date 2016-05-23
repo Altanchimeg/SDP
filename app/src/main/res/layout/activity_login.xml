@@ -79,7 +79,8 @@
                 android:layout_height="wrap_content"
                 android:background="?android:attr/selectableItemBackground"
                 android:text="@string/btn_forget_password"
-                android:textColor="@color/colorGrey" />
+                android:textColor="@color/colorGrey"
+                android:onClick="forgetPasswordView"/>
         </LinearLayout>
     </LinearLayout>
 </LinearLayout>

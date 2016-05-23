@@ -249,11 +249,11 @@ public class PostPaidPaymentFragment extends Fragment {
                     JSONObject jsonObj = new JSONObject(resp);
                     int result_code = jsonObj.getInt("result_code");
                     String result_msg = jsonObj.getString("result_msg");
-                    String status = jsonObj.getString("status");
 
                     Log.d(TAG, "result_code " + result_code);
+                    Log.d(TAG, "result_mesage  " + result_msg);
 
-                    if (status == Constants.RESULT_STATUS_SUCCESS) {
+                    if (result_code == Constants.RESULT_CODE_SUCCESS) {
 
                         String dealer_id = jsonObj.getString("dealer_id");
                         String balance = jsonObj.getString("balance");
