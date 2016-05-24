@@ -75,6 +75,7 @@
 
     <!-- Settings Tabs-->
     <string name="tab_settings_changepassword">Нууц үг солих</string>
+    <string name="tab_settings_changepin">Пин код солих</string>
 
     <!-- Main View -->
 
@@ -156,5 +157,9 @@
     <string name="old_password">Хуучин нууц үг</string>
     <string name="new_password">Шинэ нууц үг</string>
     <string name="btn_change">Солих</string>
+
+    <!-- Change Pin -->
+    <string name="old_pin">Хуучин пин код</string>
+    <string name="new_pin">Шинэ пин код</string>
 
 </resources>

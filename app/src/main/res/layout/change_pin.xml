@@ -14,19 +14,19 @@
             android:orientation="vertical">
 
             <EditText
-                android:id="@+id/old_password"
+                android:id="@+id/old_pin"
                 style="@style/MainViewCenterBoxEditText"
-                android:hint="@string/old_password" />
+                android:hint="@string/old_pin" />
             <EditText
-                android:id="@+id/new_password"
+                android:id="@+id/new_pin"
                 style="@style/MainViewCenterBoxEditText"
-                android:hint="@string/new_password" />
+                android:hint="@string/new_pin" />
 
         </LinearLayout>
 
 
         <Button
-            android:id="@+id/btn_change_password"
+            android:id="@+id/btn_change_pin"
             style="@style/ButtonStyle"
             android:layout_margin="@dimen/main_padding"
             android:text="@string/btn_change" />

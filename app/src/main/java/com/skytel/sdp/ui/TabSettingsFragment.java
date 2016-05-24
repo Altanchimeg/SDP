@@ -12,7 +12,10 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.skytel.sdp.R;
+import com.skytel.sdp.ui.service.ServiceReportFragment;
+import com.skytel.sdp.ui.service.ValueAddedServiceFragment;
 import com.skytel.sdp.ui.settings.ChangePasswordFragment;
+import com.skytel.sdp.ui.settings.ChangePinFragment;
 import com.skytel.sdp.ui.skydealer.ChargeCardFragment;
 import com.skytel.sdp.ui.skydealer.PostPaidPaymentFragment;
 import com.skytel.sdp.ui.skydealer.SalesReportFragment;
@@ -45,6 +48,7 @@ public class TabSettingsFragment extends Fragment {
 
         TabLayout tabLayout = (TabLayout) rootView.findViewById(R.id.tab_view);
         tabLayout.addTab(tabLayout.newTab().setText(getText(R.string.tab_settings_changepassword)));
+        tabLayout.addTab(tabLayout.newTab().setText(getText(R.string.tab_settings_changepin)));
 
         tabLayout.setTabGravity(TabLayout.GRAVITY_FILL);
 
@@ -78,15 +82,19 @@ public class TabSettingsFragment extends Fragment {
 
         @Override
         public Fragment getItem(int i) {
-
-            Fragment fragment = new ChangePasswordFragment();
+            Fragment fragment;
+            if(i==0){
+                fragment = new ChangePasswordFragment();
+            } else {
+                fragment = new ChangePinFragment();
+            }
             return fragment;
         }
 
         @Override
         public int getCount() {
             // For this contrived example, we have a 100-object collection.
-            return 1;
+            return 2;
         }
 
         @Override

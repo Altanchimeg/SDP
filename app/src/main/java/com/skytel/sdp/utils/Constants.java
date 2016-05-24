@@ -30,6 +30,7 @@ public interface Constants {
     String FUNCTION_FORGET = "forget.json";
     String FUNCTION_RECOVER = "recover.json";
     String FUNCTION_CHANGE_PASSWORD = "changepass.json";
+    String FUNCTION_CHANGE_PIN = "changepin.json";
 
     int RESULT_CODE_SUCCESS = 0;
     String RESULT_STATUS_SUCCESS = "success";

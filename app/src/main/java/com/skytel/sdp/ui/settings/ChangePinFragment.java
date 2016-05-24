@@ -1,9 +1,8 @@
 package com.skytel.sdp.ui.settings;
 
-
+import android.support.v4.app.Fragment;
 import android.content.Context;
 import android.os.Bundle;
-import android.support.v4.app.Fragment;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -29,10 +28,13 @@ import okhttp3.OkHttpClient;
 import okhttp3.Request;
 import okhttp3.Response;
 
+/**
+ * Created by Altanchimeg on 5/24/2016.
+ */
 
-public class ChangePasswordFragment extends Fragment implements Constants{
+public class ChangePinFragment extends Fragment implements Constants {
 
-    String TAG = ChangePasswordFragment.class.getName();
+    String TAG = ChangePinFragment.class.getName();
 
     private OkHttpClient client;
     private Context mContext;
@@ -41,10 +43,10 @@ public class ChangePasswordFragment extends Fragment implements Constants{
 
     // UI Widgets
     private Button mChangeBtn;
-    private EditText mOldPassword;
-    private EditText mNewPassword;
+    private EditText mOldPin;
+    private EditText mNewPin;
 
-    public ChangePasswordFragment() {
+    public ChangePinFragment() {
 
     }
     @Override
@@ -55,16 +57,16 @@ public class ChangePasswordFragment extends Fragment implements Constants{
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        View rootView = inflater.inflate(R.layout.change_password, container, false);
+        View rootView = inflater.inflate(R.layout.change_pin, container, false);
 
         mContext = getActivity();
         mDataManager = new DataManager(mContext);
         client = new OkHttpClient();
         prefManager = new PrefManager(mContext);
 
-        mOldPassword = (EditText) rootView.findViewById(R.id.old_password);
-        mNewPassword = (EditText) rootView.findViewById(R.id.new_password);
-        mChangeBtn = (Button) rootView.findViewById(R.id.btn_change_password);
+        mOldPin = (EditText) rootView.findViewById(R.id.old_pin);
+        mNewPin = (EditText) rootView.findViewById(R.id.new_pin);
+        mChangeBtn = (Button) rootView.findViewById(R.id.btn_change_pin);
 
         mChangeBtn.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -83,8 +85,9 @@ public class ChangePasswordFragment extends Fragment implements Constants{
     public void runChangeFunction() throws Exception {
         final StringBuilder url = new StringBuilder();
         url.append(Constants.SERVER_URL);
-        url.append(Constants.FUNCTION_CHANGE_PASSWORD);
-        url.append("?newpass=" + mNewPassword.getText().toString());
+        url.append(Constants.FUNCTION_CHANGE_PIN);
+        url.append("?oldpin=" + mOldPin.getText().toString());
+        url.append("&newpin=" + mNewPin.getText().toString());
 
 
         getActivity().runOnUiThread(new Runnable() {
@@ -145,5 +148,4 @@ public class ChangePasswordFragment extends Fragment implements Constants{
             }
         });
     }
-
 }
