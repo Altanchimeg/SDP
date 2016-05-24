@@ -152,4 +152,9 @@
     <string name="confirm_code">Баталгаажуулах код</string>
     <string name="new_pass">Шинэ нууц үг</string>
 
+    <!-- Change Password -->
+    <string name="old_password">Хуучин нууц үг</string>
+    <string name="new_password">Шинэ нууц үг</string>
+    <string name="btn_change">Солих</string>
+
 </resources>

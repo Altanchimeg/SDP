@@ -45,7 +45,7 @@ public class TabSkyDealerFragment extends Fragment {
         TabLayout tabLayout = (TabLayout) rootView.findViewById(R.id.tab_view);
         tabLayout.addTab(tabLayout.newTab().setText(getText(R.string.tab_skydealer_chargecard)));
         tabLayout.addTab(tabLayout.newTab().setText(getText(R.string.tab_skydealer_postpaidpayment)));
-        tabLayout.addTab(tabLayout.newTab().setText(getText(R.string.tab_skydealer_skymediapayment)));
+       // tabLayout.addTab(tabLayout.newTab().setText(getText(R.string.tab_skydealer_skymediapayment)));
         tabLayout.addTab(tabLayout.newTab().setText(getText(R.string.tab_skydealer_report)));
 
         tabLayout.setTabGravity(TabLayout.GRAVITY_FILL);

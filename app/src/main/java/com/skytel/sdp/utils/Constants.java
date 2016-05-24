@@ -29,6 +29,7 @@ public interface Constants {
     String FUNCTION_DO_PAYMENT = "dopayment.json";
     String FUNCTION_FORGET = "forget.json";
     String FUNCTION_RECOVER = "recover.json";
+    String FUNCTION_CHANGE_PASSWORD = "changepass.json";
 
     int RESULT_CODE_SUCCESS = 0;
     String RESULT_STATUS_SUCCESS = "success";
