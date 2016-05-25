@@ -86,9 +86,9 @@ public class TabSkyDealerFragment extends Fragment {
                 fragment = new ChargeCardFragment();
             } else if(i==1){
                 fragment = new PostPaidPaymentFragment();
-            } else if(i==2){
+            } /*else if(i==2){
                 fragment = new SkymediaPaymentFragment();
-            } else {
+            }*/ else {
                 fragment = new SalesReportFragment();
             }
             return fragment;
@@ -97,7 +97,7 @@ public class TabSkyDealerFragment extends Fragment {
         @Override
         public int getCount() {
             // For this contrived example, we have a 100-object collection.
-            return 4;
+            return 3;
         }
 
         @Override

@@ -31,6 +31,7 @@ public interface Constants {
     String FUNCTION_RECOVER = "recover.json";
     String FUNCTION_CHANGE_PASSWORD = "changepass.json";
     String FUNCTION_CHANGE_PIN = "changepin.json";
+    String FUNCTION_DEALER_REPORT = "dealerreport.json";
 
     int RESULT_CODE_SUCCESS = 0;
     String RESULT_STATUS_SUCCESS = "success";
@@ -39,6 +40,10 @@ public interface Constants {
     int CONST_SKYTEL_NODAY_PACKAGE = 1;
     int CONST_SKYTEL_DAY_PACKAGE = 2;
     int CONST_SMART_PACKAGE = 3;
+
+    String REPORT_DEALER_CHARGECARD_TYPE = "card";
+    String REPORT_DEALER_POSTPAIDPAYMENT_TYPE = "settle";
+    String REPORT_DEALER_SKYMEDIAPAYMENT_TYPE = "skymedia";
 
     boolean DEBUG = false;
 
