@@ -32,6 +32,8 @@ public interface Constants {
     String FUNCTION_CHANGE_PASSWORD = "changepass.json";
     String FUNCTION_CHANGE_PIN = "changepin.json";
     String FUNCTION_DEALER_REPORT = "dealerreport.json";
+    String FUNCTION_SEND_FEEDBACK = "newcomment.json";
+    String FUNCTION_PROFILE_INFO = "dealerinfo.json";
 
     int RESULT_CODE_SUCCESS = 0;
     String RESULT_STATUS_SUCCESS = "success";

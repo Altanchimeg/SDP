@@ -37,6 +37,11 @@ public class LoginActivity extends Activity implements Constants {
     private EditText mEtPassword;
     private PrefManager prefManager;
 
+    public static String dealer_name = "";
+    public static float dealer_balance = 0;
+    public static String zone_name = "";
+
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -178,6 +183,85 @@ if(DEBUG)
         Intent intent = new Intent(LoginActivity.this, ForgetPasswordActivity.class);
         startActivity(intent);
         finish();
+    }
+
+    public void runProfileFunction() throws Exception {
+        StringBuilder url = new StringBuilder();
+        url.append(SERVER_URL);
+        url.append(FUNCTION_PROFILE_INFO);
+
+        System.out.print(url + "\n");
+
+        Request request = new Request.Builder()
+                .url(url.toString())
+                .addHeader("AUTH_TOKEN", prefManager.getAuthToken(Constants.PREF_AUTH_TOKEN))
+                .build();
+
+        client.newCall(request).enqueue(new Callback() {
+            @Override
+            public void onFailure(Call call, IOException e) {
+                //       progressDialog.dismiss();
+                System.out.println("onFailure");
+                e.printStackTrace();
+                runOnUiThread(new Runnable() {
+                    @Override
+                    public void run() {
+                        //     progressDialog.dismiss();
+                        Toast.makeText(context, "Error on Failure!", Toast.LENGTH_LONG).show();
+                        // Used for debug
+//                        PrefManager.getSessionInstance().setIsLoggedIn(true);
+//                        Intent intent = new Intent(LoginActivity.this, MainActivity.class);
+//                        startActivity(intent);
+//                        finish();
+
+                    }
+                });
+            }
+
+            @Override
+            public void onResponse(Call call, Response response) throws IOException {
+                System.out.println("onResponse");
+
+                if (!response.isSuccessful()) throw new IOException("Unexpected code " + response);
+
+                Headers responseHeaders = response.headers();
+                for (int i = 0; i < responseHeaders.size(); i++) {
+                    System.out.println(responseHeaders.name(i) + ": " + responseHeaders.value(i));
+                }
+
+                String resp = response.body().string();
+                System.out.println("resp " + resp);
+
+                try {
+                    JSONObject jsonObj = new JSONObject(resp);
+                    int result_code = jsonObj.getInt("result_code");
+
+
+                    if (result_code == RESULT_CODE_SUCCESS) {
+
+                    } else {
+                        String result_msg = jsonObj.getString("result_msg");
+
+                        Log.d(TAG, "result_code " + result_code);
+                        Log.d(TAG, "result_msg " + result_msg);
+
+
+                    }
+
+
+                    runOnUiThread(new Runnable() {
+                        @Override
+                        public void run() {
+
+                        }
+                    });
+
+
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
+            }
+        });
     }
 
 }
