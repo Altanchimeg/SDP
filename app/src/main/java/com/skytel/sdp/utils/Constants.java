@@ -47,6 +47,4 @@ public interface Constants {
     String REPORT_DEALER_POSTPAIDPAYMENT_TYPE = "settle";
     String REPORT_DEALER_SKYMEDIAPAYMENT_TYPE = "skymedia";
 
-    boolean DEBUG = false;
-
 }

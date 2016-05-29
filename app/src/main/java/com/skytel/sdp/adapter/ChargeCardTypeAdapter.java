@@ -28,6 +28,7 @@ public class ChargeCardTypeAdapter extends BaseAdapter implements Constants {
         this.context = context;
         dataManager = new DataManager(context);
         mList = dataManager.getCardTypeByPackageType(packageTypeEnum);
+
         mInflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
     }
 

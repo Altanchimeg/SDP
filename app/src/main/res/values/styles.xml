@@ -90,6 +90,8 @@
         <item name="android:textColor">@color/colorRightViewTextColor</item>
         <item name="android:textSize">@dimen/mainFontSize</item>
         <item name="android:padding">@dimen/main_padding</item>
+        <item name="android:phoneNumber">true</item>
+        <item name="android:maxLength">8</item>
     </style>
 
     <style name="LoginEditTextStyle">
@@ -218,4 +220,14 @@
         <item name="android:layout_marginTop">@dimen/main_padding</item>
         <item name="android:lines">8</item>
     </style>
+
+    <style name="full_screen_dialog">
+        <item name="android:windowFrame">@null</item>
+        <item name="android:windowIsFloating">true</item>
+        <item name="android:windowContentOverlay">@null</item>
+        <item name="android:windowAnimationStyle">@android:style/Animation.Dialog</item>
+        <item name="android:windowSoftInputMode">stateUnspecified|adjustPan</item>
+        <item name="android:windowBackground">@android:color/transparent</item>
+    </style>
+
 </resources>

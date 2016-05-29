@@ -3,9 +3,9 @@ package com.skytel.sdp.ui;
 
 import android.os.Bundle;
 import android.support.design.widget.TabLayout;
-import android.support.v4.app.Fragment;
-import android.support.v4.app.FragmentManager;
-import android.support.v4.app.FragmentStatePagerAdapter;
+import android.app.Fragment;
+import android.app.FragmentManager;
+import android.support.v13.app.FragmentStatePagerAdapter;
 import android.support.v4.view.ViewPager;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -39,7 +39,7 @@ public class TabServiceFragment extends Fragment {
 
         View rootView = inflater.inflate(R.layout.fragment_tab_pager, container, false);
 
-        fragmentPagerAdapter = new FragmentPagerAdapter(getActivity().getSupportFragmentManager());
+        fragmentPagerAdapter = new FragmentPagerAdapter(getActivity().getFragmentManager());
 
         // Set up the ViewPager, attaching the adapter.
         mViewPager = (ViewPager) rootView.findViewById(R.id.pager_view);

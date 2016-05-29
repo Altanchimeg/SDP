@@ -3,7 +3,7 @@ package com.skytel.sdp.ui.skydealer;
 
 import android.content.Context;
 import android.os.Bundle;
-import android.support.v4.app.Fragment;
+import android.app.Fragment;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -42,6 +42,7 @@ public class SalesReportFragment extends Fragment implements Constants {
     public SalesReportFragment() {
 
     }
+
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -50,7 +51,7 @@ public class SalesReportFragment extends Fragment implements Constants {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-       View rootView = inflater.inflate(R.layout.skydealer_report, container, false);
+        View rootView = inflater.inflate(R.layout.skydealer_report, container, false);
 
 
         mContext = getActivity();
@@ -97,14 +98,19 @@ public class SalesReportFragment extends Fragment implements Constants {
                 //       progressDialog.dismiss();
                 System.out.println("onFailure");
                 e.printStackTrace();
-                getActivity().runOnUiThread(new Runnable() {
-                    @Override
-                    public void run() {
-                        //     progressDialog.dismiss();
-                        Toast.makeText(mContext, "Error on Failure!", Toast.LENGTH_LONG).show();
-                        // Used for debug
-                    }
-                });
+                try {
+                    getActivity().runOnUiThread(new Runnable() {
+                        @Override
+                        public void run() {
+                            //     progressDialog.dismiss();
+                            Toast.makeText(mContext, "Error on Failure!", Toast.LENGTH_LONG).show();
+                            // Used for debug
+                        }
+                    });
+                } catch (Exception ex) {
+                    ex.printStackTrace();
+                }
+
             }
 
             @Override
@@ -127,14 +133,14 @@ public class SalesReportFragment extends Fragment implements Constants {
                     String result_msg = jsonObj.getString("result_msg");
                     String dealer_id = jsonObj.getString("dealer_id");
 
-                    Log.d(TAG, "result_code: "+result_code);
-                    Log.d(TAG, "result_msg: "+result_msg);
-                    Log.d(TAG, "dealer_id: "+dealer_id);
+                    Log.d(TAG, "result_code: " + result_code);
+                    Log.d(TAG, "result_msg: " + result_msg);
+                    Log.d(TAG, "dealer_id: " + dealer_id);
 
                     JSONArray jArray = jsonObj.getJSONArray("transactions");
 
                     Log.d(TAG, "*****JARRAY*****" + jArray.length());
-                    for(int i=0;i<5;i++) {
+                    for (int i = 0; i < 5; i++) {
                         JSONObject jsonData = jArray.getJSONObject(i);
 
                         String date = jsonData.getString("date");
@@ -143,18 +149,16 @@ public class SalesReportFragment extends Fragment implements Constants {
                         String value = jsonData.getString("value");
                         String phone = jsonData.getString("phone");
 
-                        Log.d(TAG, "INDEX:       "+i);
+                        Log.d(TAG, "INDEX:       " + i);
 
-                        Log.d(TAG, "date: "+date);
-                        Log.d(TAG, "success: "+success);
-                        Log.d(TAG, "type: "+type);
-                        Log.d(TAG, "value: "+value);
-                        Log.d(TAG, "phone: "+phone);
+                        Log.d(TAG, "date: " + date);
+                        Log.d(TAG, "success: " + success);
+                        Log.d(TAG, "type: " + type);
+                        Log.d(TAG, "value: " + value);
+                        Log.d(TAG, "phone: " + phone);
 
 
                     }
-
-
 
 
                 } catch (JSONException e) {

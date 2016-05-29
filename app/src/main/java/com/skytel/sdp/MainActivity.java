@@ -5,8 +5,8 @@ import android.app.DialogFragment;
 import android.content.Context;
 import android.content.Intent;
 import android.os.AsyncTask;
-import android.support.v4.app.Fragment;
-import android.support.v4.app.FragmentTransaction;
+import android.app.Fragment;
+import android.app.FragmentTransaction;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
@@ -94,9 +94,15 @@ public class MainActivity extends AppCompatActivity implements ConfirmDialog.OnD
                         break;
                     case Constants.MENU_LOGOUT:
                         //                   logoutDialog();
-                        DialogFragment newFragment = ConfirmDialog.newInstance(
-                                R.string.confirm,R.string.app_name);
-                        newFragment.show(getFragmentManager(), "dialog");
+                        ConfirmDialog confirmDialog = new ConfirmDialog();
+                        Bundle args = new Bundle();
+                        args.putInt("message", R.string.confirm);
+                        args.putInt("title", R.string.confirm);
+
+                        confirmDialog.setArguments(args);
+//                        confirmDialog.registerCallback(dalogConfirmListener);
+                        confirmDialog.show(getFragmentManager(), "dialog");
+
 
                         break;
                 }
@@ -116,8 +122,8 @@ public class MainActivity extends AppCompatActivity implements ConfirmDialog.OnD
     }
 
     private void changeMenu(Fragment fragment) {
-        transaction = getSupportFragmentManager().beginTransaction();
-        transaction.setCustomAnimations(R.anim.enter, R.anim.exit, R.anim.pop_enter, R.anim.pop_exit);
+        transaction = getFragmentManager().beginTransaction();
+//        transaction.setCustomAnimations(R.anim.enter, R.anim.exit, R.anim.pop_enter, R.anim.pop_exit);
         transaction
                 .replace(R.id.main_detail_container, fragment)
                 .commit();
@@ -150,7 +156,7 @@ public class MainActivity extends AppCompatActivity implements ConfirmDialog.OnD
 */
 
     @Override
-    public void onDialogConfirm() {
+    public void onPositiveButton() {
         Toast.makeText(this, "Confirmed", Toast.LENGTH_LONG).show();
 
         prefManager.setIsLoggedIn(false);
@@ -159,6 +165,11 @@ public class MainActivity extends AppCompatActivity implements ConfirmDialog.OnD
         finish();
         Intent intent = new Intent(context, LoginActivity.class);
         startActivity(intent);
+    }
+
+    @Override
+    public void onNegativeButton() {
+
     }
 
     private class LongOperation extends AsyncTask<String, Void, Boolean> {

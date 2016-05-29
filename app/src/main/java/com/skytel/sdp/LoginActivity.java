@@ -11,6 +11,7 @@ import android.widget.EditText;
 import android.widget.Toast;
 
 import com.skytel.sdp.utils.Constants;
+import com.skytel.sdp.utils.CustomProgressDialog;
 import com.skytel.sdp.utils.PrefManager;
 import com.skytel.sdp.utils.ValidationChecker;
 
@@ -41,6 +42,7 @@ public class LoginActivity extends Activity implements Constants {
     public static float dealer_balance = 0;
     public static String zone_name = "";
 
+    private CustomProgressDialog progressDialog;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -49,17 +51,17 @@ public class LoginActivity extends Activity implements Constants {
         this.context = this;
         client = new OkHttpClient();
         prefManager = new PrefManager(this);
+        progressDialog = new CustomProgressDialog(this);
 
 /**
  * If code is running on Debug
  */
 
-if(DEBUG)
-{
-    Intent intent = new Intent(LoginActivity.this, MainActivity.class);
-    startActivity(intent);
-    finish();
-}
+
+            Intent i = new Intent(LoginActivity.this, MainActivity.class);
+            startActivity(i);
+            finish();
+
 
 
         if (prefManager.getIsLoggedIn()) {
@@ -77,8 +79,9 @@ if(DEBUG)
             public void onClick(View v) {
                 try {
                     if (ValidationChecker.isValidationPassed(mEtUserName) && ValidationChecker.isValidationPassed(mEtPassword)) {
-                        Toast.makeText(context, "Please wait", Toast.LENGTH_SHORT).show();
+//                        Toast.makeText(context, "Please wait", Toast.LENGTH_SHORT).show();
                         runLoginFunction();
+                        progressDialog.show();
                     } else {
                         Toast.makeText(context, "Please fill the field!", Toast.LENGTH_SHORT).show();
                     }
@@ -106,7 +109,7 @@ if(DEBUG)
         client.newCall(request).enqueue(new Callback() {
             @Override
             public void onFailure(Call call, IOException e) {
-                //       progressDialog.dismiss();
+                progressDialog.dismiss();
                 System.out.println("onFailure");
                 e.printStackTrace();
                 runOnUiThread(new Runnable() {
@@ -126,6 +129,8 @@ if(DEBUG)
 
             @Override
             public void onResponse(Call call, Response response) throws IOException {
+                progressDialog.dismiss();
+
                 System.out.println("onResponse");
 
                 if (!response.isSuccessful()) throw new IOException("Unexpected code " + response);
@@ -179,7 +184,8 @@ if(DEBUG)
             }
         });
     }
-    public void forgetPasswordView(View view){
+
+    public void forgetPasswordView(View view) {
         Intent intent = new Intent(LoginActivity.this, ForgetPasswordActivity.class);
         startActivity(intent);
         finish();

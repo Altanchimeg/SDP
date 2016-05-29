@@ -33,6 +33,7 @@
     <string name="sim_card_serial">Сим карт сериал</string>
     <string name="description_order">Захиалгатай холбоотой тайлбар</string>
     <string name="get_code">Код авах</string>
+    <string name="please_wait">Түр хүлээнэ үү</string>
 
     <!-- Dialog -->
     <string name="dialog_confirm">Та энэ захиалгыг баталгаажуулах уу</string>

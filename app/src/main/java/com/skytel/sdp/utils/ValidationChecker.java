@@ -9,6 +9,7 @@ public class ValidationChecker {
     public static boolean isValidationPassed(EditText editText) {
         String userInput = editText.getText().toString();
         if (userInput.isEmpty()) {
+
             return false;
         }
         return true;

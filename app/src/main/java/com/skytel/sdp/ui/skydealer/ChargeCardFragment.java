@@ -1,13 +1,9 @@
 package com.skytel.sdp.ui.skydealer;
 
 
+import android.app.Fragment;
 import android.content.Context;
-import android.content.Intent;
 import android.os.Bundle;
-import android.support.v4.app.Fragment;
-import android.support.v7.widget.DefaultItemAnimator;
-import android.support.v7.widget.LinearLayoutManager;
-import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -18,17 +14,18 @@ import android.widget.EditText;
 import android.widget.ListView;
 import android.widget.Toast;
 
-import com.skytel.sdp.MainActivity;
 import com.skytel.sdp.R;
 import com.skytel.sdp.adapter.ChargeCardPackageTypeAdapter;
 import com.skytel.sdp.adapter.ChargeCardTypeAdapter;
 import com.skytel.sdp.database.DataManager;
 import com.skytel.sdp.entities.CardType;
 import com.skytel.sdp.enums.PackageTypeEnum;
+import com.skytel.sdp.utils.ConfirmDialog;
 import com.skytel.sdp.utils.Constants;
+import com.skytel.sdp.utils.CustomProgressDialog;
 import com.skytel.sdp.utils.PrefManager;
+import com.skytel.sdp.utils.ValidationChecker;
 
-import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
@@ -62,6 +59,10 @@ public class ChargeCardFragment extends Fragment {
 
     private PrefManager prefManager;
 
+    private ConfirmDialog confirmDialog;
+
+    private CustomProgressDialog progressDialog;
+
     public ChargeCardFragment() {
     }
 
@@ -69,6 +70,14 @@ public class ChargeCardFragment extends Fragment {
     public void onCreate(Bundle savedInstanceState) {
 
         super.onCreate(savedInstanceState);
+        confirmDialog = new ConfirmDialog();
+        Bundle args = new Bundle();
+        args.putInt("message", R.string.confirm);
+        args.putInt("title", R.string.confirm);
+
+        confirmDialog.setArguments(args);
+        confirmDialog.registerCallback(dalogConfirmListener);
+        progressDialog = new CustomProgressDialog(getActivity());
 
     }
 
@@ -122,10 +131,10 @@ public class ChargeCardFragment extends Fragment {
         mChargeCardOrderBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                try {
-                    runChargeFunction();
-                } catch (Exception e) {
-                    e.printStackTrace();
+                if (ValidationChecker.isValidationPassed(mChargeCardPhoneNumber) && ValidationChecker.isValidationPassed(mChargeCardPinCode)) {
+                    confirmDialog.show(getFragmentManager(), "dialog");
+                } else {
+                    Toast.makeText(getActivity(), "Please fill the field!", Toast.LENGTH_SHORT).show();
                 }
             }
         });
@@ -154,23 +163,22 @@ public class ChargeCardFragment extends Fragment {
         });
 
         System.out.print(url + "\n");
-        System.out.println(prefManager.getAuthToken(Constants.PREF_AUTH_TOKEN)+"");
+        System.out.println(prefManager.getAuthToken(Constants.PREF_AUTH_TOKEN) + "");
 
         Request request = new Request.Builder()
                 .url(url.toString())
-                .addHeader("AUTH_TOKEN",prefManager.getAuthToken(Constants.PREF_AUTH_TOKEN))
+                .addHeader("AUTH_TOKEN", prefManager.getAuthToken(Constants.PREF_AUTH_TOKEN))
                 .build();
 
         client.newCall(request).enqueue(new Callback() {
             @Override
             public void onFailure(Call call, IOException e) {
-                //       progressDialog.dismiss();
+                progressDialog.dismiss();
                 System.out.println("onFailure");
                 e.printStackTrace();
                 getActivity().runOnUiThread(new Runnable() {
                     @Override
                     public void run() {
-                        //     progressDialog.dismiss();
                         Toast.makeText(mContext, "Error on Failure!", Toast.LENGTH_LONG).show();
                         // Used for debug
                     }
@@ -179,6 +187,8 @@ public class ChargeCardFragment extends Fragment {
 
             @Override
             public void onResponse(Call call, Response response) throws IOException {
+                progressDialog.dismiss();
+
                 System.out.println("onResponse");
 
                 if (!response.isSuccessful()) throw new IOException("Unexpected code " + response);
@@ -193,34 +203,73 @@ public class ChargeCardFragment extends Fragment {
 
                 try {
                     JSONObject jsonObj = new JSONObject(resp);
-                        int result_code = jsonObj.getInt("result_code");
+                    int result_code = jsonObj.getInt("result_code");
 
-                        Log.d(TAG, "result_code " + result_code);
+                    Log.d(TAG, "result_code " + result_code);
 
-                        if (result_code == Constants.RESULT_CODE_SUCCESS) {
+                    if (result_code == Constants.RESULT_CODE_SUCCESS) {
 
-                            String dealer_id = jsonObj.getString("dealer_id");
-                            String balance = jsonObj.getString("balance");
+                        String dealer_id = jsonObj.getString("dealer_id");
+                        String balance = jsonObj.getString("balance");
 
-                            Log.d(TAG, "dealer_id " + dealer_id);
-                            Log.d(TAG, "balance " + balance);
+                        Log.d(TAG, "dealer_id " + dealer_id);
+                        Log.d(TAG, "balance " + balance);
 
-                            Log.d(TAG,"Show the success message to user");
-
+                        Log.d(TAG, "Show the success message to user");
+                        try {
+                            getActivity().runOnUiThread(new Runnable() {
+                                @Override
+                                public void run() {
+                                    Toast.makeText(mContext, "Success!", Toast.LENGTH_LONG).show();
+                                    mChargeCardPhoneNumber.setText("");
+                                    mChargeCardPinCode.setText("");
+                                }
+                            });
+                        } catch (Exception ex) {
+                            ex.printStackTrace();
                         }
-                        else{
 
-                            String result_msg = jsonObj.getString("result_msg");
+                    } else {
 
-                            Log.d(TAG, "result_msg " + result_msg);
-                        }
+                        String result_msg = jsonObj.getString("result_msg");
+
+                        Log.d(TAG, "result_msg " + result_msg);
+                    }
 
 
                 } catch (JSONException e) {
                     e.printStackTrace();
+
                 }
             }
         });
+    }
+
+    private ConfirmDialog.OnDialogConfirmListener dalogConfirmListener = new ConfirmDialog.OnDialogConfirmListener() {
+
+        @Override
+        public void onPositiveButton() {
+            try {
+                progressDialog.show();
+                runChargeFunction();
+            } catch (Exception e) {
+                Log.e(TAG, e.getMessage());
+                progressDialog.dismiss();
+                Toast.makeText(mContext, "Error on Failure!", Toast.LENGTH_LONG).show();
+            }
+        }
+
+        @Override
+        public void onNegativeButton() {
+
+        }
+    };
+
+    @Override
+    public void onPause() {
+        super.onPause();
+        mChargeCardPhoneNumber.setText("");
+        mChargeCardPinCode.setText("");
     }
 
 }
