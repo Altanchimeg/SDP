@@ -13,8 +13,11 @@ import android.widget.Toast;
 
 import com.skytel.sdp.R;
 import com.skytel.sdp.database.DataManager;
+import com.skytel.sdp.utils.ConfirmDialog;
 import com.skytel.sdp.utils.Constants;
+import com.skytel.sdp.utils.CustomProgressDialog;
 import com.skytel.sdp.utils.PrefManager;
+import com.skytel.sdp.utils.ValidationChecker;
 
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -46,6 +49,8 @@ public class ChangePinFragment extends Fragment implements Constants {
     private EditText mOldPin;
     private EditText mNewPin;
 
+    private CustomProgressDialog progressDialog;
+
     public ChangePinFragment() {
 
     }
@@ -63,6 +68,7 @@ public class ChangePinFragment extends Fragment implements Constants {
         mDataManager = new DataManager(mContext);
         client = new OkHttpClient();
         prefManager = new PrefManager(mContext);
+        progressDialog = new CustomProgressDialog(mContext);
 
         mOldPin = (EditText) rootView.findViewById(R.id.old_pin);
         mNewPin = (EditText) rootView.findViewById(R.id.new_pin);
@@ -72,7 +78,23 @@ public class ChangePinFragment extends Fragment implements Constants {
             @Override
             public void onClick(View v) {
                 try {
-                    runChangeFunction();
+                    if (ValidationChecker.isValidationPassed(mOldPin) && ValidationChecker.isValidationPassed(mNewPin)) {
+                        Toast.makeText(mContext, "Please wait", Toast.LENGTH_SHORT).show();
+
+                        ConfirmDialog confirmDialog = new ConfirmDialog();
+                        Bundle args = new Bundle();
+                        args.putInt("message", R.string.confirm);
+                        args.putInt("title", R.string.confirm);
+
+                        confirmDialog.setArguments(args);
+                        confirmDialog.registerCallback(dialogConfirmListener);
+                        confirmDialog.show(getFragmentManager(), "dialog");
+
+
+                    } else {
+                        Toast.makeText(mContext, "Please fill the field!", Toast.LENGTH_SHORT).show();
+                    }
+
                 } catch (Exception e) {
                     e.printStackTrace();
                 }
@@ -108,7 +130,7 @@ public class ChangePinFragment extends Fragment implements Constants {
         client.newCall(request).enqueue(new Callback() {
             @Override
             public void onFailure(Call call, IOException e) {
-                //       progressDialog.dismiss();
+                progressDialog.dismiss();
                 System.out.println("onFailure");
                 e.printStackTrace();
                 getActivity().runOnUiThread(new Runnable() {
@@ -123,6 +145,7 @@ public class ChangePinFragment extends Fragment implements Constants {
 
             @Override
             public void onResponse(Call call, Response response) throws IOException {
+                progressDialog.dismiss();
                 System.out.println("onResponse");
 
                 if (!response.isSuccessful()) throw new IOException("Unexpected code " + response);
@@ -138,9 +161,37 @@ public class ChangePinFragment extends Fragment implements Constants {
                 try {
                     JSONObject jsonObj = new JSONObject(resp);
                     int result_code = jsonObj.getInt("result_code");
-                    String result_msg = jsonObj.getString("result_msg");
+                    final String result_msg = jsonObj.getString("result_msg");
                     Log.d(TAG, "result_code " + result_code);
                     Log.d(TAG,"result_msg " + result_msg);
+
+                    if(result_code == RESULT_CODE_SUCCESS){
+                        getActivity().runOnUiThread(new Runnable() {
+                            @Override
+                            public void run() {
+                                Toast.makeText(mContext, "SUCCESSFUL!", Toast.LENGTH_LONG).show();
+
+                            }
+                        });
+                    }
+                    else{
+                        getActivity().runOnUiThread(new Runnable() {
+                            @Override
+                            public void run() {
+                                Toast.makeText(mContext, ""+result_msg, Toast.LENGTH_LONG).show();
+
+                            }
+                        });
+                    }
+                    getActivity().runOnUiThread(new Runnable() {
+                        @Override
+                        public void run() {
+                            mNewPin.setText("");
+                            mOldPin.setText("");
+
+                        }
+                    });
+
 
                 } catch (JSONException e) {
                     e.printStackTrace();
@@ -148,4 +199,24 @@ public class ChangePinFragment extends Fragment implements Constants {
             }
         });
     }
+
+    private ConfirmDialog.OnDialogConfirmListener dialogConfirmListener = new ConfirmDialog.OnDialogConfirmListener() {
+
+        @Override
+        public void onPositiveButton() {
+            //  Toast.makeText(this, "Confirmed", Toast.LENGTH_LONG).show();
+            try {
+                runChangeFunction();
+                progressDialog.show();
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+        }
+
+        @Override
+        public void onNegativeButton() {
+
+        }
+    };
+
 }

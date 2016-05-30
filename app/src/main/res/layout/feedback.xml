@@ -27,7 +27,7 @@
 
         <EditText
             android:id="@+id/et_user_phonenumber"
-            style="@style/MainViewCenterBoxEditText"
+            style="@style/PhoneNumberEdittextStyle"
             android:hint="@string/text_user_phonenumber" />
 
         <EditText
@@ -35,7 +35,7 @@
             style="@style/TextAreaStyle"
             android:gravity="top|left"
             android:hint="@string/text_write_voice"
-            android:transitionName="@string/text_write_voice" />
+/>
 
 
         <Button

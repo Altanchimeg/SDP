@@ -13,6 +13,7 @@ import android.widget.Toast;
 import com.skytel.sdp.R;
 import com.skytel.sdp.database.DataManager;
 import com.skytel.sdp.utils.Constants;
+import com.skytel.sdp.utils.CustomProgressDialog;
 import com.skytel.sdp.utils.PrefManager;
 
 import org.json.JSONArray;
@@ -32,12 +33,14 @@ import okhttp3.Response;
 public class SalesReportFragment extends Fragment implements Constants {
 
 
-    String TAG = PostPaidPaymentFragment.class.getName();
+    String TAG = SalesReportFragment.class.getName();
 
     private OkHttpClient client;
     private Context mContext;
     private DataManager mDataManager;
     private PrefManager prefManager;
+
+    private CustomProgressDialog progressDialog;
 
     public SalesReportFragment() {
 
@@ -58,24 +61,27 @@ public class SalesReportFragment extends Fragment implements Constants {
         mDataManager = new DataManager(mContext);
         client = new OkHttpClient();
         prefManager = new PrefManager(mContext);
-
+        progressDialog = new CustomProgressDialog(getActivity());
+/*
         try {
-            runChargeCardReportFunction();
+            progressDialog.show();
+            String report_type = REPORT_DEALER_POSTPAIDPAYMENT_TYPE;
+            runChargeCardReportFunction(report_type);
         } catch (Exception e) {
             e.printStackTrace();
         }
-
+*/
         return rootView;
     }
 
-    public void runChargeCardReportFunction() throws Exception {
+    public void runChargeCardReportFunction(String report_type) throws Exception {
         final StringBuilder url = new StringBuilder();
         url.append(Constants.SERVER_URL);
         url.append(Constants.FUNCTION_DEALER_REPORT);
-        url.append("?trans_type=" + REPORT_DEALER_CHARGECARD_TYPE);
+        url.append("?trans_type=" + report_type);
         url.append("&len=" + 10);
         url.append("&from=" + 0);
-        url.append("&is_success=" + "null");
+        url.append("&is_success=" + true);
 
         getActivity().runOnUiThread(new Runnable() {
             @Override
@@ -95,7 +101,7 @@ public class SalesReportFragment extends Fragment implements Constants {
         client.newCall(request).enqueue(new Callback() {
             @Override
             public void onFailure(Call call, IOException e) {
-                //       progressDialog.dismiss();
+                progressDialog.dismiss();
                 System.out.println("onFailure");
                 e.printStackTrace();
                 try {
@@ -115,6 +121,7 @@ public class SalesReportFragment extends Fragment implements Constants {
 
             @Override
             public void onResponse(Call call, Response response) throws IOException {
+                progressDialog.dismiss();
                 System.out.println("onResponse");
 
                 if (!response.isSuccessful()) throw new IOException("Unexpected code " + response);
@@ -167,5 +174,6 @@ public class SalesReportFragment extends Fragment implements Constants {
             }
         });
     }
+
 
 }

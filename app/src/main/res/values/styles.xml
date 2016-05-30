@@ -90,8 +90,7 @@
         <item name="android:textColor">@color/colorRightViewTextColor</item>
         <item name="android:textSize">@dimen/mainFontSize</item>
         <item name="android:padding">@dimen/main_padding</item>
-        <item name="android:phoneNumber">true</item>
-        <item name="android:maxLength">8</item>
+
     </style>
 
     <style name="LoginEditTextStyle">
@@ -159,7 +158,10 @@
     <style name="MainViewCenterBoxEditText" parent="EditTextStyle">
         <item name="android:layout_width">match_parent</item>
     </style>
-
+    <style name="PhoneNumberEdittextStyle" parent="MainViewCenterBoxEditText">
+    <item name="android:phoneNumber">true</item>
+    <item name="android:maxLength">8</item>
+    </style>
     <!-- Right View -->
     <style name="RightViewContainer">
         <item name="android:layout_width">@dimen/rightview_width</item>

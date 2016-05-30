@@ -73,12 +73,12 @@
 
                 <EditText
                     android:id="@+id/charge_card_phone_number"
-                    style="@style/EditTextStyle"
+                    style="@style/PhoneNumberEdittextStyle"
                     android:hint="@string/phone_number" />
 
                 <EditText
                     android:id="@+id/charge_card_pin_code"
-                    style="@style/EditTextStyle"
+                    style="@style/MainViewCenterBoxEditText"
                     android:hint="@string/pin_code" />
 
             </LinearLayout>

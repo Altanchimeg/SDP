@@ -28,11 +28,12 @@
                 android:orientation="vertical">
 
                 <TextView
+                    android:id="@+id/dealer_name"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center_horizontal"
                     android:paddingTop="20dp"
-                    android:text="Сайн уу, Алтанчимэг"
+                    android:text="@string/dealer_name"
                     android:textColor="@android:color/white" />
 
                 <LinearLayout
@@ -49,12 +50,14 @@
                         android:orientation="vertical">
 
                         <TextView
+
                             style="@style/LeftMenuTextView"
                             android:clickable="true"
                             android:onClick="loginView"
-                            android:text="Данс" />
+                            android:text="@string/dealer_balance" />
 
                         <TextView
+                            android:id="@+id/dealer_balance"
                             style="@style/LeftMenuTextView"
                             android:text="1,000,000"
                             android:textColor="@color/colorSkytelYellow" />
@@ -72,9 +75,10 @@
                             style="@style/LeftMenuTextView"
                             android:clickable="true"
                             android:onClick="loginView"
-                            android:text="Бүс" />
+                            android:text="@string/dealer_zone" />
 
                         <TextView
+                            android:id="@+id/dealer_zone"
                             style="@style/LeftMenuTextView"
                             android:text="Баруун"
                             android:textAllCaps="true"

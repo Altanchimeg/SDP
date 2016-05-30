@@ -76,7 +76,7 @@ public class ChargeCardFragment extends Fragment {
         args.putInt("title", R.string.confirm);
 
         confirmDialog.setArguments(args);
-        confirmDialog.registerCallback(dalogConfirmListener);
+        confirmDialog.registerCallback(dialogConfirmListener);
         progressDialog = new CustomProgressDialog(getActivity());
 
     }
@@ -230,10 +230,18 @@ public class ChargeCardFragment extends Fragment {
                         }
 
                     } else {
-
-                        String result_msg = jsonObj.getString("result_msg");
-
+                        final String result_msg = jsonObj.getString("result_msg");
                         Log.d(TAG, "result_msg " + result_msg);
+                        getActivity().runOnUiThread(new Runnable() {
+                            @Override
+                            public void run() {
+                                Toast.makeText(mContext, ""+result_msg, Toast.LENGTH_LONG).show();
+                                mChargeCardPhoneNumber.setText("");
+                                mChargeCardPinCode.setText("");
+
+                            }
+                        });
+
                     }
 
 
@@ -245,7 +253,7 @@ public class ChargeCardFragment extends Fragment {
         });
     }
 
-    private ConfirmDialog.OnDialogConfirmListener dalogConfirmListener = new ConfirmDialog.OnDialogConfirmListener() {
+    private ConfirmDialog.OnDialogConfirmListener dialogConfirmListener = new ConfirmDialog.OnDialogConfirmListener() {
 
         @Override
         public void onPositiveButton() {

@@ -31,7 +31,7 @@ import com.skytel.sdp.utils.ConfirmDialog;
 import com.skytel.sdp.utils.Constants;
 import com.skytel.sdp.utils.PrefManager;
 
-public class MainActivity extends AppCompatActivity implements ConfirmDialog.OnDialogConfirmListener {
+public class MainActivity extends AppCompatActivity {
     String TAG = MainActivity.class.getName();
 
     public static int currentMenu = Constants.MENU_NEWNUMBER;
@@ -41,6 +41,8 @@ public class MainActivity extends AppCompatActivity implements ConfirmDialog.OnD
     private Context context;
     private DataManager dataManager;
     private PrefManager prefManager;
+
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -93,14 +95,14 @@ public class MainActivity extends AppCompatActivity implements ConfirmDialog.OnD
 
                         break;
                     case Constants.MENU_LOGOUT:
-                        //                   logoutDialog();
+                                          //logoutDialog();
                         ConfirmDialog confirmDialog = new ConfirmDialog();
                         Bundle args = new Bundle();
                         args.putInt("message", R.string.confirm);
                         args.putInt("title", R.string.confirm);
 
                         confirmDialog.setArguments(args);
-//                        confirmDialog.registerCallback(dalogConfirmListener);
+                        confirmDialog.registerCallback(dialogConfirmListener);
                         confirmDialog.show(getFragmentManager(), "dialog");
 
 
@@ -129,48 +131,28 @@ public class MainActivity extends AppCompatActivity implements ConfirmDialog.OnD
                 .commit();
     }
 
-/*
-    private void logoutDialog() {
-        final Dialog dialog = new Dialog(context, R.style.MyAlertDialogStyle);
-        dialog.setContentView(R.layout.dialog_confirm);
-        dialog.setCancelable(true);
-        dialog.show();
-        final Button dialogNo = (Button) dialog
-                .findViewById(R.id.dialogNo);
-        dialogNo.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                dialog.dismiss();
-            }
-        });
 
-        final Button dialogYes = (Button) dialog
-                .findViewById(R.id.dialogYes);
-        dialogYes.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                // User Logout here
-            }
-        });
-    }
-*/
 
-    @Override
-    public void onPositiveButton() {
-        Toast.makeText(this, "Confirmed", Toast.LENGTH_LONG).show();
+    private ConfirmDialog.OnDialogConfirmListener dialogConfirmListener = new ConfirmDialog.OnDialogConfirmListener() {
 
-        prefManager.setIsLoggedIn(false);
-        dataManager.resetCardTypes();
+        @Override
+        public void onPositiveButton() {
+          //  Toast.makeText(this, "Confirmed", Toast.LENGTH_LONG).show();
 
-        finish();
-        Intent intent = new Intent(context, LoginActivity.class);
-        startActivity(intent);
-    }
+            prefManager.setIsLoggedIn(false);
+            dataManager.resetCardTypes();
 
-    @Override
-    public void onNegativeButton() {
+            finish();
+            Intent intent = new Intent(context, LoginActivity.class);
+            startActivity(intent);
+        }
 
-    }
+        @Override
+        public void onNegativeButton() {
+
+        }
+    };
+
 
     private class LongOperation extends AsyncTask<String, Void, Boolean> {
 

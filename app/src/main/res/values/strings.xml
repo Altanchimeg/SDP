@@ -149,7 +149,7 @@
 
     <!-- Forget Password -->
     <string name="forget">Нууц үг мартсан?</string>
-    <string name="forget_hint">*Таны утасруу баталгаажуулах код очно</string>
+    <string name="forget_hint">*Таны мэйл хаягруу баталгаажуулах код очно</string>
     <string name="recover">Нууц үг шинэчлэх</string>
     <string name="confirm_code">Баталгаажуулах код</string>
     <string name="new_pass">Шинэ нууц үг</string>
@@ -162,5 +162,10 @@
     <!-- Change Pin -->
     <string name="old_pin">Хуучин пин код</string>
     <string name="new_pin">Шинэ пин код</string>
+
+    <!-- Dealer info -->
+    <string name="dealer_zone">Бүс</string>
+    <string name="dealer_balance">Данс</string>
+    <string name="dealer_name">Сайн уу, </string>
 
 </resources>

@@ -38,10 +38,6 @@ public class LoginActivity extends Activity implements Constants {
     private EditText mEtPassword;
     private PrefManager prefManager;
 
-    public static String dealer_name = "";
-    public static float dealer_balance = 0;
-    public static String zone_name = "";
-
     private CustomProgressDialog progressDialog;
 
     @Override
@@ -57,12 +53,12 @@ public class LoginActivity extends Activity implements Constants {
  * If code is running on Debug
  */
 
-
+/*
             Intent i = new Intent(LoginActivity.this, MainActivity.class);
             startActivity(i);
             finish();
 
-
+*/
 
         if (prefManager.getIsLoggedIn()) {
             Intent intent = new Intent(LoginActivity.this, MainActivity.class);
@@ -156,16 +152,26 @@ public class LoginActivity extends Activity implements Constants {
                         Log.d(TAG, "result_code " + result_code);
                         Log.d(TAG, "auth_token " + auth_token);
 
+                        runProfileInfoFunction();
+                        progressDialog.show();
+
                         prefManager.setIsLoggedIn(true);
                         Intent intent = new Intent(LoginActivity.this, MainActivity.class);
                         startActivity(intent);
                         finish();
                     } else {
-                        String result_msg = jsonObj.getString("result_msg");
+                        final String result_msg = jsonObj.getString("result_msg");
 
                         Log.d(TAG, "result_code " + result_code);
                         Log.d(TAG, "result_msg " + result_msg);
+                        runOnUiThread(new Runnable() {
+                            @Override
+                            public void run() {
 
+                                Toast.makeText(context, result_msg+"", Toast.LENGTH_SHORT).show();
+
+                            }
+                        });
 
                     }
 
@@ -180,6 +186,8 @@ public class LoginActivity extends Activity implements Constants {
 
                 } catch (JSONException e) {
                     e.printStackTrace();
+                } catch (Exception e) {
+                    e.printStackTrace();
                 }
             }
         });
@@ -191,7 +199,7 @@ public class LoginActivity extends Activity implements Constants {
         finish();
     }
 
-    public void runProfileFunction() throws Exception {
+    public void runProfileInfoFunction() throws Exception {
         StringBuilder url = new StringBuilder();
         url.append(SERVER_URL);
         url.append(FUNCTION_PROFILE_INFO);
@@ -206,7 +214,7 @@ public class LoginActivity extends Activity implements Constants {
         client.newCall(request).enqueue(new Callback() {
             @Override
             public void onFailure(Call call, IOException e) {
-                //       progressDialog.dismiss();
+                       progressDialog.dismiss();
                 System.out.println("onFailure");
                 e.printStackTrace();
                 runOnUiThread(new Runnable() {
@@ -226,6 +234,7 @@ public class LoginActivity extends Activity implements Constants {
 
             @Override
             public void onResponse(Call call, Response response) throws IOException {
+                progressDialog.dismiss();
                 System.out.println("onResponse");
 
                 if (!response.isSuccessful()) throw new IOException("Unexpected code " + response);
@@ -241,19 +250,18 @@ public class LoginActivity extends Activity implements Constants {
                 try {
                     JSONObject jsonObj = new JSONObject(resp);
                     int result_code = jsonObj.getInt("result_code");
+                    String result_msg = jsonObj.getString("result_msg");
+                    String balance = jsonObj.getString("balance");
+                    String dealer_name = jsonObj.getString("dealer_name");
+                    String zone_code = jsonObj.getString("zone_code");
+                    String zone_name = jsonObj.getString("zone_name");
 
-
-                    if (result_code == RESULT_CODE_SUCCESS) {
-
-                    } else {
-                        String result_msg = jsonObj.getString("result_msg");
-
-                        Log.d(TAG, "result_code " + result_code);
-                        Log.d(TAG, "result_msg " + result_msg);
-
-
-                    }
-
+                    Log.d(TAG, "result_code " + result_code);
+                    Log.d(TAG, "result_msg " + result_msg);
+                    Log.d(TAG, "balance " + balance);
+                    Log.d(TAG, "dealer_name " + dealer_name);
+                    Log.d(TAG, "zone_code " + zone_code);
+                    Log.d(TAG, "zone_name " + zone_name);
 
                     runOnUiThread(new Runnable() {
                         @Override

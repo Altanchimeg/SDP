@@ -16,7 +16,9 @@ import android.widget.Toast;
 import com.skytel.sdp.R;
 import com.skytel.sdp.database.DataManager;
 import com.skytel.sdp.utils.Constants;
+import com.skytel.sdp.utils.CustomProgressDialog;
 import com.skytel.sdp.utils.PrefManager;
+import com.skytel.sdp.utils.ValidationChecker;
 
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -47,6 +49,9 @@ public class FeedbackFragment extends Fragment {
 
     private int voice_type_id=1;
 
+    private CustomProgressDialog progressDialog;
+
+
     public FeedbackFragment() {
 
     }
@@ -64,6 +69,7 @@ public class FeedbackFragment extends Fragment {
         mDataManager = new DataManager(mContext);
         client = new OkHttpClient();
         prefManager = new PrefManager(mContext);
+        progressDialog = new CustomProgressDialog(mContext);
 
         mUserVoice = (EditText) rootView.findViewById(R.id.et_user_voice);
         mPhonenumber = (EditText) rootView.findViewById(R.id.et_user_phonenumber);
@@ -74,8 +80,15 @@ public class FeedbackFragment extends Fragment {
             @Override
             public void onClick(View v) {
                 try {
-                    voice_type_id = (int) mVoiceType.getSelectedItemId() + 1;
-                    runSendFeedbackFunction();
+                    if (ValidationChecker.isValidationPassed(mUserVoice) && ValidationChecker.isValidationPassed(mPhonenumber)) {
+                        Toast.makeText(mContext, "Please wait", Toast.LENGTH_SHORT).show();
+                        voice_type_id = (int) mVoiceType.getSelectedItemId() + 1;
+                        runSendFeedbackFunction();
+                        progressDialog.show();
+                    } else {
+                        Toast.makeText(mContext, "Please fill the field!", Toast.LENGTH_SHORT).show();
+                    }
+
 
                 } catch (Exception e) {
                     e.printStackTrace();
@@ -116,7 +129,7 @@ public class FeedbackFragment extends Fragment {
         client.newCall(request).enqueue(new Callback() {
             @Override
             public void onFailure(Call call, IOException e) {
-                //       progressDialog.dismiss();
+                      progressDialog.dismiss();
                 System.out.println("onFailure");
                 e.printStackTrace();
                 getActivity().runOnUiThread(new Runnable() {
@@ -131,6 +144,7 @@ public class FeedbackFragment extends Fragment {
 
             @Override
             public void onResponse(Call call, Response response) throws IOException {
+                progressDialog.dismiss();
                 System.out.println("onResponse");
 
                 if (!response.isSuccessful()) throw new IOException("Unexpected code " + response);
@@ -149,7 +163,14 @@ public class FeedbackFragment extends Fragment {
                     String result_msg = jsonObj.getString("result_msg");
                     Log.d(TAG, "result_code " + result_code);
                     Log.d(TAG, "result_msg " + result_msg);
-
+                    getActivity().runOnUiThread(new Runnable() {
+                        @Override
+                        public void run() {
+                            Toast.makeText(mContext, "Successful!", Toast.LENGTH_LONG).show();
+                            mPhonenumber.setText("");
+                            mUserVoice.setText("");
+                        }
+                    });
 
                 } catch (JSONException e) {
                     e.printStackTrace();
