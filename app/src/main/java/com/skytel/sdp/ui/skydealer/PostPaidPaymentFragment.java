@@ -15,6 +15,7 @@ import android.widget.Toast;
 
 import com.skytel.sdp.R;
 import com.skytel.sdp.database.DataManager;
+import com.skytel.sdp.utils.BalanceUpdateListener;
 import com.skytel.sdp.utils.ConfirmDialog;
 import com.skytel.sdp.utils.Constants;
 import com.skytel.sdp.utils.CustomProgressDialog;
@@ -58,6 +59,8 @@ public class PostPaidPaymentFragment extends Fragment {
     private ConfirmDialog confirmDialog;
 
     private CustomProgressDialog progressDialog;
+
+    public static BalanceUpdateListener mBalanceUpdateListener;
 
     public PostPaidPaymentFragment() {
     }
@@ -114,6 +117,7 @@ public class PostPaidPaymentFragment extends Fragment {
         mDoPaymentBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+
                 try {
                     if (ValidationChecker.isValidationPassed(mConfirmCode)) {
                         confirmDialog.show(getFragmentManager(), "dialog");
@@ -208,7 +212,6 @@ public class PostPaidPaymentFragment extends Fragment {
                                 }
                             }
                         });
-
                     }
                     else{
                         getActivity().runOnUiThread(new Runnable() {
@@ -306,6 +309,16 @@ public class PostPaidPaymentFragment extends Fragment {
                         Log.d(TAG, "dealer_id " + dealer_id);
                         Log.d(TAG, "balance " + balance);
 
+                        prefManager.saveDealerBalance(balance);
+                        getActivity().runOnUiThread(new Runnable() {
+                            @Override
+                            public void run() {
+                            if (mBalanceUpdateListener != null) {
+                                mBalanceUpdateListener.onBalanceUpdate();
+                            }
+                            }
+                        });
+
                         Log.d(TAG, "Show the success message to user");
 
                     }
@@ -324,6 +337,8 @@ public class PostPaidPaymentFragment extends Fragment {
             try {
                 progressDialog.show();
                 runPaymentFunction();
+
+
             } catch (Exception e) {
                 Log.e(TAG, e.getMessage());
                 progressDialog.dismiss();

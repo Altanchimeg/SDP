@@ -29,6 +29,7 @@ import com.skytel.sdp.ui.information.InformationFragment;
 import com.skytel.sdp.ui.TabNewNumberFragment;
 import com.skytel.sdp.ui.plan.PlanFragment;
 import com.skytel.sdp.ui.skydealer.ChargeCardFragment;
+import com.skytel.sdp.ui.skydealer.PostPaidPaymentFragment;
 import com.skytel.sdp.utils.BalanceUpdateListener;
 import com.skytel.sdp.utils.ConfirmDialog;
 import com.skytel.sdp.utils.Constants;
@@ -73,6 +74,7 @@ public class MainActivity extends AppCompatActivity implements BalanceUpdateList
         mDealerBalance.setText(prefManager.getDealerBalance());
         mDealerZone = (TextView) findViewById(R.id.dealer_zone);
         mDealerZone.setText(prefManager.getDealerZone());
+
 
         leftMenuListView = (ListView) findViewById(R.id.leftMenuListView);
         leftMenuListAdapter = new LeftMenuListAdapter(this);
@@ -128,6 +130,7 @@ public class MainActivity extends AppCompatActivity implements BalanceUpdateList
         new LongOperation().execute();
 
         ChargeCardFragment.mBalanceUpdateListener = this;
+        PostPaidPaymentFragment.mBalanceUpdateListener = this;
 
     }
 

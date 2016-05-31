@@ -85,11 +85,6 @@ public class ChargeCardFragment extends Fragment {
 
     }
 
-  /*  public void registerCallback(BalanceUpdateListener balanceUpdateListener) {
-        mBalanceUpdateListener = balanceUpdateListener;
-    }*/
-
-
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
