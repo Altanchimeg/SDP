@@ -166,6 +166,6 @@
     <!-- Dealer info -->
     <string name="dealer_zone">Бүс</string>
     <string name="dealer_balance">Данс</string>
-    <string name="dealer_name">Сайн уу, </string>
+    <string name="hello">Сайн уу, </string>
 
 </resources>

@@ -36,18 +36,53 @@ public class PrefManager implements Constants {
         editor.commit();
     }
 
-    public void saveAuthToken(String key,String value) {
-        editor .putString(key, value);
+    public void saveAuthToken(String value) {
+        editor.putString(PREF_AUTH_TOKEN, value);
         editor.commit();
     }
 
-    public String getAuthToken(String key) {
-        if (pref!= null) {
-            return pref.getString(key, "");
+    public String getAuthToken() {
+        if (pref != null) {
+            return pref.getString(PREF_AUTH_TOKEN, "");
+        }
+        return "";
+    }
+
+    public void saveDealerName(String value) {
+        editor.putString(PREF_DEALER_NAME, value);
+        editor.commit();
+    }
+
+    public String getDealerName() {
+        if (pref != null) {
+            return pref.getString(PREF_DEALER_NAME, "");
         }
         return "";
     }
 
 
+    public void saveDealerBalance(String value) {
+        editor.putString(PREF_DEALER_BALANCE, value);
+        editor.commit();
+    }
+
+    public String getDealerBalance() {
+        if (pref != null) {
+            return pref.getString(PREF_DEALER_BALANCE, "");
+        }
+        return "";
+    }
+
+    public void saveDealerZone(String value) {
+        editor.putString(PREF_DEALER_ZONE, value);
+        editor.commit();
+    }
+
+    public String getDealerZone() {
+        if (pref != null) {
+            return pref.getString(PREF_DEALER_ZONE, "");
+        }
+        return "";
+    }
 
 }

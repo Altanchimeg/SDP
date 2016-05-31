@@ -15,6 +15,7 @@ import android.view.View;
 import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.ListView;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.skytel.sdp.adapter.LeftMenuListAdapter;
@@ -27,11 +28,13 @@ import com.skytel.sdp.ui.feedback.FeedbackFragment;
 import com.skytel.sdp.ui.information.InformationFragment;
 import com.skytel.sdp.ui.TabNewNumberFragment;
 import com.skytel.sdp.ui.plan.PlanFragment;
+import com.skytel.sdp.ui.skydealer.ChargeCardFragment;
+import com.skytel.sdp.utils.BalanceUpdateListener;
 import com.skytel.sdp.utils.ConfirmDialog;
 import com.skytel.sdp.utils.Constants;
 import com.skytel.sdp.utils.PrefManager;
 
-public class MainActivity extends AppCompatActivity {
+public class MainActivity extends AppCompatActivity implements BalanceUpdateListener {
     String TAG = MainActivity.class.getName();
 
     public static int currentMenu = Constants.MENU_NEWNUMBER;
@@ -41,7 +44,9 @@ public class MainActivity extends AppCompatActivity {
     private Context context;
     private DataManager dataManager;
     private PrefManager prefManager;
-
+    private TextView mDealerName;
+    private TextView mDealerBalance;
+    private TextView mDealerZone;
 
 
     @Override
@@ -61,6 +66,13 @@ public class MainActivity extends AppCompatActivity {
         if (savedInstanceState == null) {
             changeMenu(new TabNewNumberFragment());
         }
+
+        mDealerName = (TextView) findViewById(R.id.dealer_name);
+        mDealerName.setText(prefManager.getDealerName());
+        mDealerBalance = (TextView) findViewById(R.id.dealer_balance);
+        mDealerBalance.setText(prefManager.getDealerBalance());
+        mDealerZone = (TextView) findViewById(R.id.dealer_zone);
+        mDealerZone.setText(prefManager.getDealerZone());
 
         leftMenuListView = (ListView) findViewById(R.id.leftMenuListView);
         leftMenuListAdapter = new LeftMenuListAdapter(this);
@@ -95,7 +107,7 @@ public class MainActivity extends AppCompatActivity {
 
                         break;
                     case Constants.MENU_LOGOUT:
-                                          //logoutDialog();
+                        //logoutDialog();
                         ConfirmDialog confirmDialog = new ConfirmDialog();
                         Bundle args = new Bundle();
                         args.putInt("message", R.string.confirm);
@@ -115,6 +127,8 @@ public class MainActivity extends AppCompatActivity {
 
         new LongOperation().execute();
 
+        ChargeCardFragment.mBalanceUpdateListener = this;
+
     }
 
     // Login
@@ -132,12 +146,11 @@ public class MainActivity extends AppCompatActivity {
     }
 
 
-
     private ConfirmDialog.OnDialogConfirmListener dialogConfirmListener = new ConfirmDialog.OnDialogConfirmListener() {
 
         @Override
         public void onPositiveButton() {
-          //  Toast.makeText(this, "Confirmed", Toast.LENGTH_LONG).show();
+            //  Toast.makeText(this, "Confirmed", Toast.LENGTH_LONG).show();
 
             prefManager.setIsLoggedIn(false);
             dataManager.resetCardTypes();
@@ -153,6 +166,11 @@ public class MainActivity extends AppCompatActivity {
         }
     };
 
+    @Override
+    public void onBalanceUpdate() {
+        Toast.makeText(context, "Balance ", Toast.LENGTH_LONG).show();
+        mDealerBalance.setText(prefManager.getDealerBalance());
+    }
 
     private class LongOperation extends AsyncTask<String, Void, Boolean> {
 

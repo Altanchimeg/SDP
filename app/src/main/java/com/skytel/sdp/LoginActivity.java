@@ -53,12 +53,11 @@ public class LoginActivity extends Activity implements Constants {
  * If code is running on Debug
  */
 
-/*
-            Intent i = new Intent(LoginActivity.this, MainActivity.class);
-            startActivity(i);
-            finish();
 
-*/
+        Intent i = new Intent(LoginActivity.this, MainActivity.class);
+        startActivity(i);
+        finish();
+
 
         if (prefManager.getIsLoggedIn()) {
             Intent intent = new Intent(LoginActivity.this, MainActivity.class);
@@ -147,7 +146,7 @@ public class LoginActivity extends Activity implements Constants {
                     if (result_code == RESULT_CODE_SUCCESS) {
                         String auth_token = jsonObj.getString("auth_token");
 
-                        prefManager.saveAuthToken(PREF_AUTH_TOKEN, auth_token);
+                        prefManager.saveAuthToken(auth_token);
 
                         Log.d(TAG, "result_code " + result_code);
                         Log.d(TAG, "auth_token " + auth_token);
@@ -168,7 +167,7 @@ public class LoginActivity extends Activity implements Constants {
                             @Override
                             public void run() {
 
-                                Toast.makeText(context, result_msg+"", Toast.LENGTH_SHORT).show();
+                                Toast.makeText(context, result_msg + "", Toast.LENGTH_SHORT).show();
 
                             }
                         });
@@ -196,7 +195,7 @@ public class LoginActivity extends Activity implements Constants {
     public void forgetPasswordView(View view) {
         Intent intent = new Intent(LoginActivity.this, ForgetPasswordActivity.class);
         startActivity(intent);
-        finish();
+//        finish();
     }
 
     public void runProfileInfoFunction() throws Exception {
@@ -208,13 +207,13 @@ public class LoginActivity extends Activity implements Constants {
 
         Request request = new Request.Builder()
                 .url(url.toString())
-                .addHeader("AUTH_TOKEN", prefManager.getAuthToken(Constants.PREF_AUTH_TOKEN))
+                .addHeader(PREF_AUTH_TOKEN, prefManager.getAuthToken())
                 .build();
 
         client.newCall(request).enqueue(new Callback() {
             @Override
             public void onFailure(Call call, IOException e) {
-                       progressDialog.dismiss();
+                progressDialog.dismiss();
                 System.out.println("onFailure");
                 e.printStackTrace();
                 runOnUiThread(new Runnable() {
@@ -262,6 +261,11 @@ public class LoginActivity extends Activity implements Constants {
                     Log.d(TAG, "dealer_name " + dealer_name);
                     Log.d(TAG, "zone_code " + zone_code);
                     Log.d(TAG, "zone_name " + zone_name);
+
+                    prefManager.saveDealerName(dealer_name);
+                    prefManager.saveDealerBalance(balance);
+                    prefManager.saveDealerZone(zone_name);
+
 
                     runOnUiThread(new Runnable() {
                         @Override

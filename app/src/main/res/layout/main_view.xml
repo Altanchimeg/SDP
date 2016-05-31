@@ -33,7 +33,7 @@
                     android:layout_height="wrap_content"
                     android:layout_gravity="center_horizontal"
                     android:paddingTop="20dp"
-                    android:text="@string/dealer_name"
+                    android:text="@string/hello"
                     android:textColor="@android:color/white" />
 
                 <LinearLayout
@@ -50,7 +50,6 @@
                         android:orientation="vertical">
 
                         <TextView
-
                             style="@style/LeftMenuTextView"
                             android:clickable="true"
                             android:onClick="loginView"

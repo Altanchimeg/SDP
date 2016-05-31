@@ -47,7 +47,7 @@ public class FeedbackFragment extends Fragment {
     private EditText mUserVoice;
     private Spinner mVoiceType;
 
-    private int voice_type_id=1;
+    private int voice_type_id = 1;
 
     private CustomProgressDialog progressDialog;
 
@@ -55,6 +55,7 @@ public class FeedbackFragment extends Fragment {
     public FeedbackFragment() {
 
     }
+
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -97,7 +98,6 @@ public class FeedbackFragment extends Fragment {
         });
 
 
-
         return rootView;
     }
 
@@ -110,7 +110,6 @@ public class FeedbackFragment extends Fragment {
         url.append("&comment=" + mUserVoice.getText().toString());
 
 
-
         getActivity().runOnUiThread(new Runnable() {
             @Override
             public void run() {
@@ -119,17 +118,17 @@ public class FeedbackFragment extends Fragment {
         });
 
         System.out.print(url + "\n");
-        System.out.println(prefManager.getAuthToken(Constants.PREF_AUTH_TOKEN) + "");
+        System.out.println(prefManager.getAuthToken());
 
         Request request = new Request.Builder()
                 .url(url.toString())
-                .addHeader("AUTH_TOKEN", prefManager.getAuthToken(Constants.PREF_AUTH_TOKEN))
+                .addHeader(Constants.PREF_AUTH_TOKEN, prefManager.getAuthToken())
                 .build();
 
         client.newCall(request).enqueue(new Callback() {
             @Override
             public void onFailure(Call call, IOException e) {
-                      progressDialog.dismiss();
+                progressDialog.dismiss();
                 System.out.println("onFailure");
                 e.printStackTrace();
                 getActivity().runOnUiThread(new Runnable() {

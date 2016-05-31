@@ -17,9 +17,10 @@ public interface Constants {
     /* Preference */
     String PREF_NAME = "sdp";
     String PREF_ISLOGGEDIN = "is_logged_in";
-    String PREF_ISLOGGEDOUT = "is_logged_out";
-    String PREF_AUTH_TOKEN = "auth_token";
-
+    String PREF_AUTH_TOKEN = "AUTH_TOKEN";
+    String PREF_DEALER_NAME = "dealer_name";
+    String PREF_DEALER_BALANCE = "dealer_balance";
+    String PREF_DEALER_ZONE = "dealer_zone";
 
     /* Service Functions */
     String SERVER_URL = "http://10.1.90.65:8080/cosax-service-dealer/";

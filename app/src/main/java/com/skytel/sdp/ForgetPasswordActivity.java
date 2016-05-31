@@ -58,6 +58,8 @@ public class ForgetPasswordActivity extends AppCompatActivity implements Constan
         mConfirmPassword = (LinearLayout) findViewById(R.id.confirm_password);
         mRecoverPassword = (LinearLayout) findViewById(R.id.recover_password);
 
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        getSupportActionBar().setDisplayShowHomeEnabled(true);
 
         mEtPhoneNumber = (EditText) findViewById(R.id.phone_number);
         mEtConfirmCode = (EditText) findViewById(R.id.confirm_code);
@@ -107,6 +109,12 @@ public class ForgetPasswordActivity extends AppCompatActivity implements Constan
                 }
             }
         });
+    }
+
+    @Override
+    public boolean onSupportNavigateUp() {
+        finish();
+        return true;
     }
 
 

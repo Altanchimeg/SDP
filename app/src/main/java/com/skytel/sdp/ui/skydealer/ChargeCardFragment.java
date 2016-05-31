@@ -14,12 +14,14 @@ import android.widget.EditText;
 import android.widget.ListView;
 import android.widget.Toast;
 
+import com.skytel.sdp.MainActivity;
 import com.skytel.sdp.R;
 import com.skytel.sdp.adapter.ChargeCardPackageTypeAdapter;
 import com.skytel.sdp.adapter.ChargeCardTypeAdapter;
 import com.skytel.sdp.database.DataManager;
 import com.skytel.sdp.entities.CardType;
 import com.skytel.sdp.enums.PackageTypeEnum;
+import com.skytel.sdp.utils.BalanceUpdateListener;
 import com.skytel.sdp.utils.ConfirmDialog;
 import com.skytel.sdp.utils.Constants;
 import com.skytel.sdp.utils.CustomProgressDialog;
@@ -63,6 +65,8 @@ public class ChargeCardFragment extends Fragment {
 
     private CustomProgressDialog progressDialog;
 
+    public static BalanceUpdateListener mBalanceUpdateListener;
+
     public ChargeCardFragment() {
     }
 
@@ -80,6 +84,11 @@ public class ChargeCardFragment extends Fragment {
         progressDialog = new CustomProgressDialog(getActivity());
 
     }
+
+  /*  public void registerCallback(BalanceUpdateListener balanceUpdateListener) {
+        mBalanceUpdateListener = balanceUpdateListener;
+    }*/
+
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -163,95 +172,102 @@ public class ChargeCardFragment extends Fragment {
         });
 
         System.out.print(url + "\n");
-        System.out.println(prefManager.getAuthToken(Constants.PREF_AUTH_TOKEN) + "");
+        System.out.println(prefManager.getAuthToken());
 
         Request request = new Request.Builder()
                 .url(url.toString())
-                .addHeader("AUTH_TOKEN", prefManager.getAuthToken(Constants.PREF_AUTH_TOKEN))
+                .addHeader(Constants.PREF_AUTH_TOKEN, prefManager.getAuthToken())
                 .build();
 
         client.newCall(request).enqueue(new Callback() {
-            @Override
-            public void onFailure(Call call, IOException e) {
-                progressDialog.dismiss();
-                System.out.println("onFailure");
-                e.printStackTrace();
-                getActivity().runOnUiThread(new Runnable() {
-                    @Override
-                    public void run() {
-                        Toast.makeText(mContext, "Error on Failure!", Toast.LENGTH_LONG).show();
-                        // Used for debug
-                    }
-                });
-            }
+                                            @Override
+                                            public void onFailure(Call call, IOException e) {
+                                                progressDialog.dismiss();
+                                                System.out.println("onFailure");
+                                                e.printStackTrace();
+                                                getActivity().runOnUiThread(new Runnable() {
+                                                    @Override
+                                                    public void run() {
+                                                        Toast.makeText(mContext, "Error on Failure!", Toast.LENGTH_LONG).show();
+                                                        // Used for debug
+                                                    }
+                                                });
+                                            }
 
-            @Override
-            public void onResponse(Call call, Response response) throws IOException {
-                progressDialog.dismiss();
+                                            @Override
+                                            public void onResponse(Call call, Response response) throws IOException {
+                                                progressDialog.dismiss();
 
-                System.out.println("onResponse");
+                                                System.out.println("onResponse");
 
-                if (!response.isSuccessful()) throw new IOException("Unexpected code " + response);
+                                                if (!response.isSuccessful()) throw new IOException("Unexpected code " + response);
 
-                Headers responseHeaders = response.headers();
-                for (int i = 0; i < responseHeaders.size(); i++) {
-                    System.out.println(responseHeaders.name(i) + ": " + responseHeaders.value(i));
-                }
+                                                Headers responseHeaders = response.headers();
+                                                for (int i = 0; i < responseHeaders.size(); i++) {
+                                                    System.out.println(responseHeaders.name(i) + ": " + responseHeaders.value(i));
+                                                }
 
-                String resp = response.body().string();
-                System.out.println("resp " + resp);
+                                                String resp = response.body().string();
+                                                System.out.println("resp " + resp);
 
-                try {
-                    JSONObject jsonObj = new JSONObject(resp);
-                    int result_code = jsonObj.getInt("result_code");
+                                                try {
+                                                    JSONObject jsonObj = new JSONObject(resp);
+                                                    int result_code = jsonObj.getInt("result_code");
 
-                    Log.d(TAG, "result_code " + result_code);
+                                                    Log.d(TAG, "result_code " + result_code);
 
-                    if (result_code == Constants.RESULT_CODE_SUCCESS) {
+                                                    if (result_code == Constants.RESULT_CODE_SUCCESS) {
 
-                        String dealer_id = jsonObj.getString("dealer_id");
-                        String balance = jsonObj.getString("balance");
+                                                        String dealer_id = jsonObj.getString("dealer_id");
+                                                        final String balance = jsonObj.getString("balance");
 
-                        Log.d(TAG, "dealer_id " + dealer_id);
-                        Log.d(TAG, "balance " + balance);
+                                                        Log.d(TAG, "dealer_id " + dealer_id);
+                                                        Log.d(TAG, "balance " + balance);
 
-                        Log.d(TAG, "Show the success message to user");
-                        try {
-                            getActivity().runOnUiThread(new Runnable() {
-                                @Override
-                                public void run() {
-                                    Toast.makeText(mContext, "Success!", Toast.LENGTH_LONG).show();
-                                    mChargeCardPhoneNumber.setText("");
-                                    mChargeCardPinCode.setText("");
-                                }
-                            });
-                        } catch (Exception ex) {
-                            ex.printStackTrace();
-                        }
+                                                        prefManager.saveDealerBalance(balance);
+                                                        if (mBalanceUpdateListener != null) {
+                                                            mBalanceUpdateListener.onBalanceUpdate();
+                                                        }
+                                                        Log.d(TAG, "Show the success message to user");
+                                                        try {
+                                                            getActivity().runOnUiThread(new Runnable() {
+                                                                @Override
+                                                                public void run() {
+                                                                    Toast.makeText(mContext, "Success!", Toast.LENGTH_LONG).show();
+                                                                    mChargeCardPhoneNumber.setText("");
+                                                                    mChargeCardPinCode.setText("");
+                                                                }
+                                                            });
+                                                        } catch (Exception ex) {
+                                                            ex.printStackTrace();
+                                                        }
 
-                    } else {
-                        final String result_msg = jsonObj.getString("result_msg");
-                        Log.d(TAG, "result_msg " + result_msg);
-                        getActivity().runOnUiThread(new Runnable() {
-                            @Override
-                            public void run() {
-                                Toast.makeText(mContext, ""+result_msg, Toast.LENGTH_LONG).show();
-                                mChargeCardPhoneNumber.setText("");
-                                mChargeCardPinCode.setText("");
+                                                    } else {
+                                                        final String result_msg = jsonObj.getString("result_msg");
+                                                        Log.d(TAG, "result_msg " + result_msg);
+                                                        getActivity().runOnUiThread(new Runnable() {
+                                                            @Override
+                                                            public void run() {
+                                                                Toast.makeText(mContext, "" + result_msg, Toast.LENGTH_LONG).show();
+                                                                mChargeCardPhoneNumber.setText("");
+                                                                mChargeCardPinCode.setText("");
 
-                            }
-                        });
+                                                            }
+                                                        });
 
-                    }
+                                                    }
 
 
-                } catch (JSONException e) {
-                    e.printStackTrace();
+                                                } catch (JSONException e) {
+                                                    e.printStackTrace();
 
-                }
-            }
-        });
+                                                }
+                                            }
+                                        }
+
+        );
     }
+
 
     private ConfirmDialog.OnDialogConfirmListener dialogConfirmListener = new ConfirmDialog.OnDialogConfirmListener() {
 

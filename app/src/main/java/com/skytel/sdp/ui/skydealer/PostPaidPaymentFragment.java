@@ -145,11 +145,11 @@ public class PostPaidPaymentFragment extends Fragment {
         });
 
         System.out.print(url + "\n");
-        System.out.println(prefManager.getAuthToken(Constants.PREF_AUTH_TOKEN) + "");
+        System.out.println(prefManager.getAuthToken());
 
         Request request = new Request.Builder()
                 .url(url.toString())
-                .addHeader("AUTH_TOKEN", prefManager.getAuthToken(Constants.PREF_AUTH_TOKEN))
+                .addHeader(Constants.PREF_AUTH_TOKEN, prefManager.getAuthToken())
                 .build();
 
         client.newCall(request).enqueue(new Callback() {
@@ -252,11 +252,11 @@ public class PostPaidPaymentFragment extends Fragment {
         });
 
         System.out.print(url + "\n");
-        System.out.println(prefManager.getAuthToken(Constants.PREF_AUTH_TOKEN) + "");
+        System.out.println(prefManager.getAuthToken());
 
         Request request = new Request.Builder()
                 .url(url.toString())
-                .addHeader("AUTH_TOKEN", prefManager.getAuthToken(Constants.PREF_AUTH_TOKEN))
+                .addHeader(Constants.PREF_AUTH_TOKEN, prefManager.getAuthToken())
                 .build();
 
         client.newCall(request).enqueue(new Callback() {
