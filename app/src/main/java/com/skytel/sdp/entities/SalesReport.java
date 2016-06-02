@@ -1,6 +1,7 @@
 package com.skytel.sdp.entities;
 
-import java.util.Date;
+import org.joda.time.DateTime;
+
 
 public class SalesReport {
     private int id;
@@ -8,7 +9,7 @@ public class SalesReport {
     private String value;
     private String type;
     private boolean isSuccess;
-    private Date date;
+    private String date;
 
     public int getId() {
         return id;
@@ -50,11 +51,11 @@ public class SalesReport {
         isSuccess = success;
     }
 
-    public Date getDate() {
+    public String getDate() {
         return date;
     }
 
-    public void setDate(Date date) {
+    public void setDate(String date) {
         this.date = date;
     }
 }

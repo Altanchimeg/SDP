@@ -158,7 +158,7 @@
     <style name="MainViewCenterBoxEditText" parent="EditTextStyle">
         <item name="android:layout_width">match_parent</item>
     </style>
-    <style name="PhoneNumberEdittextStyle" parent="EditTextStyle">
+    <style name="PhoneNumberEdittextStyle" parent="MainViewCenterBoxEditText">
     <item name="android:phoneNumber">true</item>
     <item name="android:maxLength">8</item>
     </style>

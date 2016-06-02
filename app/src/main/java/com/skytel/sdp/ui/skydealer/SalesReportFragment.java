@@ -23,6 +23,9 @@ import com.skytel.sdp.utils.Constants;
 import com.skytel.sdp.utils.CustomProgressDialog;
 import com.skytel.sdp.utils.PrefManager;
 
+import org.joda.time.DateTime;
+import org.joda.time.format.DateTimeFormat;
+import org.joda.time.format.DateTimeFormatter;
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -86,7 +89,6 @@ public class SalesReportFragment extends Fragment implements Constants {
         prefManager = new PrefManager(mContext);
         salesReportArrayList = new ArrayList<>();
         progressDialog = new CustomProgressDialog(getActivity());
-        mSalesReportGrid = (GridView) rootView.findViewById(R.id.salesReportGrid);
         mSalesReportTableView = (SortableTableView) rootView.findViewById(R.id.salesReportTableView);
 
         mSearch = (Button) rootView.findViewById(R.id.search);
@@ -106,7 +108,7 @@ public class SalesReportFragment extends Fragment implements Constants {
         mFilterByStartDate = (EditText) rootView.findViewById(R.id.filterByStartDate);
         mFilterByUnitPackage = (Spinner) rootView.findViewById(R.id.filterByUnitPackage);
 
-        for (int i = 0; i < 100; i++) {
+      /*  for (int i = 0; i < 100; i++) {
             Date date = new Date();
             boolean success = true;
             String type = "1";
@@ -134,7 +136,7 @@ public class SalesReportFragment extends Fragment implements Constants {
 
         mSalesReportTableView.setDataAdapter(new SalesReportAdapter(getActivity(), salesReportArrayList));
         mSalesReportTableView.addDataClickListener(new SalesReportClickListener());
-        mSalesReportTableView.addHeaderClickListener(new SalesReportHeaderClickListener());
+        mSalesReportTableView.addHeaderClickListener(new SalesReportHeaderClickListener());*/
 
 /*
         try {
@@ -152,7 +154,8 @@ public class SalesReportFragment extends Fragment implements Constants {
         public void onClick(View v) {
             try {
                 // mFilterByPhoneNumber.getText().toString();
-                runChargeCardReportFunction(REPORT_DEALER_POSTPAIDPAYMENT_TYPE);
+                progressDialog.show();
+                runChargeCardReportFunction(REPORT_DEALER_CHARGECARD_TYPE);
             } catch (Exception e) {
                 e.printStackTrace();
             }
@@ -224,7 +227,7 @@ public class SalesReportFragment extends Fragment implements Constants {
         url.append(Constants.SERVER_URL);
         url.append(Constants.FUNCTION_DEALER_REPORT);
         url.append("?trans_type=" + report_type);
-        url.append("&len=" + 10);
+        url.append("&len=" + 40);
         url.append("&from=" + 0);
         url.append("&is_success=" + true);
         // &startDate = null || 2016/05/01
@@ -257,7 +260,7 @@ public class SalesReportFragment extends Fragment implements Constants {
                     getActivity().runOnUiThread(new Runnable() {
                         @Override
                         public void run() {
-                            //     progressDialog.dismiss();
+
                             Toast.makeText(mContext, "Error on Failure!", Toast.LENGTH_LONG).show();
                             // Used for debug
                         }
@@ -296,7 +299,7 @@ public class SalesReportFragment extends Fragment implements Constants {
                     JSONArray jArray = jsonObj.getJSONArray("transactions");
 
                     Log.d(TAG, "*****JARRAY*****" + jArray.length());
-                    for (int i = 0; i < 5; i++) {
+                    for (int i = 0; i < 30; i++) {
                         JSONObject jsonData = jArray.getJSONObject(i);
 
                         String date = jsonData.getString("date");
@@ -314,17 +317,23 @@ public class SalesReportFragment extends Fragment implements Constants {
                         Log.d(TAG, "phone: " + phone);
 
                         SalesReport salesReport = new SalesReport();
+                       // DateTimeFormatter dtf = DateTimeFormat.forPattern("yyyy-MM-dd HH:mm:ss");
                         salesReport.setId(i);
                         salesReport.setPhone(phone);
+                        salesReport.setValue(value);
                         salesReport.setSuccess(success);
                         salesReport.setType(type);
-                        salesReport.setValue(value);
-                        salesReport.setDate(new Date(date));
+                        salesReport.setDate(date);
 
                         salesReportArrayList.add(i, salesReport);
                     }
+                    getActivity().runOnUiThread(new Runnable() {
+                        @Override
+                        public void run() {
+                            mSalesReportTableView.setDataAdapter(new SalesReportAdapter(getActivity(), salesReportArrayList));
+                        }
+                    });
 
-                    mSalesReportTableView.setDataAdapter(new SalesReportAdapter(getActivity(), salesReportArrayList));
 
                 } catch (JSONException e) {
                     e.printStackTrace();

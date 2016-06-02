@@ -33,10 +33,10 @@ public class SalesReportAdapter extends TableDataAdapter<SalesReport> {
                 renderedView = renderValue(salesReport);
                 break;
             case 2:
-                renderedView = renderType(salesReport);
+                renderedView = renderSuccess(salesReport);
                 break;
             case 3:
-                renderedView = renderSuccess(salesReport);
+                renderedView = renderType(salesReport);
                 break;
             case 4:
                 renderedView = renderDate(salesReport);
@@ -72,8 +72,8 @@ public class SalesReportAdapter extends TableDataAdapter<SalesReport> {
 
     private View renderDate(final SalesReport salesReport) {
         final TextView textView = new TextView(getContext());
-//        textView.setText(salesReport.getDate().toString() + "");
-        textView.setText("2016/06/01 15:23");
+        textView.setText(salesReport.getDate().toString() + "");
+        //textView.setText("2016/06/01 15:23");
         textView.setPadding(20, 10, 20, 10);
         textView.setTextSize(18);
         return textView;
