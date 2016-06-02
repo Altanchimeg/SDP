@@ -6,14 +6,14 @@
 
     <LinearLayout
         style="@style/MainViewContainer"
-        android:layout_alignParentTop="true"
-        android:layout_centerHorizontal="true">
+        android:layout_alignParentTop="true">
 
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Number Order Report" />
-
+        <com.skytel.sdp.ui.skydealer.SortableSalesReportTableView xmlns:table="http://schemas.android.com/apk/res-auto"
+            android:id="@+id/salesReportTableView"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            table:tableView_columnCount="5"
+            table:tableView_headerColor="@android:color/transparent" />
     </LinearLayout>
 
     <ScrollView
@@ -40,7 +40,8 @@
                 </LinearLayout>
 
                 <EditText
-                    style="@style/EditTextStyle"
+                    android:id="@+id/filterByOrderedNumber"
+                    style="@style/PhoneNumberEdittextStyle"
                     android:hint="@string/ordered_number" />
 
                 <TextView
@@ -52,9 +53,12 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content">
 
-                    <EditText
+                    <Spinner
+                        android:id="@+id/filterByUnitPackage"
                         style="@style/EditTextStyle"
-                        android:hint="@string/unit_package" />
+                        android:entries="@array/skydealer_charge_card_types"
+                        android:focusable="false"
+                        android:spinnerMode="dropdown" />
                 </RelativeLayout>
 
                 <TextView
@@ -67,8 +71,13 @@
                     android:layout_height="wrap_content">
 
                     <EditText
+                        android:id="@+id/filterByStartDate"
                         style="@style/EditTextStyle"
                         android:hint="@string/start_date" />
+
+                    <DatePicker style="@style/EditTextStyle"
+                        android:visibility="gone"
+                        ></DatePicker>
 
                     <ImageView
                         android:layout_width="20dp"
@@ -84,6 +93,7 @@
                     android:layout_height="wrap_content">
 
                     <EditText
+                        android:id="@+id/filterByEndDate"
                         style="@style/EditTextStyle"
                         android:hint="@string/end_date" />
 
@@ -107,12 +117,14 @@
                     android:orientation="horizontal">
 
                     <Button
+                        android:id="@+id/filterByAll"
                         style="@style/ButtonYellow"
                         android:background="@drawable/btn_yellow_selected"
                         android:text="@string/all"
                         android:textColor="@android:color/white" />
 
                     <Button
+                        android:id="@+id/filterBySuccess"
                         style="@style/ButtonYellow"
                         android:text="@string/successful" />
 
@@ -125,6 +137,7 @@
 
 
                     <Button
+                        android:id="@+id/filterByFailed"
                         style="@style/ButtonYellow"
                         android:text="@string/unsuccessful" />
 
@@ -135,6 +148,7 @@
                 </LinearLayout>
 
                 <Button
+                    android:id="@+id/search"
                     style="@style/ButtonStyle"
                     android:layout_marginBottom="@dimen/main_padding"
                     android:layout_marginLeft="@dimen/main_padding"

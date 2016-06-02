@@ -1,5 +1,7 @@
 package com.skytel.sdp.utils;
 
+import java.text.SimpleDateFormat;
+
 /**
  * Created by Altanchimeg on 4/18/2016.
  */
@@ -47,5 +49,9 @@ public interface Constants {
     String REPORT_DEALER_CHARGECARD_TYPE = "card";
     String REPORT_DEALER_POSTPAIDPAYMENT_TYPE = "settle";
     String REPORT_DEALER_SKYMEDIAPAYMENT_TYPE = "skymedia";
+
+    int FILTER_ALL = 0;
+    int FILTER_SUCCESS = 1;
+    int FILTER_FAILED = 2;
 
 }

@@ -54,10 +54,10 @@ public class LoginActivity extends Activity implements Constants {
  */
 
 
-     /*   Intent i = new Intent(LoginActivity.this, MainActivity.class);
+        Intent i = new Intent(LoginActivity.this, MainActivity.class);
         startActivity(i);
         finish();
-*/
+
 
         if (prefManager.getIsLoggedIn()) {
             Intent intent = new Intent(LoginActivity.this, MainActivity.class);
@@ -154,10 +154,6 @@ public class LoginActivity extends Activity implements Constants {
                         runProfileInfoFunction();
                         progressDialog.show();
 
-                        prefManager.setIsLoggedIn(true);
-                        Intent intent = new Intent(LoginActivity.this, MainActivity.class);
-                        startActivity(intent);
-                        finish();
                     } else {
                         final String result_msg = jsonObj.getString("result_msg");
 
@@ -274,6 +270,10 @@ public class LoginActivity extends Activity implements Constants {
                         }
                     });
 
+                    prefManager.setIsLoggedIn(true);
+                    Intent intent = new Intent(LoginActivity.this, MainActivity.class);
+                    startActivity(intent);
+                    finish();
 
                 } catch (JSONException e) {
                     e.printStackTrace();
