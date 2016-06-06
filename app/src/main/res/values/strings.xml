@@ -117,6 +117,7 @@
     <string name="card_package_type">Картын багцын төрөл</string>
     <string name="choose_report_type">Тайлангийн төрөл сонгоно уу?</string>
     <string name="show_report">Тайлан харах</string>
+    <string name="report_promt">[Сонгох...]</string>
 
     <!-- Service -->
     <string name="take_epassport_picture">Цахим үнэмлэхний зургийг дарна уу</string>

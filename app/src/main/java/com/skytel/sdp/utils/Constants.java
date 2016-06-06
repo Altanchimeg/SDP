@@ -46,9 +46,6 @@ public interface Constants {
     int CONST_SKYTEL_DAY_PACKAGE = 2;
     int CONST_SMART_PACKAGE = 3;
 
-    String REPORT_DEALER_CHARGECARD_TYPE = "card";
-    String REPORT_DEALER_POSTPAIDPAYMENT_TYPE = "settle";
-    String REPORT_DEALER_SKYMEDIAPAYMENT_TYPE = "skymedia";
 
     int FILTER_ALL = 0;
     int FILTER_SUCCESS = 1;

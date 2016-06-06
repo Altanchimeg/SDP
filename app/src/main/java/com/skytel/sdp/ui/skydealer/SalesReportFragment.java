@@ -9,6 +9,7 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.GridView;
@@ -16,12 +17,14 @@ import android.widget.Spinner;
 import android.widget.Toast;
 
 import com.skytel.sdp.R;
+import com.skytel.sdp.adapter.NothingSelectedSpinnerAdapter;
 import com.skytel.sdp.adapter.SalesReportAdapter;
 import com.skytel.sdp.database.DataManager;
 import com.skytel.sdp.entities.SalesReport;
 import com.skytel.sdp.utils.Constants;
 import com.skytel.sdp.utils.CustomProgressDialog;
 import com.skytel.sdp.utils.PrefManager;
+import com.skytel.sdp.utils.ValidationChecker;
 
 import org.joda.time.DateTime;
 import org.joda.time.format.DateTimeFormat;
@@ -70,6 +73,9 @@ public class SalesReportFragment extends Fragment implements Constants {
     private EditText mFilterByStartDate;
     private Spinner mFilterByUnitPackage;
 
+    private Spinner mReportType;
+    private Button mShowReport;
+
     private int selectedFilterButton = FILTER_ALL;
 //    private int selectedReportType =
 
@@ -107,6 +113,21 @@ public class SalesReportFragment extends Fragment implements Constants {
         mFilterByEndDate = (EditText) rootView.findViewById(R.id.filterByEndDate);
         mFilterByStartDate = (EditText) rootView.findViewById(R.id.filterByStartDate);
         mFilterByUnitPackage = (Spinner) rootView.findViewById(R.id.filterByUnitPackage);
+        ArrayAdapter<CharSequence> adapterFilter = ArrayAdapter.createFromResource(getActivity(), R.array.skydealer_charge_card_types, android.R.layout.simple_spinner_item);
+        mFilterByUnitPackage.setAdapter(new NothingSelectedSpinnerAdapter(adapterFilter,
+                R.layout.spinner_row_nothing_selected,
+                // R.layout.contact_spinner_nothing_selected_dropdown, // Optional
+                getActivity()));
+
+        mReportType = (Spinner) rootView.findViewById(R.id.choose_skydealer_report_type);
+        ArrayAdapter<CharSequence> adapterReport = ArrayAdapter.createFromResource(getActivity(), R.array.skydealer_report_type, android.R.layout.simple_spinner_item);
+        mReportType.setAdapter(new NothingSelectedSpinnerAdapter(adapterReport,
+                        R.layout.spinner_row_nothing_selected,
+                        // R.layout.contact_spinner_nothing_selected_dropdown, // Optional
+                        getActivity()));
+        mShowReport = (Button) rootView.findViewById(R.id.showReport);
+        mShowReport.setOnClickListener(showReportOnClick);
+
 
       /*  for (int i = 0; i < 100; i++) {
             Date date = new Date();
@@ -155,7 +176,7 @@ public class SalesReportFragment extends Fragment implements Constants {
             try {
                 // mFilterByPhoneNumber.getText().toString();
                 progressDialog.show();
-                runChargeCardReportFunction(REPORT_DEALER_CHARGECARD_TYPE);
+                //runChargeCardReportFunction("card");
             } catch (Exception e) {
                 e.printStackTrace();
             }
@@ -183,6 +204,25 @@ public class SalesReportFragment extends Fragment implements Constants {
         public void onClick(View v) {
             selectedFilterButton = FILTER_FAILED;
             invalidateFilterButtons();
+        }
+    };
+
+    View.OnClickListener showReportOnClick = new View.OnClickListener() {
+        @Override
+        public void onClick(View v) {
+            try {
+                int selectedItemId = (int) mReportType.getSelectedItemId();
+                if (ValidationChecker.isSpinnerSelected(selectedItemId) ) {
+                    String [] reportType   = getResources().getStringArray(R.array.skydealer_report_type_code);
+                    progressDialog.show();
+                    runChargeCardReportFunction(reportType[selectedItemId],"","","",true);
+                    Log.d(TAG, "Report Type: "+reportType[selectedItemId]);
+                } else {
+                    Toast.makeText(getActivity(), "Please select the field!", Toast.LENGTH_SHORT).show();
+                }
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
         }
     };
 
@@ -221,7 +261,7 @@ public class SalesReportFragment extends Fragment implements Constants {
     }
 
 
-    public void runChargeCardReportFunction(String report_type) throws Exception {
+    public void runChargeCardReportFunction(String report_type, String phone, String start_date, String end_date, boolean isSuccess) throws Exception {
         progressDialog.show();
         final StringBuilder url = new StringBuilder();
         url.append(Constants.SERVER_URL);
@@ -229,7 +269,10 @@ public class SalesReportFragment extends Fragment implements Constants {
         url.append("?trans_type=" + report_type);
         url.append("&len=" + 40);
         url.append("&from=" + 0);
-        url.append("&is_success=" + true);
+        url.append("&is_success=" + isSuccess);
+        url.append("&phone=" + phone);
+        url.append("&start_date=" + start_date);
+        url.append("&end_date=" + end_date);
         // &startDate = null || 2016/05/01
         // &endDate =  null || 2016/06/01
         // &phoneNumber = null || 91109789
@@ -299,12 +342,13 @@ public class SalesReportFragment extends Fragment implements Constants {
                     JSONArray jArray = jsonObj.getJSONArray("transactions");
 
                     Log.d(TAG, "*****JARRAY*****" + jArray.length());
+                    salesReportArrayList.clear();
                     for (int i = 0; i <jArray.length(); i++) {
                         JSONObject jsonData = jArray.getJSONObject(i);
 
                         String date = jsonData.getString("date");
                         boolean success = jsonData.getBoolean("success");
-                        String type = jsonData.getString("type");
+                        String card_name = jsonData.getString("type");
                         String value = jsonData.getString("value");
                         String phone = jsonData.getString("phone");
 
@@ -312,7 +356,7 @@ public class SalesReportFragment extends Fragment implements Constants {
 
                         Log.d(TAG, "date: " + date);
                         Log.d(TAG, "success: " + success);
-                        Log.d(TAG, "type: " + type);
+                        Log.d(TAG, "card_name: " + card_name);
                         Log.d(TAG, "value: " + value);
                         Log.d(TAG, "phone: " + phone);
 
@@ -322,7 +366,7 @@ public class SalesReportFragment extends Fragment implements Constants {
                         salesReport.setPhone(phone);
                         salesReport.setValue(value);
                         salesReport.setSuccess(success);
-                        salesReport.setType(type);
+                        salesReport.setCardName(card_name);
                         salesReport.setDate(date);
 
                         salesReportArrayList.add(i, salesReport);

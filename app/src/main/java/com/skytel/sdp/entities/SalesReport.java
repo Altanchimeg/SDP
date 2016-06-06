@@ -7,7 +7,7 @@ public class SalesReport {
     private int id;
     private String phone;
     private String value;
-    private String type;
+    private String cardName;
     private boolean isSuccess;
     private String date;
 
@@ -35,12 +35,12 @@ public class SalesReport {
         this.value = value;
     }
 
-    public String getType() {
-        return type;
+    public String getCardName() {
+        return cardName;
     }
 
-    public void setType(String type) {
-        this.type = type;
+    public void setCardName(String cardName) {
+        this.cardName = cardName;
     }
 
     public boolean isSuccess() {

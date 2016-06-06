@@ -23,4 +23,6 @@
     <dimen name="leftmenu_margin">10dp</dimen>
     <dimen name="btn_yellow_width">120dp</dimen>
 
+    <integer name="chargecard_report_column">5</integer>
+
 </resources>

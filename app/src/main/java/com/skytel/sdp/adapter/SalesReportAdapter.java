@@ -30,13 +30,13 @@ public class SalesReportAdapter extends TableDataAdapter<SalesReport> {
                 renderedView = renderPhone(salesReport);
                 break;
             case 1:
-                renderedView = renderValue(salesReport);
+                renderedView = renderCardName(salesReport);
                 break;
             case 2:
-                renderedView = renderSuccess(salesReport);
+                renderedView = renderValue(salesReport);
                 break;
             case 3:
-                renderedView = renderType(salesReport);
+                renderedView = renderSuccess(salesReport);
                 break;
             case 4:
                 renderedView = renderDate(salesReport);
@@ -53,7 +53,13 @@ public class SalesReportAdapter extends TableDataAdapter<SalesReport> {
         textView.setTextSize(18);
         return textView;
     }
-
+    private View renderCardName(final SalesReport salesReport) {
+        final TextView textView = new TextView(getContext());
+        textView.setText(salesReport.getCardName() + "");
+        textView.setPadding(20, 10, 20, 10);
+        textView.setTextSize(18);
+        return textView;
+    }
     private View renderValue(final SalesReport salesReport) {
         final TextView textView = new TextView(getContext());
         textView.setText(salesReport.getValue() + "");
@@ -61,10 +67,14 @@ public class SalesReportAdapter extends TableDataAdapter<SalesReport> {
         textView.setTextSize(18);
         return textView;
     }
-
-    private View renderType(final SalesReport salesReport) {
+    private View renderSuccess(final SalesReport salesReport) {
         final TextView textView = new TextView(getContext());
-        textView.setText(salesReport.getType() + "");
+//        textView.setText(salesReport.getDate().toString() + "");
+        if (salesReport.isSuccess()) {
+            textView.setText(mContext.getResources().getString(R.string.successful));
+        } else {
+            textView.setText(mContext.getResources().getString(R.string.unsuccessful));
+        }
         textView.setPadding(20, 10, 20, 10);
         textView.setTextSize(18);
         return textView;
@@ -79,17 +89,6 @@ public class SalesReportAdapter extends TableDataAdapter<SalesReport> {
         return textView;
     }
 
-    private View renderSuccess(final SalesReport salesReport) {
-        final TextView textView = new TextView(getContext());
-//        textView.setText(salesReport.getDate().toString() + "");
-        if (salesReport.isSuccess()) {
-            textView.setText(mContext.getResources().getString(R.string.successful));
-        } else {
-            textView.setText(mContext.getResources().getString(R.string.unsuccessful));
-        }
-        textView.setPadding(20, 10, 20, 10);
-        textView.setTextSize(18);
-        return textView;
-    }
+
 
 }

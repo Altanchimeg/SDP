@@ -61,4 +61,19 @@
         <item>ДТҮ төлбөр төлөлт</item>
     </string-array>
 
+
+    <string-array name="charge_card_report_column_names">
+        <item>Утасны дугаар</item>
+        <item>Картын төрөл</item>
+        <item>Үнэ</item>
+        <item>Төлөв</item>
+        <item>Цэнэглэсэн огноо</item>
+    </string-array>
+
+    <string-array name="skydealer_report_type_code">
+        <item>card</item>
+        <item>settle</item>
+        <item>skymedia</item>
+    </string-array>
+
 </resources>

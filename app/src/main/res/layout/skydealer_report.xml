@@ -8,7 +8,7 @@
         style="@style/MainViewContainer"
         android:orientation="vertical">
 
-        <LinearLayout
+        <RelativeLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_margin="@dimen/main_padding"
@@ -19,28 +19,32 @@
                 android:text="@string/choose_report_type" />
 
             <Spinner
-                android:layout_width="@dimen/center_box_width"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:id="@+id/choose_skydealer_report_type"
                 android:entries="@array/skydealer_report_type"
                 android:focusable="false"
+                android:layout_marginRight="@dimen/rightview_width"
+                android:layout_marginLeft="@dimen/rightview_width"
+                android:drawSelectorOnTop="true"
+                android:prompt="@string/report_promt"
                 android:spinnerMode="dropdown">
 
             </Spinner>
             <Button
-                android:id="@+id/numberSearch"
+                android:id="@+id/showReport"
                 style="@style/ButtonStyle"
-                android:layout_marginLeft="@dimen/third_padding"
                 android:text="@string/show_report"
-                android:layout_alignParentRight="true"></Button>
+                android:layout_alignParentRight="true"
+                android:layout_width="@dimen/leftmenu_width"></Button>
 
-        </LinearLayout>
+        </RelativeLayout>
 
         <com.skytel.sdp.ui.skydealer.SortableSalesReportTableView xmlns:table="http://schemas.android.com/apk/res-auto"
             android:id="@+id/salesReportTableView"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            table:tableView_columnCount="5"
+            table:tableView_columnCount="@integer/chargecard_report_column"
             table:tableView_headerColor="@android:color/transparent" />
     </LinearLayout>
 
