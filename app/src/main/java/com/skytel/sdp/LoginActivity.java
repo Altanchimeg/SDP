@@ -171,16 +171,15 @@ public class LoginActivity extends Activity implements Constants {
                     }
 
 
-                    runOnUiThread(new Runnable() {
-                        @Override
-                        public void run() {
-
-                        }
-                    });
-
 
                 } catch (JSONException e) {
                     e.printStackTrace();
+                    runOnUiThread(new Runnable() {
+                        @Override
+                        public void run() {
+                            Toast.makeText(context, "Алдаатай хариу ирлээ", Toast.LENGTH_LONG).show();
+                        }
+                    });
                 } catch (Exception e) {
                     e.printStackTrace();
                 }
@@ -276,6 +275,12 @@ public class LoginActivity extends Activity implements Constants {
                     finish();
 
                 } catch (JSONException e) {
+                    runOnUiThread(new Runnable() {
+                        @Override
+                        public void run() {
+                            Toast.makeText(context, "Алдаатай хариу ирлээ", Toast.LENGTH_LONG).show();
+                        }
+                    });
                     e.printStackTrace();
                 }
             }

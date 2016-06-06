@@ -299,7 +299,7 @@ public class SalesReportFragment extends Fragment implements Constants {
                     JSONArray jArray = jsonObj.getJSONArray("transactions");
 
                     Log.d(TAG, "*****JARRAY*****" + jArray.length());
-                    for (int i = 0; i < 30; i++) {
+                    for (int i = 0; i <jArray.length(); i++) {
                         JSONObject jsonData = jArray.getJSONObject(i);
 
                         String date = jsonData.getString("date");
@@ -336,6 +336,12 @@ public class SalesReportFragment extends Fragment implements Constants {
 
 
                 } catch (JSONException e) {
+                    getActivity().runOnUiThread(new Runnable() {
+                        @Override
+                        public void run() {
+                            Toast.makeText(mContext, "Алдаатай хариу ирлээ", Toast.LENGTH_LONG).show();
+                        }
+                    });
                     e.printStackTrace();
                 }
             }

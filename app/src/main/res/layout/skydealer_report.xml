@@ -6,7 +6,35 @@
 
     <LinearLayout
         style="@style/MainViewContainer"
-        android:layout_alignParentTop="true">
+        android:orientation="vertical">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="@dimen/main_padding"
+            android:orientation="horizontal">
+
+            <TextView
+                style="@style/MainViewTextViewBlue"
+                android:text="@string/choose_report_type" />
+
+            <Spinner
+                android:layout_width="@dimen/center_box_width"
+                android:layout_height="wrap_content"
+                android:id="@+id/choose_skydealer_report_type"
+                android:entries="@array/skydealer_report_type"
+                android:focusable="false"
+                android:spinnerMode="dropdown">
+
+            </Spinner>
+            <Button
+                android:id="@+id/numberSearch"
+                style="@style/ButtonStyle"
+                android:layout_marginLeft="@dimen/third_padding"
+                android:text="@string/show_report"
+                android:layout_alignParentRight="true"></Button>
+
+        </LinearLayout>
 
         <com.skytel.sdp.ui.skydealer.SortableSalesReportTableView xmlns:table="http://schemas.android.com/apk/res-auto"
             android:id="@+id/salesReportTableView"
@@ -75,9 +103,9 @@
                         style="@style/EditTextStyle"
                         android:hint="@string/start_date" />
 
-                    <DatePicker style="@style/EditTextStyle"
-                        android:visibility="gone"
-                        ></DatePicker>
+                    <DatePicker
+                        style="@style/EditTextStyle"
+                        android:visibility="gone"></DatePicker>
 
                     <ImageView
                         android:layout_width="20dp"

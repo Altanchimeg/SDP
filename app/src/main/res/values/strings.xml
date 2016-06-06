@@ -34,6 +34,10 @@
     <string name="description_order">Захиалгатай холбоотой тайлбар</string>
     <string name="get_code">Код авах</string>
     <string name="please_wait">Түр хүлээнэ үү</string>
+    <string name="information">Мэдээлэл</string>
+    <string name="plan">Төлөвлөгөө</string>
+    <string name="registration">Бүртгэл</string>
+    <string name="service">Үйлчилгээ</string>
 
     <!-- Dialog -->
     <string name="dialog_confirm">Та энэ захиалгыг баталгаажуулах уу</string>
@@ -111,6 +115,8 @@
 
     <!-- SkyDealer Report-->
     <string name="card_package_type">Картын багцын төрөл</string>
+    <string name="choose_report_type">Тайлангийн төрөл сонгоно уу?</string>
+    <string name="show_report">Тайлан харах</string>
 
     <!-- Service -->
     <string name="take_epassport_picture">Цахим үнэмлэхний зургийг дарна уу</string>

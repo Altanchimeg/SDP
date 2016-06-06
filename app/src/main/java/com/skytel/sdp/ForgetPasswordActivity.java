@@ -193,6 +193,12 @@ public class ForgetPasswordActivity extends AppCompatActivity implements Constan
 
 
                 } catch (JSONException e) {
+                  runOnUiThread(new Runnable() {
+                        @Override
+                        public void run() {
+                            Toast.makeText(context, "Алдаатай хариу ирлээ", Toast.LENGTH_LONG).show();
+                        }
+                    });
                     e.printStackTrace();
                 }
             }
@@ -286,16 +292,13 @@ public class ForgetPasswordActivity extends AppCompatActivity implements Constan
 
                     }
 
-
+                } catch (JSONException e) {
                     runOnUiThread(new Runnable() {
                         @Override
                         public void run() {
-
+                            Toast.makeText(context, "Алдаатай хариу ирлээ", Toast.LENGTH_LONG).show();
                         }
                     });
-
-
-                } catch (JSONException e) {
                     e.printStackTrace();
                 }
             }

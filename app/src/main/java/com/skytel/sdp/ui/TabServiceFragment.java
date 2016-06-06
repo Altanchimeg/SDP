@@ -10,6 +10,7 @@ import android.support.v4.view.ViewPager;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Toast;
 
 import com.skytel.sdp.R;
 import com.skytel.sdp.ui.service.HandsetChangeFragment;
@@ -38,6 +39,9 @@ public class TabServiceFragment extends Fragment {
                              Bundle savedInstanceState) {
 
         View rootView = inflater.inflate(R.layout.fragment_tab_pager, container, false);
+
+        Toast.makeText(getActivity(), getText(R.string.service)+" хэсэг нь энэхүү хувилбарт ажиллахгүй байгаа. ", Toast.LENGTH_SHORT).show();
+        Toast.makeText(getActivity(), "Та хувилбарт багтсан хэсгийг сонгон тестэлнэ үү. Баярлалаа", Toast.LENGTH_SHORT).show();
 
         fragmentPagerAdapter = new FragmentPagerAdapter(getActivity().getFragmentManager());
 

@@ -192,6 +192,12 @@ public class ChangePasswordFragment extends Fragment implements Constants{
 
 
                 } catch (JSONException e) {
+                    getActivity().runOnUiThread(new Runnable() {
+                        @Override
+                        public void run() {
+                            Toast.makeText(mContext, "Алдаатай хариу ирлээ", Toast.LENGTH_LONG).show();
+                        }
+                    });
                     e.printStackTrace();
                 }
             }
