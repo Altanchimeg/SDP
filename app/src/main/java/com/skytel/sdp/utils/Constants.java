@@ -51,4 +51,6 @@ public interface Constants {
     int FILTER_SUCCESS = 1;
     int FILTER_FAILED = 2;
 
+    int DATE_DIALOG_ID = 999;
+
 }

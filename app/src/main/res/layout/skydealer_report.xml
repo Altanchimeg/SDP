@@ -76,7 +76,7 @@
                     style="@style/PhoneNumberEdittextStyle"
                     android:hint="@string/ordered_number" />
 
-                <TextView
+               <TextView
                     style="@style/RightViewTextViewBold"
                     android:layout_gravity="start"
                     android:text="@string/card_package_type" />
@@ -93,6 +93,7 @@
                         android:spinnerMode="dropdown" />
                 </RelativeLayout>
 
+
                 <TextView
                     style="@style/RightViewTextViewBold"
                     android:layout_gravity="start"
@@ -107,13 +108,10 @@
                         style="@style/EditTextStyle"
                         android:hint="@string/start_date" />
 
-                    <DatePicker
-                        style="@style/EditTextStyle"
-                        android:visibility="gone"></DatePicker>
-
-                    <ImageView
-                        android:layout_width="20dp"
-                        android:layout_height="20dp"
+                    <Button
+                        android:id="@+id/btn_start_date"
+                        android:layout_width="@dimen/second_padding"
+                        android:layout_height="@dimen/second_padding"
                         android:layout_alignParentRight="true"
                         android:layout_centerVertical="true"
                         android:layout_marginRight="@dimen/main_padding"
@@ -129,9 +127,10 @@
                         style="@style/EditTextStyle"
                         android:hint="@string/end_date" />
 
-                    <ImageView
-                        android:layout_width="20dp"
-                        android:layout_height="20dp"
+                    <Button
+                        android:id="@+id/btn_end_date"
+                        android:layout_width="@dimen/second_padding"
+                        android:layout_height="@dimen/second_padding"
                         android:layout_alignParentRight="true"
                         android:layout_centerVertical="true"
                         android:layout_marginRight="@dimen/main_padding"

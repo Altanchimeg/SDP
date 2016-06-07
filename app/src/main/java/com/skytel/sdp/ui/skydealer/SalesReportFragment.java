@@ -1,6 +1,8 @@
 package com.skytel.sdp.ui.skydealer;
 
 
+import android.app.DatePickerDialog;
+import android.app.Dialog;
 import android.content.Context;
 import android.graphics.Color;
 import android.os.Bundle;
@@ -11,6 +13,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
+import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.GridView;
 import android.widget.Spinner;
@@ -34,10 +37,13 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.io.IOException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.Comparator;
 import java.util.Date;
 import java.util.List;
+import java.util.Locale;
 
 import de.codecrafters.tableview.SortableTableView;
 import de.codecrafters.tableview.TableView;
@@ -73,10 +79,27 @@ public class SalesReportFragment extends Fragment implements Constants {
     private EditText mFilterByStartDate;
     private Spinner mFilterByUnitPackage;
 
+
+    private Button mFilterButtonByEndDate;
+    private Button mFilterButtonByStartDate;
+
     private Spinner mReportType;
     private Button mShowReport;
 
-    private int selectedFilterButton = FILTER_ALL;
+    private int selectedFilterButton = FILTER_SUCCESS;
+    private  boolean isSuccessFilter = true;
+
+    private int selectedItemId = -1;
+    private String [] reportType = null;
+
+    private int mYear;
+    private int mMonth;
+    private int mDay;
+
+    private final Calendar myCalendar=Calendar.getInstance();;
+
+
+
 //    private int selectedReportType =
 
     @Override
@@ -129,6 +152,21 @@ public class SalesReportFragment extends Fragment implements Constants {
         mShowReport.setOnClickListener(showReportOnClick);
 
 
+        reportType   = getResources().getStringArray(R.array.skydealer_report_type_code);
+
+        mFilterButtonByStartDate = (Button) rootView.findViewById(R.id.btn_start_date);
+        mFilterButtonByStartDate.setOnClickListener(filterByStartDateOnClick);
+        mFilterButtonByEndDate = (Button) rootView.findViewById(R.id.btn_end_date);
+        mFilterButtonByEndDate.setOnClickListener(filterByEndDateOnClick);
+
+
+        mYear = myCalendar.get(Calendar.YEAR);
+        mMonth = myCalendar.get(Calendar.MONTH);
+        mDay = myCalendar.get(Calendar.DAY_OF_MONTH);
+
+
+
+
       /*  for (int i = 0; i < 100; i++) {
             Date date = new Date();
             boolean success = true;
@@ -174,9 +212,16 @@ public class SalesReportFragment extends Fragment implements Constants {
         @Override
         public void onClick(View v) {
             try {
-                // mFilterByPhoneNumber.getText().toString();
+
                 progressDialog.show();
-                //runChargeCardReportFunction("card");
+                selectedItemId = (int) mReportType.getSelectedItemId();
+                String phone_number =  mFilterByPhoneNumber.getText().toString();
+                Boolean isSuccess = isSuccessFilter;
+
+                String start_date = mFilterByStartDate.getText().toString();
+                String end_date = mFilterByEndDate.getText().toString();
+
+                runChargeCardReportFunction(reportType[selectedItemId],100,0,isSuccess,phone_number,start_date, end_date);
             } catch (Exception e) {
                 e.printStackTrace();
             }
@@ -211,11 +256,12 @@ public class SalesReportFragment extends Fragment implements Constants {
         @Override
         public void onClick(View v) {
             try {
-                int selectedItemId = (int) mReportType.getSelectedItemId();
+                selectedItemId = (int) mReportType.getSelectedItemId();
                 if (ValidationChecker.isSpinnerSelected(selectedItemId) ) {
-                    String [] reportType   = getResources().getStringArray(R.array.skydealer_report_type_code);
                     progressDialog.show();
-                    runChargeCardReportFunction(reportType[selectedItemId],"","","",true);
+
+                    String currentDateandTime = new SimpleDateFormat("yyyy-MM-dd").format(new Date());
+                    runChargeCardReportFunction(reportType[selectedItemId],100,0,true,"","1900-01-01", currentDateandTime);
                     Log.d(TAG, "Report Type: "+reportType[selectedItemId]);
                 } else {
                     Toast.makeText(getActivity(), "Please select the field!", Toast.LENGTH_SHORT).show();
@@ -226,6 +272,55 @@ public class SalesReportFragment extends Fragment implements Constants {
         }
     };
 
+    View.OnClickListener filterByStartDateOnClick = new View.OnClickListener() {
+        @Override
+        public void onClick(View v) {
+            DatePickerDialog dpd = new DatePickerDialog(getActivity(),
+                    new DatePickerDialog.OnDateSetListener() {
+
+                        @Override
+                        public void onDateSet(DatePicker view, int year,
+                                              int monthOfYear, int dayOfMonth) {
+
+                            myCalendar.set(Calendar.YEAR, year);
+                            myCalendar.set(Calendar.MONTH, monthOfYear);
+                            myCalendar.set(Calendar.DAY_OF_MONTH, dayOfMonth);
+                            String myFormat = "yyyy-MM-dd"; // In which you need put here
+                            SimpleDateFormat sdf = new SimpleDateFormat(myFormat, Locale.getDefault());
+
+                            mFilterByStartDate.setText(sdf.format(myCalendar.getTime()));
+
+                        }
+                    }, mYear, mMonth, mDay);
+            dpd.show();
+        }
+    };
+    View.OnClickListener filterByEndDateOnClick = new View.OnClickListener() {
+        @Override
+        public void onClick(View v) {
+            DatePickerDialog dpd = new DatePickerDialog(getActivity(),
+                    new DatePickerDialog.OnDateSetListener() {
+
+                        @Override
+                        public void onDateSet(DatePicker view, int year,
+                                              int monthOfYear, int dayOfMonth) {
+
+                            myCalendar.set(Calendar.YEAR, year);
+                            myCalendar.set(Calendar.MONTH, monthOfYear);
+                            myCalendar.set(Calendar.DAY_OF_MONTH, dayOfMonth);
+                            String myFormat = "yyyy-MM-dd"; // In which you need put here
+                            SimpleDateFormat sdf = new SimpleDateFormat(myFormat, Locale.getDefault());
+
+                            mFilterByEndDate.setText(sdf.format(myCalendar.getTime()));
+
+                        }
+                    }, mYear, mMonth, mDay);
+            dpd.show();
+        }
+    };
+
+
+
     private void invalidateFilterButtons() {
         switch (selectedFilterButton) {
             case FILTER_ALL:
@@ -235,6 +330,7 @@ public class SalesReportFragment extends Fragment implements Constants {
                 mFilterBySuccess.setTextColor(getResources().getColor(R.color.colorSkytelYellow));
                 mFilterByFailed.setBackground(getResources().getDrawable(R.drawable.btn_yellow));
                 mFilterByFailed.setTextColor(getResources().getColor(R.color.colorSkytelYellow));
+                isSuccessFilter = true;
                 break;
             case FILTER_SUCCESS:
                 mFilterByAll.setBackground(getResources().getDrawable(R.drawable.btn_yellow));
@@ -245,6 +341,7 @@ public class SalesReportFragment extends Fragment implements Constants {
 
                 mFilterByFailed.setBackground(getResources().getDrawable(R.drawable.btn_yellow));
                 mFilterByFailed.setTextColor(getResources().getColor(R.color.colorSkytelYellow));
+                isSuccessFilter = true;
                 break;
             case FILTER_FAILED:
                 mFilterByAll.setBackground(getResources().getDrawable(R.drawable.btn_yellow));
@@ -255,28 +352,25 @@ public class SalesReportFragment extends Fragment implements Constants {
 
                 mFilterByFailed.setBackground(getResources().getDrawable(R.drawable.btn_yellow_selected));
                 mFilterByFailed.setTextColor(Color.WHITE);
-
+                isSuccessFilter = false;
                 break;
         }
     }
 
 
-    public void runChargeCardReportFunction(String report_type, String phone, String start_date, String end_date, boolean isSuccess) throws Exception {
+    public void runChargeCardReportFunction(String report_type,int length, int from,boolean isSuccess, String phone, String start_date, String end_date) throws Exception {
         progressDialog.show();
         final StringBuilder url = new StringBuilder();
         url.append(Constants.SERVER_URL);
         url.append(Constants.FUNCTION_DEALER_REPORT);
         url.append("?trans_type=" + report_type);
-        url.append("&len=" + 40);
-        url.append("&from=" + 0);
+        url.append("&len=" + length);
+        url.append("&from=" + from);
         url.append("&is_success=" + isSuccess);
         url.append("&phone=" + phone);
         url.append("&start_date=" + start_date);
         url.append("&end_date=" + end_date);
-        // &startDate = null || 2016/05/01
-        // &endDate =  null || 2016/06/01
-        // &phoneNumber = null || 91109789
-        // &unitPackage = 0...123
+
 
         getActivity().runOnUiThread(new Runnable() {
             @Override
@@ -333,11 +427,10 @@ public class SalesReportFragment extends Fragment implements Constants {
                     JSONObject jsonObj = new JSONObject(resp);
                     int result_code = jsonObj.getInt("result_code");
                     String result_msg = jsonObj.getString("result_msg");
-                    String dealer_id = jsonObj.getString("dealer_id");
+
 
                     Log.d(TAG, "result_code: " + result_code);
                     Log.d(TAG, "result_msg: " + result_msg);
-                    Log.d(TAG, "dealer_id: " + dealer_id);
 
                     JSONArray jArray = jsonObj.getJSONArray("transactions");
 
@@ -348,7 +441,7 @@ public class SalesReportFragment extends Fragment implements Constants {
 
                         String date = jsonData.getString("date");
                         boolean success = jsonData.getBoolean("success");
-                        String card_name = jsonData.getString("type");
+                        String card_name = jsonData.getString("card_name");
                         String value = jsonData.getString("value");
                         String phone = jsonData.getString("phone");
 
