@@ -11,19 +11,19 @@ import de.codecrafters.tableview.toolkit.SimpleTableHeaderAdapter;
 import de.codecrafters.tableview.toolkit.SortStateViewProviders;
 import de.codecrafters.tableview.toolkit.TableDataRowColorizers;
 
-public class SortableSalesReportTableView extends SortableTableView<SalesReport> {
+public class SortableSalesReportPostPaidPaymentTableView extends SortableTableView<SalesReport> {
 
-    public SortableSalesReportTableView(Context context) {
+    public SortableSalesReportPostPaidPaymentTableView(Context context) {
         this(context, null);
     }
 
-    public SortableSalesReportTableView(Context context, AttributeSet attributes) {
+    public SortableSalesReportPostPaidPaymentTableView(Context context, AttributeSet attributes) {
         this(context, attributes, android.R.attr.listViewStyle);
     }
 
-    public SortableSalesReportTableView(Context context, AttributeSet attributes, int styleAttributes) {
+    public SortableSalesReportPostPaidPaymentTableView(Context context, AttributeSet attributes, int styleAttributes) {
         super(context, attributes, styleAttributes);
-        SimpleTableHeaderAdapter simpleTableHeaderAdapter = new SimpleTableHeaderAdapter(context, getResources().getStringArray(R.array.charge_card_report_column_names));
+        SimpleTableHeaderAdapter simpleTableHeaderAdapter = new SimpleTableHeaderAdapter(context, getResources().getStringArray(R.array.post_paid_payment_report_column_names));
         simpleTableHeaderAdapter.setTextColor(context.getResources().getColor(R.color.colorSkytelYellow));
         setHeaderAdapter(simpleTableHeaderAdapter);
 
@@ -36,9 +36,8 @@ public class SortableSalesReportTableView extends SortableTableView<SalesReport>
         setColumnWeight(1, 3);
         setColumnWeight(2, 2);
         setColumnWeight(3, 2);
-        setColumnWeight(4, 3);
 
-        setColumnComparator(4, SalesReportComparator.getSalesReportDateComparator());
+        setColumnComparator(3, SalesReportComparator.getSalesReportDateComparator());
 //        setColumnComparator(1, SalesReportComparator.getSalesReportPhoneComparator());
 
     }

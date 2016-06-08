@@ -12,10 +12,10 @@ import java.util.List;
 
 import de.codecrafters.tableview.TableDataAdapter;
 
-public class SalesReportAdapter extends TableDataAdapter<SalesReport> {
+public class SalesReportPostPaidPaymentAdapter extends TableDataAdapter<SalesReport> {
     private Context mContext;
 
-    public SalesReportAdapter(Context context, List<SalesReport> data) {
+    public SalesReportPostPaidPaymentAdapter(Context context, List<SalesReport> data) {
         super(context, data);
         mContext = context;
     }
@@ -30,15 +30,12 @@ public class SalesReportAdapter extends TableDataAdapter<SalesReport> {
                 renderedView = renderPhone(salesReport);
                 break;
             case 1:
-                renderedView = renderCardName(salesReport);
-                break;
-            case 2:
                 renderedView = renderValue(salesReport);
                 break;
-            case 3:
+            case 2:
                 renderedView = renderSuccess(salesReport);
                 break;
-            case 4:
+            case 3:
                 renderedView = renderDate(salesReport);
                 break;
         }
@@ -49,13 +46,6 @@ public class SalesReportAdapter extends TableDataAdapter<SalesReport> {
     private View renderPhone(final SalesReport salesReport) {
         final TextView textView = new TextView(getContext());
         textView.setText(salesReport.getPhone() + "");
-        textView.setPadding(20, 10, 20, 10);
-        textView.setTextSize(18);
-        return textView;
-    }
-    private View renderCardName(final SalesReport salesReport) {
-        final TextView textView = new TextView(getContext());
-        textView.setText(salesReport.getCardName() + "");
         textView.setPadding(20, 10, 20, 10);
         textView.setTextSize(18);
         return textView;
