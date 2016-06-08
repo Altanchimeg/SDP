@@ -8,7 +8,7 @@
         style="@style/MainViewContainer"
         android:orientation="vertical">
 
-        <RelativeLayout
+        <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_margin="@dimen/main_padding"
@@ -24,21 +24,13 @@
                 android:id="@+id/choose_skydealer_report_type"
                 android:entries="@array/skydealer_report_type"
                 android:focusable="false"
-                android:layout_marginRight="@dimen/rightview_width"
-                android:layout_marginLeft="@dimen/rightview_width"
                 android:drawSelectorOnTop="true"
                 android:prompt="@string/report_promt"
                 android:spinnerMode="dropdown">
 
             </Spinner>
-            <Button
-                android:id="@+id/showReport"
-                style="@style/ButtonStyle"
-                android:text="@string/show_report"
-                android:layout_alignParentRight="true"
-                android:layout_width="@dimen/leftmenu_width"></Button>
 
-        </RelativeLayout>
+        </LinearLayout>
 
         <com.skytel.sdp.ui.skydealer.SortableSalesReportTableView xmlns:table="http://schemas.android.com/apk/res-auto"
             android:id="@+id/salesReportTableView"
@@ -147,36 +139,39 @@
                     android:layout_height="wrap_content"
                     android:orientation="horizontal">
 
-                    <Button
+                 <!--   <Button
                         android:id="@+id/filterByAll"
                         style="@style/ButtonYellow"
-                        android:background="@drawable/btn_yellow_selected"
                         android:text="@string/all"
-                        android:textColor="@android:color/white" />
+                        android:background="@drawable/btn_yellow_selected"
+                        android:textColor="@android:color/white" /> -->
 
                     <Button
                         android:id="@+id/filterBySuccess"
                         style="@style/ButtonYellow"
-                        android:text="@string/successful" />
-
-                </LinearLayout>
-
-                <LinearLayout
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:orientation="horizontal">
-
-
+                        android:text="@string/successful"
+                        android:background="@drawable/btn_yellow_selected"
+                        android:textColor="@android:color/white" />
                     <Button
                         android:id="@+id/filterByFailed"
                         style="@style/ButtonYellow"
                         android:text="@string/unsuccessful" />
 
+                </LinearLayout>
+
+              <!--  <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal">
+
+
+
+
                     <Button
                         style="@style/ButtonYellow"
                         android:visibility="invisible" />
 
-                </LinearLayout>
+                </LinearLayout> -->
 
                 <Button
                     android:id="@+id/search"

@@ -11,6 +11,7 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.DatePicker;
@@ -71,7 +72,7 @@ public class SalesReportFragment extends Fragment implements Constants {
     private List<SalesReport> salesReportArrayList;
     private CustomProgressDialog progressDialog;
     private Button mSearch;
-    private Button mFilterByAll;
+    //private Button mFilterByAll;
     private Button mFilterBySuccess;
     private Button mFilterByFailed;
     private EditText mFilterByPhoneNumber;
@@ -84,7 +85,6 @@ public class SalesReportFragment extends Fragment implements Constants {
     private Button mFilterButtonByStartDate;
 
     private Spinner mReportType;
-    private Button mShowReport;
 
     private int selectedFilterButton = FILTER_SUCCESS;
     private  boolean isSuccessFilter = true;
@@ -98,9 +98,6 @@ public class SalesReportFragment extends Fragment implements Constants {
 
     private final Calendar myCalendar=Calendar.getInstance();;
 
-
-
-//    private int selectedReportType =
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -123,8 +120,8 @@ public class SalesReportFragment extends Fragment implements Constants {
         mSearch = (Button) rootView.findViewById(R.id.search);
         mSearch.setOnClickListener(searchOnClick);
 
-        mFilterByAll = (Button) rootView.findViewById(R.id.filterByAll);
-        mFilterByAll.setOnClickListener(filterByAllOnClick);
+        /*mFilterByAll = (Button) rootView.findViewById(R.id.filterByAll);
+        mFilterByAll.setOnClickListener(filterByAllOnClick);*/
 
         mFilterBySuccess = (Button) rootView.findViewById(R.id.filterBySuccess);
         mFilterBySuccess.setOnClickListener(filterBySuccessOnClick);
@@ -148,8 +145,31 @@ public class SalesReportFragment extends Fragment implements Constants {
                         R.layout.spinner_row_nothing_selected,
                         // R.layout.contact_spinner_nothing_selected_dropdown, // Optional
                         getActivity()));
-        mShowReport = (Button) rootView.findViewById(R.id.showReport);
-        mShowReport.setOnClickListener(showReportOnClick);
+        mReportType.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+            try {
+                    selectedItemId = (int) mReportType.getSelectedItemId();
+                    if (ValidationChecker.isSpinnerSelected(selectedItemId) ) {
+                progressDialog.show();
+
+                String currentDateandTime = new SimpleDateFormat("yyyy-MM-dd").format(new Date());
+                runChargeCardReportFunction(reportType[selectedItemId],100,0,true,"","1900-01-01", currentDateandTime);
+                Log.d(TAG, "Report Type: "+reportType[selectedItemId]);
+                    } else {
+                       // Toast.makeText(getActivity(),getText(R.string.choose_report_type) , Toast.LENGTH_SHORT).show();
+                    }
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> parent) {
+
+            }
+        });
+
 
 
         reportType   = getResources().getStringArray(R.array.skydealer_report_type_code);
@@ -251,27 +271,6 @@ public class SalesReportFragment extends Fragment implements Constants {
             invalidateFilterButtons();
         }
     };
-
-    View.OnClickListener showReportOnClick = new View.OnClickListener() {
-        @Override
-        public void onClick(View v) {
-            try {
-                selectedItemId = (int) mReportType.getSelectedItemId();
-                if (ValidationChecker.isSpinnerSelected(selectedItemId) ) {
-                    progressDialog.show();
-
-                    String currentDateandTime = new SimpleDateFormat("yyyy-MM-dd").format(new Date());
-                    runChargeCardReportFunction(reportType[selectedItemId],100,0,true,"","1900-01-01", currentDateandTime);
-                    Log.d(TAG, "Report Type: "+reportType[selectedItemId]);
-                } else {
-                    Toast.makeText(getActivity(), "Please select the field!", Toast.LENGTH_SHORT).show();
-                }
-            } catch (Exception e) {
-                e.printStackTrace();
-            }
-        }
-    };
-
     View.OnClickListener filterByStartDateOnClick = new View.OnClickListener() {
         @Override
         public void onClick(View v) {
@@ -323,7 +322,7 @@ public class SalesReportFragment extends Fragment implements Constants {
 
     private void invalidateFilterButtons() {
         switch (selectedFilterButton) {
-            case FILTER_ALL:
+           /* case FILTER_ALL:
                 mFilterByAll.setBackground(getResources().getDrawable(R.drawable.btn_yellow_selected));
                 mFilterByAll.setTextColor(Color.WHITE);
                 mFilterBySuccess.setBackground(getResources().getDrawable(R.drawable.btn_yellow));
@@ -331,10 +330,10 @@ public class SalesReportFragment extends Fragment implements Constants {
                 mFilterByFailed.setBackground(getResources().getDrawable(R.drawable.btn_yellow));
                 mFilterByFailed.setTextColor(getResources().getColor(R.color.colorSkytelYellow));
                 isSuccessFilter = true;
-                break;
+                break;*/
             case FILTER_SUCCESS:
-                mFilterByAll.setBackground(getResources().getDrawable(R.drawable.btn_yellow));
-                mFilterByAll.setTextColor(getResources().getColor(R.color.colorSkytelYellow));
+                //mFilterByAll.setBackground(getResources().getDrawable(R.drawable.btn_yellow));
+               // mFilterByAll.setTextColor(getResources().getColor(R.color.colorSkytelYellow));
 
                 mFilterBySuccess.setBackground(getResources().getDrawable(R.drawable.btn_yellow_selected));
                 mFilterBySuccess.setTextColor(Color.WHITE);
@@ -344,8 +343,8 @@ public class SalesReportFragment extends Fragment implements Constants {
                 isSuccessFilter = true;
                 break;
             case FILTER_FAILED:
-                mFilterByAll.setBackground(getResources().getDrawable(R.drawable.btn_yellow));
-                mFilterByAll.setTextColor(getResources().getColor(R.color.colorSkytelYellow));
+               // mFilterByAll.setBackground(getResources().getDrawable(R.drawable.btn_yellow));
+                //mFilterByAll.setTextColor(getResources().getColor(R.color.colorSkytelYellow));
 
                 mFilterBySuccess.setBackground(getResources().getDrawable(R.drawable.btn_yellow));
                 mFilterBySuccess.setTextColor(getResources().getColor(R.color.colorSkytelYellow));
