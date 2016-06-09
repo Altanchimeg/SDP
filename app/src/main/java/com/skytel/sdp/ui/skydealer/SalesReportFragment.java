@@ -18,6 +18,7 @@ import android.widget.EditText;
 import android.widget.GridView;
 import android.widget.RelativeLayout;
 import android.widget.Spinner;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.skytel.sdp.R;
@@ -75,6 +76,7 @@ public class SalesReportFragment extends Fragment implements Constants {
     private EditText mFilterByEndDate;
     private EditText mFilterByStartDate;
     private Spinner mFilterByUnitPackage;
+    private TextView mTextUnitPackage;
 
     private Button mFilterButtonByEndDate;
     private Button mFilterButtonByStartDate;
@@ -131,6 +133,7 @@ public class SalesReportFragment extends Fragment implements Constants {
         mFilterByEndDate = (EditText) rootView.findViewById(R.id.filterByEndDate);
         mFilterByStartDate = (EditText) rootView.findViewById(R.id.filterByStartDate);
         mFilterByUnitPackage = (Spinner) rootView.findViewById(R.id.filterByUnitPackage);
+        mTextUnitPackage = (TextView) rootView.findViewById(R.id.txt_unit_type);
         ArrayAdapter<CharSequence> adapterFilter = ArrayAdapter.createFromResource(getActivity(), R.array.skydealer_charge_card_types, android.R.layout.simple_spinner_item);
         mFilterByUnitPackage.setAdapter(new NothingSelectedSpinnerAdapter(adapterFilter,
                 R.layout.spinner_row_nothing_selected,
@@ -147,16 +150,29 @@ public class SalesReportFragment extends Fragment implements Constants {
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
                 try {
+
                     selectedItemId = (int) mReportType.getSelectedItemId();
+                    switch(selectedItemId){
+                        case 0:
+                            mFilterByUnitPackage.setVisibility(View.VISIBLE);
+                            mTextUnitPackage.setVisibility(View.VISIBLE);
+                            break;
+                        case 1:
+                            mFilterByUnitPackage.setVisibility(View.GONE);
+                            mTextUnitPackage.setVisibility(View.GONE);
+                            break;
+                    }
                     if (ValidationChecker.isSpinnerSelected(selectedItemId)) {
                         progressDialog.show();
 
                         String currentDateandTime = new SimpleDateFormat("yyyy-MM-dd").format(new Date());
-                        runChargeCardReportFunction(reportType[selectedItemId], 100, 0, true, "", "1900-01-01", currentDateandTime);
+                        runSalesReportFunction(reportType[selectedItemId], 100, 0, true, "", "1900-01-01", currentDateandTime);
                         Log.d(TAG, "Report Type: " + reportType[selectedItemId]);
                     } else {
                         // Toast.makeText(getActivity(),getText(R.string.choose_report_type) , Toast.LENGTH_SHORT).show();
                     }
+
+
                 } catch (Exception e) {
                     e.printStackTrace();
                 }
@@ -221,16 +237,21 @@ public class SalesReportFragment extends Fragment implements Constants {
         @Override
         public void onClick(View v) {
             try {
-
-                progressDialog.show();
                 selectedItemId = (int) mReportType.getSelectedItemId();
-                String phone_number = mFilterByPhoneNumber.getText().toString();
-                Boolean isSuccess = isSuccessFilter;
+                if (ValidationChecker.isSpinnerSelected(selectedItemId)) {
+                    progressDialog.show();
+                    selectedItemId = (int) mReportType.getSelectedItemId();
+                    String phone_number = mFilterByPhoneNumber.getText().toString();
+                    Boolean isSuccess = isSuccessFilter;
 
-                String start_date = mFilterByStartDate.getText().toString();
-                String end_date = mFilterByEndDate.getText().toString();
+                    String start_date = mFilterByStartDate.getText().toString();
+                    String end_date = mFilterByEndDate.getText().toString();
 
-                runChargeCardReportFunction(reportType[selectedItemId], 100, 0, isSuccess, phone_number, start_date, end_date);
+                    runSalesReportFunction(reportType[selectedItemId], 100, 0, isSuccess, phone_number, start_date, end_date);
+                }
+                else{
+                    Toast.makeText(getActivity(),getText(R.string.choose_report_type) , Toast.LENGTH_SHORT).show();
+                }
             } catch (Exception e) {
                 e.printStackTrace();
             }
@@ -345,7 +366,7 @@ public class SalesReportFragment extends Fragment implements Constants {
     }
 
 
-    public void runChargeCardReportFunction(String report_type, int length, int from, boolean isSuccess, String phone, String start_date, String end_date) throws Exception {
+    public void runSalesReportFunction(String report_type, int length, int from, boolean isSuccess, String phone, String start_date, String end_date) throws Exception {
         progressDialog.show();
         final StringBuilder url = new StringBuilder();
         url.append(Constants.SERVER_URL);
@@ -357,23 +378,6 @@ public class SalesReportFragment extends Fragment implements Constants {
         url.append("&phone=" + phone);
         url.append("&start_date=" + start_date);
         url.append("&end_date=" + end_date);
-
-        getActivity().runOnUiThread(new Runnable() {
-            @Override
-            public void run() {
-                if (selectedItemId == 0) {
-                    SortableSalesReportChargeCardTableView sortableSalesReportChargeCardTableView = new SortableSalesReportChargeCardTableView(getActivity());
-                    mReportTableViewContainer.removeAllViews();
-                    mReportTableViewContainer.addView(sortableSalesReportChargeCardTableView);
-                    sortableSalesReportChargeCardTableView.setDataAdapter(new SalesReportChargeCardAdapter(getActivity(), salesReportArrayList));
-                } else {
-                    SortableSalesReportPostPaidPaymentTableView sortableSalesReportPostPaidPaymentTableView = new SortableSalesReportPostPaidPaymentTableView(getActivity());
-                    mReportTableViewContainer.removeAllViews();
-                    mReportTableViewContainer.addView(sortableSalesReportPostPaidPaymentTableView);
-                    sortableSalesReportPostPaidPaymentTableView.setDataAdapter(new SalesReportPostPaidPaymentAdapter(getActivity(), salesReportArrayList));
-                }
-            }
-        });
 
 
         getActivity().runOnUiThread(new Runnable() {
@@ -476,12 +480,16 @@ public class SalesReportFragment extends Fragment implements Constants {
                                 SortableSalesReportChargeCardTableView sortableSalesReportChargeCardTableView = new SortableSalesReportChargeCardTableView(getActivity());
                                 mReportTableViewContainer.removeAllViews();
                                 mReportTableViewContainer.addView(sortableSalesReportChargeCardTableView);
+                                sortableSalesReportChargeCardTableView.setColumnCount(getResources().getInteger(R.integer.chargecard_report_column));
+                                sortableSalesReportChargeCardTableView.setHeaderBackgroundColor(Color.TRANSPARENT);
                                 sortableSalesReportChargeCardTableView.setDataAdapter(new SalesReportChargeCardAdapter(getActivity(), salesReportArrayList));
                             } else {
-                                SortableSalesReportChargeCardTableView sortableSalesReportChargeCardTableView = new SortableSalesReportChargeCardTableView(getActivity());
+                                SortableSalesReportPostPaidPaymentTableView sortableSalesReportPostPaidPaymentTableView = new SortableSalesReportPostPaidPaymentTableView(getActivity());
                                 mReportTableViewContainer.removeAllViews();
-                                mReportTableViewContainer.addView(sortableSalesReportChargeCardTableView);
-                                sortableSalesReportChargeCardTableView.setDataAdapter(new SalesReportPostPaidPaymentAdapter(getActivity(), salesReportArrayList));
+                                mReportTableViewContainer.addView(sortableSalesReportPostPaidPaymentTableView);
+                                sortableSalesReportPostPaidPaymentTableView.setColumnCount(getResources().getInteger(R.integer.postpaidpayment_report_column));
+                                sortableSalesReportPostPaidPaymentTableView.setHeaderBackgroundColor(Color.TRANSPARENT);
+                                sortableSalesReportPostPaidPaymentTableView.setDataAdapter(new SalesReportPostPaidPaymentAdapter(getActivity(), salesReportArrayList));
                             }
                         }
                     });

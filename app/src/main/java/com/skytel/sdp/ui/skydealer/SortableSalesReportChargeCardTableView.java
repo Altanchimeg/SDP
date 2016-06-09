@@ -32,8 +32,8 @@ public class SortableSalesReportChargeCardTableView extends SortableTableView<Sa
         setDataRowColorizer(TableDataRowColorizers.alternatingRows(rowColorEven, rowColorOdd));
         setHeaderSortStateViewProvider(SortStateViewProviders.darkArrows());
 
-        setColumnWeight(0, 3);
-        setColumnWeight(1, 3);
+        setColumnWeight(0, 2);
+        setColumnWeight(1, 2);
         setColumnWeight(2, 2);
         setColumnWeight(3, 2);
         setColumnWeight(4, 3);

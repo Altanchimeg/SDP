@@ -24,5 +24,6 @@
     <dimen name="btn_yellow_width">120dp</dimen>
 
     <integer name="chargecard_report_column">5</integer>
+    <integer name="postpaidpayment_report_column">4</integer>
 
 </resources>
