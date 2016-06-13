@@ -36,7 +36,7 @@ import okhttp3.Response;
 public class FeedbackFragment extends Fragment {
 
     String TAG = FeedbackFragment.class.getName();
-    private OkHttpClient client;
+    private OkHttpClient mClient;
     private Context mContext;
     private DataManager mDataManager;
     private PrefManager prefManager;
@@ -46,11 +46,9 @@ public class FeedbackFragment extends Fragment {
     private EditText mPhonenumber;
     private EditText mUserVoice;
     private Spinner mVoiceType;
+    private int mVoiceTypeId = 1;
 
-    private int voice_type_id = 1;
-
-    private CustomProgressDialog progressDialog;
-
+    private CustomProgressDialog mProgressDialog;
 
     public FeedbackFragment() {
 
@@ -68,9 +66,9 @@ public class FeedbackFragment extends Fragment {
 
         mContext = getActivity();
         mDataManager = new DataManager(mContext);
-        client = new OkHttpClient();
+        mClient = new OkHttpClient();
         prefManager = new PrefManager(mContext);
-        progressDialog = new CustomProgressDialog(mContext);
+        mProgressDialog = new CustomProgressDialog(mContext);
 
         mUserVoice = (EditText) rootView.findViewById(R.id.et_user_voice);
         mPhonenumber = (EditText) rootView.findViewById(R.id.et_user_phonenumber);
@@ -83,9 +81,9 @@ public class FeedbackFragment extends Fragment {
                 try {
                     if (ValidationChecker.isValidationPassed(mUserVoice) && ValidationChecker.isValidationPassed(mPhonenumber)) {
                         Toast.makeText(mContext, "Please wait", Toast.LENGTH_SHORT).show();
-                        voice_type_id = (int) mVoiceType.getSelectedItemId() + 1;
+                        mVoiceTypeId = (int) mVoiceType.getSelectedItemId() + 1;
                         runSendFeedbackFunction();
-                        progressDialog.show();
+                        mProgressDialog.show();
                     } else {
                         Toast.makeText(mContext, "Please fill the field!", Toast.LENGTH_SHORT).show();
                     }
@@ -106,7 +104,7 @@ public class FeedbackFragment extends Fragment {
         url.append(Constants.SERVER_URL);
         url.append(Constants.FUNCTION_SEND_FEEDBACK);
         url.append("?phone=" + mPhonenumber.getText().toString());
-        url.append("&comment_type=" + voice_type_id);
+        url.append("&comment_type=" + mVoiceTypeId);
         url.append("&comment=" + mUserVoice.getText().toString());
 
 
@@ -125,16 +123,15 @@ public class FeedbackFragment extends Fragment {
                 .addHeader(Constants.PREF_AUTH_TOKEN, prefManager.getAuthToken())
                 .build();
 
-        client.newCall(request).enqueue(new Callback() {
+        mClient.newCall(request).enqueue(new Callback() {
             @Override
             public void onFailure(Call call, IOException e) {
-                progressDialog.dismiss();
+                mProgressDialog.dismiss();
                 System.out.println("onFailure");
                 e.printStackTrace();
                 getActivity().runOnUiThread(new Runnable() {
                     @Override
                     public void run() {
-                        //     progressDialog.dismiss();
                         Toast.makeText(mContext, "Error on Failure!", Toast.LENGTH_LONG).show();
                         // Used for debug
                     }
@@ -143,7 +140,7 @@ public class FeedbackFragment extends Fragment {
 
             @Override
             public void onResponse(Call call, Response response) throws IOException {
-                progressDialog.dismiss();
+                mProgressDialog.dismiss();
                 System.out.println("onResponse");
 
                 if (!response.isSuccessful()) throw new IOException("Unexpected code " + response);

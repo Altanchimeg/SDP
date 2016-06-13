@@ -46,11 +46,11 @@ import okhttp3.Response;
 public class ChargeCardFragment extends Fragment {
     String TAG = ChargeCardFragment.class.getName();
 
-    private OkHttpClient client;
+    private OkHttpClient mClient;
     private Context mContext;
     private DataManager mDataManager;
-    private PackageTypeEnum packageTypeEnum = null;
-    private CardType cardType;
+    private PackageTypeEnum mPackageTypeEnum = null;
+    private CardType mCardType;
     // UI Widgets
     private Button mChargeCardOrderBtn;
     private EditText mChargeCardPhoneNumber;
@@ -59,13 +59,13 @@ public class ChargeCardFragment extends Fragment {
     private ListView mPackageTypeListView;
     private ListView mCardTypeListView;
 
-    private PrefManager prefManager;
+    private PrefManager mPrefManager;
 
-    private ConfirmDialog confirmDialog;
+    private ConfirmDialog mConfirmDialog;
 
-    private CustomProgressDialog progressDialog;
+    private CustomProgressDialog mProgressDialog;
 
-    public static BalanceUpdateListener mBalanceUpdateListener;
+    public static BalanceUpdateListener sBalanceUpdateListener;
 
     public ChargeCardFragment() {
     }
@@ -74,14 +74,14 @@ public class ChargeCardFragment extends Fragment {
     public void onCreate(Bundle savedInstanceState) {
 
         super.onCreate(savedInstanceState);
-        confirmDialog = new ConfirmDialog();
+        mConfirmDialog = new ConfirmDialog();
         Bundle args = new Bundle();
         args.putInt("message", R.string.confirm);
         args.putInt("title", R.string.confirm);
 
-        confirmDialog.setArguments(args);
-        confirmDialog.registerCallback(dialogConfirmListener);
-        progressDialog = new CustomProgressDialog(getActivity());
+        mConfirmDialog.setArguments(args);
+        mConfirmDialog.registerCallback(dialogConfirmListener);
+        mProgressDialog = new CustomProgressDialog(getActivity());
 
     }
 
@@ -91,8 +91,8 @@ public class ChargeCardFragment extends Fragment {
         View rootView = inflater.inflate(R.layout.charge_card, container, false);
         mContext = getActivity();
         mDataManager = new DataManager(mContext);
-        client = new OkHttpClient();
-        prefManager = new PrefManager(mContext);
+        mClient = new OkHttpClient();
+        mPrefManager = new PrefManager(mContext);
         // Set Package Type List
         mPackageTypeListView = (ListView) rootView.findViewById(R.id.package_type_list_view);
         mPackageTypeListView.setAdapter(new ChargeCardPackageTypeAdapter(getActivity()));
@@ -101,19 +101,19 @@ public class ChargeCardFragment extends Fragment {
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                 switch (position) {
                     case Constants.CONST_COLOR_DATA_PACKAGE:
-                        packageTypeEnum = PackageTypeEnum.COLOR_DATA_PACKAGE;
+                        mPackageTypeEnum = PackageTypeEnum.COLOR_DATA_PACKAGE;
                         break;
                     case Constants.CONST_SKYTEL_NODAY_PACKAGE:
-                        packageTypeEnum = PackageTypeEnum.SKYTEL_NODAY_PACKAGE;
+                        mPackageTypeEnum = PackageTypeEnum.SKYTEL_NODAY_PACKAGE;
                         break;
                     case Constants.CONST_SKYTEL_DAY_PACKAGE:
-                        packageTypeEnum = PackageTypeEnum.SKYTEL_DAY_PACKAGE;
+                        mPackageTypeEnum = PackageTypeEnum.SKYTEL_DAY_PACKAGE;
                         break;
                     case Constants.CONST_SMART_PACKAGE:
-                        packageTypeEnum = PackageTypeEnum.SMART_PACKAGE;
+                        mPackageTypeEnum = PackageTypeEnum.SMART_PACKAGE;
                         break;
                 }
-                mCardTypeListView.setAdapter(new ChargeCardTypeAdapter(getActivity(), packageTypeEnum));
+                mCardTypeListView.setAdapter(new ChargeCardTypeAdapter(getActivity(), mPackageTypeEnum));
 
             }
         });
@@ -123,8 +123,8 @@ public class ChargeCardFragment extends Fragment {
         mCardTypeListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                cardType = mDataManager.getCardType(view.getId());
-                Toast.makeText(mContext, "PackageType " + packageTypeEnum + ", CardType: " + cardType.getName(), Toast.LENGTH_LONG).show();
+                mCardType = mDataManager.getCardType(view.getId());
+                Toast.makeText(mContext, "PackageType " + mPackageTypeEnum + ", CardType: " + mCardType.getName(), Toast.LENGTH_LONG).show();
             }
         });
 
@@ -136,7 +136,7 @@ public class ChargeCardFragment extends Fragment {
             @Override
             public void onClick(View v) {
                 if (ValidationChecker.isValidationPassed(mChargeCardPhoneNumber) && ValidationChecker.isValidationPassed(mChargeCardPinCode)) {
-                    confirmDialog.show(getFragmentManager(), "dialog");
+                    mConfirmDialog.show(getFragmentManager(), "dialog");
                 } else {
                     Toast.makeText(getActivity(), "Please fill the field!", Toast.LENGTH_SHORT).show();
                 }
@@ -155,7 +155,7 @@ public class ChargeCardFragment extends Fragment {
         final StringBuilder url = new StringBuilder();
         url.append(Constants.SERVER_URL);
         url.append(Constants.FUNCTION_CHARGE);
-        url.append("?card_type=" + cardType.getName());
+        url.append("?card_type=" + mCardType.getName());
         url.append("&phone=" + mChargeCardPhoneNumber.getText().toString());
         url.append("&pin=" + mChargeCardPinCode.getText().toString());
 
@@ -167,17 +167,17 @@ public class ChargeCardFragment extends Fragment {
         });
 
         System.out.print(url + "\n");
-        System.out.println(prefManager.getAuthToken());
+        System.out.println(mPrefManager.getAuthToken());
 
         Request request = new Request.Builder()
                 .url(url.toString())
-                .addHeader(Constants.PREF_AUTH_TOKEN, prefManager.getAuthToken())
+                .addHeader(Constants.PREF_AUTH_TOKEN, mPrefManager.getAuthToken())
                 .build();
 
-        client.newCall(request).enqueue(new Callback() {
+        mClient.newCall(request).enqueue(new Callback() {
                                             @Override
                                             public void onFailure(Call call, IOException e) {
-                                                progressDialog.dismiss();
+                                                mProgressDialog.dismiss();
                                                 System.out.println("onFailure");
                                                 e.printStackTrace();
                                                 getActivity().runOnUiThread(new Runnable() {
@@ -191,7 +191,7 @@ public class ChargeCardFragment extends Fragment {
 
                                             @Override
                                             public void onResponse(Call call, Response response) throws IOException {
-                                                progressDialog.dismiss();
+                                                mProgressDialog.dismiss();
 
                                                 System.out.println("onResponse");
 
@@ -219,9 +219,9 @@ public class ChargeCardFragment extends Fragment {
                                                         Log.d(TAG, "dealer_id " + dealer_id);
                                                         Log.d(TAG, "balance " + balance);
 
-                                                        prefManager.saveDealerBalance(balance);
-                                                        if (mBalanceUpdateListener != null) {
-                                                            mBalanceUpdateListener.onBalanceUpdate();
+                                                        mPrefManager.saveDealerBalance(balance);
+                                                        if (sBalanceUpdateListener != null) {
+                                                            sBalanceUpdateListener.onBalanceUpdate();
                                                         }
                                                         Log.d(TAG, "Show the success message to user");
                                                         try {
@@ -275,11 +275,11 @@ public class ChargeCardFragment extends Fragment {
         @Override
         public void onPositiveButton() {
             try {
-                progressDialog.show();
+                mProgressDialog.show();
                 runChargeFunction();
             } catch (Exception e) {
                 Log.e(TAG, e.getMessage());
-                progressDialog.dismiss();
+                mProgressDialog.dismiss();
                 Toast.makeText(mContext, "Error on Failure!", Toast.LENGTH_LONG).show();
             }
         }

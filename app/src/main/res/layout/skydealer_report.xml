@@ -35,17 +35,16 @@
         <RelativeLayout
             android:id="@+id/reportTableViewContainer"
             android:layout_width="match_parent"
-            android:layout_height="match_parent">
-        </RelativeLayout>
+            android:layout_height="match_parent"></RelativeLayout>
 
-<!--
-        <com.skytel.sdp.ui.skydealer.SortableSalesReportChargeCardTableView xmlns:table="http://schemas.android.com/apk/res-auto"
-            android:id="@+id/salesReportTableView"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            table:tableView_columnCount="@integer/chargecard_report_column"
-            table:tableView_headerColor="@android:color/transparent" />
--->
+        <!--
+                <com.skytel.sdp.ui.skydealer.SortableSalesReportChargeCardTableView xmlns:table="http://schemas.android.com/apk/res-auto"
+                    android:id="@+id/salesReportTableView"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    table:tableView_columnCount="@integer/chargecard_report_column"
+                    table:tableView_headerColor="@android:color/transparent" />
+        -->
 
     </LinearLayout>
 

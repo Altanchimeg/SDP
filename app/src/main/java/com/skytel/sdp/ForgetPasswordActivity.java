@@ -32,8 +32,8 @@ import okhttp3.Response;
 public class ForgetPasswordActivity extends AppCompatActivity implements Constants {
     String TAG = LoginActivity.class.getName();
 
-    private OkHttpClient client;
-    private Context context;
+    private OkHttpClient mClient;
+    private Context mContext;
     private Button mBtnForget;
     private Button mBtnRecover;
     private EditText mEtPhoneNumber;
@@ -44,16 +44,16 @@ public class ForgetPasswordActivity extends AppCompatActivity implements Constan
     private LinearLayout mConfirmPassword;
     private LinearLayout mRecoverPassword;
 
-    private CustomProgressDialog progressDialog;
+    private CustomProgressDialog mProgressDialog;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_forget_password);
-        this.context = this;
-        client = new OkHttpClient();
+        this.mContext = this;
+        mClient = new OkHttpClient();
         prefManager = new PrefManager(this);
-        progressDialog = new CustomProgressDialog(this);
+        mProgressDialog = new CustomProgressDialog(this);
 
         mConfirmPassword = (LinearLayout) findViewById(R.id.confirm_password);
         mRecoverPassword = (LinearLayout) findViewById(R.id.recover_password);
@@ -73,11 +73,11 @@ public class ForgetPasswordActivity extends AppCompatActivity implements Constan
             public void onClick(View v) {
                 try {
                     if (ValidationChecker.isValidationPassed(mEtPhoneNumber)) {
-                        Toast.makeText(context, "Please wait", Toast.LENGTH_SHORT).show();
+                        Toast.makeText(mContext, "Please wait", Toast.LENGTH_SHORT).show();
                         runForgetFunction();
-                        progressDialog.show();
+                        mProgressDialog.show();
                     } else {
-                        Toast.makeText(context, "Please fill the field!", Toast.LENGTH_SHORT).show();
+                        Toast.makeText(mContext, "Please fill the field!", Toast.LENGTH_SHORT).show();
                     }
                 } catch (Exception e) {
                     e.printStackTrace();
@@ -90,7 +90,7 @@ public class ForgetPasswordActivity extends AppCompatActivity implements Constan
             public void onClick(View v) {
                 try {
                     if (ValidationChecker.isValidationPassed(mEtConfirmCode) && ValidationChecker.isValidationPassed(mEtNewPassword)) {
-                        Toast.makeText(context, "Please wait", Toast.LENGTH_SHORT).show();
+                        Toast.makeText(mContext, "Please wait", Toast.LENGTH_SHORT).show();
                         ConfirmDialog confirmDialog = new ConfirmDialog();
                         Bundle args = new Bundle();
                         args.putInt("message", R.string.confirm);
@@ -102,7 +102,7 @@ public class ForgetPasswordActivity extends AppCompatActivity implements Constan
 
 
                     } else {
-                        Toast.makeText(context, "Please fill the field!", Toast.LENGTH_SHORT).show();
+                        Toast.makeText(mContext, "Please fill the field!", Toast.LENGTH_SHORT).show();
                     }
                 } catch (Exception e) {
                     e.printStackTrace();
@@ -130,17 +130,17 @@ public class ForgetPasswordActivity extends AppCompatActivity implements Constan
                 .url(url.toString())
                 .build();
 
-        client.newCall(request).enqueue(new Callback() {
+        mClient.newCall(request).enqueue(new Callback() {
             @Override
             public void onFailure(Call call, IOException e) {
-                progressDialog.dismiss();
+                mProgressDialog.dismiss();
                 System.out.println("onFailure");
                 e.printStackTrace();
                 runOnUiThread(new Runnable() {
                     @Override
                     public void run() {
                         //     progressDialog.dismiss();
-                        Toast.makeText(context, "Error on Failure!", Toast.LENGTH_LONG).show();
+                        Toast.makeText(mContext, "Error on Failure!", Toast.LENGTH_LONG).show();
                         // Used for debug
 //                        PrefManager.getSessionInstance().setIsLoggedIn(true);
 //                        Intent intent = new Intent(LoginActivity.this, MainActivity.class);
@@ -153,7 +153,7 @@ public class ForgetPasswordActivity extends AppCompatActivity implements Constan
 
             @Override
             public void onResponse(Call call, Response response) throws IOException {
-                progressDialog.dismiss();
+                mProgressDialog.dismiss();
                 System.out.println("onResponse");
 
                 if (!response.isSuccessful()) throw new IOException("Unexpected code " + response);
@@ -196,7 +196,7 @@ public class ForgetPasswordActivity extends AppCompatActivity implements Constan
                   runOnUiThread(new Runnable() {
                         @Override
                         public void run() {
-                            Toast.makeText(context, "Алдаатай хариу ирлээ", Toast.LENGTH_LONG).show();
+                            Toast.makeText(mContext, "Алдаатай хариу ирлээ", Toast.LENGTH_LONG).show();
                         }
                     });
                     e.printStackTrace();
@@ -219,17 +219,17 @@ public class ForgetPasswordActivity extends AppCompatActivity implements Constan
                 .url(url.toString())
                 .build();
 
-        client.newCall(request).enqueue(new Callback() {
+        mClient.newCall(request).enqueue(new Callback() {
             @Override
             public void onFailure(Call call, IOException e) {
-                progressDialog.dismiss();
+                mProgressDialog.dismiss();
                 System.out.println("onFailure");
                 e.printStackTrace();
                 runOnUiThread(new Runnable() {
                     @Override
                     public void run() {
                         //     progressDialog.dismiss();
-                        Toast.makeText(context, "Error on Failure!", Toast.LENGTH_LONG).show();
+                        Toast.makeText(mContext, "Error on Failure!", Toast.LENGTH_LONG).show();
                         // Used for debug
 //                        PrefManager.getSessionInstance().setIsLoggedIn(true);
 //                        Intent intent = new Intent(LoginActivity.this, MainActivity.class);
@@ -242,7 +242,7 @@ public class ForgetPasswordActivity extends AppCompatActivity implements Constan
 
             @Override
             public void onResponse(Call call, Response response) throws IOException {
-                progressDialog.dismiss();
+                mProgressDialog.dismiss();
                 System.out.println("onResponse");
 
                 if (!response.isSuccessful()) throw new IOException("Unexpected code " + response);
@@ -268,7 +268,7 @@ public class ForgetPasswordActivity extends AppCompatActivity implements Constan
                         runOnUiThread(new Runnable() {
                             @Override
                             public void run() {
-                                Toast.makeText(context, "Successfully changed!", Toast.LENGTH_LONG).show();
+                                Toast.makeText(mContext, "Successfully changed!", Toast.LENGTH_LONG).show();
 
 
                             }
@@ -280,7 +280,7 @@ public class ForgetPasswordActivity extends AppCompatActivity implements Constan
                         runOnUiThread(new Runnable() {
                             @Override
                             public void run() {
-                                Toast.makeText(context, "" + result_msg, Toast.LENGTH_SHORT).show();
+                                Toast.makeText(mContext, "" + result_msg, Toast.LENGTH_SHORT).show();
                                 mEtNewPassword.setText("");
                                 mEtConfirmCode.setText("");
 
@@ -296,7 +296,7 @@ public class ForgetPasswordActivity extends AppCompatActivity implements Constan
                     runOnUiThread(new Runnable() {
                         @Override
                         public void run() {
-                            Toast.makeText(context, "Алдаатай хариу ирлээ", Toast.LENGTH_LONG).show();
+                            Toast.makeText(mContext, "Алдаатай хариу ирлээ", Toast.LENGTH_LONG).show();
                         }
                     });
                     e.printStackTrace();
@@ -312,7 +312,7 @@ public class ForgetPasswordActivity extends AppCompatActivity implements Constan
             //  Toast.makeText(this, "Confirmed", Toast.LENGTH_LONG).show();
             try {
                 runRecoverFunction();
-                progressDialog.show();
+                mProgressDialog.show();
             } catch (Exception e) {
                 e.printStackTrace();
             }

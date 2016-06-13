@@ -57,14 +57,13 @@ public class SalesReportFragment extends Fragment implements Constants {
 
     String TAG = SalesReportFragment.class.getName();
 
-    private OkHttpClient client;
+    private OkHttpClient mClient;
     private Context mContext;
     private DataManager mDataManager;
-    private PrefManager prefManager;
-    private GridView mSalesReportGrid;
-//    private SortableTableView mSalesReportTableView;
-    private List<SalesReport> salesReportArrayList;
-    private CustomProgressDialog progressDialog;
+    private PrefManager mPrefManager;
+
+    private List<SalesReport> mSalesReportArrayList;
+    private CustomProgressDialog mProgressDialog;
 
     private RelativeLayout mReportTableViewContainer;
 
@@ -81,19 +80,19 @@ public class SalesReportFragment extends Fragment implements Constants {
     private Button mFilterButtonByEndDate;
     private Button mFilterButtonByStartDate;
 
-    private Spinner mReportType;
+    private Spinner mReportTypeSpinner;
 
-    private int selectedFilterButton = FILTER_SUCCESS;
+    private int mSelectedFilterButton = FILTER_SUCCESS;
     private boolean isSuccessFilter = true;
 
-    private int selectedItemId = -1;
-    private String[] reportType = null;
+    private int mSelectedItemId = -1;
+    private String[] mReportTypeValue = null;
 
     private int mYear;
     private int mMonth;
     private int mDay;
 
-    private final Calendar myCalendar = Calendar.getInstance();
+    private final Calendar mCalendar = Calendar.getInstance();
 
 
     @Override
@@ -108,10 +107,10 @@ public class SalesReportFragment extends Fragment implements Constants {
 
         mContext = getActivity();
         mDataManager = new DataManager(mContext);
-        client = new OkHttpClient();
-        prefManager = new PrefManager(mContext);
-        salesReportArrayList = new ArrayList<>();
-        progressDialog = new CustomProgressDialog(getActivity());
+        mClient = new OkHttpClient();
+        mPrefManager = new PrefManager(mContext);
+        mSalesReportArrayList = new ArrayList<>();
+        mProgressDialog = new CustomProgressDialog(getActivity());
 
         mReportTableViewContainer = (RelativeLayout) rootView.findViewById(R.id.reportTableViewContainer);
 
@@ -140,19 +139,19 @@ public class SalesReportFragment extends Fragment implements Constants {
                 // R.layout.contact_spinner_nothing_selected_dropdown, // Optional
                 getActivity()));
 
-        mReportType = (Spinner) rootView.findViewById(R.id.choose_skydealer_report_type);
+        mReportTypeSpinner = (Spinner) rootView.findViewById(R.id.choose_skydealer_report_type);
         ArrayAdapter<CharSequence> adapterReport = ArrayAdapter.createFromResource(getActivity(), R.array.skydealer_report_type, android.R.layout.simple_spinner_item);
-        mReportType.setAdapter(new NothingSelectedSpinnerAdapter(adapterReport,
+        mReportTypeSpinner.setAdapter(new NothingSelectedSpinnerAdapter(adapterReport,
                 R.layout.spinner_row_nothing_selected,
                 // R.layout.contact_spinner_nothing_selected_dropdown, // Optional
                 getActivity()));
-        mReportType.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+        mReportTypeSpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
                 try {
 
-                    selectedItemId = (int) mReportType.getSelectedItemId();
-                    switch(selectedItemId){
+                    mSelectedItemId = (int) mReportTypeSpinner.getSelectedItemId();
+                    switch(mSelectedItemId){
                         case 0:
                             mFilterByUnitPackage.setVisibility(View.VISIBLE);
                             mTextUnitPackage.setVisibility(View.VISIBLE);
@@ -162,12 +161,12 @@ public class SalesReportFragment extends Fragment implements Constants {
                             mTextUnitPackage.setVisibility(View.GONE);
                             break;
                     }
-                    if (ValidationChecker.isSpinnerSelected(selectedItemId)) {
-                        progressDialog.show();
+                    if (ValidationChecker.isSpinnerSelected(mSelectedItemId)) {
+                        mProgressDialog.show();
 
                         String currentDateandTime = new SimpleDateFormat("yyyy-MM-dd").format(new Date());
-                        runSalesReportFunction(reportType[selectedItemId], 100, 0, true, "", "1900-01-01", currentDateandTime);
-                        Log.d(TAG, "Report Type: " + reportType[selectedItemId]);
+                        runSalesReportFunction(mReportTypeValue[mSelectedItemId], 100, 0, true, "", "1900-01-01", currentDateandTime);
+                        Log.d(TAG, "Report Type: " + mReportTypeValue[mSelectedItemId]);
                     } else {
                         // Toast.makeText(getActivity(),getText(R.string.choose_report_type) , Toast.LENGTH_SHORT).show();
                     }
@@ -184,16 +183,16 @@ public class SalesReportFragment extends Fragment implements Constants {
             }
         });
 
-        reportType = getResources().getStringArray(R.array.skydealer_report_type_code);
+        mReportTypeValue = getResources().getStringArray(R.array.skydealer_report_type_code);
 
         mFilterButtonByStartDate = (Button) rootView.findViewById(R.id.btn_start_date);
         mFilterButtonByStartDate.setOnClickListener(filterByStartDateOnClick);
         mFilterButtonByEndDate = (Button) rootView.findViewById(R.id.btn_end_date);
         mFilterButtonByEndDate.setOnClickListener(filterByEndDateOnClick);
 
-        mYear = myCalendar.get(Calendar.YEAR);
-        mMonth = myCalendar.get(Calendar.MONTH);
-        mDay = myCalendar.get(Calendar.DAY_OF_MONTH);
+        mYear = mCalendar.get(Calendar.YEAR);
+        mMonth = mCalendar.get(Calendar.MONTH);
+        mDay = mCalendar.get(Calendar.DAY_OF_MONTH);
 
       /*  for (int i = 0; i < 100; i++) {
             Date date = new Date();
@@ -237,17 +236,17 @@ public class SalesReportFragment extends Fragment implements Constants {
         @Override
         public void onClick(View v) {
             try {
-                selectedItemId = (int) mReportType.getSelectedItemId();
-                if (ValidationChecker.isSpinnerSelected(selectedItemId)) {
-                    progressDialog.show();
-                    selectedItemId = (int) mReportType.getSelectedItemId();
+                mSelectedItemId = (int) mReportTypeSpinner.getSelectedItemId();
+                if (ValidationChecker.isSpinnerSelected(mSelectedItemId)) {
+                    mProgressDialog.show();
+                    mSelectedItemId = (int) mReportTypeSpinner.getSelectedItemId();
                     String phone_number = mFilterByPhoneNumber.getText().toString();
                     Boolean isSuccess = isSuccessFilter;
 
                     String start_date = mFilterByStartDate.getText().toString();
                     String end_date = mFilterByEndDate.getText().toString();
 
-                    runSalesReportFunction(reportType[selectedItemId], 100, 0, isSuccess, phone_number, start_date, end_date);
+                    runSalesReportFunction(mReportTypeValue[mSelectedItemId], 100, 0, isSuccess, phone_number, start_date, end_date);
                 }
                 else{
                     Toast.makeText(getActivity(),getText(R.string.choose_report_type) , Toast.LENGTH_SHORT).show();
@@ -261,7 +260,7 @@ public class SalesReportFragment extends Fragment implements Constants {
     View.OnClickListener filterByAllOnClick = new View.OnClickListener() {
         @Override
         public void onClick(View v) {
-            selectedFilterButton = FILTER_ALL;
+            mSelectedFilterButton = FILTER_ALL;
             invalidateFilterButtons();
         }
     };
@@ -269,7 +268,7 @@ public class SalesReportFragment extends Fragment implements Constants {
     View.OnClickListener filterBySuccessOnClick = new View.OnClickListener() {
         @Override
         public void onClick(View v) {
-            selectedFilterButton = FILTER_SUCCESS;
+            mSelectedFilterButton = FILTER_SUCCESS;
             invalidateFilterButtons();
         }
     };
@@ -277,7 +276,7 @@ public class SalesReportFragment extends Fragment implements Constants {
     View.OnClickListener filterByFailedOnClick = new View.OnClickListener() {
         @Override
         public void onClick(View v) {
-            selectedFilterButton = FILTER_FAILED;
+            mSelectedFilterButton = FILTER_FAILED;
             invalidateFilterButtons();
         }
     };
@@ -291,13 +290,13 @@ public class SalesReportFragment extends Fragment implements Constants {
                         public void onDateSet(DatePicker view, int year,
                                               int monthOfYear, int dayOfMonth) {
 
-                            myCalendar.set(Calendar.YEAR, year);
-                            myCalendar.set(Calendar.MONTH, monthOfYear);
-                            myCalendar.set(Calendar.DAY_OF_MONTH, dayOfMonth);
+                            mCalendar.set(Calendar.YEAR, year);
+                            mCalendar.set(Calendar.MONTH, monthOfYear);
+                            mCalendar.set(Calendar.DAY_OF_MONTH, dayOfMonth);
                             String myFormat = "yyyy-MM-dd"; // In which you need put here
                             SimpleDateFormat sdf = new SimpleDateFormat(myFormat, Locale.getDefault());
 
-                            mFilterByStartDate.setText(sdf.format(myCalendar.getTime()));
+                            mFilterByStartDate.setText(sdf.format(mCalendar.getTime()));
 
                         }
                     }, mYear, mMonth, mDay);
@@ -314,13 +313,13 @@ public class SalesReportFragment extends Fragment implements Constants {
                         public void onDateSet(DatePicker view, int year,
                                               int monthOfYear, int dayOfMonth) {
 
-                            myCalendar.set(Calendar.YEAR, year);
-                            myCalendar.set(Calendar.MONTH, monthOfYear);
-                            myCalendar.set(Calendar.DAY_OF_MONTH, dayOfMonth);
+                            mCalendar.set(Calendar.YEAR, year);
+                            mCalendar.set(Calendar.MONTH, monthOfYear);
+                            mCalendar.set(Calendar.DAY_OF_MONTH, dayOfMonth);
                             String myFormat = "yyyy-MM-dd"; // In which you need put here
                             SimpleDateFormat sdf = new SimpleDateFormat(myFormat, Locale.getDefault());
 
-                            mFilterByEndDate.setText(sdf.format(myCalendar.getTime()));
+                            mFilterByEndDate.setText(sdf.format(mCalendar.getTime()));
 
                         }
                     }, mYear, mMonth, mDay);
@@ -330,7 +329,7 @@ public class SalesReportFragment extends Fragment implements Constants {
 
 
     private void invalidateFilterButtons() {
-        switch (selectedFilterButton) {
+        switch (mSelectedFilterButton) {
            /* case FILTER_ALL:
                 mFilterByAll.setBackground(getResources().getDrawable(R.drawable.btn_yellow_selected));
                 mFilterByAll.setTextColor(Color.WHITE);
@@ -367,7 +366,7 @@ public class SalesReportFragment extends Fragment implements Constants {
 
 
     public void runSalesReportFunction(String report_type, int length, int from, boolean isSuccess, String phone, String start_date, String end_date) throws Exception {
-        progressDialog.show();
+        mProgressDialog.show();
         final StringBuilder url = new StringBuilder();
         url.append(Constants.SERVER_URL);
         url.append(Constants.FUNCTION_DEALER_REPORT);
@@ -388,17 +387,17 @@ public class SalesReportFragment extends Fragment implements Constants {
         });
 
         System.out.print(url + "\n");
-        System.out.println(prefManager.getAuthToken());
+        System.out.println(mPrefManager.getAuthToken());
 
         Request request = new Request.Builder()
                 .url(url.toString())
-                .addHeader(PREF_AUTH_TOKEN, prefManager.getAuthToken())
+                .addHeader(PREF_AUTH_TOKEN, mPrefManager.getAuthToken())
                 .build();
 
-        client.newCall(request).enqueue(new Callback() {
+        mClient.newCall(request).enqueue(new Callback() {
             @Override
             public void onFailure(Call call, IOException e) {
-                progressDialog.dismiss();
+                mProgressDialog.dismiss();
                 System.out.println("onFailure");
                 e.printStackTrace();
                 try {
@@ -418,7 +417,7 @@ public class SalesReportFragment extends Fragment implements Constants {
 
             @Override
             public void onResponse(Call call, Response response) throws IOException {
-                progressDialog.dismiss();
+                mProgressDialog.dismiss();
                 System.out.println("onResponse");
 
                 if (!response.isSuccessful()) throw new IOException("Unexpected code " + response);
@@ -443,7 +442,7 @@ public class SalesReportFragment extends Fragment implements Constants {
                     JSONArray jArray = jsonObj.getJSONArray("transactions");
 
                     Log.d(TAG, "*****JARRAY*****" + jArray.length());
-                    salesReportArrayList.clear();
+                    mSalesReportArrayList.clear();
                     for (int i = 0; i < jArray.length(); i++) {
                         JSONObject jsonData = jArray.getJSONObject(i);
 
@@ -470,26 +469,26 @@ public class SalesReportFragment extends Fragment implements Constants {
                         salesReport.setCardName(card_name);
                         salesReport.setDate(date);
 
-                        salesReportArrayList.add(i, salesReport);
+                        mSalesReportArrayList.add(i, salesReport);
                     }
 
                     getActivity().runOnUiThread(new Runnable() {
                         @Override
                         public void run() {
-                            if (selectedItemId == 0) {
+                            if (mSelectedItemId == 0) {
                                 SortableSalesReportChargeCardTableView sortableSalesReportChargeCardTableView = new SortableSalesReportChargeCardTableView(getActivity());
                                 mReportTableViewContainer.removeAllViews();
                                 mReportTableViewContainer.addView(sortableSalesReportChargeCardTableView);
                                 sortableSalesReportChargeCardTableView.setColumnCount(getResources().getInteger(R.integer.chargecard_report_column));
                                 sortableSalesReportChargeCardTableView.setHeaderBackgroundColor(Color.TRANSPARENT);
-                                sortableSalesReportChargeCardTableView.setDataAdapter(new SalesReportChargeCardAdapter(getActivity(), salesReportArrayList));
+                                sortableSalesReportChargeCardTableView.setDataAdapter(new SalesReportChargeCardAdapter(getActivity(), mSalesReportArrayList));
                             } else {
                                 SortableSalesReportPostPaidPaymentTableView sortableSalesReportPostPaidPaymentTableView = new SortableSalesReportPostPaidPaymentTableView(getActivity());
                                 mReportTableViewContainer.removeAllViews();
                                 mReportTableViewContainer.addView(sortableSalesReportPostPaidPaymentTableView);
                                 sortableSalesReportPostPaidPaymentTableView.setColumnCount(getResources().getInteger(R.integer.postpaidpayment_report_column));
                                 sortableSalesReportPostPaidPaymentTableView.setHeaderBackgroundColor(Color.TRANSPARENT);
-                                sortableSalesReportPostPaidPaymentTableView.setDataAdapter(new SalesReportPostPaidPaymentAdapter(getActivity(), salesReportArrayList));
+                                sortableSalesReportPostPaidPaymentTableView.setDataAdapter(new SalesReportPostPaidPaymentAdapter(getActivity(), mSalesReportArrayList));
                             }
                         }
                     });

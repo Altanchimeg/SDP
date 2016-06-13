@@ -8,7 +8,7 @@ public class PrefManager implements Constants {
     public String TAG = PrefManager.class.getName();
 
     SharedPreferences pref;
-    public static PrefManager instance;
+    public static PrefManager sInstance;
     SharedPreferences.Editor editor;
     Context context;
 
@@ -20,11 +20,11 @@ public class PrefManager implements Constants {
     }
 
     public static PrefManager getSessionInstance() {
-        return instance;
+        return sInstance;
     }
 
     public static void setSessionInstance(PrefManager session) {
-        instance = session;
+        sInstance = session;
     }
 
     public boolean getIsLoggedIn() {

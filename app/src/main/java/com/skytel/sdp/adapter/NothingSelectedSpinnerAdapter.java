@@ -36,18 +36,7 @@ public class NothingSelectedSpinnerAdapter implements SpinnerAdapter, ListAdapte
         this(spinnerAdapter, nothingSelectedLayout, -1, context);
     }
 
-    /**
-     * Use this constructor to Define your 'Select One...' layout as the first
-     * row in the returned choices.
-     * If you do this, you probably don't want a prompt on your spinner or it'll
-     * have two 'Select' rows.
-     * @param spinnerAdapter wrapped Adapter. Should probably return false for isEnabled(0)
-     * @param nothingSelectedLayout layout for nothing selected, perhaps you want
-     * text grayed out like a prompt...
-     * @param nothingSelectedDropdownLayout layout for your 'Select an Item...' in
-     * the dropdown.
-     * @param context
-     */
+
     public NothingSelectedSpinnerAdapter(SpinnerAdapter spinnerAdapter,
                                          int nothingSelectedLayout, int nothingSelectedDropdownLayout, Context context) {
         this.adapter = spinnerAdapter;
@@ -80,7 +69,6 @@ public class NothingSelectedSpinnerAdapter implements SpinnerAdapter, ListAdapte
 
     @Override
     public View getDropDownView(int position, View convertView, ViewGroup parent) {
-        // Android BUG! http://code.google.com/p/android/issues/detail?id=17128 -
         // Spinner does not support multiple view types
         if (position == 0) {
             return nothingSelectedDropdownLayout == -1 ?
@@ -92,12 +80,6 @@ public class NothingSelectedSpinnerAdapter implements SpinnerAdapter, ListAdapte
         return adapter.getDropDownView(position - EXTRA, null, parent);
     }
 
-    /**
-     * Override this to do something dynamic... For example, "Pick your favorite
-     * of these 37".
-     * @param parent
-     * @return
-     */
     protected View getNothingSelectedDropdownView(ViewGroup parent) {
         return layoutInflater.inflate(nothingSelectedDropdownLayout, parent, false);
     }

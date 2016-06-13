@@ -19,7 +19,7 @@ import com.skytel.sdp.ui.newnumber.NumberOrderReportFragment;
 
 public class TabNewNumberFragment extends Fragment {
 
-    FragmentPagerAdapter fragmentPagerAdapter;
+    FragmentPagerAdapter mFragmentPagerAdapter;
     ViewPager mViewPager;
 
     public TabNewNumberFragment() {
@@ -39,11 +39,11 @@ public class TabNewNumberFragment extends Fragment {
         Toast.makeText(getActivity(), getText(R.string.tab_newnumber_order)+" хэсэг нь энэхүү хувилбарт ажиллахгүй байгаа. ", Toast.LENGTH_SHORT).show();
         Toast.makeText(getActivity(), "Та хувилбарт багтсан хэсгийг сонгон тестэлнэ үү. Баярлалаа", Toast.LENGTH_SHORT).show();
 
-        fragmentPagerAdapter = new FragmentPagerAdapter(getActivity().getFragmentManager());
+        mFragmentPagerAdapter = new FragmentPagerAdapter(getActivity().getFragmentManager());
 
         // Set up the ViewPager, attaching the adapter.
         mViewPager = (ViewPager) rootView.findViewById(R.id.pager_view);
-        mViewPager.setAdapter(fragmentPagerAdapter);
+        mViewPager.setAdapter(mFragmentPagerAdapter);
 
         TabLayout tabLayout = (TabLayout) rootView.findViewById(R.id.tab_view);
         tabLayout.addTab(tabLayout.newTab().setText(getText(R.string.tab_newnumber_order)));

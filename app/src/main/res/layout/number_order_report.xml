@@ -173,9 +173,9 @@
 
                 <Button
                     style="@style/ButtonStyle"
+                    android:layout_marginBottom="@dimen/main_padding"
                     android:layout_marginLeft="@dimen/main_padding"
                     android:layout_marginRight="@dimen/main_padding"
-                    android:layout_marginBottom="@dimen/main_padding"
                     android:layout_marginTop="@dimen/third_padding"
 
                     android:text="@string/search"></Button>

@@ -39,7 +39,7 @@ public class ChangePinFragment extends Fragment implements Constants {
 
     String TAG = ChangePinFragment.class.getName();
 
-    private OkHttpClient client;
+    private OkHttpClient mClient;
     private Context mContext;
     private DataManager mDataManager;
     private PrefManager prefManager;
@@ -49,7 +49,7 @@ public class ChangePinFragment extends Fragment implements Constants {
     private EditText mOldPin;
     private EditText mNewPin;
 
-    private CustomProgressDialog progressDialog;
+    private CustomProgressDialog mProgressDialog;
 
     public ChangePinFragment() {
 
@@ -66,9 +66,9 @@ public class ChangePinFragment extends Fragment implements Constants {
 
         mContext = getActivity();
         mDataManager = new DataManager(mContext);
-        client = new OkHttpClient();
+        mClient = new OkHttpClient();
         prefManager = new PrefManager(mContext);
-        progressDialog = new CustomProgressDialog(mContext);
+        mProgressDialog = new CustomProgressDialog(mContext);
 
         mOldPin = (EditText) rootView.findViewById(R.id.old_pin);
         mNewPin = (EditText) rootView.findViewById(R.id.new_pin);
@@ -133,10 +133,10 @@ public class ChangePinFragment extends Fragment implements Constants {
                 .addHeader(PREF_AUTH_TOKEN, prefManager.getAuthToken())
                 .build();
 
-        client.newCall(request).enqueue(new Callback() {
+        mClient.newCall(request).enqueue(new Callback() {
             @Override
             public void onFailure(Call call, IOException e) {
-                progressDialog.dismiss();
+                mProgressDialog.dismiss();
                 System.out.println("onFailure");
                 e.printStackTrace();
                 getActivity().runOnUiThread(new Runnable() {
@@ -151,7 +151,7 @@ public class ChangePinFragment extends Fragment implements Constants {
 
             @Override
             public void onResponse(Call call, Response response) throws IOException {
-                progressDialog.dismiss();
+                mProgressDialog.dismiss();
                 System.out.println("onResponse");
 
                 if (!response.isSuccessful()) throw new IOException("Unexpected code " + response);
@@ -213,7 +213,7 @@ public class ChangePinFragment extends Fragment implements Constants {
             //  Toast.makeText(this, "Confirmed", Toast.LENGTH_LONG).show();
             try {
                 runChangeFunction();
-                progressDialog.show();
+                mProgressDialog.show();
             } catch (Exception e) {
                 e.printStackTrace();
             }

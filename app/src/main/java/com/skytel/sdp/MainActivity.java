@@ -38,26 +38,27 @@ import com.skytel.sdp.utils.PrefManager;
 public class MainActivity extends AppCompatActivity implements BalanceUpdateListener {
     String TAG = MainActivity.class.getName();
 
-    public static int currentMenu = Constants.MENU_NEWNUMBER;
-    private ListView leftMenuListView;
-    private LeftMenuListAdapter leftMenuListAdapter;
-    private FragmentTransaction transaction;
-    private Context context;
-    private DataManager dataManager;
-    private PrefManager prefManager;
+    public static int sCurrentMenu = Constants.MENU_NEWNUMBER;
+    private ListView mLeftMenuListView;
+    private LeftMenuListAdapter mLeftMenuListAdapter;
+    private FragmentTransaction mTransaction;
+    private Context mContext;
+    private DataManager mDataManager;
+    private PrefManager mPrefManager;
     private TextView mDealerName;
     private TextView mDealerBalance;
     private TextView mDealerZone;
+
 
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        context = this;
+        mContext = this;
 
-        dataManager = new DataManager(this);
-        prefManager = new PrefManager(this);
+        mDataManager = new DataManager(this);
+        mPrefManager = new PrefManager(this);
 
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
@@ -69,17 +70,17 @@ public class MainActivity extends AppCompatActivity implements BalanceUpdateList
         }
 
         mDealerName = (TextView) findViewById(R.id.dealer_name);
-        mDealerName.setText(prefManager.getDealerName());
+        mDealerName.setText(mPrefManager.getDealerName());
         mDealerBalance = (TextView) findViewById(R.id.dealer_balance);
-        mDealerBalance.setText(prefManager.getDealerBalance());
+        mDealerBalance.setText(mPrefManager.getDealerBalance());
         mDealerZone = (TextView) findViewById(R.id.dealer_zone);
-        mDealerZone.setText(prefManager.getDealerZone());
+        mDealerZone.setText(mPrefManager.getDealerZone());
 
 
-        leftMenuListView = (ListView) findViewById(R.id.leftMenuListView);
-        leftMenuListAdapter = new LeftMenuListAdapter(this);
-        leftMenuListView.setAdapter(leftMenuListAdapter);
-        leftMenuListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+        mLeftMenuListView = (ListView) findViewById(R.id.leftMenuListView);
+        mLeftMenuListAdapter = new LeftMenuListAdapter(this);
+        mLeftMenuListView.setAdapter(mLeftMenuListAdapter);
+        mLeftMenuListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                 switch (position) {
@@ -122,15 +123,15 @@ public class MainActivity extends AppCompatActivity implements BalanceUpdateList
 
                         break;
                 }
-                currentMenu = position;
-                leftMenuListAdapter.notifyDataSetChanged();
+                sCurrentMenu = position;
+                mLeftMenuListAdapter.notifyDataSetChanged();
             }
         });
 
         new LongOperation().execute();
 
-        ChargeCardFragment.mBalanceUpdateListener = this;
-        PostPaidPaymentFragment.mBalanceUpdateListener = this;
+        ChargeCardFragment.sBalanceUpdateListener = this;
+        PostPaidPaymentFragment.sBalanceUpdateListener = this;
 
     }
 
@@ -141,9 +142,9 @@ public class MainActivity extends AppCompatActivity implements BalanceUpdateList
     }
 
     private void changeMenu(Fragment fragment) {
-        transaction = getFragmentManager().beginTransaction();
+        mTransaction = getFragmentManager().beginTransaction();
 //        transaction.setCustomAnimations(R.anim.enter, R.anim.exit, R.anim.pop_enter, R.anim.pop_exit);
-        transaction
+        mTransaction
                 .replace(R.id.main_detail_container, fragment)
                 .commit();
     }
@@ -155,11 +156,11 @@ public class MainActivity extends AppCompatActivity implements BalanceUpdateList
         public void onPositiveButton() {
             //  Toast.makeText(this, "Confirmed", Toast.LENGTH_LONG).show();
 
-            prefManager.setIsLoggedIn(false);
-            dataManager.resetCardTypes();
+            mPrefManager.setIsLoggedIn(false);
+            mDataManager.resetCardTypes();
 
             finish();
-            Intent intent = new Intent(context, LoginActivity.class);
+            Intent intent = new Intent(mContext, LoginActivity.class);
             startActivity(intent);
         }
 
@@ -171,8 +172,8 @@ public class MainActivity extends AppCompatActivity implements BalanceUpdateList
 
     @Override
     public void onBalanceUpdate() {
-        Toast.makeText(context, "Balance ", Toast.LENGTH_LONG).show();
-        mDealerBalance.setText(prefManager.getDealerBalance());
+        Toast.makeText(mContext, "Balance ", Toast.LENGTH_LONG).show();
+        mDealerBalance.setText(mPrefManager.getDealerBalance());
     }
 
     private class LongOperation extends AsyncTask<String, Void, Boolean> {
@@ -180,8 +181,8 @@ public class MainActivity extends AppCompatActivity implements BalanceUpdateList
         @Override
         protected Boolean doInBackground(String... params) {
             try {
-                if (dataManager.resetCardTypes()) {
-                    dataManager.setCardTypes();
+                if (mDataManager.resetCardTypes()) {
+                    mDataManager.setCardTypes();
                 }
 
                 return true;
@@ -201,7 +202,7 @@ public class MainActivity extends AppCompatActivity implements BalanceUpdateList
                 Log.d(TAG, "AsyncTask Finished");
 
             } else {
-                Toast.makeText(context, "Error!", Toast.LENGTH_LONG).show();
+                Toast.makeText(mContext, "Error!", Toast.LENGTH_LONG).show();
             }
         }
 

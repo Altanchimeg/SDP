@@ -34,8 +34,7 @@
             android:id="@+id/et_user_voice"
             style="@style/TextAreaStyle"
             android:gravity="top|left"
-            android:hint="@string/text_write_voice"
-/>
+            android:hint="@string/text_write_voice" />
 
 
         <Button

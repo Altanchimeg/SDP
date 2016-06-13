@@ -25,7 +25,6 @@ public class LeftMenuListAdapter extends BaseAdapter {
     private LayoutInflater mLayoutInflater = null;
 
     public LeftMenuListAdapter(Context context) {
-        // TODO Auto-generated constructor stub
         mContext = context;
         mMenus = context.getResources().getStringArray(R.array.leftmenu_array);
         mIcons = context.getResources().getStringArray(R.array.leftmenu_ic_array);
@@ -63,7 +62,6 @@ public class LeftMenuListAdapter extends BaseAdapter {
             viewHolder = (CompleteListViewHolder) v.getTag();
         }
 
-//		viewHolder.mMenu.setTypeface(roboto_light);
         viewHolder.leftMenuName.setText(mMenus[position] + "");
         viewHolder.leftMenuName.setTextColor(mContext.getResources().getColor(R.color.colorMenuText));
         Log.d(TAG, "MainActivity.currentMenu " + MainActivity.currentMenu);
@@ -88,16 +86,12 @@ public class LeftMenuListAdapter extends BaseAdapter {
 
     class CompleteListViewHolder {
         public TextView leftMenuName;
-        //        public View underline;
         public ImageView leftMenuIcon;
-        //      public LinearLayout container;
         public LinearLayout leftMenuItemContainer;
 
         public CompleteListViewHolder(View base) {
             leftMenuName = (TextView) base.findViewById(R.id.leftMenuName);
-            //     underline = (View) base.findViewById(R.id.underline);
             leftMenuIcon = (ImageView) base.findViewById(R.id.leftMenuIcon);
-            //   container = (LinearLayout) base.findViewById(R.id.container);
             leftMenuItemContainer = (LinearLayout) base.findViewById(R.id.leftMenuItemContainer);
         }
     }

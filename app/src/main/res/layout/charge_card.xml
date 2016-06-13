@@ -24,10 +24,10 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:cacheColorHint="@android:color/transparent"
-                android:divider="@null"
-                android:scrollbars="none"
                 android:choiceMode="singleChoice"
-                android:listSelector="@drawable/bg_listview"></ListView>
+                android:divider="@null"
+                android:listSelector="@drawable/bg_listview"
+                android:scrollbars="none"></ListView>
         </LinearLayout>
 
         <LinearLayout
@@ -45,10 +45,10 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:cacheColorHint="@android:color/transparent"
-                android:divider="@null"
-                android:scrollbars="none"
                 android:choiceMode="singleChoice"
-                android:listSelector="@drawable/bg_listview"></ListView>
+                android:divider="@null"
+                android:listSelector="@drawable/bg_listview"
+                android:scrollbars="none"></ListView>
 
 
         </LinearLayout>
@@ -85,8 +85,8 @@
 
 
             <Button
-                style="@style/ButtonStyle"
                 android:id="@+id/charge_card_order_btn"
+                style="@style/ButtonStyle"
                 android:layout_marginBottom="@dimen/main_padding"
                 android:layout_marginLeft="@dimen/main_padding"
                 android:layout_marginRight="@dimen/main_padding"

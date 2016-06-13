@@ -23,7 +23,7 @@ import com.skytel.sdp.ui.skydealer.SkymediaPaymentFragment;
 
 public class TabSettingsFragment extends Fragment {
 
-    FragmentPagerAdapter fragmentPagerAdapter;
+    FragmentPagerAdapter mFragmentPagerAdapter;
     ViewPager mViewPager;
 
     public TabSettingsFragment() {
@@ -40,11 +40,11 @@ public class TabSettingsFragment extends Fragment {
 
         View rootView = inflater.inflate(R.layout.fragment_tab_pager, container, false);
 
-        fragmentPagerAdapter = new FragmentPagerAdapter(getActivity().getFragmentManager());
+        mFragmentPagerAdapter = new FragmentPagerAdapter(getActivity().getFragmentManager());
 
         // Set up the ViewPager, attaching the adapter.
         mViewPager = (ViewPager) rootView.findViewById(R.id.pager_view);
-        mViewPager.setAdapter(fragmentPagerAdapter);
+        mViewPager.setAdapter(mFragmentPagerAdapter);
 
         TabLayout tabLayout = (TabLayout) rootView.findViewById(R.id.tab_view);
         tabLayout.addTab(tabLayout.newTab().setText(getText(R.string.tab_settings_changepassword)));

@@ -10,7 +10,7 @@ import android.widget.ImageView;
 import com.skytel.sdp.R;
 
 public class CustomProgressDialog extends ProgressDialog {
-    AnimationDrawable runningAnimation;
+    AnimationDrawable mRunningAnimation;
 
     public CustomProgressDialog(Context context) {
         super(context, R.style.full_screen_dialog);
@@ -27,19 +27,19 @@ public class CustomProgressDialog extends ProgressDialog {
 
         ImageView mRunningManView = (ImageView) findViewById(R.id.animation);
         mRunningManView.setBackgroundResource(R.drawable.loading_animation_list);
-        runningAnimation = (AnimationDrawable) mRunningManView.getBackground();
+        mRunningAnimation = (AnimationDrawable) mRunningManView.getBackground();
 
     }
 
     @Override
     public void show() {
         super.show();
-        runningAnimation.start();
+        mRunningAnimation.start();
     }
 
     @Override
     public void dismiss() {
         super.dismiss();
-        runningAnimation.stop();
+        mRunningAnimation.stop();
     }
 }

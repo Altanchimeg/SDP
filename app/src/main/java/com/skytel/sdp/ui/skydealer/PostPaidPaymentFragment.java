@@ -39,10 +39,10 @@ public class PostPaidPaymentFragment extends Fragment {
 
     String TAG = PostPaidPaymentFragment.class.getName();
 
-    private OkHttpClient client;
+    private OkHttpClient mClient;
     private Context mContext;
     private DataManager mDataManager;
-    private PrefManager prefManager;
+    private PrefManager mPrefManager;
 
     // UI Widgets
     private Button mDoPaymentBtn;
@@ -54,13 +54,13 @@ public class PostPaidPaymentFragment extends Fragment {
     private LinearLayout mInvoiceLayout;
     private LinearLayout mPaymentLayout;
 
-    private String balance = "";
+    private String mBalance = "";
 
-    private ConfirmDialog confirmDialog;
+    private ConfirmDialog mConfirmDialog;
 
-    private CustomProgressDialog progressDialog;
+    private CustomProgressDialog mProgressDialog;
 
-    public static BalanceUpdateListener mBalanceUpdateListener;
+    public static BalanceUpdateListener sBalanceUpdateListener;
 
     public PostPaidPaymentFragment() {
     }
@@ -69,14 +69,14 @@ public class PostPaidPaymentFragment extends Fragment {
     public void onCreate(Bundle savedInstanceState) {
 
         super.onCreate(savedInstanceState);
-        confirmDialog = new ConfirmDialog();
+        mConfirmDialog = new ConfirmDialog();
         Bundle args = new Bundle();
         args.putInt("message", R.string.confirm);
         args.putInt("title", R.string.confirm);
 
-        confirmDialog.setArguments(args);
-        confirmDialog.registerCallback(dialogConfirmListener);
-        progressDialog = new CustomProgressDialog(getActivity());
+        mConfirmDialog.setArguments(args);
+        mConfirmDialog.registerCallback(dialogConfirmListener);
+        mProgressDialog = new CustomProgressDialog(getActivity());
     }
 
     @Override
@@ -86,8 +86,8 @@ public class PostPaidPaymentFragment extends Fragment {
 
         mContext = getActivity();
         mDataManager = new DataManager(mContext);
-        client = new OkHttpClient();
-        prefManager = new PrefManager(mContext);
+        mClient = new OkHttpClient();
+        mPrefManager = new PrefManager(mContext);
 
         mInvoicePhoneNumber = (EditText) rootView.findViewById(R.id.invoice_phone_number);
         mPincode = (EditText) rootView.findViewById(R.id.pin_code);
@@ -104,7 +104,7 @@ public class PostPaidPaymentFragment extends Fragment {
                 try {
 
                     if (ValidationChecker.isValidationPassed(mInvoicePhoneNumber) && ValidationChecker.isValidationPassed(mPincode)) {
-                        progressDialog.show();
+                        mProgressDialog.show();
                         runInvoiceFunction();
                     } else {
                         Toast.makeText(getActivity(), "Please fill the field!", Toast.LENGTH_SHORT).show();
@@ -120,7 +120,7 @@ public class PostPaidPaymentFragment extends Fragment {
 
                 try {
                     if (ValidationChecker.isValidationPassed(mConfirmCode)) {
-                        confirmDialog.show(getFragmentManager(), "dialog");
+                        mConfirmDialog.show(getFragmentManager(), "dialog");
                     } else {
                         Toast.makeText(getActivity(), "Please fill the field!", Toast.LENGTH_SHORT).show();
                     }
@@ -149,17 +149,17 @@ public class PostPaidPaymentFragment extends Fragment {
         });
 
         System.out.print(url + "\n");
-        System.out.println(prefManager.getAuthToken());
+        System.out.println(mPrefManager.getAuthToken());
 
         Request request = new Request.Builder()
                 .url(url.toString())
-                .addHeader(Constants.PREF_AUTH_TOKEN, prefManager.getAuthToken())
+                .addHeader(Constants.PREF_AUTH_TOKEN, mPrefManager.getAuthToken())
                 .build();
 
-        client.newCall(request).enqueue(new Callback() {
+        mClient.newCall(request).enqueue(new Callback() {
             @Override
             public void onFailure(Call call, IOException e) {
-                 progressDialog.dismiss();
+                mProgressDialog.dismiss();
                 System.out.println("onFailure");
                 e.printStackTrace();
                 getActivity().runOnUiThread(new Runnable() {
@@ -174,7 +174,7 @@ public class PostPaidPaymentFragment extends Fragment {
 
             @Override
             public void onResponse(Call call, Response response) throws IOException {
-                progressDialog.dismiss();
+                mProgressDialog.dismiss();
                 System.out.println("onResponse");
 
                 if (!response.isSuccessful()) throw new IOException("Unexpected code " + response);
@@ -196,8 +196,8 @@ public class PostPaidPaymentFragment extends Fragment {
 
 
                     if (result_code == Constants.RESULT_CODE_SUCCESS) {
-                        balance = jsonObj.getString("balance");
-                        Log.d(TAG, "balance " + balance);
+                        mBalance = jsonObj.getString("balance");
+                        Log.d(TAG, "balance " + mBalance);
                         Log.d(TAG, "Show the success message to user");
                         getActivity().runOnUiThread(new Runnable() {
                             @Override
@@ -212,13 +212,12 @@ public class PostPaidPaymentFragment extends Fragment {
                                 }
                             }
                         });
-                    }
-                    else{
+                    } else {
                         getActivity().runOnUiThread(new Runnable() {
                             @Override
                             public void run() {
                                 try {
-                                    Toast.makeText(mContext, ""+result_msg, Toast.LENGTH_LONG).show();
+                                    Toast.makeText(mContext, "" + result_msg, Toast.LENGTH_LONG).show();
 
 
                                 } catch (Exception e) {
@@ -227,8 +226,6 @@ public class PostPaidPaymentFragment extends Fragment {
                             }
                         });
                     }
-
-
 
 
                 } catch (JSONException e) {
@@ -242,7 +239,7 @@ public class PostPaidPaymentFragment extends Fragment {
         final StringBuilder url = new StringBuilder();
         url.append(Constants.SERVER_URL);
         url.append(Constants.FUNCTION_DO_PAYMENT);
-        url.append("?amount=" + Integer.parseInt(balance));
+        url.append("?amount=" + Integer.parseInt(mBalance));
         url.append("&phone=" + mInvoicePhoneNumber.getText().toString());
         url.append("&pin=" + mPincode.getText().toString());
         url.append("&invoice_num=" + mConfirmCode.getText().toString());
@@ -255,17 +252,17 @@ public class PostPaidPaymentFragment extends Fragment {
         });
 
         System.out.print(url + "\n");
-        System.out.println(prefManager.getAuthToken());
+        System.out.println(mPrefManager.getAuthToken());
 
         Request request = new Request.Builder()
                 .url(url.toString())
-                .addHeader(Constants.PREF_AUTH_TOKEN, prefManager.getAuthToken())
+                .addHeader(Constants.PREF_AUTH_TOKEN, mPrefManager.getAuthToken())
                 .build();
 
-        client.newCall(request).enqueue(new Callback() {
+        mClient.newCall(request).enqueue(new Callback() {
             @Override
             public void onFailure(Call call, IOException e) {
-                       progressDialog.dismiss();
+                mProgressDialog.dismiss();
                 System.out.println("onFailure");
                 e.printStackTrace();
                 getActivity().runOnUiThread(new Runnable() {
@@ -280,7 +277,7 @@ public class PostPaidPaymentFragment extends Fragment {
 
             @Override
             public void onResponse(Call call, Response response) throws IOException {
-                progressDialog.dismiss();
+                mProgressDialog.dismiss();
                 System.out.println("onResponse");
 
                 if (!response.isSuccessful()) throw new IOException("Unexpected code " + response);
@@ -309,13 +306,13 @@ public class PostPaidPaymentFragment extends Fragment {
                         Log.d(TAG, "dealer_id " + dealer_id);
                         Log.d(TAG, "balance " + balance);
 
-                        prefManager.saveDealerBalance(balance);
+                        mPrefManager.saveDealerBalance(balance);
                         getActivity().runOnUiThread(new Runnable() {
                             @Override
                             public void run() {
-                            if (mBalanceUpdateListener != null) {
-                                mBalanceUpdateListener.onBalanceUpdate();
-                            }
+                                if (sBalanceUpdateListener != null) {
+                                    sBalanceUpdateListener.onBalanceUpdate();
+                                }
                             }
                         });
 
@@ -341,13 +338,13 @@ public class PostPaidPaymentFragment extends Fragment {
         @Override
         public void onPositiveButton() {
             try {
-                progressDialog.show();
+                mProgressDialog.show();
                 runPaymentFunction();
 
 
             } catch (Exception e) {
                 Log.e(TAG, e.getMessage());
-                progressDialog.dismiss();
+                mProgressDialog.dismiss();
                 Toast.makeText(mContext, "Error on Failure!", Toast.LENGTH_LONG).show();
             }
         }

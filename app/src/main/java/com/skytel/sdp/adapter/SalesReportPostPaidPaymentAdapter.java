@@ -19,7 +19,7 @@ public class SalesReportPostPaidPaymentAdapter extends TableDataAdapter<SalesRep
         super(context, data);
         mContext = context;
     }
-
+    // put columns to postpaid payment table
     @Override
     public View getCellView(int rowIndex, int columnIndex, ViewGroup parentView) {
         SalesReport salesReport = getRowData(rowIndex);
@@ -42,7 +42,7 @@ public class SalesReportPostPaidPaymentAdapter extends TableDataAdapter<SalesRep
 
         return renderedView;
     }
-
+    //Set columns layout
     private View renderPhone(final SalesReport salesReport) {
         final TextView textView = new TextView(getContext());
         textView.setText(salesReport.getPhone() + "");

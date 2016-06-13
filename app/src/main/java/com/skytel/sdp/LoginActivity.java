@@ -31,23 +31,23 @@ import okhttp3.Response;
 public class LoginActivity extends Activity implements Constants {
     String TAG = LoginActivity.class.getName();
 
-    private OkHttpClient client;
-    private Context context;
+    private OkHttpClient mClient;
+    private Context mContext;
     private Button mBtnLogin;
     private EditText mEtUserName;
     private EditText mEtPassword;
-    private PrefManager prefManager;
+    private PrefManager mPrefManager;
 
-    private CustomProgressDialog progressDialog;
+    private CustomProgressDialog mProgressDialog;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
-        this.context = this;
-        client = new OkHttpClient();
-        prefManager = new PrefManager(this);
-        progressDialog = new CustomProgressDialog(this);
+        this.mContext = this;
+        mClient = new OkHttpClient();
+        mPrefManager = new PrefManager(this);
+        mProgressDialog = new CustomProgressDialog(this);
 
 /**
  * If code is running on Debug
@@ -59,7 +59,7 @@ public class LoginActivity extends Activity implements Constants {
         finish();
 */
 
-        if (prefManager.getIsLoggedIn()) {
+        if (mPrefManager.getIsLoggedIn()) {
             Intent intent = new Intent(LoginActivity.this, MainActivity.class);
             startActivity(intent);
             finish();
@@ -76,9 +76,9 @@ public class LoginActivity extends Activity implements Constants {
                     if (ValidationChecker.isValidationPassed(mEtUserName) && ValidationChecker.isValidationPassed(mEtPassword)) {
 //                        Toast.makeText(context, "Please wait", Toast.LENGTH_SHORT).show();
                         runLoginFunction();
-                        progressDialog.show();
+                        mProgressDialog.show();
                     } else {
-                        Toast.makeText(context, "Please fill the field!", Toast.LENGTH_SHORT).show();
+                        Toast.makeText(mContext, "Please fill the field!", Toast.LENGTH_SHORT).show();
                     }
                 } catch (Exception e) {
                     e.printStackTrace();
@@ -101,17 +101,17 @@ public class LoginActivity extends Activity implements Constants {
                 .url(url.toString())
                 .build();
 
-        client.newCall(request).enqueue(new Callback() {
+        mClient.newCall(request).enqueue(new Callback() {
             @Override
             public void onFailure(Call call, IOException e) {
-                progressDialog.dismiss();
+                mProgressDialog.dismiss();
                 System.out.println("onFailure");
                 e.printStackTrace();
                 runOnUiThread(new Runnable() {
                     @Override
                     public void run() {
                         //     progressDialog.dismiss();
-                        Toast.makeText(context, "Error on Failure!", Toast.LENGTH_LONG).show();
+                        Toast.makeText(mContext, "Error on Failure!", Toast.LENGTH_LONG).show();
                         // Used for debug
 //                        PrefManager.getSessionInstance().setIsLoggedIn(true);
 //                        Intent intent = new Intent(LoginActivity.this, MainActivity.class);
@@ -124,7 +124,7 @@ public class LoginActivity extends Activity implements Constants {
 
             @Override
             public void onResponse(Call call, Response response) throws IOException {
-                progressDialog.dismiss();
+                mProgressDialog.dismiss();
 
                 System.out.println("onResponse");
 
@@ -146,13 +146,13 @@ public class LoginActivity extends Activity implements Constants {
                     if (result_code == RESULT_CODE_SUCCESS) {
                         String auth_token = jsonObj.getString("auth_token");
 
-                        prefManager.saveAuthToken(auth_token);
+                        mPrefManager.saveAuthToken(auth_token);
 
                         Log.d(TAG, "result_code " + result_code);
                         Log.d(TAG, "auth_token " + auth_token);
 
                         runProfileInfoFunction();
-                        progressDialog.show();
+                        mProgressDialog.show();
 
                     } else {
                         final String result_msg = jsonObj.getString("result_msg");
@@ -163,7 +163,7 @@ public class LoginActivity extends Activity implements Constants {
                             @Override
                             public void run() {
 
-                                Toast.makeText(context, result_msg + "", Toast.LENGTH_SHORT).show();
+                                Toast.makeText(mContext, result_msg + "", Toast.LENGTH_SHORT).show();
 
                             }
                         });
@@ -177,7 +177,7 @@ public class LoginActivity extends Activity implements Constants {
                     runOnUiThread(new Runnable() {
                         @Override
                         public void run() {
-                            Toast.makeText(context, "Алдаатай хариу ирлээ", Toast.LENGTH_LONG).show();
+                            Toast.makeText(mContext, "Алдаатай хариу ирлээ", Toast.LENGTH_LONG).show();
                         }
                     });
                 } catch (Exception e) {
@@ -202,20 +202,20 @@ public class LoginActivity extends Activity implements Constants {
 
         Request request = new Request.Builder()
                 .url(url.toString())
-                .addHeader(PREF_AUTH_TOKEN, prefManager.getAuthToken())
+                .addHeader(PREF_AUTH_TOKEN, mPrefManager.getAuthToken())
                 .build();
 
-        client.newCall(request).enqueue(new Callback() {
+        mClient.newCall(request).enqueue(new Callback() {
             @Override
             public void onFailure(Call call, IOException e) {
-                progressDialog.dismiss();
+                mProgressDialog.dismiss();
                 System.out.println("onFailure");
                 e.printStackTrace();
                 runOnUiThread(new Runnable() {
                     @Override
                     public void run() {
                         //     progressDialog.dismiss();
-                        Toast.makeText(context, "Error on Failure!", Toast.LENGTH_LONG).show();
+                        Toast.makeText(mContext, "Error on Failure!", Toast.LENGTH_LONG).show();
                         // Used for debug
 //                        PrefManager.getSessionInstance().setIsLoggedIn(true);
 //                        Intent intent = new Intent(LoginActivity.this, MainActivity.class);
@@ -228,7 +228,7 @@ public class LoginActivity extends Activity implements Constants {
 
             @Override
             public void onResponse(Call call, Response response) throws IOException {
-                progressDialog.dismiss();
+                mProgressDialog.dismiss();
                 System.out.println("onResponse");
 
                 if (!response.isSuccessful()) throw new IOException("Unexpected code " + response);
@@ -257,9 +257,9 @@ public class LoginActivity extends Activity implements Constants {
                     Log.d(TAG, "zone_code " + zone_code);
                     Log.d(TAG, "zone_name " + zone_name);
 
-                    prefManager.saveDealerName(dealer_name);
-                    prefManager.saveDealerBalance(balance);
-                    prefManager.saveDealerZone(zone_name);
+                    mPrefManager.saveDealerName(dealer_name);
+                    mPrefManager.saveDealerBalance(balance);
+                    mPrefManager.saveDealerZone(zone_name);
 
 
                     runOnUiThread(new Runnable() {
@@ -269,7 +269,7 @@ public class LoginActivity extends Activity implements Constants {
                         }
                     });
 
-                    prefManager.setIsLoggedIn(true);
+                    mPrefManager.setIsLoggedIn(true);
                     Intent intent = new Intent(LoginActivity.this, MainActivity.class);
                     startActivity(intent);
                     finish();
@@ -278,7 +278,7 @@ public class LoginActivity extends Activity implements Constants {
                     runOnUiThread(new Runnable() {
                         @Override
                         public void run() {
-                            Toast.makeText(context, "Алдаатай хариу ирлээ", Toast.LENGTH_LONG).show();
+                            Toast.makeText(mContext, "Алдаатай хариу ирлээ", Toast.LENGTH_LONG).show();
                         }
                     });
                     e.printStackTrace();

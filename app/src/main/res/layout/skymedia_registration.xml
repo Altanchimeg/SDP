@@ -4,7 +4,8 @@
     android:layout_height="match_parent"
     android:orientation="vertical">
 
-    <LinearLayout style="@style/MainViewContainer"
+    <LinearLayout
+        style="@style/MainViewContainer"
         android:gravity="center">
 
         <TextView
@@ -16,15 +17,19 @@
             android:layout_height="wrap_content"
             android:layout_margin="@dimen/main_padding"
             android:orientation="vertical">
+
             <EditText
                 style="@style/MainViewCenterBoxEditText"
                 android:hint="@string/last_name" />
+
             <EditText
                 style="@style/MainViewCenterBoxEditText"
                 android:hint="@string/first_name" />
+
             <EditText
                 style="@style/MainViewCenterBoxEditText"
                 android:hint="@string/reg_number" />
+
             <EditText
                 style="@style/MainViewCenterBoxEditText"
                 android:hint="@string/address_detail" />
@@ -36,13 +41,15 @@
 
                 <EditText
                     style="@style/EditTextStyle"
-                    android:hint="@string/aimag_city"
-                    android:layout_width="@dimen/leftmenu_width" />
+                    android:layout_width="@dimen/leftmenu_width"
+                    android:hint="@string/aimag_city" />
+
                 <EditText
                     style="@style/MainViewCenterBoxEditText"
                     android:hint="@string/sum_district" />
 
             </LinearLayout>
+
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -50,13 +57,15 @@
 
                 <EditText
                     style="@style/EditTextStyle"
-                    android:hint="@string/bag_khoroo"
-                    android:layout_width="@dimen/leftmenu_width" />
+                    android:layout_width="@dimen/leftmenu_width"
+                    android:hint="@string/bag_khoroo" />
+
                 <EditText
                     style="@style/MainViewCenterBoxEditText"
                     android:hint="@string/building_street" />
 
             </LinearLayout>
+
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -64,8 +73,9 @@
 
                 <EditText
                     style="@style/EditTextStyle"
-                    android:hint="@string/entrance_fence"
-                    android:layout_width="@dimen/leftmenu_width" />
+                    android:layout_width="@dimen/leftmenu_width"
+                    android:hint="@string/entrance_fence" />
+
                 <EditText
                     style="@style/MainViewCenterBoxEditText"
                     android:hint="@string/door_number" />
@@ -75,13 +85,13 @@
             <EditText
                 style="@style/MainViewCenterBoxEditText"
                 android:hint="@string/contact_number" />
+
             <EditText
-                style="@style/TextAreaStyle"
                 android:id="@+id/order_desc"
-                android:hint="@string/description_order"
-                android:transitionName="@string/description_order"
+                style="@style/TextAreaStyle"
                 android:gravity="top|left"
-                />
+                android:hint="@string/description_order"
+                android:transitionName="@string/description_order" />
         </LinearLayout>
 
     </LinearLayout>

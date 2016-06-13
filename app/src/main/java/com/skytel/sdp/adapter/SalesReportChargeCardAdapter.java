@@ -19,7 +19,7 @@ public class SalesReportChargeCardAdapter extends TableDataAdapter<SalesReport> 
         super(context, data);
         mContext = context;
     }
-
+    // put columns to charge card table
     @Override
     public View getCellView(int rowIndex, int columnIndex, ViewGroup parentView) {
         SalesReport salesReport = getRowData(rowIndex);
@@ -46,6 +46,8 @@ public class SalesReportChargeCardAdapter extends TableDataAdapter<SalesReport> 
         return renderedView;
     }
 
+    //Set columns layout
+
     private View renderPhone(final SalesReport salesReport) {
         final TextView textView = new TextView(getContext());
         textView.setText(salesReport.getPhone() + "");
@@ -69,7 +71,6 @@ public class SalesReportChargeCardAdapter extends TableDataAdapter<SalesReport> 
     }
     private View renderSuccess(final SalesReport salesReport) {
         final TextView textView = new TextView(getContext());
-//        textView.setText(salesReport.getDate().toString() + "");
         if (salesReport.isSuccess()) {
             textView.setText(mContext.getResources().getString(R.string.successful));
         } else {
@@ -83,7 +84,6 @@ public class SalesReportChargeCardAdapter extends TableDataAdapter<SalesReport> 
     private View renderDate(final SalesReport salesReport) {
         final TextView textView = new TextView(getContext());
         textView.setText(salesReport.getDate().toString() + "");
-        //textView.setText("2016/06/01 15:23");
         textView.setPadding(20, 10, 20, 10);
         textView.setTextSize(18);
         return textView;

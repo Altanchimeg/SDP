@@ -17,6 +17,7 @@
                 android:id="@+id/old_pin"
                 style="@style/MainViewCenterBoxEditText"
                 android:hint="@string/old_pin" />
+
             <EditText
                 android:id="@+id/new_pin"
                 style="@style/MainViewCenterBoxEditText"

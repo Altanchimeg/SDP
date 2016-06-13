@@ -35,7 +35,7 @@ import okhttp3.Response;
  */
 public class NumberChoiceFragment extends Fragment {
 
-    ArrayList<String> mList;
+    ArrayList<String> list;
 
     public NumberChoiceFragment() {
     }
@@ -49,13 +49,13 @@ public class NumberChoiceFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         View rootView = inflater.inflate(R.layout.number_choice, container, false);
-        mList = new ArrayList<>();
+        list = new ArrayList<>();
 
         for (int i = 0; i < 100; i++) {
-            mList.add("9111 11" + i);
+            list.add("9111 11" + i);
         }
         GridView mNewNumbersList = (GridView) rootView.findViewById(R.id.newNumbersList);
-        mNewNumbersList.setAdapter(new NumberChoiceAdapter(getActivity(), mList));
+        mNewNumbersList.setAdapter(new NumberChoiceAdapter(getActivity(), list));
 
         Button mNumberChoiceOrder = (Button) rootView.findViewById(R.id.numberChoiceOrder);
         mNumberChoiceOrder.setOnClickListener(new View.OnClickListener() {

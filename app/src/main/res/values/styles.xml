@@ -158,9 +158,10 @@
     <style name="MainViewCenterBoxEditText" parent="EditTextStyle">
         <item name="android:layout_width">match_parent</item>
     </style>
+
     <style name="PhoneNumberEdittextStyle" parent="MainViewCenterBoxEditText">
-    <item name="android:phoneNumber">true</item>
-    <item name="android:maxLength">8</item>
+        <item name="android:phoneNumber">true</item>
+        <item name="android:maxLength">8</item>
     </style>
     <!-- Right View -->
     <style name="RightViewContainer">
@@ -215,7 +216,7 @@
     </style>
 
     <!-- TextArea Style /using Edittext/ -->
-    <style name="TextAreaStyle"  parent="EditTextStyle">
+    <style name="TextAreaStyle" parent="EditTextStyle">
         <item name="android:layout_width">@dimen/center_box_width</item>
         <item name="android:layout_height">wrap_content</item>
         <item name="android:background">@drawable/border</item>
@@ -231,7 +232,6 @@
         <item name="android:windowSoftInputMode">stateUnspecified|adjustPan</item>
         <item name="android:windowBackground">@android:color/transparent</item>
     </style>
-
 
 
 </resources>

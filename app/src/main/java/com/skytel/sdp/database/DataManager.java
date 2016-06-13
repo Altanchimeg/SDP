@@ -121,7 +121,6 @@ public class DataManager implements Constants {
             }
 
         } catch (Exception e) {
-            // TODO Auto-generated catch block
             e.printStackTrace();
         }
     }

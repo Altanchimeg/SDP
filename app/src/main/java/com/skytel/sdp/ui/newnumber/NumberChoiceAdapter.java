@@ -14,11 +14,11 @@ import java.util.List;
 public class NumberChoiceAdapter extends BaseAdapter {
     String TAG = NumberChoiceAdapter.class.getName();
 
-    private Context context;
+    private Context mContext;
     private List<String> mList;
 
     public NumberChoiceAdapter(Context context, List<String> list) {
-        this.context = context;
+        this.mContext = context;
         this.mList = list;
     }
 
@@ -27,7 +27,7 @@ public class NumberChoiceAdapter extends BaseAdapter {
         View v = convertView;
         ViewHolder viewHolder;
         if (convertView == null) {
-            LayoutInflater li = (LayoutInflater) context
+            LayoutInflater li = (LayoutInflater) mContext
                     .getSystemService(Context.LAYOUT_INFLATER_SERVICE);
             v = li.inflate(R.layout.numberchoice_cell, null);
             viewHolder = new ViewHolder(v);

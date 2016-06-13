@@ -33,11 +33,11 @@ import okhttp3.Request;
 import okhttp3.Response;
 
 
-public class ChangePasswordFragment extends Fragment implements Constants{
+public class ChangePasswordFragment extends Fragment implements Constants {
 
     String TAG = ChangePasswordFragment.class.getName();
 
-    private OkHttpClient client;
+    private OkHttpClient mClient;
     private Context mContext;
     private DataManager mDataManager;
     private PrefManager prefManager;
@@ -47,11 +47,12 @@ public class ChangePasswordFragment extends Fragment implements Constants{
     private EditText mOldPassword;
     private EditText mNewPassword;
 
-    private CustomProgressDialog progressDialog;
+    private CustomProgressDialog mProgressDialog;
 
     public ChangePasswordFragment() {
 
     }
+
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -64,9 +65,9 @@ public class ChangePasswordFragment extends Fragment implements Constants{
 
         mContext = getActivity();
         mDataManager = new DataManager(mContext);
-        client = new OkHttpClient();
+        mClient = new OkHttpClient();
         prefManager = new PrefManager(mContext);
-        progressDialog = new CustomProgressDialog(mContext);
+        mProgressDialog = new CustomProgressDialog(mContext);
 
         mOldPassword = (EditText) rootView.findViewById(R.id.old_password);
         mNewPassword = (EditText) rootView.findViewById(R.id.new_password);
@@ -124,10 +125,10 @@ public class ChangePasswordFragment extends Fragment implements Constants{
                 .addHeader(PREF_AUTH_TOKEN, prefManager.getAuthToken())
                 .build();
 
-        client.newCall(request).enqueue(new Callback() {
+        mClient.newCall(request).enqueue(new Callback() {
             @Override
             public void onFailure(Call call, IOException e) {
-                 progressDialog.dismiss();
+                mProgressDialog.dismiss();
                 System.out.println("onFailure");
                 e.printStackTrace();
                 getActivity().runOnUiThread(new Runnable() {
@@ -142,7 +143,7 @@ public class ChangePasswordFragment extends Fragment implements Constants{
 
             @Override
             public void onResponse(Call call, Response response) throws IOException {
-                progressDialog.dismiss();
+                mProgressDialog.dismiss();
                 System.out.println("onResponse");
 
                 if (!response.isSuccessful()) throw new IOException("Unexpected code " + response);
@@ -160,9 +161,9 @@ public class ChangePasswordFragment extends Fragment implements Constants{
                     int result_code = jsonObj.getInt("result_code");
                     final String result_msg = jsonObj.getString("result_msg");
                     Log.d(TAG, "result_code " + result_code);
-                    Log.d(TAG,"result_msg " + result_msg);
+                    Log.d(TAG, "result_msg " + result_msg);
 
-                    if(result_code == RESULT_CODE_SUCCESS){
+                    if (result_code == RESULT_CODE_SUCCESS) {
                         getActivity().runOnUiThread(new Runnable() {
                             @Override
                             public void run() {
@@ -170,12 +171,11 @@ public class ChangePasswordFragment extends Fragment implements Constants{
 
                             }
                         });
-                    }
-                    else{
+                    } else {
                         getActivity().runOnUiThread(new Runnable() {
                             @Override
                             public void run() {
-                                Toast.makeText(mContext, ""+result_msg, Toast.LENGTH_LONG).show();
+                                Toast.makeText(mContext, "" + result_msg, Toast.LENGTH_LONG).show();
 
 
                             }
@@ -211,7 +211,7 @@ public class ChangePasswordFragment extends Fragment implements Constants{
             //  Toast.makeText(this, "Confirmed", Toast.LENGTH_LONG).show();
             try {
                 runChangeFunction();
-                progressDialog.show();
+                mProgressDialog.show();
             } catch (Exception e) {
                 e.printStackTrace();
             }
