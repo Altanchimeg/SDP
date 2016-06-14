@@ -64,10 +64,10 @@ public class LeftMenuListAdapter extends BaseAdapter {
 
         viewHolder.leftMenuName.setText(mMenus[position] + "");
         viewHolder.leftMenuName.setTextColor(mContext.getResources().getColor(R.color.colorMenuText));
-        Log.d(TAG, "MainActivity.currentMenu " + MainActivity.currentMenu);
+        Log.d(TAG, "MainActivity.currentMenu " + MainActivity.sCurrentMenu);
         Log.d(TAG, "position " + position);
         Drawable d = null;
-        if (MainActivity.currentMenu == position) {
+        if (MainActivity.sCurrentMenu == position) {
             viewHolder.leftMenuItemContainer.setBackgroundColor(mContext.getResources().getColor(R.color.colorMenuBackgroundSelected));
             d = mContext.getResources().getDrawable(mContext.getResources().getIdentifier(mIcons[position] + "_light", "drawable", mContext.getPackageName()));
         } else {

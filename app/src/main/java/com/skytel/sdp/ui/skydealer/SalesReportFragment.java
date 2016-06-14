@@ -26,7 +26,9 @@ import com.skytel.sdp.adapter.NothingSelectedSpinnerAdapter;
 import com.skytel.sdp.adapter.SalesReportChargeCardAdapter;
 import com.skytel.sdp.adapter.SalesReportPostPaidPaymentAdapter;
 import com.skytel.sdp.database.DataManager;
+import com.skytel.sdp.entities.CardType;
 import com.skytel.sdp.entities.SalesReport;
+import com.skytel.sdp.enums.PackageTypeEnum;
 import com.skytel.sdp.utils.Constants;
 import com.skytel.sdp.utils.CustomProgressDialog;
 import com.skytel.sdp.utils.PrefManager;
@@ -92,6 +94,11 @@ public class SalesReportFragment extends Fragment implements Constants {
     private int mMonth;
     private int mDay;
 
+    private CardType mCardType;
+    private PackageTypeEnum mPackageTypeEnum = null;
+    private List<CardType> mAllCardList = null;
+
+
     private final Calendar mCalendar = Calendar.getInstance();
 
 
@@ -111,6 +118,7 @@ public class SalesReportFragment extends Fragment implements Constants {
         mPrefManager = new PrefManager(mContext);
         mSalesReportArrayList = new ArrayList<>();
         mProgressDialog = new CustomProgressDialog(getActivity());
+
 
         mReportTableViewContainer = (RelativeLayout) rootView.findViewById(R.id.reportTableViewContainer);
 
