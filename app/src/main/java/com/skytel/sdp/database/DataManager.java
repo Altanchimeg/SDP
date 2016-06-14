@@ -55,6 +55,19 @@ public class DataManager implements Constants {
         }
     }
 
+    // Get All CardTypes
+    public List<CardType> getCardTypes() {
+        try {
+            cardTypeDAO = getHelper().getCardTypeDao();
+            QueryBuilder<CardType, Integer> cardTypeQb = cardTypeDAO
+                    .queryBuilder();
+            return cardTypeQb.query();
+        } catch (SQLException e) {
+            e.printStackTrace();
+            return null;
+        }
+    }
+
 
     // Get Selected Card Type
     public CardType getCardType(int id) {

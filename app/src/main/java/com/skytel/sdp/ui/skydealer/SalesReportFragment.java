@@ -23,6 +23,7 @@ import android.widget.Toast;
 
 import com.skytel.sdp.R;
 import com.skytel.sdp.adapter.NothingSelectedSpinnerAdapter;
+import com.skytel.sdp.adapter.SalesReportCardTypeAdapter;
 import com.skytel.sdp.adapter.SalesReportChargeCardAdapter;
 import com.skytel.sdp.adapter.SalesReportPostPaidPaymentAdapter;
 import com.skytel.sdp.database.DataManager;
@@ -122,7 +123,7 @@ public class SalesReportFragment extends Fragment implements Constants {
 
         mReportTableViewContainer = (RelativeLayout) rootView.findViewById(R.id.reportTableViewContainer);
 
-  //      mSalesReportTableView = (SortableTableView) rootView.findViewById(R.id.salesReportTableView);
+        //      mSalesReportTableView = (SortableTableView) rootView.findViewById(R.id.salesReportTableView);
 
         mSearch = (Button) rootView.findViewById(R.id.search);
         mSearch.setOnClickListener(searchOnClick);
@@ -141,11 +142,37 @@ public class SalesReportFragment extends Fragment implements Constants {
         mFilterByStartDate = (EditText) rootView.findViewById(R.id.filterByStartDate);
         mFilterByUnitPackage = (Spinner) rootView.findViewById(R.id.filterByUnitPackage);
         mTextUnitPackage = (TextView) rootView.findViewById(R.id.txt_unit_type);
-        ArrayAdapter<CharSequence> adapterFilter = ArrayAdapter.createFromResource(getActivity(), R.array.skydealer_charge_card_types, android.R.layout.simple_spinner_item);
+
+        //    ArrayAdapter<CharSequence> adapterFilter = ArrayAdapter.createFromResource(getActivity(), R.array.skydealer_charge_card_types, android.R.layout.simple_spinner_item);
+/*
         mFilterByUnitPackage.setAdapter(new NothingSelectedSpinnerAdapter(adapterFilter,
                 R.layout.spinner_row_nothing_selected,
                 // R.layout.contact_spinner_nothing_selected_dropdown, // Optional
                 getActivity()));
+*/
+
+        final List<CardType> cardTypes = mDataManager.getCardTypes();
+        SalesReportCardTypeAdapter adapterFilter = new SalesReportCardTypeAdapter(getActivity(), R.layout.sales_report_card_types_item, cardTypes);
+        mFilterByUnitPackage.setAdapter(new NothingSelectedSpinnerAdapter(adapterFilter,
+                R.layout.spinner_row_nothing_selected,
+                getActivity()));
+        mFilterByUnitPackage.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+
+                try {
+                    Toast.makeText(getActivity(),cardTypes.get(position-1).getName(),Toast.LENGTH_SHORT).show();
+                } catch (ArrayIndexOutOfBoundsException e){
+
+                }
+
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> parent) {
+                Toast.makeText(getActivity(),"Nothing Selected",Toast.LENGTH_SHORT).show();
+            }
+        });
 
         mReportTypeSpinner = (Spinner) rootView.findViewById(R.id.choose_skydealer_report_type);
         ArrayAdapter<CharSequence> adapterReport = ArrayAdapter.createFromResource(getActivity(), R.array.skydealer_report_type, android.R.layout.simple_spinner_item);
@@ -159,7 +186,7 @@ public class SalesReportFragment extends Fragment implements Constants {
                 try {
 
                     mSelectedItemId = (int) mReportTypeSpinner.getSelectedItemId();
-                    switch(mSelectedItemId){
+                    switch (mSelectedItemId) {
                         case 0:
                             mFilterByUnitPackage.setVisibility(View.VISIBLE);
                             mTextUnitPackage.setVisibility(View.VISIBLE);
@@ -255,9 +282,8 @@ public class SalesReportFragment extends Fragment implements Constants {
                     String end_date = mFilterByEndDate.getText().toString();
 
                     runSalesReportFunction(mReportTypeValue[mSelectedItemId], 100, 0, isSuccess, phone_number, start_date, end_date);
-                }
-                else{
-                    Toast.makeText(getActivity(),getText(R.string.choose_report_type) , Toast.LENGTH_SHORT).show();
+                } else {
+                    Toast.makeText(getActivity(), getText(R.string.choose_report_type), Toast.LENGTH_SHORT).show();
                 }
             } catch (Exception e) {
                 e.printStackTrace();
