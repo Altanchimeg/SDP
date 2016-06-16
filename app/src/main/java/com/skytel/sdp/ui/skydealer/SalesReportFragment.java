@@ -80,6 +80,8 @@ public class SalesReportFragment extends Fragment implements Constants {
     private Spinner mFilterByUnitPackage;
     private TextView mTextUnitPackage;
 
+    private String mSelectedFilterByUnit = null;
+
     private Button mFilterButtonByEndDate;
     private Button mFilterButtonByStartDate;
 
@@ -94,10 +96,6 @@ public class SalesReportFragment extends Fragment implements Constants {
     private int mYear;
     private int mMonth;
     private int mDay;
-
-    private CardType mCardType;
-    private PackageTypeEnum mPackageTypeEnum = null;
-    private List<CardType> mAllCardList = null;
 
 
     private final Calendar mCalendar = Calendar.getInstance();
@@ -161,6 +159,7 @@ public class SalesReportFragment extends Fragment implements Constants {
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
 
                 try {
+                    mSelectedFilterByUnit = cardTypes.get(position-1).getName();
                     Toast.makeText(getActivity(),cardTypes.get(position-1).getName(),Toast.LENGTH_SHORT).show();
                 } catch (ArrayIndexOutOfBoundsException e){
 
@@ -174,11 +173,12 @@ public class SalesReportFragment extends Fragment implements Constants {
             }
         });
 
+        // TODO: Nothing selected state and then choose none abter selected
         mReportTypeSpinner = (Spinner) rootView.findViewById(R.id.choose_skydealer_report_type);
         ArrayAdapter<CharSequence> adapterReport = ArrayAdapter.createFromResource(getActivity(), R.array.skydealer_report_type, android.R.layout.simple_spinner_item);
         mReportTypeSpinner.setAdapter(new NothingSelectedSpinnerAdapter(adapterReport,
                 R.layout.spinner_row_nothing_selected,
-                // R.layout.contact_spinner_nothing_selected_dropdown, // Optional
+                // R.layout.contact_spinner_nothing_selected_dropdown, // Option
                 getActivity()));
         mReportTypeSpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
@@ -200,7 +200,7 @@ public class SalesReportFragment extends Fragment implements Constants {
                         mProgressDialog.show();
 
                         String currentDateandTime = new SimpleDateFormat("yyyy-MM-dd").format(new Date());
-                        runSalesReportFunction(mReportTypeValue[mSelectedItemId], 100, 0, true, "", "1900-01-01", currentDateandTime);
+                        runSalesReportFunction(mReportTypeValue[mSelectedItemId], 100, 0, true, "", "1900-01-01", currentDateandTime, null);
                         Log.d(TAG, "Report Type: " + mReportTypeValue[mSelectedItemId]);
                     } else {
                         // Toast.makeText(getActivity(),getText(R.string.choose_report_type) , Toast.LENGTH_SHORT).show();
@@ -281,7 +281,8 @@ public class SalesReportFragment extends Fragment implements Constants {
                     String start_date = mFilterByStartDate.getText().toString();
                     String end_date = mFilterByEndDate.getText().toString();
 
-                    runSalesReportFunction(mReportTypeValue[mSelectedItemId], 100, 0, isSuccess, phone_number, start_date, end_date);
+
+                    runSalesReportFunction(mReportTypeValue[mSelectedItemId], 100, 0, isSuccess, phone_number, start_date, end_date,mSelectedFilterByUnit);
                 } else {
                     Toast.makeText(getActivity(), getText(R.string.choose_report_type), Toast.LENGTH_SHORT).show();
                 }
@@ -399,7 +400,7 @@ public class SalesReportFragment extends Fragment implements Constants {
     }
 
 
-    public void runSalesReportFunction(String report_type, int length, int from, boolean isSuccess, String phone, String start_date, String end_date) throws Exception {
+    public void runSalesReportFunction(String report_type, int length, int from, boolean isSuccess, String phone, String start_date, String end_date, String card_type) throws Exception {
         mProgressDialog.show();
         final StringBuilder url = new StringBuilder();
         url.append(Constants.SERVER_URL);
@@ -411,6 +412,10 @@ public class SalesReportFragment extends Fragment implements Constants {
         url.append("&phone=" + phone);
         url.append("&start_date=" + start_date);
         url.append("&end_date=" + end_date);
+        if(card_type != null || report_type == "card"){
+            url.append("&card_type=" + card_type);
+        }
+
 
 
         getActivity().runOnUiThread(new Runnable() {
@@ -524,6 +529,8 @@ public class SalesReportFragment extends Fragment implements Constants {
                                 sortableSalesReportPostPaidPaymentTableView.setHeaderBackgroundColor(Color.TRANSPARENT);
                                 sortableSalesReportPostPaidPaymentTableView.setDataAdapter(new SalesReportPostPaidPaymentAdapter(getActivity(), mSalesReportArrayList));
                             }
+
+                            mSelectedFilterByUnit = null;
                         }
                     });
 

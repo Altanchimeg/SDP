@@ -17,11 +17,11 @@
                 style="@style/MainViewCenterBoxEditText"
                 android:layout_width="@dimen/leftmenu_width"
                 android:backgroundTint="@color/colorMenuText"
-                android:entries="@array/prefix"
                 android:focusable="false"
                 android:spinnerMode="dropdown"></Spinner>
 
             <EditText
+                android:id="@+id/et_search_number"
                 style="@style/MainViewCenterBoxEditText"
                 android:layout_width="@dimen/center_box_width"
                 android:hint="@string/insert_search_number" />
@@ -64,6 +64,7 @@
                 android:text="@string/chosen_number"></TextView>
 
             <TextView
+                android:id="@+id/chosen_new_number"
                 style="@style/RightViewTextViewBlue"
                 android:text="9*******"></TextView>
 

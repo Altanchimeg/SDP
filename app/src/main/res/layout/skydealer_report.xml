@@ -80,18 +80,22 @@
                     android:id="@+id/txt_unit_type"
                     style="@style/RightViewTextViewBold"
                     android:layout_gravity="start"
-                    android:text="@string/card_package_type" />
+                    android:text="@string/card_package_type"
+                    android:visibility="gone"/>
 
                 <RelativeLayout
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content">
+                    android:layout_height="wrap_content"
+                    android:visibility="gone">
 
                     <Spinner
                         android:id="@+id/filterByUnitPackage"
                         style="@style/EditTextStyle"
                         android:entries="@array/skydealer_charge_card_types"
                         android:focusable="false"
-                        android:spinnerMode="dropdown" />
+                        android:spinnerMode="dropdown"
+                        android:prompt="@string/report_promt"
+                        />
                 </RelativeLayout>
 
 

@@ -24,7 +24,7 @@ public interface Constants {
     String PREF_DEALER_BALANCE = "dealer_balance";
     String PREF_DEALER_ZONE = "dealer_zone";
 
-    /* Service Functions */
+    /* Service Dealer Service Functions */
     String SERVER_URL = "http://10.1.90.65:8080/cosax-service-dealer/";
     String FUNCTION_LOGIN = "login.json";
     String FUNCTION_CHARGE = "charge.json";
@@ -37,6 +37,14 @@ public interface Constants {
     String FUNCTION_DEALER_REPORT = "dealerreport.json";
     String FUNCTION_SEND_FEEDBACK = "newcomment.json";
     String FUNCTION_PROFILE_INFO = "dealerinfo.json";
+
+    /* Skytel.mn Service Functions */
+    String SERVER_SKYTEL_MN_URL = "https://www.skytel.mn";
+    String FUNCTION_GET_PREFIX = "/api/content/numberPrefixSearch";
+    String FUNCTION_GET_PRICE = "/api/content/numberPrice";
+
+    /* number.skytel.mn Service Functions */
+    String SERVER_NUMBER_SKYTEL_URL = "http://number.skytel.mn/server/client.php";
 
     int RESULT_CODE_SUCCESS = 0;
     String RESULT_STATUS_SUCCESS = "success";
@@ -51,6 +59,6 @@ public interface Constants {
     int FILTER_SUCCESS = 1;
     int FILTER_FAILED = 2;
 
-    int DATE_DIALOG_ID = 999;
+
 
 }
