@@ -18,7 +18,9 @@ import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.skytel.sdp.LoginActivity;
 import com.skytel.sdp.MainActivity;
+import com.skytel.sdp.NumberUserInfoActivity;
 import com.skytel.sdp.R;
 import com.skytel.sdp.adapter.SalesReportChargeCardAdapter;
 import com.skytel.sdp.adapter.SalesReportPostPaidPaymentAdapter;
@@ -66,9 +68,11 @@ public class NumberChoiceFragment extends Fragment {
     private Spinner mPrefixSpinner;
     private EditText mSearchNumber;
     private Button mSearchButton;
+    private Button mNumberChoiceOrder;
     private GridView mNewNumbersGrid;
     private TextView mChosenNewNumber;
     private Phonenumber mPhoneNumber;
+    private NumberChoiceAdapter mNumberChoiceAdapter;
 
     public NumberChoiceFragment() {
     }
@@ -95,6 +99,18 @@ public class NumberChoiceFragment extends Fragment {
         mPrefixSpinner = (Spinner) rootView.findViewById(R.id.prefix);
         mChosenNewNumber = (TextView) rootView.findViewById(R.id.chosen_new_number);
 
+        for (int i = 0; i < 100; i++) {
+            Phonenumber pn = new Phonenumber();
+            pn.setId(i + 1);
+            pn.setPhoneNumber("91109" + (i + 1));
+            pn.setPriceType("1");
+            mNumbersArrayList.add(pn);
+        }
+        mNumberChoiceAdapter = new NumberChoiceAdapter(getActivity(), mNumbersArrayList);
+        mNewNumbersGrid.setAdapter(mNumberChoiceAdapter);
+
+
+/*
         try {
             mProgressDialog.show();
             runGetPrefixFunction();
@@ -102,6 +118,7 @@ public class NumberChoiceFragment extends Fragment {
         } catch (Exception e) {
             e.printStackTrace();
         }
+*/
 
         mPrefixSpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
@@ -117,13 +134,13 @@ public class NumberChoiceFragment extends Fragment {
         mSearchButton = (Button) rootView.findViewById(R.id.numberSearch);
         mSearchButton.setOnClickListener(SearchNewNumberOnClick);
 
-
-
-        Button mNumberChoiceOrder = (Button) rootView.findViewById(R.id.numberChoiceOrder);
+        mNumberChoiceOrder = (Button) rootView.findViewById(R.id.numberChoiceOrder);
         mNumberChoiceOrder.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Toast.makeText(getActivity(), "Order", Toast.LENGTH_SHORT).show();
+                Toast.makeText(getActivity(), "NumberUserInfo", Toast.LENGTH_SHORT).show();
+                Intent intent = new Intent(getActivity(), NumberUserInfoActivity.class);
+                startActivity(intent);
 /*
                 NumberChoiceUserInfoFragment fragment2 = new NumberChoiceUserInfoFragment();
                 FragmentManager fragmentManager = getFragmentManager();
@@ -134,9 +151,9 @@ public class NumberChoiceFragment extends Fragment {
             }
         });
 
-
         return rootView;
     }
+
     public void runGetPrefixFunction() throws Exception {
         final StringBuilder url = new StringBuilder();
         url.append(Constants.SERVER_SKYTEL_MN_URL);
@@ -160,81 +177,81 @@ public class NumberChoiceFragment extends Fragment {
                 .build();
 
         mClient.newCall(request).enqueue(new Callback() {
-                 @Override
-                 public void onFailure(Call call, IOException e) {
-                     mProgressDialog.dismiss();
-                     System.out.println("onFailure");
-                     e.printStackTrace();
-                     getActivity().runOnUiThread(new Runnable() {
-                         @Override
-                         public void run() {
-                             Toast.makeText(mContext, "Error on Failure!", Toast.LENGTH_LONG).show();
-                             // Used for debug
-                         }
-                     });
-                 }
+            @Override
+            public void onFailure(Call call, IOException e) {
+                mProgressDialog.dismiss();
+                System.out.println("onFailure");
+                e.printStackTrace();
+                getActivity().runOnUiThread(new Runnable() {
+                    @Override
+                    public void run() {
+                        Toast.makeText(mContext, "Error on Failure!", Toast.LENGTH_LONG).show();
+                        // Used for debug
+                    }
+                });
+            }
 
-                 @Override
-                 public void onResponse(Call call, Response response) throws IOException {
-                     mProgressDialog.dismiss();
+            @Override
+            public void onResponse(Call call, Response response) throws IOException {
+                mProgressDialog.dismiss();
 
-                     System.out.println("onResponse");
+                System.out.println("onResponse");
 
-                     if (!response.isSuccessful())
-                         throw new IOException("Unexpected code " + response);
+                if (!response.isSuccessful())
+                    throw new IOException("Unexpected code " + response);
 
-                     Headers responseHeaders = response.headers();
-                     for (int i = 0; i < responseHeaders.size(); i++) {
-                         System.out.println(responseHeaders.name(i) + ": " + responseHeaders.value(i));
-                     }
+                Headers responseHeaders = response.headers();
+                for (int i = 0; i < responseHeaders.size(); i++) {
+                    System.out.println(responseHeaders.name(i) + ": " + responseHeaders.value(i));
+                }
 
-                     String resp = response.body().string();
-                     System.out.println("resp " + resp);
+                String resp = response.body().string();
+                System.out.println("resp " + resp);
 
-                     try {
-                         JSONObject jsonObj = new JSONObject(resp);
-                         String success = jsonObj.getString("success");
+                try {
+                    JSONObject jsonObj = new JSONObject(resp);
+                    String success = jsonObj.getString("success");
 
-                         Log.d(TAG, "success " + success);
+                    Log.d(TAG, "success " + success);
 
-                         JSONArray jArray = jsonObj.getJSONArray("prefix");
+                    JSONArray jArray = jsonObj.getJSONArray("prefix");
 
-                         Log.d(TAG, "*****JARRAY*****" + jArray.length());
-                         mPrefixArrayList.clear();
-                         for (int i = 0; i < jArray.length(); i++) {
-                             JSONObject jsonData = jArray.getJSONObject(i);
+                    Log.d(TAG, "*****JARRAY*****" + jArray.length());
+                    mPrefixArrayList.clear();
+                    for (int i = 0; i < jArray.length(); i++) {
+                        JSONObject jsonData = jArray.getJSONObject(i);
 
-                             String pref = jsonData.getString("pref");
+                        String pref = jsonData.getString("pref");
 
-                             Log.d(TAG, "INDEX:       " + i);
+                        Log.d(TAG, "INDEX:       " + i);
 
-                             Log.d(TAG, "pref: " + pref);
-
-
-                             mPrefixArrayList.add(pref);
-                         }
-
-                         getActivity().runOnUiThread(new Runnable() {
-                             @Override
-                             public void run() {
-                                 ArrayAdapter adapter = new ArrayAdapter(mContext, android.R.layout.simple_spinner_item, mPrefixArrayList);
-                                 adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-
-                                 mPrefixSpinner.setAdapter(adapter);
-                             }
-                         });
+                        Log.d(TAG, "pref: " + pref);
 
 
-                     } catch (JSONException e) {
-                         getActivity().runOnUiThread(new Runnable() {
-                             @Override
-                             public void run() {
-                                 Toast.makeText(mContext, "Алдаатай хариу ирлээ", Toast.LENGTH_LONG).show();
-                             }
-                         });
-                         e.printStackTrace();
-                     }
-                 }
+                        mPrefixArrayList.add(pref);
+                    }
+
+                    getActivity().runOnUiThread(new Runnable() {
+                        @Override
+                        public void run() {
+                            ArrayAdapter adapter = new ArrayAdapter(mContext, android.R.layout.simple_spinner_item, mPrefixArrayList);
+                            adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+
+                            mPrefixSpinner.setAdapter(adapter);
+                        }
+                    });
+
+
+                } catch (JSONException e) {
+                    getActivity().runOnUiThread(new Runnable() {
+                        @Override
+                        public void run() {
+                            Toast.makeText(mContext, "Алдаатай хариу ирлээ", Toast.LENGTH_LONG).show();
+                        }
+                    });
+                    e.printStackTrace();
+                }
+            }
         });
     }
 
@@ -252,9 +269,9 @@ public class NumberChoiceFragment extends Fragment {
         System.out.print(url + "\n");
 
         RequestBody formBody = new FormBody.Builder()
-                .add("task","2")
-                .add("mask",mSearchNumber.getText().toString())
-                .add("mode","1")
+                .add("task", "2")
+                .add("mask", mSearchNumber.getText().toString())
+                .add("mode", "1")
                 .build();
         Request request = new Request.Builder()
                 .url(url.toString())
@@ -306,6 +323,7 @@ public class NumberChoiceFragment extends Fragment {
 
                         String phonenumber = jsonData.getString("PhoneNumber");
                         String price_type = jsonData.getString("priceType");
+                        mPhoneNumber = new Phonenumber();
                         mPhoneNumber.setPhoneNumber(phonenumber);
                         mPhoneNumber.setPriceType(price_type);
                         mPhoneNumber.setId(i);
@@ -314,18 +332,17 @@ public class NumberChoiceFragment extends Fragment {
                         getActivity().runOnUiThread(new Runnable() {
                             @Override
                             public void run() {
-                            // Todo: Have to create new grid adapter. Just get phone number
-                              /*  mNewNumbersGrid.setAdapter(new NumberChoiceAdapter(getActivity(),mNumbersArrayList);
                                 mNewNumbersGrid.setOnItemClickListener(new AdapterView.OnItemClickListener() {
                                     @Override
                                     public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
 
-                                        Log.d(TAG, "Selected: "+mNumbersArrayList.get(position));
-                                        String selected_number = mNumbersArrayList.get(position);
+                                        Log.d(TAG, "Selected: " + mNumbersArrayList.get(position));
+                                        String selected_number = mNumbersArrayList.get(position).getPhoneNumber();
                                         mSearchNumber.setText(selected_number);
                                         mChosenNewNumber.setText(selected_number);
+
                                     }
-                                });*/
+                                });
                             }
                         });
                         Log.d(TAG, "INDEX:       " + i);
@@ -333,10 +350,6 @@ public class NumberChoiceFragment extends Fragment {
                         Log.d(TAG, "price type: " + price_type);
 
                     }
-
-
-
-
 
 
                 } catch (JSONException e) {
@@ -351,16 +364,29 @@ public class NumberChoiceFragment extends Fragment {
             }
         });
     }
+
     View.OnClickListener SearchNewNumberOnClick = new View.OnClickListener() {
         @Override
         public void onClick(View v) {
+            mNumbersArrayList.clear();
+            for (int i = 0; i < 1; i++) {
+                Phonenumber pn = new Phonenumber();
+                pn.setId(i + 1);
+                pn.setPhoneNumber("90109" + (i + 1));
+                pn.setPriceType("1");
+                mNumbersArrayList.add(pn);
+            }
+            mNumberChoiceAdapter.notifyDataSetChanged();
 
+            // Comment for Test
+/*
             try {
                 mProgressDialog.show();
                 runGetSearchNumberList();
             } catch (Exception e) {
                 e.printStackTrace();
             }
+*/
         }
     };
 }

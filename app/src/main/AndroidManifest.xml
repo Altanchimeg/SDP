@@ -25,6 +25,10 @@
             </intent-filter>
         </activity>
         <activity android:name=".ForgetPasswordActivity"></activity>
+        <activity
+            android:theme="@style/AppTheme.NoActionBar"
+            android:name=".NumberUserInfoActivity"></activity>
+
     </application>
 
 </manifest>

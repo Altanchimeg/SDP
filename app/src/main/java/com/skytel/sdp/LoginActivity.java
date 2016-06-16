@@ -54,10 +54,10 @@ public class LoginActivity extends Activity implements Constants {
  */
 
 
-/*        Intent i = new Intent(LoginActivity.this, MainActivity.class);
+        Intent i = new Intent(LoginActivity.this, MainActivity.class);
         startActivity(i);
         finish();
-*/
+
         if (mPrefManager.getIsLoggedIn()) {
             Intent intent = new Intent(LoginActivity.this, MainActivity.class);
             startActivity(intent);
@@ -168,7 +168,6 @@ public class LoginActivity extends Activity implements Constants {
                         });
 
                     }
-
 
 
                 } catch (JSONException e) {

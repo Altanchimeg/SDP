@@ -23,7 +23,7 @@
             <EditText
                 android:id="@+id/et_search_number"
                 style="@style/MainViewCenterBoxEditText"
-                android:layout_width="@dimen/center_box_width"
+                android:layout_width="100dp"
                 android:hint="@string/insert_search_number" />
 
             <Button

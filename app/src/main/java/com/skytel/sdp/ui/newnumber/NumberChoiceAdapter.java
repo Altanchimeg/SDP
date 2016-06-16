@@ -8,6 +8,7 @@ import android.widget.BaseAdapter;
 import android.widget.TextView;
 
 import com.skytel.sdp.R;
+import com.skytel.sdp.entities.Phonenumber;
 
 import java.util.List;
 
@@ -15,9 +16,9 @@ public class NumberChoiceAdapter extends BaseAdapter {
     String TAG = NumberChoiceAdapter.class.getName();
 
     private Context mContext;
-    private List<String> mList;
+    private List<Phonenumber> mList;
 
-    public NumberChoiceAdapter(Context context, List<String> list) {
+    public NumberChoiceAdapter(Context context, List<Phonenumber> list) {
         this.mContext = context;
         this.mList = list;
     }
@@ -35,7 +36,7 @@ public class NumberChoiceAdapter extends BaseAdapter {
         } else {
             viewHolder = (ViewHolder) v.getTag();
         }
-        viewHolder.mPhoneNumber.setText(mList.get(position) + "");
+        viewHolder.mPhoneNumber.setText(mList.get(position).getPhoneNumber() + "");
 
         return v;
     }
