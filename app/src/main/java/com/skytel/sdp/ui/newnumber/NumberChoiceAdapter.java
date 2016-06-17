@@ -38,6 +38,7 @@ public class NumberChoiceAdapter extends BaseAdapter {
         }
         viewHolder.mPhoneNumber.setText(mList.get(position).getPhoneNumber() + "");
 
+
         return v;
     }
 
