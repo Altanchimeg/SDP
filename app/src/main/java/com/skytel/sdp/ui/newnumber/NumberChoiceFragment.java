@@ -3,7 +3,6 @@ package com.skytel.sdp.ui.newnumber;
 import android.app.Fragment;
 import android.content.Context;
 import android.content.Intent;
-import android.graphics.Color;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -14,25 +13,20 @@ import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.GridView;
+import android.widget.ListView;
 import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.skytel.sdp.LoginActivity;
-import com.skytel.sdp.MainActivity;
 import com.skytel.sdp.NumberUserInfoActivity;
 import com.skytel.sdp.R;
-import com.skytel.sdp.adapter.SalesReportChargeCardAdapter;
-import com.skytel.sdp.adapter.SalesReportPostPaidPaymentAdapter;
+import com.skytel.sdp.adapter.NumberChoiceAdapter;
+import com.skytel.sdp.adapter.PriceTypeInfoListAdapter;
 import com.skytel.sdp.database.DataManager;
 import com.skytel.sdp.entities.Phonenumber;
 import com.skytel.sdp.entities.PriceType;
-import com.skytel.sdp.entities.SalesReport;
-import com.skytel.sdp.ui.skydealer.SortableSalesReportChargeCardTableView;
-import com.skytel.sdp.ui.skydealer.SortableSalesReportPostPaidPaymentTableView;
 import com.skytel.sdp.utils.Constants;
 import com.skytel.sdp.utils.CustomProgressDialog;
-import com.skytel.sdp.utils.PrefManager;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -40,19 +34,15 @@ import org.json.JSONObject;
 
 import java.io.IOException;
 import java.util.ArrayList;
-import java.util.List;
 
 import okhttp3.Call;
 import okhttp3.Callback;
 import okhttp3.FormBody;
 import okhttp3.Headers;
-import okhttp3.MediaType;
 import okhttp3.OkHttpClient;
 import okhttp3.Request;
 import okhttp3.RequestBody;
 import okhttp3.Response;
-
-import static com.skytel.sdp.R.color.colorSkytelYellow;
 
 /**
  * Created by Altanchimeg on 4/14/2016.
@@ -74,10 +64,12 @@ public class NumberChoiceFragment extends Fragment {
     private Button mSearchButton;
     private Button mNumberChoiceOrder;
     private GridView mNewNumbersGrid;
+    private ListView mPriceTypeInfoListView;
     private TextView mChosenNewNumber;
     private Phonenumber mPhoneNumber;
     private PriceType mPriceType;
     private NumberChoiceAdapter mNumberChoiceAdapter;
+    private PriceTypeInfoListAdapter mPriceTypeInfoListAdapter;
 
     public NumberChoiceFragment() {
     }
@@ -102,6 +94,7 @@ public class NumberChoiceFragment extends Fragment {
 
         mSearchNumber = (EditText) rootView.findViewById(R.id.et_search_number);
         mNewNumbersGrid = (GridView) rootView.findViewById(R.id.newNumbersList);
+        mPriceTypeInfoListView = (ListView) rootView.findViewById(R.id.priceTypeInfoListView);
         mPrefixSpinner = (Spinner) rootView.findViewById(R.id.prefix);
         mChosenNewNumber = (TextView) rootView.findViewById(R.id.chosen_new_number);
 
@@ -116,6 +109,8 @@ public class NumberChoiceFragment extends Fragment {
         mNumberChoiceAdapter = new NumberChoiceAdapter(mContext, mNumbersArrayList);
         mNewNumbersGrid.setAdapter(mNumberChoiceAdapter);
 
+        mPriceTypeInfoListAdapter = new PriceTypeInfoListAdapter(mContext, mPriceTypeInfoArrayList);
+        mPriceTypeInfoListView.setAdapter(mPriceTypeInfoListAdapter);
 
         try {
             mProgressDialog.show();
@@ -325,8 +320,6 @@ public class NumberChoiceFragment extends Fragment {
                     mNumbersArrayList.clear();
 
 
-
-
                     //TODO: clear grid view
                     for (int i = 0; i < jArray.length(); i++) {
                         JSONObject jsonData = jArray.getJSONObject(i);
@@ -444,7 +437,7 @@ public class NumberChoiceFragment extends Fragment {
                     boolean success = jsonObj.getBoolean("success");
 
                     Log.d(TAG, "success " + success);
-                    if(success == true){
+                    if (success == true) {
                         JSONArray jArray = jsonObj.getJSONArray("numberPrice");
 
                         Log.d(TAG, "*****JARRAY*****" + jArray.length());
@@ -472,6 +465,9 @@ public class NumberChoiceFragment extends Fragment {
 
                             //TODO: Show price info to tablelayout or linearlayout
                         }
+                        // PriceTypeInfoListAdapter mPriceTypeInfoListAdapter = new PriceTypeInfoListAdapter(context,mPriceTypeInfoArrayList);
+                        // mPriceTypeInfoListView.setAdapter(mPriceTypeInfoListAdapter);
+                        mPriceTypeInfoListAdapter.notifyDataSetChanged();
 
                         getActivity().runOnUiThread(new Runnable() {
                             @Override
@@ -480,7 +476,6 @@ public class NumberChoiceFragment extends Fragment {
                             }
                         });
                     }
-
 
 
                 } catch (JSONException e) {

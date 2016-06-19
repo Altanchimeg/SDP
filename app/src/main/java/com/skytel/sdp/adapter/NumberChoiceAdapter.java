@@ -1,4 +1,4 @@
-package com.skytel.sdp.ui.newnumber;
+package com.skytel.sdp.adapter;
 
 import android.content.Context;
 import android.view.LayoutInflater;

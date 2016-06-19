@@ -80,6 +80,12 @@
                     android:background="@drawable/right_view_table_background"
                     android:orientation="vertical">
 
+                    <ListView
+                        android:id="@+id/priceTypeInfoListView"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"></ListView>
+
+<!--
                     <RelativeLayout
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content">
@@ -123,6 +129,7 @@
                             android:layout_alignParentRight="true"
                             android:text="6000 нэгж, 30 хоног"></TextView>
                     </RelativeLayout>
+-->
 
                 </LinearLayout>
 
