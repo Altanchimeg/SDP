@@ -67,6 +67,10 @@
                 android:id="@+id/chosen_new_number"
                 style="@style/RightViewTextViewBlue"
                 android:text="9*******"></TextView>
+            <EditText
+                android:id="@+id/register_number"
+                style="@style/MainViewCenterBoxEditText"
+                android:hint="@string/register_number"></EditText>
 
             <LinearLayout style="@style/RightViewGroupContainer">
 
@@ -83,7 +87,8 @@
                     <ListView
                         android:id="@+id/priceTypeInfoListView"
                         android:layout_width="match_parent"
-                        android:layout_height="wrap_content"></ListView>
+                        android:layout_height="wrap_content"
+                        android:listSelector="@drawable/bg_listview"></ListView>
 
 <!--
                     <RelativeLayout

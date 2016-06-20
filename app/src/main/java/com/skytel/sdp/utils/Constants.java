@@ -37,6 +37,7 @@ public interface Constants {
     String FUNCTION_DEALER_REPORT = "dealerreport.json";
     String FUNCTION_SEND_FEEDBACK = "newcomment.json";
     String FUNCTION_PROFILE_INFO = "dealerinfo.json";
+    String FUNCTION_RESERVE_NUMBER = "reservenumber.json";
 
     /* Skytel.mn Service Functions */
     String SERVER_SKYTEL_MN_URL = "https://www.skytel.mn";

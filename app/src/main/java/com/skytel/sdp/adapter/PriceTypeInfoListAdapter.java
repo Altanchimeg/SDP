@@ -8,6 +8,7 @@ import android.widget.BaseAdapter;
 import android.widget.TextView;
 
 import com.skytel.sdp.R;
+import com.skytel.sdp.entities.CardType;
 import com.skytel.sdp.entities.PriceType;
 import com.skytel.sdp.utils.Constants;
 
@@ -15,24 +16,24 @@ import java.util.List;
 
 public class PriceTypeInfoListAdapter extends BaseAdapter implements Constants {
     String TAG = PriceTypeInfoListAdapter.class.getName();
-    private Context context;
-    private String[] mPackageTypes;
+    private Context mContext;
+    List<PriceType> mList;
     private LayoutInflater mInflater;
 
     public PriceTypeInfoListAdapter(Context context, List<PriceType> priceTypes) {
-        this.context = context;
-        mPackageTypes = context.getResources().getStringArray(R.array.skydealer_charge_card_types);
-        mInflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+        mContext = context;
+        mList = priceTypes;
+        mInflater = (LayoutInflater) mContext.getSystemService(mContext.LAYOUT_INFLATER_SERVICE);
     }
 
     @Override
     public int getCount() {
-        return mPackageTypes.length;
+        return mList.size();
     }
 
     @Override
     public Object getItem(int position) {
-        return mPackageTypes[position];
+        return mList.get(position);
     }
 
     @Override
@@ -49,13 +50,13 @@ public class PriceTypeInfoListAdapter extends BaseAdapter implements Constants {
             viewHolder.price = (TextView) convertView.findViewById(R.id.price);
             viewHolder.info = (TextView) convertView.findViewById(R.id.info);
 
+
             convertView.setTag(viewHolder);
         } else {
             viewHolder = (ViewHolderContact) convertView.getTag();
         }
-        viewHolder.price.setText(mPackageTypes[position]);
-        viewHolder.info.setText(mPackageTypes[position]);
-
+        viewHolder.price.setText(mList.get(position).getPrice()+"₮ ");
+        viewHolder.info.setText(mList.get(position).getUnit()+"нэгж  "+mList.get(position).getDays()+"хоногтой");
         return convertView;
     }
 

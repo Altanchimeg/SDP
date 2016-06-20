@@ -38,6 +38,7 @@
     <string name="plan">Төлөвлөгөө</string>
     <string name="registration">Бүртгэл</string>
     <string name="service">Үйлчилгээ</string>
+    <string name="register_number">Регистрийн дугаар</string>
 
     <!-- Dialog -->
     <string name="dialog_confirm">Та энэ захиалгыг баталгаажуулах уу</string>
