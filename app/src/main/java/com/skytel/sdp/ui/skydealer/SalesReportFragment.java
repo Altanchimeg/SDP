@@ -196,7 +196,7 @@ public class SalesReportFragment extends Fragment implements Constants {
                             mTextUnitPackage.setVisibility(View.GONE);
                             break;
                     }
-                    if (ValidationChecker.isSpinnerSelected(mSelectedItemId)) {
+                    if (ValidationChecker.isSelected(mSelectedItemId)) {
                         mProgressDialog.show();
 
                         String currentDateandTime = new SimpleDateFormat("yyyy-MM-dd").format(new Date());
@@ -272,7 +272,7 @@ public class SalesReportFragment extends Fragment implements Constants {
         public void onClick(View v) {
             try {
                 mSelectedItemId = (int) mReportTypeSpinner.getSelectedItemId();
-                if (ValidationChecker.isSpinnerSelected(mSelectedItemId)) {
+                if (ValidationChecker.isSelected(mSelectedItemId)) {
                     mProgressDialog.show();
                     mSelectedItemId = (int) mReportTypeSpinner.getSelectedItemId();
                     String phone_number = mFilterByPhoneNumber.getText().toString();

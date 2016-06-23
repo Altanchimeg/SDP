@@ -106,12 +106,16 @@
 
             <LinearLayout style="@style/RightViewGroupContainer">
 
-                <ImageView style="@style/RightViewTakePictureView" />
+                <ImageView
+                    android:id="@+id/img_front"
+                    style="@style/RightViewTakePictureView" />
             </LinearLayout>
 
             <LinearLayout style="@style/RightViewGroupContainer">
 
-                <ImageView style="@style/RightViewTakePictureView" />
+                <ImageView
+                    android:id="@+id/img_back"
+                    style="@style/RightViewTakePictureView" />
             </LinearLayout>
 
 

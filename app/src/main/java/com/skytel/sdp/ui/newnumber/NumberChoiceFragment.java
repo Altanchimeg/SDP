@@ -28,6 +28,7 @@ import com.skytel.sdp.entities.PriceType;
 import com.skytel.sdp.utils.Constants;
 import com.skytel.sdp.utils.CustomProgressDialog;
 import com.skytel.sdp.utils.PrefManager;
+import com.skytel.sdp.utils.ValidationChecker;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -78,6 +79,8 @@ public class NumberChoiceFragment extends Fragment {
 
     private PrefManager mPrefManager;
 
+    private int mSelectedPriceId = -1;
+
     public NumberChoiceFragment() {
     }
 
@@ -125,7 +128,7 @@ public class NumberChoiceFragment extends Fragment {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                 Toast.makeText(mContext, mPriceTypeInfoArrayList.get(position).getPrice(), Toast.LENGTH_SHORT).show();
-
+                mSelectedPriceId = mPriceTypeInfoArrayList.get(position).getId();
             }
         });
 
@@ -156,11 +159,22 @@ public class NumberChoiceFragment extends Fragment {
         mNumberChoiceOrder.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Toast.makeText(getActivity(), "NumberUserInfo", Toast.LENGTH_SHORT).show();
                 try {
                     //TODO: if price = 5000₮ send 0, else if price = 10000₮ send 99
-                    //Todo: check validation <choose phone number><choose price type>
-                    runReserveNumber(mSearchNumber.getText().toString(),mRegisterNumber.getText().toString(), 0,1 );
+                   /* if(ValidationChecker.isSelected(mSelectedPriceId) && ValidationChecker.isValidationPassedTextView(mChosenNewNumber) && ValidationChecker.isValidationPassed(mRegisterNumber)) {
+                        runReserveNumber(mSearchNumber.getText().toString(), mRegisterNumber.getText().toString(), 0, 1);
+                    }
+                    else{
+                        Toast.makeText(mContext, "Please select the field!", Toast.LENGTH_SHORT).show();
+                    }*/
+
+                    //Debug
+
+                    Intent intent = new Intent(mContext, NumberUserInfoActivity.class);
+                    intent.putExtra("reservation_id",108);
+                    intent.putExtra("phone_number","91109789");
+                    intent.putExtra("register_number","IU98875465");
+                    startActivity(intent);
                 } catch (Exception e) {
                     e.printStackTrace();
                 }

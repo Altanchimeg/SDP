@@ -66,7 +66,7 @@
             <TextView
                 android:id="@+id/chosen_new_number"
                 style="@style/RightViewTextViewBlue"
-                android:text="9*******"></TextView>
+                ></TextView>
             <EditText
                 android:id="@+id/register_number"
                 style="@style/MainViewCenterBoxEditText"
