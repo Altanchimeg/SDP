@@ -38,6 +38,8 @@ public interface Constants {
     String FUNCTION_SEND_FEEDBACK = "newcomment.json";
     String FUNCTION_PROFILE_INFO = "dealerinfo.json";
     String FUNCTION_RESERVE_NUMBER = "reservenumber.json";
+    String FUNCTION_NEW_NUMBER_DETAIL = "newnumber.json";
+    String FUNCTION_NEW_NUMBER_REPORT = "newnumber_report.json";
 
     /* Skytel.mn Service Functions */
     String SERVER_SKYTEL_MN_URL = "https://www.skytel.mn";
@@ -57,8 +59,9 @@ public interface Constants {
 
 
     int FILTER_ALL = 0;
-    int FILTER_SUCCESS = 1;
-    int FILTER_FAILED = 2;
+    int FILTER_WAITING = 1;
+    int FILTER_SUCCESS = 2;
+    int FILTER_FAILED = 3;
 
 
 

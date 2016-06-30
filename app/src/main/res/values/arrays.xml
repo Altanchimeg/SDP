@@ -77,6 +77,17 @@
         <item>Цэнэглэсэн огноо</item>
     </string-array>
 
+    <!-- New number Report  -->
+    <string-array name="new_number_report_column_names">
+        <item>Үйлчилгээний төрөл</item>
+        <item>Дугаарын төрөл</item>
+        <item>Захиалсан дугаар</item>
+        <item>Дагалдах хугацаа, нэгж</item>
+        <item>Үнэ</item>
+        <item>Төлөв</item>
+        <item>Захиалсан огноо</item>
+    </string-array>
+
     <string-array name="skydealer_report_type_code">
         <item>card</item>
         <item>settle</item>

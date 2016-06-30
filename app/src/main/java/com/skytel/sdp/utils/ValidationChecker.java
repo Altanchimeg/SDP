@@ -1,6 +1,8 @@
 package com.skytel.sdp.utils;
 
+import android.graphics.Bitmap;
 import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.Spinner;
 import android.widget.TextView;
 
@@ -27,6 +29,13 @@ public class ValidationChecker {
     public static boolean isSelected(int id) {
         if (id<0) {
 
+            return false;
+        }
+        return true;
+    }
+    public static boolean isImageChosen(ImageView imgv){
+
+        if(imgv.getDrawable() == null){
             return false;
         }
         return true;
