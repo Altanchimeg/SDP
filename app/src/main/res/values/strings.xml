@@ -134,7 +134,7 @@
 
     <!-- New Dealer  -->
     <string name="dealer_info">Гэрээт борлуулагчийн мэдээлэл</string>
-    <string name="address_buy_card">Карт борлуулах байршил</string>
+    <string name="address_sell_card">Карт борлуулах байршил</string>
     <string name="chanel_sales">Борлуулалтын суваг</string>
     <string name="discount_percent">Хөнгөлөлтийн хувь</string>
     <string name="skydealer_number">Скайдиллерийн утасны дугаар</string>

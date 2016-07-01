@@ -40,6 +40,8 @@ public interface Constants {
     String FUNCTION_RESERVE_NUMBER = "reservenumber.json";
     String FUNCTION_NEW_NUMBER_DETAIL = "newnumber.json";
     String FUNCTION_NEW_NUMBER_REPORT = "newnumber_report.json";
+    String FUNCTION_DEALER_CHANNEL_INFO = "dealer_channel_info.json";
+    String FUNCTION_NEW_DEALER = "newdealer.json";
 
     /* Skytel.mn Service Functions */
     String SERVER_SKYTEL_MN_URL = "https://www.skytel.mn";

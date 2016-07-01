@@ -19,26 +19,29 @@
             android:orientation="vertical">
 
             <EditText
+                android:id="@+id/last_name"
                 style="@style/MainViewCenterBoxEditText"
                 android:hint="@string/last_name" />
 
             <EditText
+                android:id="@+id/first_name"
                 style="@style/MainViewCenterBoxEditText"
                 android:hint="@string/first_name" />
 
             <EditText
+                android:id="@+id/reg_number"
                 style="@style/MainViewCenterBoxEditText"
                 android:hint="@string/reg_number" />
 
             <EditText
+                android:id="@+id/address_sell_card"
                 style="@style/MainViewCenterBoxEditText"
-                android:hint="@string/address_buy_card" />
+                android:hint="@string/address_sell_card" />
 
             <Spinner
                 android:id="@+id/choose_chanel_sales_type"
                 style="@style/MainViewCenterBoxEditText"
                 android:backgroundTint="@color/colorMenuText"
-                android:entries="@array/chanel_sales_type"
                 android:focusable="false"
                 android:spinnerMode="dropdown"></Spinner>
 
@@ -52,15 +55,18 @@
                     android:text="@string/discount_percent" />
 
                 <EditText
+                    android:id="@+id/discount_precent"
                     style="@style/MainViewCenterBoxEditText"
-                    android:hint="5" />
+                    android:hint="@string/discount_percent" />
             </LinearLayout>
 
             <EditText
+                android:id="@+id/skydealer_number"
                 style="@style/MainViewCenterBoxEditText"
                 android:hint="@string/skydealer_number" />
 
             <EditText
+                android:id="@+id/contact_number"
                 style="@style/MainViewCenterBoxEditText"
                 android:hint="@string/contact_number" />
 
@@ -93,16 +99,21 @@
 
             <LinearLayout style="@style/RightViewGroupContainer">
 
-                <ImageView style="@style/RightViewTakePictureView" />
+                <ImageView
+                    android:id="@+id/img_front"
+                    style="@style/RightViewTakePictureView" />
             </LinearLayout>
 
             <LinearLayout style="@style/RightViewGroupContainer">
 
-                <ImageView style="@style/RightViewTakePictureView" />
+                <ImageView
+                    android:id="@+id/img_back"
+                    style="@style/RightViewTakePictureView" />
             </LinearLayout>
 
 
             <Button
+                android:id="@+id/send_order"
                 style="@style/ButtonStyle"
                 android:layout_marginBottom="@dimen/main_padding"
                 android:layout_marginLeft="@dimen/main_padding"
