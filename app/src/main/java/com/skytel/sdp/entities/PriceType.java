@@ -6,6 +6,7 @@ package com.skytel.sdp.entities;
 
 public class PriceType {
     private int id;
+    private int priceTypeId;
     private String price;
     private String unit;
     private String days;
@@ -18,6 +19,13 @@ public class PriceType {
         this.id = id;
     }
 
+    public int getPriceTypeId() {
+        return id;
+    }
+
+    public void setPriceTypeId(int id) {
+        this.id = id;
+    }
     public String getPrice() {
         return price;
     }

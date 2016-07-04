@@ -160,21 +160,20 @@ public class NumberChoiceFragment extends Fragment {
             @Override
             public void onClick(View v) {
                 try {
-                    //TODO: if price = 5000₮ send 0, else if price = 10000₮ send 99
-                   /* if(ValidationChecker.isSelected(mSelectedPriceId) && ValidationChecker.isValidationPassedTextView(mChosenNewNumber) && ValidationChecker.isValidationPassed(mRegisterNumber)) {
-                        runReserveNumber(mSearchNumber.getText().toString(), mRegisterNumber.getText().toString(), 0, 1);
+                    if(ValidationChecker.isSelected(mSelectedPriceId) && ValidationChecker.isValidationPassedTextView(mChosenNewNumber) && ValidationChecker.isValidationPassed(mRegisterNumber)) {
+                        runReserveNumber(mSearchNumber.getText().toString(), mRegisterNumber.getText().toString(),mPriceTypeInfoArrayList.get(mSelectedPriceId).getPriceTypeId() , 1);
                     }
                     else{
                         Toast.makeText(mContext, "Please select the field!", Toast.LENGTH_SHORT).show();
-                    }*/
+                    }
 
                     //Debug
 
-                    Intent intent = new Intent(mContext, NumberUserInfoActivity.class);
+                  /*  Intent intent = new Intent(mContext, NumberUserInfoActivity.class);
                     intent.putExtra("reservation_id",108);
                     intent.putExtra("phone_number","91109789");
                     intent.putExtra("register_number","IU98875465");
-                    startActivity(intent);
+                    startActivity(intent);*/
                 } catch (Exception e) {
                     e.printStackTrace();
                 }
@@ -480,23 +479,29 @@ public class NumberChoiceFragment extends Fragment {
                         for (int i = 0; i < jArray.length(); i++) {
                             JSONObject jsonData = jArray.getJSONObject(i);
 
+                            int price_type_id = jsonData.getInt("id");
                             String name_mn = jsonData.getString("name_mn");
                             String price = jsonData.getString("price");
                             String unit = jsonData.getString("unit");
                             String days = jsonData.getString("days");
+                            String serviceType = jsonData.getString("serviceType");
 
-                            mPriceType = new PriceType();
-                            mPriceType.setPrice(price);
-                            mPriceType.setUnit(unit);
-                            mPriceType.setDays(days);
-                            mPriceType.setId(i);
+                            if(serviceType == "prepaid") {
+                                mPriceType = new PriceType();
+                                mPriceType.setPriceTypeId(price_type_id);
+                                mPriceType.setPrice(price);
+                                mPriceType.setUnit(unit);
+                                mPriceType.setDays(days);
+                                mPriceType.setId(i);
 
-                            mPriceTypeInfoArrayList.add(mPriceType);
+                                mPriceTypeInfoArrayList.add(mPriceType);
 
-                            Log.d(TAG, "name_mn: " + name_mn);
-                            Log.d(TAG, "price: " + price);
-                            Log.d(TAG, "unit: " + unit);
-                            Log.d(TAG, "days: " + days);
+                                Log.d(TAG, "price_type_id: " + price_type_id);
+                                Log.d(TAG, "name_mn: " + name_mn);
+                                Log.d(TAG, "price: " + price);
+                                Log.d(TAG, "unit: " + unit);
+                                Log.d(TAG, "days: " + days);
+                            }
 
                         }
 
