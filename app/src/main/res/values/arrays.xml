@@ -61,6 +61,11 @@
         <item>ДТҮ төлбөр төлөлт</item>
     </string-array>
 
+    <!-- Registration report type -->
+    <string-array name="registration_report_type">
+        <item>Шинэ гэрээт бүртгэл</item>
+        <item>Шинэ Скаймедиа бүртгэл</item>
+    </string-array>
 
     <string-array name="charge_card_report_column_names">
         <item>Утасны дугаар</item>
