@@ -34,11 +34,13 @@
 
 
             <EditText
+                android:id="@+id/phone_number"
                 style="@style/MainViewCenterBoxEditText"
                 android:hint="@string/phone_number" />
 
 
             <EditText
+                android:id="@+id/sim_card_serial"
                 style="@style/MainViewCenterBoxEditText"
                 android:hint="@string/sim_card_serial" />
 
@@ -58,6 +60,7 @@
                     android:text="@string/tariff" />
 
                 <TextView
+                    android:id="@+id/price"
                     style="@style/MainViewTextViewGrey"
                     android:layout_width="150dp"
                     android:layout_alignParentRight="true"
@@ -88,16 +91,21 @@
 
             <LinearLayout style="@style/RightViewGroupContainer">
 
-                <ImageView style="@style/RightViewTakePictureView" />
+                <ImageView
+                    android:id="@+id/img_front"
+                    style="@style/RightViewTakePictureView" />
             </LinearLayout>
 
             <LinearLayout style="@style/RightViewGroupContainer">
 
-                <ImageView style="@style/RightViewTakePictureView" />
+                <ImageView
+                    android:id="@+id/img_back"
+                    style="@style/RightViewTakePictureView" />
             </LinearLayout>
 
 
             <Button
+                android:id="@+id/send_order"
                 style="@style/ButtonStyle"
                 android:layout_marginBottom="@dimen/main_padding"
                 android:layout_marginLeft="@dimen/main_padding"

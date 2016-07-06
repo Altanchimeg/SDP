@@ -268,7 +268,6 @@ public class NumberChoiceFragment extends Fragment {
 
                         mPrefixArrayList.add(pref);
                     }
-
                     getActivity().runOnUiThread(new Runnable() {
                         @Override
                         public void run() {

@@ -21,6 +21,8 @@ import android.widget.Toast;
 
 import com.skytel.sdp.R;
 import com.skytel.sdp.adapter.NothingSelectedSpinnerAdapter;
+import com.skytel.sdp.adapter.RegReportDealerAdapter;
+import com.skytel.sdp.adapter.RegReportSkymediaAdapter;
 import com.skytel.sdp.adapter.SalesReportChargeCardAdapter;
 import com.skytel.sdp.adapter.SalesReportPostPaidPaymentAdapter;
 import com.skytel.sdp.database.DataManager;
@@ -144,8 +146,8 @@ public class RegistrationReportFragment extends Fragment implements Constants {
         mDay = mCalendar.get(Calendar.DAY_OF_MONTH);
 
         // TODO: Nothing selected state and then choose none abter selected
-        mReportTypeSpinner = (Spinner) rootView.findViewById(R.id.choose_skydealer_report_type);
-        ArrayAdapter<CharSequence> adapterReport = ArrayAdapter.createFromResource(getActivity(), R.array.skydealer_report_type, android.R.layout.simple_spinner_item);
+        mReportTypeSpinner = (Spinner) rootView.findViewById(R.id.choose_registration_report_type);
+        ArrayAdapter<CharSequence> adapterReport = ArrayAdapter.createFromResource(getActivity(), R.array.registration_report_type, android.R.layout.simple_spinner_item);
         mReportTypeSpinner.setAdapter(new NothingSelectedSpinnerAdapter(adapterReport,
                 R.layout.spinner_row_nothing_selected,
                 // R.layout.contact_spinner_nothing_selected_dropdown, // Option
@@ -161,8 +163,8 @@ public class RegistrationReportFragment extends Fragment implements Constants {
                         mProgressDialog.show();
 
                         String currentDateandTime = new SimpleDateFormat("yyyy-MM-dd").format(new Date());
-                        runRegistrationReportFunction(mReportTypeValue[mSelectedItemId], 100, 0, mSelectedFilterButton, "", "1900-01-01", currentDateandTime);
-                        Log.d(TAG, "Report Type: " + mReportTypeValue[mSelectedItemId]);
+                        runRegistrationReportFunction(mSelectedItemId, 100, 0, mSelectedFilterButton, "", "1900-01-01", currentDateandTime);
+                        Log.d(TAG, "Report Type: " + mSelectedItemId);
                     } else {
                         // Toast.makeText(getActivity(),getText(R.string.choose_report_type) , Toast.LENGTH_SHORT).show();
                     }
@@ -179,7 +181,7 @@ public class RegistrationReportFragment extends Fragment implements Constants {
             }
         });
 
-        mReportTypeValue = getResources().getStringArray(R.array.skydealer_report_type_code);
+        mReportTypeValue = getResources().getStringArray(R.array.registration_report_type);
 
         return rootView;
     }
@@ -197,7 +199,7 @@ public class RegistrationReportFragment extends Fragment implements Constants {
                     String start_date = mFilterByStartDate.getText().toString();
                     String end_date = mFilterByEndDate.getText().toString();
 
-                    runRegistrationReportFunction(mReportTypeValue[mSelectedItemId], 100, 0, order_status, phone_number, start_date, end_date);
+                    runRegistrationReportFunction(mSelectedItemId, 100, 0, order_status, phone_number, start_date, end_date);
 
                 } else {
                     Toast.makeText(getActivity(), getText(R.string.choose_report_type), Toast.LENGTH_SHORT).show();
@@ -340,11 +342,11 @@ public class RegistrationReportFragment extends Fragment implements Constants {
                 break;
         }
     }
-    public void runRegistrationReportFunction(String report_type, int length, int from, int order_status , String phone, String start_date, String end_date) throws Exception {
+    public void runRegistrationReportFunction(int report_type, int length, int from, int order_status , String phone, String start_date, String end_date) throws Exception {
         mProgressDialog.show();
         final StringBuilder url = new StringBuilder();
         url.append(Constants.SERVER_URL);
-        url.append(Constants.FUNCTION_DEALER_REPORT);
+        url.append(Constants.FUNCTION_REGISTER_REPORT);
         url.append("?order_status=" + order_status);
         url.append("&len=" + length);
         url.append("&from=" + from);
@@ -460,30 +462,26 @@ public class RegistrationReportFragment extends Fragment implements Constants {
                         mRegistrationReportArrayList.add(i, registrationReport);
                     }
 
-                    //TODO: Create table views and comparator column names array each registration report
-/*
                     getActivity().runOnUiThread(new Runnable() {
                         @Override
                         public void run() {
                             if (mSelectedItemId == 0) {
-                                SortableSalesReportChargeCardTableView sortableSalesReportChargeCardTableView = new SortableSalesReportChargeCardTableView(getActivity());
+                                SortableRegReportSkymediaTableView sortableRegReportSkymediaTableView = new SortableRegReportSkymediaTableView(getActivity());
                                 mReportTableViewContainer.removeAllViews();
-                                mReportTableViewContainer.addView(sortableSalesReportChargeCardTableView);
-                                sortableSalesReportChargeCardTableView.setColumnCount(getResources().getInteger(R.integer.chargecard_report_column));
-                                sortableSalesReportChargeCardTableView.setHeaderBackgroundColor(Color.TRANSPARENT);
-                                sortableSalesReportChargeCardTableView.setDataAdapter(new SalesReportChargeCardAdapter(getActivity(), mSalesReportArrayList));
+                                mReportTableViewContainer.addView(sortableRegReportSkymediaTableView);
+                                sortableRegReportSkymediaTableView.setColumnCount(getResources().getInteger(R.integer.skymedia_report_column));
+                                sortableRegReportSkymediaTableView.setHeaderBackgroundColor(Color.TRANSPARENT);
+                                sortableRegReportSkymediaTableView.setDataAdapter(new RegReportSkymediaAdapter(getActivity(), mRegistrationReportArrayList));
                             } else {
-                                SortableSalesReportPostPaidPaymentTableView sortableSalesReportPostPaidPaymentTableView = new SortableSalesReportPostPaidPaymentTableView(getActivity());
+                                SortableRegReportDealerTableView sortableRegReportDealerTableView = new SortableRegReportDealerTableView(getActivity());
                                 mReportTableViewContainer.removeAllViews();
-                                mReportTableViewContainer.addView(sortableSalesReportPostPaidPaymentTableView);
-                                sortableSalesReportPostPaidPaymentTableView.setColumnCount(getResources().getInteger(R.integer.postpaidpayment_report_column));
-                                sortableSalesReportPostPaidPaymentTableView.setHeaderBackgroundColor(Color.TRANSPARENT);
-                                sortableSalesReportPostPaidPaymentTableView.setDataAdapter(new SalesReportPostPaidPaymentAdapter(getActivity(), mSalesReportArrayList));
+                                mReportTableViewContainer.addView(sortableRegReportDealerTableView);
+                                sortableRegReportDealerTableView.setColumnCount(getResources().getInteger(R.integer.dealer_report_column));
+                                sortableRegReportDealerTableView.setHeaderBackgroundColor(Color.TRANSPARENT);
+                                sortableRegReportDealerTableView.setDataAdapter(new RegReportDealerAdapter(getActivity(), mRegistrationReportArrayList));
                             }
-
-                            mSelectedFilterByUnit = null;
                         }
-                    });*/
+                    });
 
 
                 } catch (JSONException e) {

@@ -277,7 +277,7 @@ public class DealerRegistrationFragment extends Fragment implements Constants {
                         @Override
                         public void run() {
                             final List<DealerChannelType> dealerChannelType = mDealerChannelType;
-                            DealerChannelTypeAdapter adapterFilter = new DealerChannelTypeAdapter(getActivity(), R.layout.sales_report_card_types_item, mDealerChannelType);
+                            DealerChannelTypeAdapter adapterFilter = new DealerChannelTypeAdapter(getActivity(), R.layout.dealer_channel_type_item, mDealerChannelType);
                             mChannelSalesType.setAdapter(new NothingSelectedSpinnerAdapter(adapterFilter,
                                     R.layout.spinner_row_nothing_selected,
                                     getActivity()));

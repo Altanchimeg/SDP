@@ -62,7 +62,10 @@
                         style="@style/RightViewTextViewBlue"
                         android:text="@string/do_search"></TextView>
                 </LinearLayout>
-
+                <EditText
+                    android:id="@+id/filterByOrderedNumber"
+                    style="@style/PhoneNumberEdittextStyle"
+                    android:hint="@string/ordered_number" />
                 <TextView
                     style="@style/RightViewTextViewBold"
                     android:layout_gravity="start"

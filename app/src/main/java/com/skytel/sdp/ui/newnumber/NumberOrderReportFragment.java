@@ -436,7 +436,7 @@ public class NumberOrderReportFragment extends Fragment implements Constants {
                                 SortableNewNumberReportTableView sortableNewNumberReportTableView = new SortableNewNumberReportTableView(getActivity());
                                 mReportTableViewContainer.removeAllViews();
                                 mReportTableViewContainer.addView(sortableNewNumberReportTableView);
-                            sortableNewNumberReportTableView.setColumnCount(getResources().getInteger(R.integer.postpaidpayment_report_column));
+                            sortableNewNumberReportTableView.setColumnCount(getResources().getInteger(R.integer.new_number_report_column));
                             sortableNewNumberReportTableView.setHeaderBackgroundColor(Color.TRANSPARENT);
                             sortableNewNumberReportTableView.setDataAdapter(new NewNumberReportAdapter(getActivity(), mNewNumberReportArrayList));
 

@@ -43,6 +43,9 @@ public interface Constants {
     String FUNCTION_DEALER_CHANNEL_INFO = "dealer_channel_info.json";
     String FUNCTION_NEW_DEALER = "newdealer.json";
     String FUNCTION_NEW_SKYMEDIA = "newskymedia.json";
+    String FUNCTION_REGISTER_REPORT = "register_report.json";
+    String FUNCTION_HANDSET_CHANGE_INFO = "simchange_info.json";
+    String FUNCTION_HANDSET_CHANGE = "simchange.json";
 
     /* Skytel.mn Service Functions */
     String SERVER_SKYTEL_MN_URL = "https://www.skytel.mn";
