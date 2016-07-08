@@ -30,6 +30,9 @@
     <integer name="skymedia_report_column">4</integer>
     <integer name="dealer_report_column">5</integer>
 
+    <integer name="handset_change_report_column">5</integer>
+    <integer name="vas_report_column">5</integer>
+
     <!-- Default screen margins, per the Android Design guidelines. -->
     <dimen name="activity_horizontal_margin">16dp</dimen>
     <dimen name="activity_vertical_margin">16dp</dimen>

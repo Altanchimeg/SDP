@@ -46,6 +46,9 @@ public interface Constants {
     String FUNCTION_REGISTER_REPORT = "register_report.json";
     String FUNCTION_HANDSET_CHANGE_INFO = "simchange_info.json";
     String FUNCTION_HANDSET_CHANGE = "simchange.json";
+    String FUNCTION_VAS_TYPE = "vas_info.json";
+    String FUNCTION_VAS_CHANGE_STATE = "vaschange.json";
+    String FUNCTION_SERVICE_REPORT = "service_report.json";
 
     /* Skytel.mn Service Functions */
     String SERVER_SKYTEL_MN_URL = "https://www.skytel.mn";

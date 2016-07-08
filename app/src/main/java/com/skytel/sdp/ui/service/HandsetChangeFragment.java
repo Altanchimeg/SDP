@@ -113,6 +113,7 @@ public class HandsetChangeFragment extends Fragment implements  Constants{
         mPhonenumber = (EditText) rootView.findViewById(R.id.phone_number);
         mSimcardSerial = (EditText) rootView.findViewById(R.id.sim_card_serial);
         mPrice = (TextView) rootView.findViewById(R.id.price);
+        mSendOrder = (Button) rootView.findViewById(R.id.send_order);
 
         mFrontImage = (ImageView) rootView.findViewById(R.id.img_front);
         mBackImage = (ImageView) rootView.findViewById(R.id.img_back);
@@ -125,7 +126,6 @@ public class HandsetChangeFragment extends Fragment implements  Constants{
             }
         });
         mBackImage.setOnClickListener(new View.OnClickListener() {
-            @Override
             public void onClick(View v) {
                 isFirst = false;
                 selectImage();
@@ -220,7 +220,7 @@ public class HandsetChangeFragment extends Fragment implements  Constants{
                     Log.d(TAG, "result_code: " + result_code);
                     Log.d(TAG, "result_msg: " + result_msg);
 
-                    JSONArray jArray = jsonObj.getJSONArray("dealer_channel_types");
+                    JSONArray jArray = jsonObj.getJSONArray("types");
 
                     Log.d(TAG, "*****JARRAY*****" + jArray.length());
                     mHandsetChangeType.clear();
@@ -264,7 +264,7 @@ public class HandsetChangeFragment extends Fragment implements  Constants{
                                     try {
                                         mChosenHandsetChangeTypeId = handsetChangeTypes.get(position-1).getSimChangeTypeId();
                                         mPrice.setText(handsetChangeTypes.get(position-1).getPrice()+"₮");
-                                        Toast.makeText(getActivity(),handsetChangeTypes.get(position-1).getPrice(),Toast.LENGTH_SHORT).show();
+                                        Toast.makeText(getActivity(),mPrice.getText().toString(),Toast.LENGTH_SHORT).show();
                                     } catch (ArrayIndexOutOfBoundsException e){
 
                                     }

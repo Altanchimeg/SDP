@@ -68,6 +68,13 @@
 
     </string-array>
 
+    <!-- Service report type -->
+    <string-array name="service_report_type">
+        <item>Гар солилт хийх</item>
+        <item>Нэмэлт үйлчилгээ</item>
+
+    </string-array>
+
     <string-array name="skymedia_report_column_names">
         <item>Утасны дугаар</item>
         <item>Шалтгаан</item>
@@ -82,6 +89,22 @@
         <item>Төлөв</item>
         <item>Захиалсан огноо</item>
     </string-array>
+
+    <string-array name="vas_report_column_names">
+        <item>Үйлчилгээний төрөл</item>
+        <item>Утасны дугаар</item>
+        <item>Идэвхижүүлэлт</item>
+        <item>Төлөв</item>
+        <item>Захиалсан огноо</item>
+    </string-array>
+    <string-array name="handset_change_report_column_names">
+        <item>Үйлчилгээний төрөл</item>
+        <item>Утасны дугаар</item>
+        <item>Сим картны сериал</item>
+        <item>Төлөв</item>
+        <item>Захиалсан огноо</item>
+    </string-array>
+
 
 
     <string-array name="charge_card_report_column_names">

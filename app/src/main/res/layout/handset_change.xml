@@ -26,7 +26,6 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:backgroundTint="@color/colorMenuText"
-                android:entries="@array/handset_change_type"
                 android:focusable="false"
                 android:spinnerMode="dropdown">
 
@@ -64,8 +63,7 @@
                     style="@style/MainViewTextViewGrey"
                     android:layout_width="150dp"
                     android:layout_alignParentRight="true"
-                    android:background="@drawable/border"
-                    android:text="5000₮" />
+                    android:background="@drawable/border" />
 
             </RelativeLayout>
         </LinearLayout>

@@ -30,6 +30,7 @@
     <string name="tariff">Үнэ тариф</string>
     <string name="service_prepaid">Урьдчилсан төлбөрт</string>
     <string name="service_postpaid">Дараа төлбөрт</string>
+    <string name="service_mongoldoo">Монголдоо багц</string>
     <string name="sim_card_serial">Сим карт сериал</string>
     <string name="description_order">Захиалгатай холбоотой тайлбар</string>
     <string name="get_code">Код авах</string>

@@ -18,9 +18,14 @@
                 style="@style/MainViewTextViewBlue"
                 android:text="@string/service_select_vas_type" />
 
-            <EditText
-                style="@style/MainViewCenterBoxEditText"
-                android:hint="SkyMelody" />
+            <Spinner
+
+                android:id="@+id/choose_vas_type"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:backgroundTint="@color/colorMenuText"
+                android:focusable="false"
+                android:spinnerMode="dropdown" />
 
             <TextView
                 style="@style/MainViewTextViewBlue"
@@ -35,11 +40,15 @@
                 android:orientation="horizontal">
 
                 <Button
-                    style="@style/ButtonYellowFill"
-                    android:text="@string/active" />
+                    android:id="@+id/btn_active"
+                    style="@style/ButtonYellow"
+                    android:background="@drawable/btn_yellow_selected"
+                    android:text="@string/active"
+                    android:textColor="@android:color/white" />
 
                 <Button
-                    style="@style/ButtonGrey"
+                    android:id="@+id/btn_deactive"
+                    style="@style/ButtonYellow"
                     android:text="@string/decline" />
 
             </LinearLayout>
@@ -80,11 +89,12 @@
                     android:text="@string/service_prepaid" />
 
                 <TextView
+                    android:id="@+id/price_pre"
                     style="@style/MainViewTextViewGrey"
                     android:layout_width="150dp"
                     android:layout_alignParentRight="true"
                     android:background="@drawable/border"
-                    android:text="40₮ (1 өдөр)" />
+                     />
 
             </RelativeLayout>
 
@@ -99,21 +109,43 @@
                     android:text="@string/service_postpaid" />
 
                 <TextView
+                    android:id="@+id/price_post"
                     style="@style/MainViewTextViewGrey"
                     android:layout_width="150dp"
                     android:layout_alignParentRight="true"
                     android:background="@drawable/border"
-                    android:text="40₮ (1 өдөр)" />
+                 />
+
+            </RelativeLayout>
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+                <TextView
+                    style="@style/MainViewTextViewGrey"
+                    android:layout_width="match_parent"
+                    android:background="@drawable/border"
+                    android:text="@string/service_mongoldoo" />
+
+                <TextView
+                    android:id="@+id/price_mongoldoo"
+                    style="@style/MainViewTextViewGrey"
+                    android:layout_width="150dp"
+                    android:layout_alignParentRight="true"
+                    android:background="@drawable/border"
+ />
 
             </RelativeLayout>
 
-            <TextView
+  <!--          <TextView
                 style="@style/MainViewTextViewBlue"
                 android:layout_gravity="center"
                 android:layout_margin="@dimen/second_padding"
                 android:text="@string/insert_phone_number" />
-
+-->
             <EditText
+                android:layout_marginTop="@dimen/third_padding"
+                android:id="@+id/phone_number"
                 style="@style/MainViewCenterBoxEditText"
                 android:hint="@string/phone_number" />
 
@@ -127,6 +159,7 @@
         android:layout_height="wrap_content">
 
         <Button
+            android:id="@+id/send_order"
             style="@style/ButtonStyle"
             android:layout_marginTop="@dimen/second_padding"
             android:text="@string/send_order" />
