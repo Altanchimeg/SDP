@@ -232,17 +232,21 @@ public class NumberUserInfoActivity extends AppCompatActivity implements Constan
                 try {
                     JSONObject jsonObj = new JSONObject(resp);
                     int result_code = jsonObj.getInt("result_code");
-                    String result_msg = jsonObj.getString("result_msg");
+                    final String result_msg = jsonObj.getString("result_msg");
 
                     Log.d(TAG, "result_code " + result_code);
                     Log.d(TAG, "result_msg " + result_msg);
                     if (result_code != RESULT_CODE_SUCCESS){
-                        //TODO: that toast is exception  < java.lang.RuntimeException: Can't create handler inside thread that has not called Looper.prepare()>
-                        //Toast.makeText(mContext, "Result: "+result_msg, Toast.LENGTH_SHORT).show();
+
                         //TODO: if complete GO TO number reservation window
-
+                        runOnUiThread(new Runnable() {
+                            @Override
+                            public void run() {
+                                Toast.makeText(mContext, "Result: "+result_msg, Toast.LENGTH_SHORT).show();
+                                finish();
+                            }
+                        });
                     }
-
 
                 } catch (JSONException e) {
                     Toast.makeText(mContext, "Алдаатай хариу ирлээ", Toast.LENGTH_LONG).show();
