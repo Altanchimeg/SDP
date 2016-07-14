@@ -35,6 +35,7 @@ import com.skytel.sdp.entities.DealerChannelType;
 import com.skytel.sdp.entities.SalesReport;
 import com.skytel.sdp.ui.skydealer.SortableSalesReportChargeCardTableView;
 import com.skytel.sdp.ui.skydealer.SortableSalesReportPostPaidPaymentTableView;
+import com.skytel.sdp.utils.BitmapSaver;
 import com.skytel.sdp.utils.ConfirmDialog;
 import com.skytel.sdp.utils.Constants;
 import com.skytel.sdp.utils.CustomProgressDialog;
@@ -58,6 +59,8 @@ import okhttp3.Call;
 import okhttp3.Callback;
 import okhttp3.FormBody;
 import okhttp3.Headers;
+import okhttp3.MediaType;
+import okhttp3.MultipartBody;
 import okhttp3.OkHttpClient;
 import okhttp3.Request;
 import okhttp3.RequestBody;
@@ -90,14 +93,19 @@ public class DealerRegistrationFragment extends Fragment implements Constants {
     private ImageView mBackImage;
 
     private int REQUEST_CAMERA = 0, SELECT_FILE = 1;
-    private String userChoosenTask;
+    private String userChosenTask;
     private boolean isFirst = true;
+
+    private String imageFront = "image_front.png";
+    private String imageBack = "image_back.png";
 
     private String mChosenDealerTypeCode = null;
 
+    private Bitmap bm = null;
 
     public DealerRegistrationFragment() {
     }
+
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -155,9 +163,9 @@ public class DealerRegistrationFragment extends Fragment implements Constants {
             //TODO: check image chosen
             @Override
             public void onClick(View v) {
-                if(ValidationChecker.isValidationPassed(mLastName) && ValidationChecker.isValidationPassed(mFirstName) && ValidationChecker.isValidationPassed(mRegNumber) &&
+                if (ValidationChecker.isValidationPassed(mLastName) && ValidationChecker.isValidationPassed(mFirstName) && ValidationChecker.isValidationPassed(mRegNumber) &&
                         ValidationChecker.isValidationPassed(mCardSellAddress) && ValidationChecker.isSelected(mChannelSalesType.getId()) && ValidationChecker.isValidationPassed(mSkydealerNumber) &&
-                        ValidationChecker.isValidationPassed(mContactNumber)){
+                        ValidationChecker.isValidationPassed(mContactNumber) && bm != null) {
 
                     mConfirmDialog.show(getFragmentManager(), "dialog");
                 }
@@ -171,7 +179,6 @@ public class DealerRegistrationFragment extends Fragment implements Constants {
         } catch (Exception e) {
             e.printStackTrace();
         }
-
 
 
         return rootView;
@@ -286,10 +293,10 @@ public class DealerRegistrationFragment extends Fragment implements Constants {
                                 public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
 
                                     try {
-                                        mChosenDealerTypeCode = dealerChannelType.get(position-1).getTypeCode().toString();
-                                        mDiscountPercent.setText(dealerChannelType.get(position-1).getDiscount().toString());
-                                        Toast.makeText(getActivity(),dealerChannelType.get(position-1).getDiscount(),Toast.LENGTH_SHORT).show();
-                                    } catch (ArrayIndexOutOfBoundsException e){
+                                        mChosenDealerTypeCode = dealerChannelType.get(position - 1).getTypeCode().toString();
+                                        mDiscountPercent.setText(dealerChannelType.get(position - 1).getDiscount().toString());
+                                        Toast.makeText(getActivity(), dealerChannelType.get(position - 1).getDiscount(), Toast.LENGTH_SHORT).show();
+                                    } catch (ArrayIndexOutOfBoundsException e) {
 
                                     }
 
@@ -297,7 +304,7 @@ public class DealerRegistrationFragment extends Fragment implements Constants {
 
                                 @Override
                                 public void onNothingSelected(AdapterView<?> parent) {
-                                    Toast.makeText(getActivity(),"Nothing Selected",Toast.LENGTH_SHORT).show();
+                                    Toast.makeText(getActivity(), "Nothing Selected", Toast.LENGTH_SHORT).show();
                                 }
                             });
                         }
@@ -317,6 +324,8 @@ public class DealerRegistrationFragment extends Fragment implements Constants {
         });
     }
 
+    final MediaType MEDIA_TYPE_PNG = MediaType.parse("image/png");
+
     public void runSendOrder() throws Exception {
 
         final StringBuilder url = new StringBuilder();
@@ -334,6 +343,7 @@ public class DealerRegistrationFragment extends Fragment implements Constants {
         System.out.print(url + "\n");
         System.out.println(mPrefManager.getAuthToken());
 
+/*
         RequestBody formBody = new FormBody.Builder()
                 //TODO: photo path send needed
                 .add("phone",mSkydealerNumber.getText().toString())
@@ -347,10 +357,30 @@ public class DealerRegistrationFragment extends Fragment implements Constants {
                 .add("photo1_path", "")
                 .add("photo2_path", "")
                 .build();
+*/
+
+
+        RequestBody requestBody = new MultipartBody.Builder()
+                .setType(MultipartBody.FORM)
+                .addFormDataPart("phone", mSkydealerNumber.getText().toString())
+                .addFormDataPart("last_name", mLastName.getText().toString())
+                .addFormDataPart("first_name", mFirstName.getText().toString())
+                .addFormDataPart("register", mRegNumber.getText().toString())
+                .addFormDataPart("address", mCardSellAddress.getText().toString())
+                .addFormDataPart("sales_type", mChosenDealerTypeCode)
+                .addFormDataPart("contact", mContactNumber.getText().toString())
+                .addFormDataPart("description", mOrderDesc.getText().toString())
+                .addFormDataPart("photo1_path", imageFront,
+                        RequestBody.create(MEDIA_TYPE_PNG, BitmapSaver.readBitmapFromFile(imageFront)))
+                .addFormDataPart("photo2_path", imageBack,
+                        RequestBody.create(MEDIA_TYPE_PNG, BitmapSaver.readBitmapFromFile(imageBack))
+                ).build();
+
+
         Request request = new Request.Builder()
                 .url(url.toString())
                 .addHeader(Constants.PREF_AUTH_TOKEN, mPrefManager.getAuthToken())
-                .post(formBody)
+                .post(requestBody)
                 .build();
 
         mClient.newCall(request).enqueue(new Callback() {
@@ -419,25 +449,26 @@ public class DealerRegistrationFragment extends Fragment implements Constants {
             }
         });
     }
+
     private void selectImage() {
-        final CharSequence[] items = { "Take Photo", "Choose from Library",
-                "Cancel" };
+        final CharSequence[] items = {"Take Photo", "Choose from Library",
+                "Cancel"};
 
         AlertDialog.Builder builder = new AlertDialog.Builder(mContext);
         builder.setTitle("Add Photo!");
         builder.setItems(items, new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialog, int item) {
-                boolean result= Utility.checkPermission(mContext);
+                boolean result = Utility.checkPermission(mContext);
 
                 if (items[item].equals("Take Photo")) {
-                    userChoosenTask ="Take Photo";
-                    if(result)
+                    userChosenTask = "Take Photo";
+                    if (result)
                         cameraIntent();
 
                 } else if (items[item].equals("Choose from Library")) {
-                    userChoosenTask ="Choose from Library";
-                    if(result)
+                    userChosenTask = "Choose from Library";
+                    if (result)
                         galleryIntent();
 
                 } else if (items[item].equals("Cancel")) {
@@ -448,16 +479,14 @@ public class DealerRegistrationFragment extends Fragment implements Constants {
         builder.show();
     }
 
-    private void galleryIntent()
-    {
+    private void galleryIntent() {
         Intent intent = new Intent();
         intent.setType("image/*");
         intent.setAction(Intent.ACTION_GET_CONTENT);//
-        startActivityForResult(Intent.createChooser(intent, "Select File"),SELECT_FILE);
+        startActivityForResult(Intent.createChooser(intent, "Select File"), SELECT_FILE);
     }
 
-    private void cameraIntent()
-    {
+    private void cameraIntent() {
         Intent intent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
         startActivityForResult(intent, REQUEST_CAMERA);
     }
@@ -475,39 +504,18 @@ public class DealerRegistrationFragment extends Fragment implements Constants {
     }
 
     private void onCaptureImageResult(Intent data) {
-        Bitmap thumbnail = (Bitmap) data.getExtras().get("data");
-        ByteArrayOutputStream bytes = new ByteArrayOutputStream();
-        thumbnail.compress(Bitmap.CompressFormat.JPEG, 90, bytes);
-
-        File destination = new File(Environment.getExternalStorageDirectory(),
-                System.currentTimeMillis() + ".jpg");
-
-        FileOutputStream fo;
-        try {
-            destination.createNewFile();
-            fo = new FileOutputStream(destination);
-            fo.write(bytes.toByteArray());
-            fo.close();
-        } catch (FileNotFoundException e) {
-            e.printStackTrace();
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-
-        if(isFirst) {
-
-            mFrontImage.setImageBitmap(thumbnail);
-        }
-        else {
-
-            mBackImage.setImageBitmap(thumbnail);
+        bm = (Bitmap) data.getExtras().get("data");
+        if (isFirst) {
+            mFrontImage.setImageBitmap(bm);
+            BitmapSaver.saveBitmapToFile(bm, imageFront);
+        } else {
+            mBackImage.setImageBitmap(bm);
+            BitmapSaver.saveBitmapToFile(bm, imageBack);
         }
     }
 
     @SuppressWarnings("deprecation")
     private void onSelectFromGalleryResult(Intent data) {
-
-        Bitmap bm=null;
         if (data != null) {
             try {
                 bm = MediaStore.Images.Media.getBitmap(mContext.getContentResolver(), data.getData());
@@ -516,13 +524,17 @@ public class DealerRegistrationFragment extends Fragment implements Constants {
             }
         }
 
-        if(isFirst) {
-
+        if (isFirst) {
             mFrontImage.setImageBitmap(bm);
-        }
-        else {
+            BitmapSaver.saveBitmapToFile(bm, imageFront);
+
+        } else {
             mBackImage.setImageBitmap(bm);
+            BitmapSaver.saveBitmapToFile(bm, imageBack);
+
         }
+
+
     }
 
     private ConfirmDialog.OnDialogConfirmListener dialogConfirmListener = new ConfirmDialog.OnDialogConfirmListener() {
