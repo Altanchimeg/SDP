@@ -20,11 +20,11 @@ public class PriceType {
     }
 
     public int getPriceTypeId() {
-        return id;
+        return priceTypeId;
     }
 
     public void setPriceTypeId(int id) {
-        this.id = id;
+        this.priceTypeId = id;
     }
     public String getPrice() {
         return price;

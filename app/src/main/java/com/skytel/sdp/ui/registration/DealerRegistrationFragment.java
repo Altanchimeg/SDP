@@ -160,12 +160,11 @@ public class DealerRegistrationFragment extends Fragment implements Constants {
         });
 
         mSendOrder.setOnClickListener(new View.OnClickListener() {
-            //TODO: check image chosen
             @Override
             public void onClick(View v) {
                 if (ValidationChecker.isValidationPassed(mLastName) && ValidationChecker.isValidationPassed(mFirstName) && ValidationChecker.isValidationPassed(mRegNumber) &&
                         ValidationChecker.isValidationPassed(mCardSellAddress) && ValidationChecker.isSelected(mChannelSalesType.getId()) && ValidationChecker.isValidationPassed(mSkydealerNumber) &&
-                        ValidationChecker.isValidationPassed(mContactNumber) && bm != null) {
+                        ValidationChecker.isValidationPassed(mContactNumber) && ValidationChecker.hasBitmapValue(bm)) {
 
                     mConfirmDialog.show(getFragmentManager(), "dialog");
                 }
@@ -343,23 +342,6 @@ public class DealerRegistrationFragment extends Fragment implements Constants {
         System.out.print(url + "\n");
         System.out.println(mPrefManager.getAuthToken());
 
-/*
-        RequestBody formBody = new FormBody.Builder()
-                //TODO: photo path send needed
-                .add("phone",mSkydealerNumber.getText().toString())
-                .add("last_name", mLastName.getText().toString())
-                .add("first_name",mFirstName.getText().toString())
-                .add("register", mRegNumber.getText().toString())
-                .add("address",mCardSellAddress.getText().toString())
-                .add("sales_type",mChosenDealerTypeCode)
-                .add("contact",mContactNumber.getText().toString())
-                .add("description",mOrderDesc.getText().toString())
-                .add("photo1_path", "")
-                .add("photo2_path", "")
-                .build();
-*/
-
-
         RequestBody requestBody = new MultipartBody.Builder()
                 .setType(MultipartBody.FORM)
                 .addFormDataPart("phone", mSkydealerNumber.getText().toString())
@@ -450,28 +432,29 @@ public class DealerRegistrationFragment extends Fragment implements Constants {
         });
     }
 
+
     private void selectImage() {
-        final CharSequence[] items = {"Take Photo", "Choose from Library",
-                "Cancel"};
+        final CharSequence[] items = {getString(R.string.take_photo), getString(R.string.choose_from_library),
+                getString(R.string.cancel)};
 
         AlertDialog.Builder builder = new AlertDialog.Builder(mContext);
-        builder.setTitle("Add Photo!");
+        builder.setTitle(getString(R.string.add_photo));
         builder.setItems(items, new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialog, int item) {
                 boolean result = Utility.checkPermission(mContext);
 
-                if (items[item].equals("Take Photo")) {
-                    userChosenTask = "Take Photo";
+                if (items[item].equals(getString(R.string.take_photo))) {
+                    userChosenTask = getString(R.string.take_photo);
                     if (result)
                         cameraIntent();
 
-                } else if (items[item].equals("Choose from Library")) {
-                    userChosenTask = "Choose from Library";
+                } else if (items[item].equals( getString(R.string.choose_from_library))) {
+                    userChosenTask =  getString(R.string.choose_from_library);
                     if (result)
                         galleryIntent();
 
-                } else if (items[item].equals("Cancel")) {
+                } else if (items[item].equals( getString(R.string.cancel))) {
                     dialog.dismiss();
                 }
             }
@@ -483,7 +466,7 @@ public class DealerRegistrationFragment extends Fragment implements Constants {
         Intent intent = new Intent();
         intent.setType("image/*");
         intent.setAction(Intent.ACTION_GET_CONTENT);//
-        startActivityForResult(Intent.createChooser(intent, "Select File"), SELECT_FILE);
+        startActivityForResult(Intent.createChooser(intent,  getString(R.string.select_file)), SELECT_FILE);
     }
 
     private void cameraIntent() {
@@ -536,7 +519,6 @@ public class DealerRegistrationFragment extends Fragment implements Constants {
 
 
     }
-
     private ConfirmDialog.OnDialogConfirmListener dialogConfirmListener = new ConfirmDialog.OnDialogConfirmListener() {
 
         @Override

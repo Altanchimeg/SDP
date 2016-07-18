@@ -339,7 +339,7 @@ public class ServiceReportFragment extends Fragment implements Constants{
         final StringBuilder url = new StringBuilder();
         url.append(Constants.SERVER_URL);
         url.append(Constants.FUNCTION_SERVICE_REPORT);
-        url.append("?service_status=" + order_status);
+        url.append("?serivce_status=" + order_status);
         url.append("&len=" + length);
         url.append("&from=" + from);
         url.append("&service_type=" + report_type);

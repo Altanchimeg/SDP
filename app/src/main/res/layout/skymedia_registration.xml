@@ -43,11 +43,13 @@
                 android:layout_height="wrap_content"
                 android:orientation="horizontal">
 
-                <EditText
+                <Spinner
                     android:id="@+id/aimag_city"
-                    style="@style/EditTextStyle"
+                    style="@style/MainViewCenterBoxEditText"
                     android:layout_width="@dimen/leftmenu_width"
-                    android:hint="@string/aimag_city" />
+                    android:backgroundTint="@color/colorMenuText"
+                    android:focusable="false"
+                    android:spinnerMode="dropdown"/>
 
                 <EditText
                     android:id="@+id/sum_district"

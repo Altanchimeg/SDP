@@ -1,7 +1,5 @@
 package com.skytel.sdp;
 
-import android.app.Dialog;
-import android.app.DialogFragment;
 import android.content.Context;
 import android.content.Intent;
 import android.os.AsyncTask;
@@ -13,19 +11,18 @@ import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
-import android.widget.Button;
 import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import com.skytel.sdp.adapter.LeftMenuListAdapter;
 import com.skytel.sdp.database.DataManager;
+import com.skytel.sdp.ui.TabInformationFragment;
 import com.skytel.sdp.ui.TabRegistrationFragment;
 import com.skytel.sdp.ui.TabServiceFragment;
 import com.skytel.sdp.ui.TabSettingsFragment;
 import com.skytel.sdp.ui.TabSkyDealerFragment;
 import com.skytel.sdp.ui.feedback.FeedbackFragment;
-import com.skytel.sdp.ui.information.InformationFragment;
 import com.skytel.sdp.ui.TabNewNumberFragment;
 import com.skytel.sdp.ui.plan.PlanFragment;
 import com.skytel.sdp.ui.skydealer.ChargeCardFragment;
@@ -97,7 +94,7 @@ public class MainActivity extends AppCompatActivity implements BalanceUpdateList
                         changeMenu(new TabRegistrationFragment());
                         break;
                     case Constants.MENU_INFORMATION:
-                        changeMenu(new InformationFragment());
+                        changeMenu(new TabInformationFragment());
                         break;
                     case Constants.MENU_PLAN:
                         changeMenu(new PlanFragment());

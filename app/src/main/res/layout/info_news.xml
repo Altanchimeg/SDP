@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+
+    <LinearLayout
+        style="@style/MainViewContainer"
+        android:orientation="vertical">
+
+        <TextView
+            android:id="@+id/content_header"
+            style="@style/MainViewTextViewBlue"
+            />
+        <ImageView
+            android:id="@+id/content_image"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+        <TextView
+            android:id="@+id/content_body"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="@dimen/third_padding"
+            android:singleLine="false"/>
+    </LinearLayout>
+
+    <ScrollView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentRight="true"
+        android:scrollbars="none">
+
+        <LinearLayout style="@style/RightViewContainer">
+
+            <View style="@style/DividerStyle"></View>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:gravity="center"
+                android:orientation="vertical">
+
+                <LinearLayout style="@style/RightViewGroupContainer">
+
+                    <TextView
+                        style="@style/RightViewTextViewBlue"
+                        android:text="@string/choose_info_type"></TextView>
+                    <ListView
+                        android:id="@+id/info_type_list_view"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:cacheColorHint="@android:color/transparent"
+                        android:choiceMode="singleChoice"
+                        android:divider="@null"
+                        android:listSelector="@drawable/bg_listview"
+                        android:scrollbars="none"></ListView>
+                </LinearLayout>
+            </LinearLayout>
+
+        </LinearLayout>
+    </ScrollView>
+</RelativeLayout>

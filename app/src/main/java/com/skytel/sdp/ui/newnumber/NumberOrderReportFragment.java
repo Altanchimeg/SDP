@@ -148,7 +148,6 @@ public class NumberOrderReportFragment extends Fragment implements Constants {
          */
 
         try {
-            //TODO: Report need to match center size
             runNewNumberReportFunction(100, 0, mSelectedFilterButton, "", "1900-01-01", currentDateandTime);
         } catch (Exception e) {
             e.printStackTrace();

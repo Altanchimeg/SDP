@@ -23,6 +23,7 @@ import android.widget.ImageView;
 import android.widget.Toast;
 
 import com.skytel.sdp.entities.Phonenumber;
+import com.skytel.sdp.utils.BitmapSaver;
 import com.skytel.sdp.utils.ConfirmDialog;
 import com.skytel.sdp.utils.Constants;
 import com.skytel.sdp.utils.CustomProgressDialog;
@@ -44,6 +45,8 @@ import okhttp3.Call;
 import okhttp3.Callback;
 import okhttp3.FormBody;
 import okhttp3.Headers;
+import okhttp3.MediaType;
+import okhttp3.MultipartBody;
 import okhttp3.OkHttpClient;
 import okhttp3.Request;
 import okhttp3.RequestBody;
@@ -73,8 +76,13 @@ public class NumberUserInfoActivity extends AppCompatActivity implements Constan
     private ImageView mBackImage;
 
     private int REQUEST_CAMERA = 0, SELECT_FILE = 1;
-    private String userChoosenTask;
+    private String userChosenTask;
     private boolean isFirst = true;
+
+    private String imageFront = "image_front.png";
+    private String imageBack = "image_back.png";
+
+    private Bitmap bm = null;
 
     private PrefManager mPrefManager;
     private OkHttpClient mClient;
@@ -136,11 +144,9 @@ public class NumberUserInfoActivity extends AppCompatActivity implements Constan
         mOrderUserInfo.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                //TODO: imageview chosen validation check needed
                 if(ValidationChecker.isValidationPassed(mLastName) && ValidationChecker.isValidationPassed(mFirstName) && ValidationChecker.isValidationPassed(mRegistrationNumberEt) &&
                         ValidationChecker.isValidationPassed(mSimCardSerial) && ValidationChecker.isValidationPassed(mHobby) && ValidationChecker.isValidationPassed(mJob) &&
-                        ValidationChecker.isValidationPassed(mContactNumber) && ValidationChecker.isValidationPassed(mChosenNumber) && ValidationChecker.isImageChosen(mFrontImage) &&
-                        ValidationChecker.isImageChosen(mBackImage)){
+                        ValidationChecker.isValidationPassed(mContactNumber) && ValidationChecker.isValidationPassed(mChosenNumber) && ValidationChecker.hasBitmapValue(bm)){
 
                     mConfirmDialog.show(getFragmentManager(), "dialog");
 
@@ -171,6 +177,8 @@ public class NumberUserInfoActivity extends AppCompatActivity implements Constan
 
     }
 
+    final MediaType MEDIA_TYPE_PNG = MediaType.parse("image/png");
+
     private void runSendUserInfoDetailInfo() throws Exception {
         final StringBuilder url = new StringBuilder();
         url.append(Constants.SERVER_URL);
@@ -189,15 +197,17 @@ public class NumberUserInfoActivity extends AppCompatActivity implements Constan
         System.out.print(url + "\n");
         System.out.println(mPrefManager.getAuthToken());
 
-        RequestBody formBody = new FormBody.Builder()
-                //TODO: photo path send needed
-                .add("photo1_path", "")
-                .add("photo2_path", "")
-                .build();
+        RequestBody requestBody = new MultipartBody.Builder()
+                .setType(MultipartBody.FORM)
+                .addFormDataPart("photo1_path", imageFront,
+                        RequestBody.create(MEDIA_TYPE_PNG, BitmapSaver.readBitmapFromFile(imageFront)))
+                .addFormDataPart("photo2_path", imageBack,
+                        RequestBody.create(MEDIA_TYPE_PNG, BitmapSaver.readBitmapFromFile(imageBack))
+                ).build();
         Request request = new Request.Builder()
                 .url(url.toString())
                 .addHeader(Constants.PREF_AUTH_TOKEN, mPrefManager.getAuthToken())
-                .post(formBody)
+                .post(requestBody)
                 .build();
 
         mClient.newCall(request).enqueue(new Callback() {
@@ -238,14 +248,16 @@ public class NumberUserInfoActivity extends AppCompatActivity implements Constan
                     Log.d(TAG, "result_msg " + result_msg);
                     if (result_code != RESULT_CODE_SUCCESS){
 
-                        //TODO: if complete GO TO number reservation window
                         runOnUiThread(new Runnable() {
                             @Override
                             public void run() {
                                 Toast.makeText(mContext, "Result: "+result_msg, Toast.LENGTH_SHORT).show();
-                                finish();
+
                             }
                         });
+                    }
+                    else{
+                        finish();
                     }
 
                 } catch (JSONException e) {
@@ -261,9 +273,9 @@ public class NumberUserInfoActivity extends AppCompatActivity implements Constan
         switch (requestCode) {
             case Utility.MY_PERMISSIONS_REQUEST_READ_EXTERNAL_STORAGE:
                 if (grantResults.length > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
-                    if(userChoosenTask.equals("Take Photo"))
+                    if(userChosenTask.equals(getString(R.string.take_photo)))
                         cameraIntent();
-                    else if(userChoosenTask.equals("Choose from Library"))
+                    else if(userChosenTask.equals(getString(R.string.choose_from_library)))
                         galleryIntent();
                 } else {
                     //code for deny
@@ -273,27 +285,27 @@ public class NumberUserInfoActivity extends AppCompatActivity implements Constan
     }
 
     private void selectImage() {
-        final CharSequence[] items = { "Take Photo", "Choose from Library",
-                "Cancel" };
+        final CharSequence[] items = {getString(R.string.take_photo), getString(R.string.choose_from_library),
+                getString(R.string.cancel)};
 
-        AlertDialog.Builder builder = new AlertDialog.Builder(NumberUserInfoActivity.this);
-        builder.setTitle("Add Photo!");
+        AlertDialog.Builder builder = new AlertDialog.Builder(mContext);
+        builder.setTitle(getString(R.string.add_photo));
         builder.setItems(items, new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialog, int item) {
-                boolean result=Utility.checkPermission(NumberUserInfoActivity.this);
+                boolean result = Utility.checkPermission(mContext);
 
-                if (items[item].equals("Take Photo")) {
-                    userChoosenTask ="Take Photo";
-                    if(result)
+                if (items[item].equals(getString(R.string.take_photo))) {
+                    userChosenTask = getString(R.string.take_photo);
+                    if (result)
                         cameraIntent();
 
-                } else if (items[item].equals("Choose from Library")) {
-                    userChoosenTask ="Choose from Library";
-                    if(result)
+                } else if (items[item].equals( getString(R.string.choose_from_library))) {
+                    userChosenTask =  getString(R.string.choose_from_library);
+                    if (result)
                         galleryIntent();
 
-                } else if (items[item].equals("Cancel")) {
+                } else if (items[item].equals( getString(R.string.cancel))) {
                     dialog.dismiss();
                 }
             }
@@ -301,16 +313,14 @@ public class NumberUserInfoActivity extends AppCompatActivity implements Constan
         builder.show();
     }
 
-    private void galleryIntent()
-    {
+    private void galleryIntent() {
         Intent intent = new Intent();
         intent.setType("image/*");
         intent.setAction(Intent.ACTION_GET_CONTENT);//
-        startActivityForResult(Intent.createChooser(intent, "Select File"),SELECT_FILE);
+        startActivityForResult(Intent.createChooser(intent,  getString(R.string.select_file)), SELECT_FILE);
     }
 
-    private void cameraIntent()
-    {
+    private void cameraIntent() {
         Intent intent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
         startActivityForResult(intent, REQUEST_CAMERA);
     }
@@ -328,47 +338,37 @@ public class NumberUserInfoActivity extends AppCompatActivity implements Constan
     }
 
     private void onCaptureImageResult(Intent data) {
-        Bitmap thumbnail = (Bitmap) data.getExtras().get("data");
-        ByteArrayOutputStream bytes = new ByteArrayOutputStream();
-        thumbnail.compress(Bitmap.CompressFormat.JPEG, 90, bytes);
-
-        File destination = new File(Environment.getExternalStorageDirectory(),
-                System.currentTimeMillis() + ".jpg");
-
-        FileOutputStream fo;
-        try {
-            destination.createNewFile();
-            fo = new FileOutputStream(destination);
-            fo.write(bytes.toByteArray());
-            fo.close();
-        } catch (FileNotFoundException e) {
-            e.printStackTrace();
-        } catch (IOException e) {
-            e.printStackTrace();
+        bm = (Bitmap) data.getExtras().get("data");
+        if (isFirst) {
+            mFrontImage.setImageBitmap(bm);
+            BitmapSaver.saveBitmapToFile(bm, imageFront);
+        } else {
+            mBackImage.setImageBitmap(bm);
+            BitmapSaver.saveBitmapToFile(bm, imageBack);
         }
-
-        if(isFirst)
-            mFrontImage.setImageBitmap(thumbnail);
-        else
-            mBackImage.setImageBitmap(thumbnail);
     }
 
     @SuppressWarnings("deprecation")
     private void onSelectFromGalleryResult(Intent data) {
-
-        Bitmap bm=null;
         if (data != null) {
             try {
-                bm = MediaStore.Images.Media.getBitmap(getApplicationContext().getContentResolver(), data.getData());
+                bm = MediaStore.Images.Media.getBitmap(mContext.getContentResolver(), data.getData());
             } catch (IOException e) {
                 e.printStackTrace();
             }
         }
 
-        if(isFirst)
+        if (isFirst) {
             mFrontImage.setImageBitmap(bm);
-        else
+            BitmapSaver.saveBitmapToFile(bm, imageFront);
+
+        } else {
             mBackImage.setImageBitmap(bm);
+            BitmapSaver.saveBitmapToFile(bm, imageBack);
+
+        }
+
+
     }
 
 

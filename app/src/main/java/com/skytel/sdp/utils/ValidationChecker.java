@@ -33,9 +33,8 @@ public class ValidationChecker {
         }
         return true;
     }
-    public static boolean isImageChosen(ImageView imgv){
-
-        if(imgv.getDrawable() == null){
+    public static boolean hasBitmapValue(Bitmap bm){
+        if(bm == null){
             return false;
         }
         return true;

@@ -109,10 +109,9 @@ public class ValueAddedServiceFragment extends Fragment implements Constants {
         mDeactive.setOnClickListener(deactiveOnClick);
 
         mSendOrder.setOnClickListener(new View.OnClickListener() {
-            //TODO: check image chosen
             @Override
             public void onClick(View v) {
-                if(ValidationChecker.isValidationPassed(mPhonenumber) ){
+                if(ValidationChecker.isValidationPassed(mPhonenumber) && ValidationChecker.isSelected((int) mVasTypeSpinner.getSelectedItemId())){
                     mConfirmDialog.show(getFragmentManager(), "dialog");
                 }
             }

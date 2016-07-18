@@ -110,14 +110,6 @@ public class NumberChoiceFragment extends Fragment {
         mChosenNewNumber = (TextView) rootView.findViewById(R.id.chosen_new_number);
         mRegisterNumber = (EditText) rootView.findViewById(R.id.register_number);
 
-       /* for (int i = 0; i < 100; i++) {
-            Phonenumber pn = new Phonenumber();
-            pn.setId(i + 1);
-            pn.setPhoneNumber("91109" + (i + 1));
-            pn.setPriceType("1");
-            mNumbersArrayList.add(pn);
-        }*/
-
         mNumberChoiceAdapter = new NumberChoiceAdapter(mContext, mNumbersArrayList);
         mNewNumbersGrid.setAdapter(mNumberChoiceAdapter);
 
@@ -127,7 +119,7 @@ public class NumberChoiceFragment extends Fragment {
         mPriceTypeInfoListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                Toast.makeText(mContext, mPriceTypeInfoArrayList.get(position).getPrice(), Toast.LENGTH_SHORT).show();
+                Toast.makeText(mContext, mPriceTypeInfoArrayList.get(position).getId()+"", Toast.LENGTH_SHORT).show();
                 mSelectedPriceId = mPriceTypeInfoArrayList.get(position).getId();
             }
         });
@@ -161,6 +153,7 @@ public class NumberChoiceFragment extends Fragment {
             public void onClick(View v) {
                 try {
                     if(ValidationChecker.isSelected(mSelectedPriceId) && ValidationChecker.isValidationPassedTextView(mChosenNewNumber) && ValidationChecker.isValidationPassed(mRegisterNumber)) {
+                        Toast.makeText(mContext, mPriceTypeInfoArrayList.get(mSelectedPriceId).getPriceTypeId()+"", Toast.LENGTH_SHORT).show();
                         runReserveNumber(mSearchNumber.getText().toString(), mRegisterNumber.getText().toString(),mPriceTypeInfoArrayList.get(mSelectedPriceId).getPriceTypeId() , 1);
                     }
                     else{
@@ -485,7 +478,7 @@ public class NumberChoiceFragment extends Fragment {
                             String days = jsonData.getString("days");
                             String serviceType = jsonData.getString("serviceType");
 
-                            if(serviceType == "prepaid") {
+                            if(serviceType.equals("prepaid")) {
                                 mPriceType = new PriceType();
                                 mPriceType.setPriceTypeId(price_type_id);
                                 mPriceType.setPrice(price);
@@ -644,6 +637,10 @@ public class NumberChoiceFragment extends Fragment {
                                 intent.putExtra("phone_number",phone);
                                 intent.putExtra("register_number",register);
                                 startActivity(intent);
+
+                                mChosenNewNumber.setText("");
+                                mRegisterNumber.setText("");
+                                mPriceTypeInfoListView.setSelection(-1);
                             }
                         });
 

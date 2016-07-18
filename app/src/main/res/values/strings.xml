@@ -64,6 +64,10 @@
     <string name="tab_newnumber_order">Шинэ дугаарын захиалга</string>
     <string name="tab_order_report">Захиалгын тайлан</string>
 
+    <!-- Information Tabs -->
+    <string name="info_news">Мэдээ, мэдээлэл</string>
+    <string name="service_info">Үйлчилгээний мэдээлэл</string>
+
     <!-- Sky dealer Tabs -->
     <string name="tab_skydealer_chargecard">Карт цэнэглэлт</string>
     <string name="tab_skydealer_postpaidpayment">ДТҮ төлбөр төлөлт</string>
@@ -182,4 +186,8 @@
     <string name="choose_from_library">Зургийн цомгоос сонгох</string>
     <string name="cancel">Болих</string>
     <string name="add_photo">Зураг нэмэх</string>
+    <string name="select_file">Файл сонгох</string>
+
+    <!-- Information and news fragment -->
+    <string name="choose_info_type">Мэдээллийн төрөл сонгоно уу?</string>
 </resources>

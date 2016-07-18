@@ -7,7 +7,7 @@ import java.io.File;
 import java.io.FileOutputStream;
 
 /**
- * Created by bayarkhuu on 7/14/2016.
+ * Created by altanchimeg on 7/14/2016.
  */
 public class BitmapSaver {
     public static void saveBitmapToFile(Bitmap bitmap, String imageName) {
@@ -16,7 +16,8 @@ public class BitmapSaver {
         try {
             file.createNewFile();
             FileOutputStream ostream = new FileOutputStream(file);
-            bitmap.compress(Bitmap.CompressFormat.PNG, 75, ostream);
+            bitmap.compress(Bitmap.CompressFormat.PNG,95, ostream);
+
             ostream.close();
         } catch (Exception e) {
             e.printStackTrace();
