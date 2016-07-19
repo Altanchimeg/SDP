@@ -13,14 +13,20 @@ import android.widget.Toast;
 
 import com.skytel.sdp.R;
 import com.skytel.sdp.adapter.ChargeCardPackageTypeAdapter;
+import com.skytel.sdp.adapter.InfoNewsTypeAdapter;
 import com.skytel.sdp.database.DataManager;
+import com.skytel.sdp.entities.InfoNewsType;
+import com.skytel.sdp.entities.SalesReport;
 import com.skytel.sdp.utils.Constants;
 import com.skytel.sdp.utils.CustomProgressDialog;
 
+import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.List;
 
 import okhttp3.Call;
 import okhttp3.Callback;
@@ -33,48 +39,64 @@ import okhttp3.Response;
  * Created by Altanchimeg on 7/18/2016.
  */
 
-public class InfoNewsFragment extends Fragment{
+public class InfoNewsFragment extends Fragment {
     String TAG = InfoNewsFragment.class.getName();
 
     private OkHttpClient mClient;
     private Context mContext;
     private CustomProgressDialog mProgressDialog;
 
-    private ListView mInfoNewsTypeLis;
-        public InfoNewsFragment() {
+    private ListView mInfoNewsTypeListview;
+    private ArrayList<InfoNewsType> mInfoNewsTypeArrayList;
+
+    public InfoNewsFragment() {
+    }
+
+    @Override
+    public void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        mProgressDialog = new CustomProgressDialog(getActivity());
+        mInfoNewsTypeArrayList = new ArrayList<InfoNewsType>();
+    }
+
+    @Override
+    public View onCreateView(LayoutInflater inflater, ViewGroup container,
+                             Bundle savedInstanceState) {
+        View rootView = inflater.inflate(R.layout.info_news, container, false);
+        mContext = getActivity();
+        mClient = new OkHttpClient();
+
+        try {
+            mProgressDialog.show();
+            runGetInfoNewsList(0);
+        } catch (Exception e) {
+            e.printStackTrace();
         }
-        @Override
-        public void onCreate(Bundle savedInstanceState) {
-            super.onCreate(savedInstanceState);
-            mProgressDialog = new CustomProgressDialog(getActivity());
-        }
 
-        @Override
-        public View onCreateView(LayoutInflater inflater, ViewGroup container,
-                                 Bundle savedInstanceState) {
-            View rootView = inflater.inflate(R.layout.info_news, container, false);
-            mContext = getActivity();
-            mClient = new OkHttpClient();
+        mInfoNewsTypeListview = (ListView) rootView.findViewById(R.id.info_type_list_view);
+        mInfoNewsTypeListview.setAdapter(new InfoNewsTypeAdapter(getActivity(), mInfoNewsTypeArrayList));
+        mInfoNewsTypeListview.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                Toast.makeText(mContext, "" + position, Toast.LENGTH_LONG).show();
 
-     /*       mInfoNewsTypeLis = (ListView) rootView.findViewById(R.id.info_type_list_view);
-            mInfoNewsTypeLis.setAdapter(new InfoNewsTypeAdapter(getActivity()));
-            mInfoNewsTypeLis.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-                @Override
-                public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-
-                    Toast.makeText(mContext, "", Toast.LENGTH_LONG).show();
+                try {
+                    mProgressDialog.show();
+                    runGetInfoNewsList(mInfoNewsTypeArrayList.get(position).getCategoryId());
+                } catch (Exception e) {
+                    e.printStackTrace();
                 }
-            });*/
+            }
+        });
 
-            return rootView;
-        }
- /*   public void runChargeFunction() throws Exception {
+        return rootView;
+    }
+
+    public void runGetInfoNewsList(int categoryId) throws Exception {
         final StringBuilder url = new StringBuilder();
-        url.append(Constants.SERVER_URL);
-        url.append(Constants.FUNCTION_CHARGE);
-        url.append("?card_type=" + mCardType.getName());
-        url.append("&phone=" + mChargeCardPhoneNumber.getText().toString());
-        url.append("&pin=" + mChargeCardPinCode.getText().toString());
+        url.append(Constants.SERVER_SKYTEL_MN_URL);
+        url.append(Constants.FUNCTION_GET_INFO_NEWS_TYPE);
+        url.append("?category=" + categoryId);
 
         getActivity().runOnUiThread(new Runnable() {
             @Override
@@ -83,12 +105,9 @@ public class InfoNewsFragment extends Fragment{
             }
         });
 
-        System.out.print(url + "\n");
-        System.out.println(mPrefManager.getAuthToken());
 
         Request request = new Request.Builder()
                 .url(url.toString())
-                .addHeader(Constants.PREF_AUTH_TOKEN, mPrefManager.getAuthToken())
                 .build();
 
         mClient.newCall(request).enqueue(new Callback() {
@@ -124,51 +143,39 @@ public class InfoNewsFragment extends Fragment{
 
                                                  try {
                                                      JSONObject jsonObj = new JSONObject(resp);
-                                                     int result_code = jsonObj.getInt("result_code");
+                                                     int error_code = jsonObj.getInt("error_code");
+                                                     String message = jsonObj.getString("message");
 
-                                                     Log.d(TAG, "result_code " + result_code);
 
-                                                     if (result_code == Constants.RESULT_CODE_SUCCESS) {
+                                                     Log.d(TAG, "error_code: " + error_code);
+                                                     Log.d(TAG, "message: " + message);
 
-                                                         String dealer_id = jsonObj.getString("dealer_id");
-                                                         final String balance = jsonObj.getString("balance");
 
-                                                         Log.d(TAG, "dealer_id " + dealer_id);
-                                                         Log.d(TAG, "balance " + balance);
+                                                     JSONObject jsonObjCategory = jsonObj.getJSONObject("result");
+                                                     JSONArray jArray = jsonObjCategory.getJSONArray("categoryList");
+                                                     Log.d(TAG, "*****JARRAY*****" + jArray.length());
+                                                     mInfoNewsTypeArrayList.clear();
+                                                     for (int i = 0; i < jArray.length(); i++) {
+                                                         JSONObject jsonData = jArray.getJSONObject(i);
 
-                                                         mPrefManager.saveDealerBalance(balance);
-                                                         if (sBalanceUpdateListener != null) {
-                                                             sBalanceUpdateListener.onBalanceUpdate();
-                                                         }
-                                                         Log.d(TAG, "Show the success message to user");
-                                                         try {
-                                                             getActivity().runOnUiThread(new Runnable() {
-                                                                 @Override
-                                                                 public void run() {
-                                                                     Toast.makeText(mContext, "Success!", Toast.LENGTH_LONG).show();
-                                                                     mChargeCardPhoneNumber.setText("");
-                                                                     mChargeCardPinCode.setText("");
-                                                                 }
-                                                             });
-                                                         } catch (Exception ex) {
-                                                             ex.printStackTrace();
-                                                         }
+                                                         int categoryId = jsonData.getInt("id");
+                                                         String name = jsonData.getString("name");
 
-                                                     } else {
-                                                         final String result_msg = jsonObj.getString("result_msg");
-                                                         Log.d(TAG, "result_msg " + result_msg);
-                                                         getActivity().runOnUiThread(new Runnable() {
-                                                             @Override
-                                                             public void run() {
-                                                                 Toast.makeText(mContext, "" + result_msg, Toast.LENGTH_LONG).show();
-                                                                 mChargeCardPhoneNumber.setText("");
-                                                                 mChargeCardPinCode.setText("");
+                                                         Log.d(TAG, "INDEX:       " + i);
 
-                                                             }
-                                                         });
+                                                         Log.d(TAG, "categoryId: " + categoryId);
+                                                         Log.d(TAG, "name: " + name);
 
+                                                         InfoNewsType infoNewsType = new InfoNewsType();
+                                                         // DateTimeFormatter dtf = DateTimeFormat.forPattern("yyyy-MM-dd HH:mm:ss");
+                                                         infoNewsType.setId(i);
+                                                         infoNewsType.setCategoryId(categoryId);
+                                                         infoNewsType.setName(name);
+
+
+                                                         mInfoNewsTypeArrayList.add(i, infoNewsType);
                                                      }
-
+                                                    //TODO: get News info list
 
                                                  } catch (JSONException e) {
                                                      getActivity().runOnUiThread(new Runnable() {
@@ -185,6 +192,6 @@ public class InfoNewsFragment extends Fragment{
 
         );
     }
-*/
+
 
 }

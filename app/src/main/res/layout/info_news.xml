@@ -24,13 +24,9 @@
             android:singleLine="false"/>
     </LinearLayout>
 
-    <ScrollView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignParentRight="true"
-        android:scrollbars="none">
 
-        <LinearLayout style="@style/RightViewContainer">
+        <LinearLayout style="@style/RightViewContainer"
+            >
 
             <View style="@style/DividerStyle"></View>
 
@@ -58,5 +54,4 @@
             </LinearLayout>
 
         </LinearLayout>
-    </ScrollView>
 </RelativeLayout>
