@@ -6,7 +6,7 @@ package com.skytel.sdp.entities;
 
 public class InfoNewsType {
     private int id;
-    private int categoryId;
+    private String categoryId;
     private String name;
 
     public int getId() {
@@ -17,11 +17,11 @@ public class InfoNewsType {
         this.id = id;
     }
 
-    public int getCategoryId() {
+    public String getCategoryId() {
         return categoryId;
     }
 
-    public void setCategoryId(int categoryId) {
+    public void setCategoryId(String categoryId) {
         this.categoryId = categoryId;
     }
 

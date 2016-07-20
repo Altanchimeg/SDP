@@ -55,6 +55,8 @@ public interface Constants {
     String FUNCTION_GET_PREFIX = "/api/content/numberPrefixSearch";
     String FUNCTION_GET_PRICE = "/api/content/numberPrice";
     String FUNCTION_GET_INFO_NEWS_TYPE = "/api/content/list";
+    String FUNCTION_GETINFO_NEWS_DETAIL_PART1 = "/api/content/";
+    String FUNCTION_GETINFO_NEWS_DETAIL_PART2 = "/show";
 
     /* number.skytel.mn Service Functions */
     String SERVER_NUMBER_SKYTEL_URL = "http://number.skytel.mn/server/client.php";

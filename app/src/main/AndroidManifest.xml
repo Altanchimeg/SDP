@@ -15,7 +15,7 @@
         <activity
             android:name=".MainActivity"
             android:screenOrientation="sensorLandscape"
-            android:theme="@style/AppTheme.NoActionBar"></activity>
+            android:theme="@style/AppTheme.NoActionBar" />
         <activity
             android:name=".LoginActivity"
             android:theme="@android:style/Theme.NoTitleBar.Fullscreen">
@@ -26,9 +26,12 @@
             </intent-filter>
         </activity>
         <activity android:name=".ForgetPasswordActivity" />
-        <activity
+    <activity
             android:name=".NumberUserInfoActivity"
             android:theme="@style/AppTheme.NoActionBar" />
+        <activity android:name=".InfoNewsDetailActivity"
+            android:theme="@style/AppTheme.NoActionBar"></activity>
+
     </application>
 
 </manifest>

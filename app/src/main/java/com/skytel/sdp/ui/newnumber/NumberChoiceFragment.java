@@ -496,8 +496,6 @@ public class NumberChoiceFragment extends Fragment {
                             }
 
                         }
-
-
                         getActivity().runOnUiThread(new Runnable() {
                             @Override
                             public void run() {
