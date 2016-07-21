@@ -1,11 +1,15 @@
 package com.skytel.sdp;
 
 import android.content.Context;
+import android.graphics.drawable.Drawable;
+import android.os.StrictMode;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
 import android.text.Html;
+import android.text.Spanned;
 import android.util.Log;
+import android.webkit.WebView;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -37,8 +41,9 @@ public class InfoNewsDetailActivity extends AppCompatActivity implements Constan
 
     private TextView mContentTitle;
     private ImageView mContentImage;
-    private TextView mContentBodyText;
+//    private TextView mContentBodyText;
 
+    private WebView content_body;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -61,9 +66,14 @@ public class InfoNewsDetailActivity extends AppCompatActivity implements Constan
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         getSupportActionBar().setDisplayShowHomeEnabled(true);
 
+        StrictMode.ThreadPolicy policy = new StrictMode.ThreadPolicy.Builder().permitAll().build();
+        StrictMode.setThreadPolicy(policy);
+
         mContentTitle = (TextView) findViewById(R.id.content_title);
         mContentImage = (ImageView) findViewById(R.id.content_image);
-        mContentBodyText = (TextView) findViewById(R.id.content_body);
+      //  mContentBodyText = (TextView) findViewById(R.id.content_body);
+
+        content_body = (WebView) findViewById(R.id.content_body);
 
         try {
             mProgressDialog.show();
@@ -140,11 +150,11 @@ public class InfoNewsDetailActivity extends AppCompatActivity implements Constan
                                                      JSONObject jObjNews = jsonObjCategory.getJSONObject("content");
 
                                                      int newsId = jObjNews.getInt("id");
-                                                     String title = jObjNews.getString("title");
+                                                     final String title = jObjNews.getString("title");
                                                      String intro = jObjNews.getString("intro");
                                                      final String image = jObjNews.getString("image");
                                                      String createdAt = jObjNews.getString("createdAt");
-                                                     String text = jObjNews.getString("text");
+                                                     final String text = jObjNews.getString("text");
                                                      String description = jObjNews.getString("description");
 
 
@@ -156,16 +166,21 @@ public class InfoNewsDetailActivity extends AppCompatActivity implements Constan
                                                      Log.d(TAG, "text: " + text);
                                                      Log.d(TAG, "description: " + description);
 
-                                                     mContentTitle.setText(title);
                                                      runOnUiThread(new Runnable() {
                                                          @Override
                                                          public void run() {
+                                                             mContentTitle.setText(title);
                                                              Picasso.with(mContext).load(image).into(mContentImage);
+
+                                                             Spanned htmlSpanned = Html.fromHtml(text, new ImageGetter(mContext), null);
+  /*                                                           mContentBodyText.setText(htmlSpanned);
+*/
+
+                                                             content_body.loadDataWithBaseURL(null, htmlSpanned.toString(), "text/html", "utf-8", null);
+
+
                                                          }
                                                      });
-                                                     mContentBodyText.setText(Html.fromHtml(text));
-
-
                                                  } catch (JSONException e) {
                                                      runOnUiThread(new Runnable() {
                                                          @Override
@@ -181,4 +196,125 @@ public class InfoNewsDetailActivity extends AppCompatActivity implements Constan
 
         );
     }
+    public static CharSequence trim(CharSequence s, int start, int end) {
+        while (start < end && Character.isWhitespace(s.charAt(start))) {
+            start++;
+        }
+
+        while (end > start && Character.isWhitespace(s.charAt(end - 1))) {
+            end--;
+        }
+
+        return s.subSequence(start, end);
+    }
 }
+
+
+class ImageGetter implements Html.ImageGetter {
+    Context context;
+
+    public ImageGetter(Context context) {
+        this.context = context;
+    }
+
+    public Drawable getDrawable(String source) {
+        return context.getResources().getDrawable(R.drawable.skytel_logo);
+
+/*
+        try {
+            Bitmap bitmap = BitmapFactory.decodeStream((InputStream) new URL("http://www.skytel.mn/" + source).getContent());
+            return new BitmapDrawable(bitmap);
+        } catch (IOException e1) {
+            e1.printStackTrace();
+        }
+
+        return null;
+*/
+/*        Bitmap myBitmap = null;
+        try {
+            Thread thread = new Thread(new Runnable()
+            {
+                @Override
+                public void run()
+                {
+                    try
+                    {
+                        URL url = new URL("http://www.skytel.mn/uploads/images/6.jpg");
+                        HttpURLConnection connection = (HttpURLConnection) url.openConnection();
+                        connection.setDoInput(true);
+                        connection.connect();
+                        InputStream input = connection.getInputStream();
+                        Bitmap myBitmap = BitmapFactory.decodeStream(input);
+                    }
+                    catch (Exception e)
+                    {
+                        e.printStackTrace();
+                    }
+                }
+            });
+
+            thread.start();
+
+            //  return myBitmap;
+            return new BitmapDrawable(myBitmap);*/
+
+/*
+        } catch (Exception e) {
+            e.printStackTrace();
+*/
+        //    return null;
+/*
+            return context.getResources().getDrawable(R.drawable.skytel_logo);
+        }
+*/
+
+        //        Log.d("ImageGetter", "Source " + source);
+        //   ImageView imageView = new ImageView(context);
+        //Picasso.with(context).load("https://www.skytel.mn/uploads/images/6.jpg").into(imageView);
+        //    Picasso.with(context).load("https://www.skytel.mn/uploads/images/6.jpg").into(target);
+
+        //   Drawable d = imageView.getDrawable();
+        //Drawable d = context.getResources().getDrawable(R.drawable.skytel_logo);
+        //  d.setBounds(0, 0, d.getIntrinsicWidth(), d.getIntrinsicHeight());
+        //   return d;
+       /*
+        int id;
+
+
+        id = context.getResources().getIdentifier(source, "drawable", context.getPackageName());
+
+        if (id == 0) {
+            // the drawable resource wasn't found in our package, maybe it is a stock android drawable?
+            id = context.getResources().getIdentifier(source, "drawable", "android");
+        }
+
+        if (id == 0) {
+            // prevent a crash if the resource still can't be found
+            return null;
+        } else {
+            Drawable d = context.getResources().getDrawable(R.drawable.skytel_logo);
+            d.setBounds(0, 0, d.getIntrinsicWidth(), d.getIntrinsicHeight());
+            return d;
+        }*/
+   /* }
+
+    Target target = new Target() {
+        @Override
+        public void onBitmapLoaded(Bitmap bitmap, Picasso.LoadedFrom from) {
+//            imageView.setImageBitmap(bitmap);
+            //          Drawable image = imageView.getDrawable();
+
+        }
+
+        @Override
+        public void onBitmapFailed(Drawable errorDrawable) {
+        }
+
+        @Override
+        public void onPrepareLoad(Drawable placeHolderDrawable) {
+        }
+    };
+*/
+    }
+}
+

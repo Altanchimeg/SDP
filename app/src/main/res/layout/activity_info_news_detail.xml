@@ -42,10 +42,16 @@
                 android:layout_height="wrap_content"
                 android:background="@drawable/bg_pattern" />
 
-            <TextView
+            <!--
+                        <TextView
+                            android:id="@+id/content_body"
+                            style="@style/MainViewTextViewGrey"
+                            android:text="body is here" />
+            -->
+            <WebView
                 android:id="@+id/content_body"
-                style="@style/MainViewTextViewGrey"
-                android:text="body is here" />
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"></WebView>
 
         </LinearLayout>
     </ScrollView>
