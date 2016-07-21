@@ -73,6 +73,12 @@ public class InfoNewsDetailActivity extends AppCompatActivity implements Constan
         }
     }
 
+    @Override
+    public boolean onSupportNavigateUp() {
+        finish();
+        return true;
+    }
+
     public void runGetInfoNewsDetail(int news_id) throws Exception {
         final StringBuilder url = new StringBuilder();
         url.append(Constants.SERVER_SKYTEL_MN_URL);
@@ -93,9 +99,12 @@ public class InfoNewsDetailActivity extends AppCompatActivity implements Constan
                                                  mProgressDialog.dismiss();
                                                  System.out.println("onFailure");
                                                  e.printStackTrace();
-
-                                                 Toast.makeText(mContext, "Error on Failure!", Toast.LENGTH_LONG).show();
-
+                                                 runOnUiThread(new Runnable() {
+                                                     @Override
+                                                     public void run() {
+                                                         Toast.makeText(mContext, "Error on Failure!", Toast.LENGTH_LONG).show();
+                                                     }
+                                                 });
                                              }
 
                                              @Override
@@ -104,7 +113,8 @@ public class InfoNewsDetailActivity extends AppCompatActivity implements Constan
 
                                                  System.out.println("onResponse");
 
-                                                 if (!response.isSuccessful()) throw new IOException("Unexpected code " + response);
+                                                 if (!response.isSuccessful())
+                                                     throw new IOException("Unexpected code " + response);
 
                                                  Headers responseHeaders = response.headers();
                                                  for (int i = 0; i < responseHeaders.size(); i++) {
@@ -132,8 +142,8 @@ public class InfoNewsDetailActivity extends AppCompatActivity implements Constan
                                                      int newsId = jObjNews.getInt("id");
                                                      String title = jObjNews.getString("title");
                                                      String intro = jObjNews.getString("intro");
-                                                     String image = jObjNews.getString("image");
-                                                     String creatAt = jObjNews.getString("creatAt");
+                                                     final String image = jObjNews.getString("image");
+                                                     String createdAt = jObjNews.getString("createdAt");
                                                      String text = jObjNews.getString("text");
                                                      String description = jObjNews.getString("description");
 
@@ -142,17 +152,27 @@ public class InfoNewsDetailActivity extends AppCompatActivity implements Constan
                                                      Log.d(TAG, "title: " + title);
                                                      Log.d(TAG, "intro: " + intro);
                                                      Log.d(TAG, "image: " + image);
-                                                     Log.d(TAG, "creatAt: " + creatAt);
+                                                     Log.d(TAG, "createdAt: " + createdAt);
                                                      Log.d(TAG, "text: " + text);
                                                      Log.d(TAG, "description: " + description);
 
                                                      mContentTitle.setText(title);
-                                                     Picasso.with(mContext).load(image).into(mContentImage);
-                                                     //mContentBodyText.setText(Html.fromHtml(text));
+                                                     runOnUiThread(new Runnable() {
+                                                         @Override
+                                                         public void run() {
+                                                             Picasso.with(mContext).load(image).into(mContentImage);
+                                                         }
+                                                     });
+                                                     mContentBodyText.setText(Html.fromHtml(text));
 
 
                                                  } catch (JSONException e) {
-                                                     Toast.makeText(mContext, "Алдаатай хариу ирлээ", Toast.LENGTH_LONG).show();
+                                                     runOnUiThread(new Runnable() {
+                                                         @Override
+                                                         public void run() {
+                                                             Toast.makeText(mContext, "Алдаатай хариу ирлээ", Toast.LENGTH_LONG).show();
+                                                         }
+                                                     });
                                                      e.printStackTrace();
 
                                                  }

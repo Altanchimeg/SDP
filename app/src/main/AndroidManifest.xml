@@ -26,10 +26,11 @@
             </intent-filter>
         </activity>
         <activity android:name=".ForgetPasswordActivity" />
-    <activity
+        <activity
             android:name=".NumberUserInfoActivity"
             android:theme="@style/AppTheme.NoActionBar" />
-        <activity android:name=".InfoNewsDetailActivity"
+        <activity
+            android:name=".InfoNewsDetailActivity"
             android:theme="@style/AppTheme.NoActionBar"></activity>
 
     </application>

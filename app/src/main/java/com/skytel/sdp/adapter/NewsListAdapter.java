@@ -34,6 +34,10 @@ public class NewsListAdapter extends BaseAdapter implements Constants {
         mInflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
     }
 
+    public void refresh(ArrayList<NewsListItem> list) {
+        mList = list;
+    }
+
     @Override
     public int getCount() {
         return mList.size();
@@ -69,6 +73,7 @@ public class NewsListAdapter extends BaseAdapter implements Constants {
 
         return convertView;
     }
+
 
     class ViewHolderContact {
         public TextView newsHeader;

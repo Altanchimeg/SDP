@@ -1,6 +1,8 @@
 package com.skytel.sdp.adapter;
 
 import android.content.Context;
+import android.graphics.Color;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -8,10 +10,8 @@ import android.widget.BaseAdapter;
 import android.widget.TextView;
 
 import com.skytel.sdp.R;
-import com.skytel.sdp.database.DataManager;
-import com.skytel.sdp.entities.CardType;
 import com.skytel.sdp.entities.InfoNewsType;
-import com.skytel.sdp.enums.PackageTypeEnum;
+import com.skytel.sdp.ui.information.InfoNewsFragment;
 import com.skytel.sdp.utils.Constants;
 
 import java.util.ArrayList;
@@ -26,11 +26,11 @@ public class InfoNewsTypeAdapter extends BaseAdapter implements Constants {
     private Context context;
     private List<InfoNewsType> mList;
     private LayoutInflater mInflater;
+    private int currentCategoryPos = 0;
 
     public InfoNewsTypeAdapter(Context context, ArrayList<InfoNewsType> list) {
         this.context = context;
         mList = list;
-
         mInflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
     }
 
@@ -63,7 +63,20 @@ public class InfoNewsTypeAdapter extends BaseAdapter implements Constants {
         viewHolder.infoNews.setText(mList.get(position).getName());
         convertView.setId(mList.get(position).getId());
 
+        if (currentCategoryPos == position) {
+            viewHolder.infoNews.setBackgroundColor(context.getResources().getColor(R.color.colorSkytelYellow));
+            viewHolder.infoNews.setTextColor(Color.WHITE);
+        } else {
+            viewHolder.infoNews.setBackgroundColor(context.getResources().getColor(android.R.color.transparent));
+            viewHolder.infoNews.setTextColor(context.getResources().getColor(R.color.colorMenuText));
+
+        }
+
         return convertView;
+    }
+
+    public void setCurrentCategoryPos(int pos) {
+        currentCategoryPos = pos;
     }
 
     class ViewHolderContact {

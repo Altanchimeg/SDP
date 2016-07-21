@@ -6,9 +6,11 @@
     android:orientation="vertical">
 
     <TextView
-
+        android:textColor="@color/colorMenuText"
         android:id="@+id/infoNewsType"
         android:layout_width="match_parent"
         android:layout_height="@dimen/fifth_padding"
+        android:gravity="center_vertical"
         android:padding="@dimen/main_padding" />
+
 </LinearLayout>

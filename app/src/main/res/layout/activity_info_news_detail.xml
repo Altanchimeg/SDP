@@ -21,28 +21,32 @@
 
     </android.support.design.widget.AppBarLayout>
 
-    <LinearLayout
-        android:layout_height="match_parent"
+    <ScrollView
         android:layout_width="match_parent"
-        android:gravity="center"
-        android:orientation="vertical">
+        android:layout_height="match_parent">
 
-        <TextView
-            android:id="@+id/content_title"
-            style="@style/MainViewTextViewBlue"
-            android:text="Header is here!" />
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:gravity="center"
+            android:orientation="vertical">
 
-        <ImageView
-            android:id="@+id/content_image"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:background="@drawable/bg_pattern"
-            />
+            <TextView
+                android:id="@+id/content_title"
+                style="@style/MainViewTextViewBlue"
+                android:text="Header is here!" />
 
-        <TextView
-            android:id="@+id/content_body"
-            style="@style/MainViewTextViewGrey"
-            android:text="body is here" />
+            <ImageView
+                android:id="@+id/content_image"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:background="@drawable/bg_pattern" />
 
-    </LinearLayout>
+            <TextView
+                android:id="@+id/content_body"
+                style="@style/MainViewTextViewGrey"
+                android:text="body is here" />
+
+        </LinearLayout>
+    </ScrollView>
 </RelativeLayout>

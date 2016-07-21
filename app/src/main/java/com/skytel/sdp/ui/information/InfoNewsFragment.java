@@ -13,15 +13,11 @@ import android.widget.ListView;
 import android.widget.Toast;
 
 import com.skytel.sdp.InfoNewsDetailActivity;
-import com.skytel.sdp.NumberUserInfoActivity;
 import com.skytel.sdp.R;
-import com.skytel.sdp.adapter.ChargeCardPackageTypeAdapter;
 import com.skytel.sdp.adapter.InfoNewsTypeAdapter;
 import com.skytel.sdp.adapter.NewsListAdapter;
-import com.skytel.sdp.database.DataManager;
 import com.skytel.sdp.entities.InfoNewsType;
 import com.skytel.sdp.entities.NewsListItem;
-import com.skytel.sdp.entities.SalesReport;
 import com.skytel.sdp.utils.Constants;
 import com.skytel.sdp.utils.CustomProgressDialog;
 
@@ -31,7 +27,6 @@ import org.json.JSONObject;
 
 import java.io.IOException;
 import java.util.ArrayList;
-import java.util.List;
 
 import okhttp3.Call;
 import okhttp3.Callback;
@@ -55,8 +50,8 @@ public class InfoNewsFragment extends Fragment implements Constants {
     private ListView mNewsListview;
     private InfoNewsTypeAdapter mInfoNewsAdapter;
     private NewsListAdapter mNewsListAdapter;
-    private ArrayList<InfoNewsType> mInfoNewsTypeArrayList;
-    private ArrayList<NewsListItem> mNewsListArrayList;
+    private ArrayList<InfoNewsType> mInfoNewsTypeArrayList = new ArrayList<InfoNewsType>();
+    private ArrayList<NewsListItem> mNewsListArrayList = new ArrayList<NewsListItem>();
 
     public InfoNewsFragment() {
     }
@@ -64,9 +59,6 @@ public class InfoNewsFragment extends Fragment implements Constants {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        mProgressDialog = new CustomProgressDialog(getActivity());
-        mInfoNewsTypeArrayList = new ArrayList<InfoNewsType>();
-        mNewsListArrayList = new ArrayList<NewsListItem>();
     }
 
     @Override
@@ -75,14 +67,8 @@ public class InfoNewsFragment extends Fragment implements Constants {
         View rootView = inflater.inflate(R.layout.info_news, container, false);
         mContext = getActivity();
         mClient = new OkHttpClient();
-//TODO: How to add nofityDatasetchanged()? Where?
-        try {
-            mProgressDialog.show();
-            runGetInfoNewsList("0");
-            mInfoNewsAdapter.notifyDataSetChanged();
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
+
+        mProgressDialog = new CustomProgressDialog(getActivity());
 
         mNewsListview = (ListView) rootView.findViewById(R.id.news_list_view);
         mNewsListAdapter = new NewsListAdapter(getActivity(), mNewsListArrayList);
@@ -94,36 +80,36 @@ public class InfoNewsFragment extends Fragment implements Constants {
         mInfoNewsTypeListview.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                Toast.makeText(mContext, "" + position, Toast.LENGTH_LONG).show();
-                mNewsListAdapter.notifyDataSetChanged();
+                mInfoNewsAdapter.setCurrentCategoryPos(position);
+                Log.d(TAG, "type position: " + position);
+                Log.d(TAG, "category id: " + mInfoNewsTypeArrayList.get(position).getCategoryId());
                 try {
-
-                    mProgressDialog.show();
                     runGetInfoNewsList(mInfoNewsTypeArrayList.get(position).getCategoryId());
-
                 } catch (Exception e) {
                     e.printStackTrace();
                 }
             }
         });
 
+        try {
+            runGetInfoNewsList("0");
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+
         return rootView;
     }
 
     public void runGetInfoNewsList(final String categoryTypeId) throws Exception {
+        mProgressDialog.show();
+
         final StringBuilder url = new StringBuilder();
         url.append(Constants.SERVER_SKYTEL_MN_URL);
         url.append(Constants.FUNCTION_GET_INFO_NEWS_TYPE);
         url.append("?category=" + categoryTypeId);
 
-        getActivity().runOnUiThread(new Runnable() {
-            @Override
-            public void run() {
-                Toast.makeText(getActivity(), "URL: " + url.toString(), Toast.LENGTH_LONG).show();
-
-            }
-        });
-
+        Log.d(TAG, "URL: " + url.toString());
 
         Request request = new Request.Builder()
                 .url(url.toString())
@@ -162,7 +148,6 @@ public class InfoNewsFragment extends Fragment implements Constants {
 
                                                  try {
 
-
                                                      JSONObject jsonObj = new JSONObject(resp);
                                                      int error_code = jsonObj.getInt("error_code");
                                                      String message = jsonObj.getString("message");
@@ -183,7 +168,6 @@ public class InfoNewsFragment extends Fragment implements Constants {
                                                              String name = jsonData.getString("name");
 
                                                              Log.d(TAG, "INDEX:       " + i);
-
                                                              Log.d(TAG, "categoryId: " + categoryId);
                                                              Log.d(TAG, "name: " + name);
 
@@ -193,23 +177,27 @@ public class InfoNewsFragment extends Fragment implements Constants {
                                                              infoNewsType.setCategoryId(categoryId);
                                                              infoNewsType.setName(name);
 
-
                                                              mInfoNewsTypeArrayList.add(i, infoNewsType);
                                                          }
                                                          getActivity().runOnUiThread(new Runnable() {
                                                              @Override
                                                              public void run() {
-
-                                                                 mInfoNewsTypeListview.setAdapter(new InfoNewsTypeAdapter(getActivity(), mInfoNewsTypeArrayList));
+                                                                 Log.d(TAG, "mInfoNewsTypeArrayList size: " + mInfoNewsTypeArrayList.size());
+                                                                 mInfoNewsAdapter.setCurrentCategoryPos(0);
+                                                                 mInfoNewsAdapter.notifyDataSetChanged();
+                                                                 try {
+                                                                     runGetInfoNewsList(mInfoNewsTypeArrayList.get(0).getCategoryId());
+                                                                 } catch (Exception e) {
+                                                                     e.printStackTrace();
+                                                                 }
                                                              }
-
                                                          });
 
                                                      } else {
 
                                                          JSONArray jArrayNewsList = jsonObjCategory.getJSONArray("newsList");
                                                          Log.d(TAG, "*****JARRAY NewsList*****" + jArrayNewsList.length());
-                                                         mInfoNewsTypeArrayList.clear();
+                                                         mNewsListArrayList.clear();
                                                          for (int i = 0; i < jArrayNewsList.length(); i++) {
                                                              JSONObject jsonData = jArrayNewsList.getJSONObject(i);
 
@@ -242,10 +230,10 @@ public class InfoNewsFragment extends Fragment implements Constants {
                                                          getActivity().runOnUiThread(new Runnable() {
                                                              @Override
                                                              public void run() {
-                                                                 Toast.makeText(mContext, "", Toast.LENGTH_LONG).show();
+                                                                 mInfoNewsAdapter.notifyDataSetChanged();
 
-                                                                 mNewsListview.setAdapter(new NewsListAdapter(getActivity(), mNewsListArrayList));
-
+                                                                 mNewsListAdapter.refresh(mNewsListArrayList);
+                                                                 mNewsListAdapter.notifyDataSetChanged();
                                                                  mNewsListview.setOnItemClickListener(new AdapterView.OnItemClickListener() {
                                                                      @Override
                                                                      public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
@@ -253,9 +241,8 @@ public class InfoNewsFragment extends Fragment implements Constants {
                                                                          Toast.makeText(mContext, "ID: " + mNewsListArrayList.get(position).getNewsListItemId(), Toast.LENGTH_SHORT).show();
 
                                                                          Intent intent = new Intent(mContext, InfoNewsDetailActivity.class);
-                                                                         intent.putExtra("news_id",mNewsListArrayList.get(position).getNewsListItemId());
+                                                                         intent.putExtra("news_id", mNewsListArrayList.get(position).getNewsListItemId());
                                                                          startActivity(intent);
-
                                                                      }
                                                                  });
                                                              }
