@@ -49,6 +49,8 @@ public interface Constants {
     String FUNCTION_VAS_TYPE = "vas_info.json";
     String FUNCTION_VAS_CHANGE_STATE = "vaschange.json";
     String FUNCTION_SERVICE_REPORT = "service_report.json";
+    String LINK_PREPAID = "/p/prepaid";
+    String LINK_POSTPAID = "/p/postpaid";
 
     /* Skytel.mn Service Functions */
     String SERVER_SKYTEL_MN_URL = "https://www.skytel.mn";

@@ -12,9 +12,8 @@ import android.view.ViewGroup;
 
 import com.skytel.sdp.R;
 import com.skytel.sdp.ui.information.InfoNewsFragment;
-import com.skytel.sdp.ui.information.ServiceInfoFragment;
-import com.skytel.sdp.ui.newnumber.NumberChoiceFragment;
-import com.skytel.sdp.ui.newnumber.NumberOrderReportFragment;
+import com.skytel.sdp.ui.information.PostpaidInfoFragment;
+import com.skytel.sdp.ui.information.PrepaidInfoFragment;
 
 /**
  * Created by Altanchimeg on 7/18/2016.
@@ -50,7 +49,8 @@ public class TabInformationFragment extends Fragment {
 
         TabLayout tabLayout = (TabLayout) rootView.findViewById(R.id.tab_view);
         tabLayout.addTab(tabLayout.newTab().setText(getText(R.string.info_news)));
-        tabLayout.addTab(tabLayout.newTab().setText(getText(R.string.service_info)));
+        tabLayout.addTab(tabLayout.newTab().setText(getText(R.string.prepaid_info)));
+        tabLayout.addTab(tabLayout.newTab().setText(getText(R.string.postpaid_info)));
         tabLayout.setTabGravity(TabLayout.GRAVITY_FILL);
 
         mViewPager.addOnPageChangeListener(new TabLayout.TabLayoutOnPageChangeListener(tabLayout));
@@ -87,8 +87,10 @@ public class TabInformationFragment extends Fragment {
             Fragment fragment;
             if (i == 0) {
                 fragment = new InfoNewsFragment();
+            } else if(i==1){
+                fragment = new PrepaidInfoFragment();
             } else {
-                fragment = new ServiceInfoFragment();
+                fragment = new PostpaidInfoFragment();
             }
             return fragment;
         }
@@ -96,7 +98,7 @@ public class TabInformationFragment extends Fragment {
         @Override
         public int getCount() {
             // For this contrived example, we have a 100-object collection.
-            return 2;
+            return 3;
         }
 
         @Override
