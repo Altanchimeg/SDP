@@ -93,7 +93,7 @@ public class LoginActivity extends Activity implements Constants {
         url.append("?login=" + mEtUserName.getText().toString());
         url.append("&pass=" + mEtPassword.getText().toString());
 
-        System.out.print(url + "\n");
+       Log.d(TAG, "send URL: "+url.toString());
 
         Request request = new Request.Builder()
                 .url(url.toString())
@@ -161,7 +161,7 @@ public class LoginActivity extends Activity implements Constants {
                             @Override
                             public void run() {
 
-                                Toast.makeText(mContext, result_msg + "", Toast.LENGTH_SHORT).show();
+//                                Toast.makeText(mContext, result_msg + "", Toast.LENGTH_SHORT).show();
 
                             }
                         });

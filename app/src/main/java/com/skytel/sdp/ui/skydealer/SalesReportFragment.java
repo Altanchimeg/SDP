@@ -160,7 +160,7 @@ public class SalesReportFragment extends Fragment implements Constants {
 
                 try {
                     mSelectedFilterByUnit = cardTypes.get(position-1).getName();
-                    Toast.makeText(getActivity(),cardTypes.get(position-1).getName(),Toast.LENGTH_SHORT).show();
+                    Log.d(TAG, "Card type name: "+cardTypes.get(position-1).getName());
                 } catch (ArrayIndexOutOfBoundsException e){
 
                 }
@@ -280,7 +280,6 @@ public class SalesReportFragment extends Fragment implements Constants {
 
                     String start_date = mFilterByStartDate.getText().toString();
                     String end_date = mFilterByEndDate.getText().toString();
-
 
                     runSalesReportFunction(mReportTypeValue[mSelectedItemId], 100, 0, isSuccess, phone_number, start_date, end_date,mSelectedFilterByUnit);
                 } else {
@@ -421,7 +420,7 @@ public class SalesReportFragment extends Fragment implements Constants {
         getActivity().runOnUiThread(new Runnable() {
             @Override
             public void run() {
-                Toast.makeText(getActivity(), "URL: " + url.toString(), Toast.LENGTH_LONG).show();
+                Log.d(TAG, "sned URL: "+url.toString());
             }
         });
 

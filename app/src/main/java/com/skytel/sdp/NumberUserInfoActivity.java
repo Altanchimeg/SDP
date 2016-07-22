@@ -115,7 +115,7 @@ public class NumberUserInfoActivity extends AppCompatActivity implements Constan
             mRegisterNumber= extras.getString("register_number");
             mPhoneNumber = extras.getString("phone_number");
 
-            Toast.makeText(this, "Researvation ID: "+ mReservationId,Toast.LENGTH_SHORT).show();
+            Log.d(TAG, "Reservation ID: "+mReservationId );
         }
 
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
@@ -192,7 +192,7 @@ public class NumberUserInfoActivity extends AppCompatActivity implements Constan
         url.append("&contact="+mContactNumber.getText().toString());
         url.append("&description="+mDescription.getText().toString());
 
-        Toast.makeText(this, "URL: " + url.toString(), Toast.LENGTH_LONG).show();
+        Log.d(TAG, "sedn URL: "+url.toString());
 
         System.out.print(url + "\n");
         System.out.println(mPrefManager.getAuthToken());
@@ -251,7 +251,7 @@ public class NumberUserInfoActivity extends AppCompatActivity implements Constan
                         runOnUiThread(new Runnable() {
                             @Override
                             public void run() {
-                                Toast.makeText(mContext, "Result: "+result_msg, Toast.LENGTH_SHORT).show();
+//                                Toast.makeText(mContext, "Result: "+result_msg, Toast.LENGTH_SHORT).show();
 
                             }
                         });

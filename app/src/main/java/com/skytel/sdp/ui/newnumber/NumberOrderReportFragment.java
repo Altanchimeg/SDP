@@ -141,13 +141,11 @@ public class NumberOrderReportFragment extends Fragment implements Constants {
         mMonth = mCalendar.get(Calendar.MONTH);
         mDay = mCalendar.get(Calendar.DAY_OF_MONTH);
 
-        mProgressDialog.show();
+
         String currentDateandTime = new SimpleDateFormat("yyyy-MM-dd").format(new Date());
-        /**
-         *       runNewNumberReportFunction(int length, int from, int order_status, String phone, String start_date, String end_date)
-         */
 
         try {
+            mProgressDialog.show();
             runNewNumberReportFunction(100, 0, mSelectedFilterButton, "", "1900-01-01", currentDateandTime);
         } catch (Exception e) {
             e.printStackTrace();
@@ -161,12 +159,12 @@ public class NumberOrderReportFragment extends Fragment implements Constants {
         @Override
         public void onClick(View v) {
             try {
-                    mProgressDialog.show();
+
                     String phone_number = mFilterByPhoneNumber.getText().toString();
                     int order_status = mSelectedFilterButton;
                     String start_date = mFilterByStartDate.getText().toString();
                     String end_date = mFilterByEndDate.getText().toString();
-
+                    mProgressDialog.show();
                     runNewNumberReportFunction(100, 0, order_status, phone_number, start_date, end_date);
 
             } catch (Exception e) {
@@ -335,7 +333,7 @@ public class NumberOrderReportFragment extends Fragment implements Constants {
         getActivity().runOnUiThread(new Runnable() {
             @Override
             public void run() {
-                Toast.makeText(getActivity(), "URL: " + url.toString(), Toast.LENGTH_LONG).show();
+                Log.d(TAG,"send URL: "+url.toString());
             }
         });
 
@@ -416,7 +414,6 @@ public class NumberOrderReportFragment extends Fragment implements Constants {
                         Log.d(TAG, "number: " + number);
 
                         NewNumberReport newNumberReport = new NewNumberReport();
-                        // DateTimeFormatter dtf = DateTimeFormat.forPattern("yyyy-MM-dd HH:mm:ss");
                         newNumberReport.setId(i);
                         newNumberReport.setOrderState(order_status);
                         newNumberReport.setNumberType(number_type);

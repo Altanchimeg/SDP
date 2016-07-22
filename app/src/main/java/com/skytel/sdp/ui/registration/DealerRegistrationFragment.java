@@ -193,7 +193,7 @@ public class DealerRegistrationFragment extends Fragment implements Constants {
         getActivity().runOnUiThread(new Runnable() {
             @Override
             public void run() {
-                Toast.makeText(getActivity(), "URL: " + url.toString(), Toast.LENGTH_LONG).show();
+                Log.d(TAG, "send URL: "+url.toString());
             }
         });
 
@@ -294,7 +294,7 @@ public class DealerRegistrationFragment extends Fragment implements Constants {
                                     try {
                                         mChosenDealerTypeCode = dealerChannelType.get(position - 1).getTypeCode().toString();
                                         mDiscountPercent.setText(dealerChannelType.get(position - 1).getDiscount().toString());
-                                        Toast.makeText(getActivity(), dealerChannelType.get(position - 1).getDiscount(), Toast.LENGTH_SHORT).show();
+                                        Log.d(TAG, "Dealer channel type discount percent: " + dealerChannelType.get(position - 1).getDiscount()+"%");
                                     } catch (ArrayIndexOutOfBoundsException e) {
 
                                     }
@@ -335,7 +335,7 @@ public class DealerRegistrationFragment extends Fragment implements Constants {
         getActivity().runOnUiThread(new Runnable() {
             @Override
             public void run() {
-                Toast.makeText(getActivity(), "URL: " + url.toString(), Toast.LENGTH_LONG).show();
+                Log.d(TAG, "send URL: "+url.toString());
             }
         });
 

@@ -90,9 +90,6 @@ public class RegistrationReportFragment extends Fragment implements Constants {
     private int mMonth;
     private int mDay;
 
-
-
-
     private final Calendar mCalendar = Calendar.getInstance();
 
 
@@ -359,7 +356,7 @@ public class RegistrationReportFragment extends Fragment implements Constants {
         getActivity().runOnUiThread(new Runnable() {
             @Override
             public void run() {
-                Toast.makeText(getActivity(), "URL: " + url.toString(), Toast.LENGTH_LONG).show();
+                Log.d(TAG, "send URL: "+url.toString());
             }
         });
 

@@ -90,7 +90,6 @@ public class ForgetPasswordActivity extends AppCompatActivity implements Constan
             public void onClick(View v) {
                 try {
                     if (ValidationChecker.isValidationPassed(mEtConfirmCode) && ValidationChecker.isValidationPassed(mEtNewPassword)) {
-                        Toast.makeText(mContext, "Please wait", Toast.LENGTH_SHORT).show();
                         ConfirmDialog confirmDialog = new ConfirmDialog();
                         Bundle args = new Bundle();
                         args.putInt("message", R.string.confirm);
@@ -124,7 +123,7 @@ public class ForgetPasswordActivity extends AppCompatActivity implements Constan
         url.append(FUNCTION_FORGET);
         url.append("?login=" + mEtPhoneNumber.getText().toString());
 
-        System.out.print(url + "\n");
+        Log.d(TAG, "send URL: "+url.toString());
 
         Request request = new Request.Builder()
                 .url(url.toString())
@@ -268,7 +267,7 @@ public class ForgetPasswordActivity extends AppCompatActivity implements Constan
                         runOnUiThread(new Runnable() {
                             @Override
                             public void run() {
-                                Toast.makeText(mContext, "Successfully changed!", Toast.LENGTH_LONG).show();
+//                                Toast.makeText(mContext, "Successfully changed!", Toast.LENGTH_LONG).show();
 
 
                             }
@@ -280,7 +279,7 @@ public class ForgetPasswordActivity extends AppCompatActivity implements Constan
                         runOnUiThread(new Runnable() {
                             @Override
                             public void run() {
-                                Toast.makeText(mContext, "" + result_msg, Toast.LENGTH_SHORT).show();
+//                                Toast.makeText(mContext, "" + result_msg, Toast.LENGTH_SHORT).show();
                                 mEtNewPassword.setText("");
                                 mEtConfirmCode.setText("");
 
@@ -311,13 +310,11 @@ public class ForgetPasswordActivity extends AppCompatActivity implements Constan
         public void onPositiveButton() {
             //  Toast.makeText(this, "Confirmed", Toast.LENGTH_LONG).show();
             try {
-                runRecoverFunction();
                 mProgressDialog.show();
+                runRecoverFunction();
             } catch (Exception e) {
                 e.printStackTrace();
             }
-
-
         }
 
         @Override

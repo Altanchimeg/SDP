@@ -78,7 +78,7 @@ public class ChangePasswordFragment extends Fragment implements Constants {
             public void onClick(View v) {
                 try {
                     if (ValidationChecker.isValidationPassed(mOldPassword) && ValidationChecker.isValidationPassed(mNewPassword)) {
-                        Toast.makeText(mContext, "Please wait", Toast.LENGTH_SHORT).show();
+
 
                         ConfirmDialog confirmDialog = new ConfirmDialog();
                         Bundle args = new Bundle();
@@ -113,7 +113,7 @@ public class ChangePasswordFragment extends Fragment implements Constants {
         getActivity().runOnUiThread(new Runnable() {
             @Override
             public void run() {
-                Toast.makeText(getActivity(), "URL: " + url.toString(), Toast.LENGTH_LONG).show();
+                Log.d(TAG, "send URL: "+url.toString());
             }
         });
 
@@ -134,9 +134,7 @@ public class ChangePasswordFragment extends Fragment implements Constants {
                 getActivity().runOnUiThread(new Runnable() {
                     @Override
                     public void run() {
-                        //     progressDialog.dismiss();
                         Toast.makeText(mContext, "Error on Failure!", Toast.LENGTH_LONG).show();
-                        // Used for debug
                     }
                 });
             }
@@ -163,7 +161,7 @@ public class ChangePasswordFragment extends Fragment implements Constants {
                     Log.d(TAG, "result_code " + result_code);
                     Log.d(TAG, "result_msg " + result_msg);
 
-                    if (result_code == RESULT_CODE_SUCCESS) {
+                  /*  if (result_code == RESULT_CODE_SUCCESS) {
                         getActivity().runOnUiThread(new Runnable() {
                             @Override
                             public void run() {
@@ -180,7 +178,7 @@ public class ChangePasswordFragment extends Fragment implements Constants {
 
                             }
                         });
-                    }
+                    }*/
                     getActivity().runOnUiThread(new Runnable() {
                         @Override
                         public void run() {
@@ -208,10 +206,10 @@ public class ChangePasswordFragment extends Fragment implements Constants {
 
         @Override
         public void onPositiveButton() {
-            //  Toast.makeText(this, "Confirmed", Toast.LENGTH_LONG).show();
             try {
-                runChangeFunction();
                 mProgressDialog.show();
+                runChangeFunction();
+
             } catch (Exception e) {
                 e.printStackTrace();
             }

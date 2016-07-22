@@ -237,9 +237,7 @@ public class InfoNewsFragment extends Fragment implements Constants {
                                                                  mNewsListview.setOnItemClickListener(new AdapterView.OnItemClickListener() {
                                                                      @Override
                                                                      public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                                                                         //TODO: Show news detail activity
-                                                                         Toast.makeText(mContext, "ID: " + mNewsListArrayList.get(position).getNewsListItemId(), Toast.LENGTH_SHORT).show();
-
+                                                                         Log.d(TAG, "News ID: "+mNewsListArrayList.get(position).getNewsListItemId());
                                                                          Intent intent = new Intent(mContext, InfoNewsDetailActivity.class);
                                                                          intent.putExtra("news_id", mNewsListArrayList.get(position).getNewsListItemId());
                                                                          startActivity(intent);

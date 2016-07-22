@@ -119,7 +119,7 @@ public class NumberChoiceFragment extends Fragment {
         mPriceTypeInfoListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                Toast.makeText(mContext, mPriceTypeInfoArrayList.get(position).getId()+"", Toast.LENGTH_SHORT).show();
+                Log.d(TAG, "PriceTypeInfo ID: "+mPriceTypeInfoArrayList.get(position).getId()+"");
                 mSelectedPriceId = mPriceTypeInfoArrayList.get(position).getId();
             }
         });
@@ -153,7 +153,8 @@ public class NumberChoiceFragment extends Fragment {
             public void onClick(View v) {
                 try {
                     if(ValidationChecker.isSelected(mSelectedPriceId) && ValidationChecker.isValidationPassedTextView(mChosenNewNumber) && ValidationChecker.isValidationPassed(mRegisterNumber)) {
-                        Toast.makeText(mContext, mPriceTypeInfoArrayList.get(mSelectedPriceId).getPriceTypeId()+"", Toast.LENGTH_SHORT).show();
+                        Log.d(TAG, "price type info selected price id"+mPriceTypeInfoArrayList.get(mSelectedPriceId).getPriceTypeId());
+                        mProgressDialog.show();
                         runReserveNumber(mSearchNumber.getText().toString(), mRegisterNumber.getText().toString(),mPriceTypeInfoArrayList.get(mSelectedPriceId).getPriceTypeId() , 1);
                     }
                     else{
@@ -171,13 +172,6 @@ public class NumberChoiceFragment extends Fragment {
                     e.printStackTrace();
                 }
 
-/*
-                NumberChoiceUserInfoFragment fragment2 = new NumberChoiceUserInfoFragment();
-                FragmentManager fragmentManager = getFragmentManager();
-                FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
-                fragmentTransaction.replace(R.id.fragment1, fragment2);
-                fragmentTransaction.commit();
-*/
             }
         });
 
@@ -194,7 +188,7 @@ public class NumberChoiceFragment extends Fragment {
         getActivity().runOnUiThread(new Runnable() {
             @Override
             public void run() {
-                Toast.makeText(getActivity(), "URL: " + url.toString(), Toast.LENGTH_LONG).show();
+                Log.d(TAG, "send URL: "+url.toString());
             }
         });
 
@@ -216,7 +210,7 @@ public class NumberChoiceFragment extends Fragment {
                 getActivity().runOnUiThread(new Runnable() {
                     @Override
                     public void run() {
-                        Toast.makeText(mContext, "Error on Failure!", Toast.LENGTH_LONG).show();
+                        Toast.makeText(mContext, "Please check internet connection!", Toast.LENGTH_LONG).show();
                         // Used for debug
                     }
                 });
@@ -292,7 +286,7 @@ public class NumberChoiceFragment extends Fragment {
         getActivity().runOnUiThread(new Runnable() {
             @Override
             public void run() {
-                Toast.makeText(getActivity(), "URL: " + url.toString(), Toast.LENGTH_LONG).show();
+                Log.d(TAG, "send URL: "+url.toString());
             }
         });
 
@@ -413,7 +407,7 @@ public class NumberChoiceFragment extends Fragment {
         getActivity().runOnUiThread(new Runnable() {
             @Override
             public void run() {
-                Toast.makeText(getActivity(), "URL: " + url.toString(), Toast.LENGTH_LONG).show();
+                Log.d(TAG, "send URL: "+url.toString());
             }
         });
 
@@ -571,7 +565,7 @@ public class NumberChoiceFragment extends Fragment {
         getActivity().runOnUiThread(new Runnable() {
             @Override
             public void run() {
-                Toast.makeText(getActivity(), "URL: " + url.toString(), Toast.LENGTH_LONG).show();
+                Log.d(TAG, "send URL: "+url.toString());
             }
         });
 

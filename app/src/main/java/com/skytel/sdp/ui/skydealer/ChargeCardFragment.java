@@ -124,7 +124,8 @@ public class ChargeCardFragment extends Fragment {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                 mCardType = mDataManager.getCardType(view.getId());
-                Toast.makeText(mContext, "PackageType " + mPackageTypeEnum + ", CardType: " + mCardType.getName(), Toast.LENGTH_LONG).show();
+                Log.d(TAG, "PackageType: "+mPackageTypeEnum);
+                Log.d(TAG, "CardType: "+ mCardType.getName());
             }
         });
 
@@ -162,7 +163,7 @@ public class ChargeCardFragment extends Fragment {
         getActivity().runOnUiThread(new Runnable() {
             @Override
             public void run() {
-                Toast.makeText(getActivity(), "URL: " + url.toString(), Toast.LENGTH_LONG).show();
+                Log.d(TAG, url.toString());
             }
         });
 
@@ -228,7 +229,7 @@ public class ChargeCardFragment extends Fragment {
                                                             getActivity().runOnUiThread(new Runnable() {
                                                                 @Override
                                                                 public void run() {
-                                                                    Toast.makeText(mContext, "Success!", Toast.LENGTH_LONG).show();
+//                                                                    Toast.makeText(mContext, "Success!", Toast.LENGTH_LONG).show();
                                                                     mChargeCardPhoneNumber.setText("");
                                                                     mChargeCardPinCode.setText("");
                                                                 }
@@ -243,7 +244,7 @@ public class ChargeCardFragment extends Fragment {
                                                         getActivity().runOnUiThread(new Runnable() {
                                                             @Override
                                                             public void run() {
-                                                                Toast.makeText(mContext, "" + result_msg, Toast.LENGTH_LONG).show();
+//                                                                Toast.makeText(mContext, "" + result_msg, Toast.LENGTH_LONG).show();
                                                                 mChargeCardPhoneNumber.setText("");
                                                                 mChargeCardPinCode.setText("");
 

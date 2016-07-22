@@ -56,8 +56,7 @@ public class InfoNewsDetailActivity extends AppCompatActivity implements Constan
         Bundle extras = getIntent().getExtras();
         if (extras != null) {
             mNewsId = extras.getInt("news_id");
-
-            Toast.makeText(this, "News ID: " + mNewsId, Toast.LENGTH_SHORT).show();
+            Log.d(TAG, "News ID: "+mNewsId);
         }
 
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
@@ -96,9 +95,7 @@ public class InfoNewsDetailActivity extends AppCompatActivity implements Constan
         url.append(news_id);
         url.append(Constants.FUNCTION_GETINFO_NEWS_DETAIL_PART2);
 
-
-        Toast.makeText(this, "URL: " + url.toString(), Toast.LENGTH_LONG).show();
-
+        Log.d(TAG, "sned URL: "+url.toString());
         Request request = new Request.Builder()
                 .url(url.toString())
                 .build();
@@ -144,7 +141,6 @@ public class InfoNewsDetailActivity extends AppCompatActivity implements Constan
                                                      Log.d(TAG, "error_code: " + error_code);
                                                      Log.d(TAG, "message: " + message);
 
-                                                     //TODO: Error occured there
                                                      JSONObject jsonObjCategory = jsonObj.getJSONObject("result");
 
                                                      JSONObject jObjNews = jsonObjCategory.getJSONObject("content");

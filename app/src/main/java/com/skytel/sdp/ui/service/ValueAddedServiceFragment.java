@@ -168,7 +168,7 @@ public class ValueAddedServiceFragment extends Fragment implements Constants {
         getActivity().runOnUiThread(new Runnable() {
             @Override
             public void run() {
-                Toast.makeText(getActivity(), "URL: " + url.toString(), Toast.LENGTH_LONG).show();
+                Log.d(TAG, "send URL: "+url.toString());
             }
         });
 
@@ -314,7 +314,7 @@ public class ValueAddedServiceFragment extends Fragment implements Constants {
         getActivity().runOnUiThread(new Runnable() {
             @Override
             public void run() {
-                Toast.makeText(getActivity(), "URL: " + url.toString(), Toast.LENGTH_LONG).show();
+                Log.d(TAG, "send URL: "+url.toString());
             }
         });
 

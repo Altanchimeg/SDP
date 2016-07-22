@@ -161,7 +161,7 @@ public class SkyMediaRegistrationFragment extends Fragment implements Constants 
                                                          public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
                                                              try {
                                                                  mSelectedItemId = (int) mAimagCitySpinner.getSelectedItemId()+1;
-                                                                Toast.makeText(mContext, mSelectedItemId+"", Toast.LENGTH_SHORT).show();
+                                                                 Log.d(TAG, "selected item id: "+mSelectedItemId);
 
                                                              } catch (Exception e) {
                                                                  e.printStackTrace();
@@ -203,7 +203,7 @@ public class SkyMediaRegistrationFragment extends Fragment implements Constants 
         getActivity().runOnUiThread(new Runnable() {
             @Override
             public void run() {
-                Toast.makeText(getActivity(), "URL: " + url.toString(), Toast.LENGTH_LONG).show();
+                Log.d(TAG, "send URL: "+url.toString());
             }
         });
 

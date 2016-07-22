@@ -80,10 +80,9 @@ public class FeedbackFragment extends Fragment {
             public void onClick(View v) {
                 try {
                     if (ValidationChecker.isValidationPassed(mUserVoice) && ValidationChecker.isValidationPassed(mPhonenumber)) {
-                        Toast.makeText(mContext, "Please wait", Toast.LENGTH_SHORT).show();
                         mVoiceTypeId = (int) mVoiceType.getSelectedItemId() + 1;
-                        runSendFeedbackFunction();
                         mProgressDialog.show();
+                        runSendFeedbackFunction();
                     } else {
                         Toast.makeText(mContext, "Please fill the field!", Toast.LENGTH_SHORT).show();
                     }
@@ -111,7 +110,7 @@ public class FeedbackFragment extends Fragment {
         getActivity().runOnUiThread(new Runnable() {
             @Override
             public void run() {
-                Toast.makeText(getActivity(), "URL: " + url.toString(), Toast.LENGTH_LONG).show();
+                Log.d(TAG, "send URL: "+url.toString());
             }
         });
 
@@ -162,7 +161,6 @@ public class FeedbackFragment extends Fragment {
                     getActivity().runOnUiThread(new Runnable() {
                         @Override
                         public void run() {
-                            Toast.makeText(mContext, "Successful!", Toast.LENGTH_LONG).show();
                             mPhonenumber.setText("");
                             mUserVoice.setText("");
                         }

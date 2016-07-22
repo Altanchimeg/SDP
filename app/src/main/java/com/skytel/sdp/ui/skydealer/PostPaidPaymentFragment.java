@@ -144,7 +144,7 @@ public class PostPaidPaymentFragment extends Fragment {
         getActivity().runOnUiThread(new Runnable() {
             @Override
             public void run() {
-                Toast.makeText(getActivity(), "URL: " + url.toString(), Toast.LENGTH_LONG).show();
+                Log.d(TAG, "send URL: "+url.toString());
             }
         });
 
@@ -165,9 +165,7 @@ public class PostPaidPaymentFragment extends Fragment {
                 getActivity().runOnUiThread(new Runnable() {
                     @Override
                     public void run() {
-                        //     progressDialog.dismiss();
                         Toast.makeText(mContext, "Error on Failure!", Toast.LENGTH_LONG).show();
-                        // Used for debug
                     }
                 });
             }
@@ -203,7 +201,7 @@ public class PostPaidPaymentFragment extends Fragment {
                             @Override
                             public void run() {
                                 try {
-                                    Toast.makeText(mContext, "SUCCESSFUL!", Toast.LENGTH_LONG).show();
+//                                    Toast.makeText(mContext, "SUCCESSFUL!", Toast.LENGTH_LONG).show();
                                     mInvoiceLayout.setVisibility(View.GONE);
                                     mPaymentLayout.setVisibility(View.VISIBLE);
 
@@ -217,7 +215,7 @@ public class PostPaidPaymentFragment extends Fragment {
                             @Override
                             public void run() {
                                 try {
-                                    Toast.makeText(mContext, "" + result_msg, Toast.LENGTH_LONG).show();
+//                                    Toast.makeText(mContext, "" + result_msg, Toast.LENGTH_LONG).show();
 
 
                                 } catch (Exception e) {
@@ -247,7 +245,7 @@ public class PostPaidPaymentFragment extends Fragment {
         getActivity().runOnUiThread(new Runnable() {
             @Override
             public void run() {
-                Toast.makeText(getActivity(), "URL: " + url.toString(), Toast.LENGTH_LONG).show();
+                Log.d(TAG, "send URL: "+url.toString());
             }
         });
 
@@ -268,9 +266,7 @@ public class PostPaidPaymentFragment extends Fragment {
                 getActivity().runOnUiThread(new Runnable() {
                     @Override
                     public void run() {
-                        //     progressDialog.dismiss();
                         Toast.makeText(mContext, "Error on Failure!", Toast.LENGTH_LONG).show();
-                        // Used for debug
                     }
                 });
             }

@@ -169,7 +169,7 @@ public class MainActivity extends AppCompatActivity implements BalanceUpdateList
 
     @Override
     public void onBalanceUpdate() {
-        Toast.makeText(mContext, "Balance ", Toast.LENGTH_LONG).show();
+        Log.d(TAG, "BALANCE: "+mPrefManager.getDealerBalance());
         mDealerBalance.setText(mPrefManager.getDealerBalance());
     }
 
