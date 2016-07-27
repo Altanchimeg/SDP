@@ -63,7 +63,7 @@
                 </LinearLayout>
 
                 <EditText
-                    style="@style/EditTextStyle"
+                    style="@style/PhoneNumberEdittextStyle"
                     android:hint="@string/ordered_number" />
 
                 <TextView

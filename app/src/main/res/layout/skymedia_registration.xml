@@ -96,7 +96,7 @@
 
             <EditText
                 android:id="@+id/contact_number"
-                style="@style/MainViewCenterBoxEditText"
+                style="@style/PhoneNumberEdittextStyle"
                 android:hint="@string/contact_number" />
 
             <EditText

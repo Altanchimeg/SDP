@@ -77,7 +77,7 @@ public class ForgetPasswordActivity extends AppCompatActivity implements Constan
                         runForgetFunction();
                         mProgressDialog.show();
                     } else {
-                        Toast.makeText(mContext, "Please fill the field!", Toast.LENGTH_SHORT).show();
+                        Toast.makeText(mContext, getResources().getString(R.string.please_fill_the_field), Toast.LENGTH_SHORT).show();
                     }
                 } catch (Exception e) {
                     e.printStackTrace();
@@ -138,7 +138,7 @@ public class ForgetPasswordActivity extends AppCompatActivity implements Constan
                     @Override
                     public void run() {
                         //     progressDialog.dismiss();
-                        Toast.makeText(mContext, "Error on Failure!", Toast.LENGTH_LONG).show();
+                        Toast.makeText(mContext, getResources().getString(R.string.check_internet_connection), Toast.LENGTH_LONG).show();
                         // Used for debug
 //                        PrefManager.getSessionInstance().setIsLoggedIn(true);
 //                        Intent intent = new Intent(LoginActivity.this, MainActivity.class);
@@ -228,7 +228,7 @@ public class ForgetPasswordActivity extends AppCompatActivity implements Constan
                     @Override
                     public void run() {
                         //     progressDialog.dismiss();
-                        Toast.makeText(mContext, "Error on Failure!", Toast.LENGTH_LONG).show();
+                        Toast.makeText(mContext, getResources().getString(R.string.check_internet_connection), Toast.LENGTH_LONG).show();
                         // Used for debug
 //                        PrefManager.getSessionInstance().setIsLoggedIn(true);
 //                        Intent intent = new Intent(LoginActivity.this, MainActivity.class);
@@ -266,20 +266,23 @@ public class ForgetPasswordActivity extends AppCompatActivity implements Constan
                         Log.d(TAG, "result_code " + result_code);
                         Log.d(TAG, "resul_msg " + result_msg);
 
+                        runOnUiThread(new Runnable() {
+                            @Override
+                            public void run() {
+                                new CountDownTimer(2000, 1000) {
 
-                        new CountDownTimer(2000, 1000) {
+                                    public void onTick(long millisUntilFinished) {
+                                    }
 
-                            public void onTick(long millisUntilFinished) {
+                                    public void onFinish() {
+                                        Intent intent = new Intent(ForgetPasswordActivity.this, LoginActivity.class);
+                                        startActivity(intent);
+                                        finish();
+                                    }
+                                }.start();
+
                             }
-
-                            public void onFinish() {
-                                Intent intent = new Intent(ForgetPasswordActivity.this, LoginActivity.class);
-                                startActivity(intent);
-                                finish();
-                            }
-                        }.start();
-
-
+                        });
                     } else {
                         runOnUiThread(new Runnable() {
                             @Override

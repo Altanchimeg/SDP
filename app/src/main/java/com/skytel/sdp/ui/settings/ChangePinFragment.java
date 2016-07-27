@@ -90,7 +90,7 @@ public class ChangePinFragment extends Fragment implements Constants {
 
 
                     } else {
-                        Toast.makeText(mContext, "Please fill the field!", Toast.LENGTH_SHORT).show();
+                        Toast.makeText(mContext, getResources().getString(R.string.please_fill_the_field), Toast.LENGTH_SHORT).show();
                     }
 
                 } catch (Exception e) {
@@ -140,7 +140,7 @@ public class ChangePinFragment extends Fragment implements Constants {
                 getActivity().runOnUiThread(new Runnable() {
                     @Override
                     public void run() {
-                        Toast.makeText(mContext, "Error on Failure!", Toast.LENGTH_LONG).show();
+                        Toast.makeText(mContext, getResources().getString(R.string.check_internet_connection), Toast.LENGTH_LONG).show();
                     }
                 });
             }
@@ -166,25 +166,16 @@ public class ChangePinFragment extends Fragment implements Constants {
                     final String result_msg = jsonObj.getString("result_msg");
                     Log.d(TAG, "result_code " + result_code);
                     Log.d(TAG,"result_msg " + result_msg);
+                    getActivity().runOnUiThread(new Runnable() {
+                        @Override
+                        public void run() {
 
-                  /*  if(result_code == RESULT_CODE_SUCCESS){
-                        getActivity().runOnUiThread(new Runnable() {
-                            @Override
-                            public void run() {
-                                Toast.makeText(mContext, "SUCCESSFUL!", Toast.LENGTH_LONG).show();
+                            Toast.makeText(mContext, ""+ result_msg, Toast.LENGTH_LONG).show();
+                            // Used for debug
+                        }
+                    });
 
-                            }
-                        });
-                    }
-                    else{
-                        getActivity().runOnUiThread(new Runnable() {
-                            @Override
-                            public void run() {
-                                Toast.makeText(mContext, ""+result_msg, Toast.LENGTH_LONG).show();
 
-                            }
-                        });
-                    }*/
                     getActivity().runOnUiThread(new Runnable() {
                         @Override
                         public void run() {

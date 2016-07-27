@@ -146,7 +146,7 @@
             <EditText
                 android:layout_marginTop="@dimen/third_padding"
                 android:id="@+id/phone_number"
-                style="@style/MainViewCenterBoxEditText"
+                style="@style/PhoneNumberEdittextStyle"
                 android:hint="@string/phone_number" />
 
         </LinearLayout>

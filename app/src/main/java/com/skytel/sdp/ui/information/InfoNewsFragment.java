@@ -124,7 +124,7 @@ public class InfoNewsFragment extends Fragment implements Constants {
                                                  getActivity().runOnUiThread(new Runnable() {
                                                      @Override
                                                      public void run() {
-                                                         Toast.makeText(mContext, "Error on Failure!", Toast.LENGTH_LONG).show();
+                                                         Toast.makeText(mContext, getResources().getString(R.string.check_internet_connection), Toast.LENGTH_LONG).show();
                                                          // Used for debug
                                                      }
                                                  });
@@ -150,8 +150,14 @@ public class InfoNewsFragment extends Fragment implements Constants {
 
                                                      JSONObject jsonObj = new JSONObject(resp);
                                                      int error_code = jsonObj.getInt("error_code");
-                                                     String message = jsonObj.getString("message");
+                                                     final String message = jsonObj.getString("message");
 
+                                                     getActivity().runOnUiThread(new Runnable() {
+                                                         @Override
+                                                         public void run() {
+                                                             Toast.makeText(mContext, "" + message, Toast.LENGTH_SHORT).show();
+                                                         }
+                                                     });
 
                                                      Log.d(TAG, "error_code: " + error_code);
                                                      Log.d(TAG, "message: " + message);

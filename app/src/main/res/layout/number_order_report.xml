@@ -40,7 +40,7 @@
 
                 <EditText
                     android:id="@+id/filterByOrderedNumber"
-                    style="@style/EditTextStyle"
+                    style="@style/PhoneNumberEdittextStyle"
                     android:hint="@string/ordered_number" />
 
                 <TextView

@@ -48,7 +48,7 @@
     <!-- Toast -->
     <string name="please_fill_the_field">Талбаруудыг бүрэн бөглөнө үү!</string>
     <string name="please_select_the_field">Талбаруудыг бүрэн сонгоно уу!</string>
-    <string name="check_internet_connection">Интернэт холболтоо шалгана уу!</string>
+    <string name="check_internet_connection">Сервертэй холбогдож чадсангүй. Та интернэт холболтоо шалгаад дахин оролдоно уу!</string>
     <string name="error_result">Алдаатай хариу ирлээ!</string>
 
 

@@ -109,7 +109,7 @@ public class InfoNewsDetailActivity extends AppCompatActivity implements Constan
                                                  runOnUiThread(new Runnable() {
                                                      @Override
                                                      public void run() {
-                                                         Toast.makeText(mContext, "Error on Failure!", Toast.LENGTH_LONG).show();
+                                                         Toast.makeText(mContext, getResources().getString(R.string.check_internet_connection), Toast.LENGTH_LONG).show();
                                                      }
                                                  });
                                              }
@@ -135,11 +135,19 @@ public class InfoNewsDetailActivity extends AppCompatActivity implements Constan
 
                                                      JSONObject jsonObj = new JSONObject(resp);
                                                      int error_code = jsonObj.getInt("error_code");
-                                                     String message = jsonObj.getString("message");
+                                                     final String message = jsonObj.getString("message");
 
 
                                                      Log.d(TAG, "error_code: " + error_code);
                                                      Log.d(TAG, "message: " + message);
+                                                     runOnUiThread(new Runnable() {
+                                                         @Override
+                                                         public void run() {
+
+                                                             Toast.makeText(mContext, ""+ message, Toast.LENGTH_LONG).show();
+                                                             // Used for debug
+                                                         }
+                                                     });
 
                                                      JSONObject jsonObjCategory = jsonObj.getJSONObject("result");
 

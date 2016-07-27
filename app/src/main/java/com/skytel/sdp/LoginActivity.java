@@ -53,10 +53,10 @@ public class LoginActivity extends Activity implements Constants {
  * If code is running on Debug
  */
 
-        Intent i = new Intent(LoginActivity.this, MainActivity.class);
+     /*   Intent i = new Intent(LoginActivity.this, MainActivity.class);
         startActivity(i);
         finish();
-
+*/
         if (mPrefManager.getIsLoggedIn()) {
             Intent intent = new Intent(LoginActivity.this, MainActivity.class);
             startActivity(intent);
@@ -76,7 +76,7 @@ public class LoginActivity extends Activity implements Constants {
                         runLoginFunction();
                         mProgressDialog.show();
                     } else {
-                        Toast.makeText(mContext, "Please fill the field!", Toast.LENGTH_SHORT).show();
+                        Toast.makeText(mContext, getResources().getString(R.string.please_fill_the_field), Toast.LENGTH_SHORT).show();
                     }
                 } catch (Exception e) {
                     e.printStackTrace();
@@ -109,7 +109,7 @@ public class LoginActivity extends Activity implements Constants {
                     @Override
                     public void run() {
                         //     progressDialog.dismiss();
-                        Toast.makeText(mContext, "Error on Failure!", Toast.LENGTH_LONG).show();
+                        Toast.makeText(mContext, getResources().getString(R.string.check_internet_connection), Toast.LENGTH_LONG).show();
                         // Used for debug
 //                        PrefManager.getSessionInstance().setIsLoggedIn(true);
 //                        Intent intent = new Intent(LoginActivity.this, MainActivity.class);
@@ -204,7 +204,7 @@ public class LoginActivity extends Activity implements Constants {
                     @Override
                     public void run() {
                         //     progressDialog.dismiss();
-                        Toast.makeText(mContext, "Error on Failure!", Toast.LENGTH_LONG).show();
+                        Toast.makeText(mContext, getResources().getString(R.string.check_internet_connection), Toast.LENGTH_LONG).show();
                         // Used for debug
 //                        PrefManager.getSessionInstance().setIsLoggedIn(true);
 //                        Intent intent = new Intent(LoginActivity.this, MainActivity.class);

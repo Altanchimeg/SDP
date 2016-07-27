@@ -34,13 +34,16 @@
 
             <EditText
                 android:id="@+id/phone_number"
-                style="@style/MainViewCenterBoxEditText"
-                android:hint="@string/phone_number" />
+                style="@style/PhoneNumberEdittextStyle"
+                android:hint="@string/phone_number"
+                />
 
 
             <EditText
                 android:id="@+id/sim_card_serial"
                 style="@style/MainViewCenterBoxEditText"
+                android:maxLength="16"
+                android:inputType="number"
                 android:hint="@string/sim_card_serial" />
 
         </LinearLayout>

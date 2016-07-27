@@ -107,7 +107,7 @@ public class PostPaidPaymentFragment extends Fragment {
                         mProgressDialog.show();
                         runInvoiceFunction();
                     } else {
-                        Toast.makeText(getActivity(), "Please fill the field!", Toast.LENGTH_SHORT).show();
+                        Toast.makeText(mContext, getResources().getString(R.string.please_fill_the_field), Toast.LENGTH_SHORT).show();
                     }
                 } catch (Exception e) {
                     e.printStackTrace();
@@ -165,7 +165,7 @@ public class PostPaidPaymentFragment extends Fragment {
                 getActivity().runOnUiThread(new Runnable() {
                     @Override
                     public void run() {
-                        Toast.makeText(mContext, "Error on Failure!", Toast.LENGTH_LONG).show();
+                        Toast.makeText(mContext, getResources().getString(R.string.check_internet_connection), Toast.LENGTH_LONG).show();
                     }
                 });
             }
@@ -266,7 +266,7 @@ public class PostPaidPaymentFragment extends Fragment {
                 getActivity().runOnUiThread(new Runnable() {
                     @Override
                     public void run() {
-                        Toast.makeText(mContext, "Error on Failure!", Toast.LENGTH_LONG).show();
+                        Toast.makeText(mContext, getResources().getString(R.string.check_internet_connection), Toast.LENGTH_LONG).show();
                     }
                 });
             }
@@ -289,10 +289,18 @@ public class PostPaidPaymentFragment extends Fragment {
                 try {
                     JSONObject jsonObj = new JSONObject(resp);
                     int result_code = jsonObj.getInt("result_code");
-                    String result_msg = jsonObj.getString("result_msg");
+                    final String result_msg = jsonObj.getString("result_msg");
 
                     Log.d(TAG, "result_code " + result_code);
                     Log.d(TAG, "result_mesage  " + result_msg);
+                    getActivity().runOnUiThread(new Runnable() {
+                        @Override
+                        public void run() {
+
+                            Toast.makeText(mContext, ""+ result_msg, Toast.LENGTH_LONG).show();
+                            // Used for debug
+                        }
+                    });
 
                     if (result_code == Constants.RESULT_CODE_SUCCESS) {
 

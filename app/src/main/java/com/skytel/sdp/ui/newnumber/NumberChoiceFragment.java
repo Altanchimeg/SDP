@@ -156,7 +156,7 @@ public class NumberChoiceFragment extends Fragment {
                 try {
 
                     if (ValidationChecker.isSelected(mSelectedPriceId) && ValidationChecker.isValidationPassedTextView(mChosenNewNumber) && ValidationChecker.isValidationPassed(mRegisterNumber)) {
-                        Log.d(TAG, "price type info selected price id" + mPriceTypeInfoArrayList.get(mSelectedPriceId).getPriceTypeId());
+                        Log.d(TAG, "price type info selected price id" + mPriceTypeInfoArrayList.get(mSelectedPriceId-1).getPriceTypeId());
 
                         ConfirmDialog confirmDialog = new ConfirmDialog();
                         Bundle args = new Bundle();
@@ -314,7 +314,7 @@ public class NumberChoiceFragment extends Fragment {
                 getActivity().runOnUiThread(new Runnable() {
                     @Override
                     public void run() {
-                        Toast.makeText(mContext, "Error on Failure!", Toast.LENGTH_LONG).show();
+                        Toast.makeText(mContext, getResources().getString(R.string.check_internet_connection), Toast.LENGTH_LONG).show();
                         // Used for debug
                     }
                 });
@@ -427,7 +427,7 @@ public class NumberChoiceFragment extends Fragment {
                 getActivity().runOnUiThread(new Runnable() {
                     @Override
                     public void run() {
-                        Toast.makeText(mContext, "Error on Failure!", Toast.LENGTH_LONG).show();
+                        Toast.makeText(mContext, getResources().getString(R.string.check_internet_connection), Toast.LENGTH_LONG).show();
                         // Used for debug
                     }
                 });
@@ -585,7 +585,7 @@ public class NumberChoiceFragment extends Fragment {
                 getActivity().runOnUiThread(new Runnable() {
                     @Override
                     public void run() {
-                        Toast.makeText(mContext, "Error on Failure!", Toast.LENGTH_LONG).show();
+                        Toast.makeText(mContext, getResources().getString(R.string.check_internet_connection), Toast.LENGTH_LONG).show();
                         // Used for debug
                     }
                 });
@@ -611,12 +611,18 @@ public class NumberChoiceFragment extends Fragment {
                 try {
                     JSONObject jsonObj = new JSONObject(resp);
                     int result_code = jsonObj.getInt("result_code");
-                    String result_msg = jsonObj.getString("result_msg");
+                    final String result_msg = jsonObj.getString("result_msg");
                     final String reservation_id = jsonObj.getString("reservation_id");
                     Log.d(TAG, "result_code " + result_code);
                     Log.d(TAG, "result_msg " + result_msg);
                     Log.d(TAG, "reservation_id " + reservation_id);
 
+                    getActivity().runOnUiThread(new Runnable() {
+                        @Override
+                        public void run() {
+                            Toast.makeText(mContext, "" + result_msg, Toast.LENGTH_SHORT).show();
+                        }
+                    });
                     if (result_code == Constants.RESULT_CODE_SUCCESS) {
                         getActivity().runOnUiThread(new Runnable() {
                             @Override
@@ -655,7 +661,7 @@ public class NumberChoiceFragment extends Fragment {
         public void onPositiveButton() {
             try {
                 mProgressDialog.show();
-                runReserveNumber(mSearchNumber.getText().toString(), mRegisterNumber.getText().toString(), mPriceTypeInfoArrayList.get(mSelectedPriceId).getPriceTypeId(), 1);
+                runReserveNumber(mSearchNumber.getText().toString(), mRegisterNumber.getText().toString(), mPriceTypeInfoArrayList.get(mSelectedPriceId-1).getPriceTypeId(), 1);
             } catch (Exception e) {
                 e.printStackTrace();
             }

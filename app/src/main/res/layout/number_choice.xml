@@ -22,11 +22,8 @@
 
             <EditText
                 android:id="@+id/et_search_number"
-                style="@style/MainViewCenterBoxEditText"
+                style="@style/PhoneNumberEdittextStyle"
                 android:layout_width="160dp"
-                android:maxLength="4"
-                android:inputType="number"
-                android:maxLines="1"
                 android:hint="@string/insert_search_number" />
 
             <Button

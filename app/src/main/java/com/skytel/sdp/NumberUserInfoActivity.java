@@ -218,7 +218,7 @@ public class NumberUserInfoActivity extends AppCompatActivity implements Constan
                 System.out.println("onFailure");
                 e.printStackTrace();
 
-                Toast.makeText(mContext, "Error on Failure!", Toast.LENGTH_LONG).show();
+                Toast.makeText(mContext, getResources().getString(R.string.check_internet_connection), Toast.LENGTH_LONG).show();
                 // Used for debug
 
             }
@@ -250,15 +250,20 @@ public class NumberUserInfoActivity extends AppCompatActivity implements Constan
                     });
 
                     if (result_code == RESULT_CODE_SUCCESS) {
-                        new CountDownTimer(2000, 1000) {
+                        runOnUiThread(new Runnable() {
+                            @Override
+                            public void run() {
+                                new CountDownTimer(2000, 1000) {
 
-                            public void onTick(long millisUntilFinished) {
-                            }
+                                    public void onTick(long millisUntilFinished) {
+                                    }
 
-                            public void onFinish() {
-                                finish();
+                                    public void onFinish() {
+                                        finish();
+                                    }
+                                }.start();
                             }
-                        }.start();
+                        });
                     }
 
                 } catch (JSONException e) {

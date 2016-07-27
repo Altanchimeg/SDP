@@ -147,6 +147,9 @@ public class HandsetChangeFragment extends Fragment implements  Constants{
                         && ValidationChecker.hasBitmapValue(bm) && ValidationChecker.isSelected((int) mHandsetChangeTypeSpinner.getSelectedItemId())){
                     mConfirmDialog.show(getFragmentManager(), "dialog");
                 }
+                else{
+                    Toast.makeText(mContext, getResources().getString(R.string.please_fill_the_field), Toast.LENGTH_SHORT).show();
+                }
             }
         });
 
@@ -194,7 +197,7 @@ public class HandsetChangeFragment extends Fragment implements  Constants{
                         @Override
                         public void run() {
 
-                            Toast.makeText(mContext, "Error on Failure!", Toast.LENGTH_LONG).show();
+                            Toast.makeText(mContext, getResources().getString(R.string.check_internet_connection), Toast.LENGTH_LONG).show();
                             // Used for debug
                         }
                     });
@@ -346,7 +349,7 @@ public class HandsetChangeFragment extends Fragment implements  Constants{
                         @Override
                         public void run() {
 
-                            Toast.makeText(mContext, "Error on Failure!", Toast.LENGTH_LONG).show();
+                            Toast.makeText(mContext, getResources().getString(R.string.check_internet_connection), Toast.LENGTH_LONG).show();
                             // Used for debug
                         }
                     });
@@ -374,12 +377,19 @@ public class HandsetChangeFragment extends Fragment implements  Constants{
                 try {
                     JSONObject jsonObj = new JSONObject(resp);
                     int result_code = jsonObj.getInt("result_code");
-                    String result_msg = jsonObj.getString("result_msg");
+                    final String result_msg = jsonObj.getString("result_msg");
 
 
                     Log.d(TAG, "result_code: " + result_code);
                     Log.d(TAG, "result_msg: " + result_msg);
+                    getActivity().runOnUiThread(new Runnable() {
+                        @Override
+                        public void run() {
 
+                            Toast.makeText(mContext, ""+ result_msg, Toast.LENGTH_LONG).show();
+                            // Used for debug
+                        }
+                    });
 
                     getActivity().runOnUiThread(new Runnable() {
                         @Override

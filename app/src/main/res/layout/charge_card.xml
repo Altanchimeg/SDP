@@ -91,7 +91,7 @@
                 android:layout_marginLeft="@dimen/main_padding"
                 android:layout_marginRight="@dimen/main_padding"
                 android:layout_marginTop="@dimen/second_padding"
-                android:text="@string/order"></Button>
+                android:text="@string/charge"></Button>
 
         </LinearLayout>
 
