@@ -18,6 +18,7 @@ import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.skytel.sdp.LoginActivity;
 import com.skytel.sdp.NumberUserInfoActivity;
 import com.skytel.sdp.R;
 import com.skytel.sdp.adapter.NumberChoiceAdapter;
@@ -25,6 +26,7 @@ import com.skytel.sdp.adapter.PriceTypeInfoListAdapter;
 import com.skytel.sdp.database.DataManager;
 import com.skytel.sdp.entities.Phonenumber;
 import com.skytel.sdp.entities.PriceType;
+import com.skytel.sdp.utils.ConfirmDialog;
 import com.skytel.sdp.utils.Constants;
 import com.skytel.sdp.utils.CustomProgressDialog;
 import com.skytel.sdp.utils.PrefManager;
@@ -97,8 +99,8 @@ public class NumberChoiceFragment extends Fragment {
         mContext = getActivity();
         mDataManager = new DataManager(mContext);
         mClient = new OkHttpClient();
-        mNumbersArrayList = new ArrayList<Phonenumber>();
-        mPriceTypeInfoArrayList = new ArrayList<PriceType>();
+        mNumbersArrayList = new ArrayList<>();
+        mPriceTypeInfoArrayList = new ArrayList<>();
         mPrefixArrayList = new ArrayList<>();
         mProgressDialog = new CustomProgressDialog(getActivity());
         mPrefManager = new PrefManager(mContext);
@@ -119,7 +121,7 @@ public class NumberChoiceFragment extends Fragment {
         mPriceTypeInfoListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                Log.d(TAG, "PriceTypeInfo ID: "+mPriceTypeInfoArrayList.get(position).getId()+"");
+                Log.d(TAG, "PriceTypeInfo ID: " + mPriceTypeInfoArrayList.get(position).getId() + "");
                 mSelectedPriceId = mPriceTypeInfoArrayList.get(position).getId();
             }
         });
@@ -152,13 +154,21 @@ public class NumberChoiceFragment extends Fragment {
             @Override
             public void onClick(View v) {
                 try {
-                    if(ValidationChecker.isSelected(mSelectedPriceId) && ValidationChecker.isValidationPassedTextView(mChosenNewNumber) && ValidationChecker.isValidationPassed(mRegisterNumber)) {
-                        Log.d(TAG, "price type info selected price id"+mPriceTypeInfoArrayList.get(mSelectedPriceId).getPriceTypeId());
-                        mProgressDialog.show();
-                        runReserveNumber(mSearchNumber.getText().toString(), mRegisterNumber.getText().toString(),mPriceTypeInfoArrayList.get(mSelectedPriceId).getPriceTypeId() , 1);
-                    }
-                    else{
-                        Toast.makeText(mContext, "Please select the field!", Toast.LENGTH_SHORT).show();
+
+                    if (ValidationChecker.isSelected(mSelectedPriceId) && ValidationChecker.isValidationPassedTextView(mChosenNewNumber) && ValidationChecker.isValidationPassed(mRegisterNumber)) {
+                        Log.d(TAG, "price type info selected price id" + mPriceTypeInfoArrayList.get(mSelectedPriceId).getPriceTypeId());
+
+                        ConfirmDialog confirmDialog = new ConfirmDialog();
+                        Bundle args = new Bundle();
+                        args.putInt("message", R.string.dialog_confirm);
+                        args.putInt("title", R.string.confirm);
+
+                        confirmDialog.setArguments(args);
+                        confirmDialog.registerCallback(dialogConfirmListener);
+                        confirmDialog.show(getFragmentManager(), "dialog");
+
+                    } else {
+                        Toast.makeText(mContext, getResources().getString(R.string.please_fill_the_field), Toast.LENGTH_SHORT).show();
                     }
 
                     //Debug
@@ -178,7 +188,6 @@ public class NumberChoiceFragment extends Fragment {
         return rootView;
     }
 
-
     public void runGetPrefixFunction() throws Exception {
         final StringBuilder url = new StringBuilder();
         url.append(Constants.SERVER_SKYTEL_MN_URL);
@@ -188,7 +197,7 @@ public class NumberChoiceFragment extends Fragment {
         getActivity().runOnUiThread(new Runnable() {
             @Override
             public void run() {
-                Log.d(TAG, "send URL: "+url.toString());
+                Log.d(TAG, "send URL: " + url.toString());
             }
         });
 
@@ -210,7 +219,7 @@ public class NumberChoiceFragment extends Fragment {
                 getActivity().runOnUiThread(new Runnable() {
                     @Override
                     public void run() {
-                        Toast.makeText(mContext, "Please check internet connection!", Toast.LENGTH_LONG).show();
+                        Toast.makeText(mContext, getResources().getString(R.string.check_internet_connection), Toast.LENGTH_LONG).show();
                         // Used for debug
                     }
                 });
@@ -224,11 +233,6 @@ public class NumberChoiceFragment extends Fragment {
 
                 if (!response.isSuccessful())
                     throw new IOException("Unexpected code " + response);
-
-                Headers responseHeaders = response.headers();
-                for (int i = 0; i < responseHeaders.size(); i++) {
-                    System.out.println(responseHeaders.name(i) + ": " + responseHeaders.value(i));
-                }
 
                 String resp = response.body().string();
                 System.out.println("resp " + resp);
@@ -260,7 +264,6 @@ public class NumberChoiceFragment extends Fragment {
                         public void run() {
                             ArrayAdapter adapter = new ArrayAdapter(mContext, android.R.layout.simple_spinner_item, mPrefixArrayList);
                             adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-
                             mPrefixSpinner.setAdapter(adapter);
                         }
                     });
@@ -286,7 +289,7 @@ public class NumberChoiceFragment extends Fragment {
         getActivity().runOnUiThread(new Runnable() {
             @Override
             public void run() {
-                Log.d(TAG, "send URL: "+url.toString());
+                Log.d(TAG, "send URL: " + url.toString());
             }
         });
 
@@ -326,11 +329,6 @@ public class NumberChoiceFragment extends Fragment {
                 if (!response.isSuccessful())
                     throw new IOException("Unexpected code " + response);
 
-                Headers responseHeaders = response.headers();
-                for (int i = 0; i < responseHeaders.size(); i++) {
-                    System.out.println(responseHeaders.name(i) + ": " + responseHeaders.value(i));
-                }
-
                 String resp = response.body().string();
                 System.out.println("resp " + resp);
 
@@ -367,7 +365,7 @@ public class NumberChoiceFragment extends Fragment {
                             mNewNumbersGrid.setOnItemClickListener(new AdapterView.OnItemClickListener() {
                                 @Override
                                 public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                            Log.d(TAG, "Selected: " + mNumbersArrayList.get(position));
+                                    Log.d(TAG, "Selected: " + mNumbersArrayList.get(position));
                                     mSelected_number = mNumbersArrayList.get(position).getPhoneNumber();
                                     mSelected_price_type_id = mNumbersArrayList.get(position).getPriceType();
                                     mSearchNumber.setText(mSelected_number);
@@ -407,7 +405,7 @@ public class NumberChoiceFragment extends Fragment {
         getActivity().runOnUiThread(new Runnable() {
             @Override
             public void run() {
-                Log.d(TAG, "send URL: "+url.toString());
+                Log.d(TAG, "send URL: " + url.toString());
             }
         });
 
@@ -472,7 +470,7 @@ public class NumberChoiceFragment extends Fragment {
                             String days = jsonData.getString("days");
                             String serviceType = jsonData.getString("serviceType");
 
-                            if(serviceType.equals("prepaid")) {
+                            if (serviceType.equals("prepaid")) {
                                 mPriceType = new PriceType();
                                 mPriceType.setPriceTypeId(price_type_id);
                                 mPriceType.setPrice(price);
@@ -541,14 +539,13 @@ public class NumberChoiceFragment extends Fragment {
     };
 
     /**
-     *
      * Pre reservation function
      * At first, User choose number and send her/his registration number
      *
-     * @param phone         Chosen phone number to buy
-     * @param register      User registration number
-     * @param price_type    Price type of user /if it 0, 5000₮, else if user want to buy 10000₮, it will be 99/
-     * @param service_type  Prepaid is 1, Postpaid is 0
+     * @param phone        Chosen phone number to buy
+     * @param register     User registration number
+     * @param price_type   Price type of user /if it 0, 5000₮, else if user want to buy 10000₮, it will be 99/
+     * @param service_type Prepaid is 1, Postpaid is 0
      * @throws Exception
      */
 
@@ -565,7 +562,7 @@ public class NumberChoiceFragment extends Fragment {
         getActivity().runOnUiThread(new Runnable() {
             @Override
             public void run() {
-                Log.d(TAG, "send URL: "+url.toString());
+                Log.d(TAG, "send URL: " + url.toString());
             }
         });
 
@@ -625,9 +622,9 @@ public class NumberChoiceFragment extends Fragment {
                             @Override
                             public void run() {
                                 Intent intent = new Intent(mContext, NumberUserInfoActivity.class);
-                                intent.putExtra("reservation_id",reservation_id);
-                                intent.putExtra("phone_number",phone);
-                                intent.putExtra("register_number",register);
+                                intent.putExtra("reservation_id", reservation_id);
+                                intent.putExtra("phone_number", phone);
+                                intent.putExtra("register_number", register);
                                 startActivity(intent);
 
                                 mChosenNewNumber.setText("");
@@ -651,5 +648,25 @@ public class NumberChoiceFragment extends Fragment {
             }
         });
     }
+
+    private ConfirmDialog.OnDialogConfirmListener dialogConfirmListener = new ConfirmDialog.OnDialogConfirmListener() {
+
+        @Override
+        public void onPositiveButton() {
+            try {
+                mProgressDialog.show();
+                runReserveNumber(mSearchNumber.getText().toString(), mRegisterNumber.getText().toString(), mPriceTypeInfoArrayList.get(mSelectedPriceId).getPriceTypeId(), 1);
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+
+        }
+
+        @Override
+        public void onNegativeButton() {
+
+        }
+    };
+
 
 }

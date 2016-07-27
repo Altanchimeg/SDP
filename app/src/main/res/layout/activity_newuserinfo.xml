@@ -38,43 +38,63 @@
             <EditText
                 android:id="@+id/last_name"
                 style="@style/MainViewCenterBoxEditText"
+                android:maxLength="30"
+                android:maxLines="1"
                 android:hint="@string/last_name" />
 
             <EditText
                 android:id="@+id/first_name"
                 style="@style/MainViewCenterBoxEditText"
+                android:maxLength="30"
+                android:maxLines="1"
                 android:hint="@string/first_name" />
 
             <EditText
                 android:id="@+id/reg_number"
-                android:enabled="false"
                 style="@style/MainViewCenterBoxEditText"
-                android:hint="@string/reg_number" />
+                android:enabled="false"
+                android:hint="@string/reg_number"
+                android:maxLength="16"
+                android:maxLines="1" />
+
             <EditText
                 android:id="@+id/chosen_number"
-                android:enabled="false"
                 style="@style/MainViewCenterBoxEditText"
-                android:hint="@string/chosen_number" />
+                android:enabled="false"
+                android:hint="@string/chosen_number"
+                android:inputType="number"
+                android:maxLength="8"
+                android:maxLines="1" />
 
             <EditText
                 android:id="@+id/sim_card_serial"
                 style="@style/MainViewCenterBoxEditText"
-                android:hint="@string/sim_card_serial" />
+                android:hint="@string/sim_card_serial"
+                android:inputType="number"
+                android:maxLength="16"
+                android:maxLines="1" />
 
             <EditText
                 android:id="@+id/hobby"
                 style="@style/MainViewCenterBoxEditText"
-                android:hint="@string/hobby" />
+                android:hint="@string/hobby"
+                android:maxLength="30"
+                android:maxLines="1" />
 
             <EditText
                 android:id="@+id/job"
                 style="@style/MainViewCenterBoxEditText"
-                android:hint="@string/job" />
+                android:hint="@string/job"
+                android:maxLength="30"
+                android:maxLines="1" />
 
 
             <EditText
                 android:id="@+id/contact_number"
                 style="@style/MainViewCenterBoxEditText"
+                android:inputType="number"
+                android:maxLength="8"
+                android:maxLines="1"
                 android:hint="@string/contact_number" />
 
             <EditText
@@ -82,6 +102,8 @@
                 style="@style/TextAreaStyle"
                 android:gravity="top|left"
                 android:hint="@string/description_order"
+                android:maxLength="30"
+                android:maxLines="1"
                 android:transitionName="@string/description_order" />
         </LinearLayout>
 

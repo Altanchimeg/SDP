@@ -53,10 +53,10 @@ public class LoginActivity extends Activity implements Constants {
  * If code is running on Debug
  */
 
-     /*   Intent i = new Intent(LoginActivity.this, MainActivity.class);
+        Intent i = new Intent(LoginActivity.this, MainActivity.class);
         startActivity(i);
         finish();
-*/
+
         if (mPrefManager.getIsLoggedIn()) {
             Intent intent = new Intent(LoginActivity.this, MainActivity.class);
             startActivity(intent);
@@ -128,11 +128,6 @@ public class LoginActivity extends Activity implements Constants {
 
                 if (!response.isSuccessful()) throw new IOException("Unexpected code " + response);
 
-                Headers responseHeaders = response.headers();
-                for (int i = 0; i < responseHeaders.size(); i++) {
-                    System.out.println(responseHeaders.name(i) + ": " + responseHeaders.value(i));
-                }
-
                 String resp = response.body().string();
                 System.out.println("resp " + resp);
 
@@ -160,12 +155,9 @@ public class LoginActivity extends Activity implements Constants {
                         runOnUiThread(new Runnable() {
                             @Override
                             public void run() {
-
-//                                Toast.makeText(mContext, result_msg + "", Toast.LENGTH_SHORT).show();
-
+                                Toast.makeText(mContext, result_msg + "", Toast.LENGTH_SHORT).show();
                             }
                         });
-
                     }
 
 

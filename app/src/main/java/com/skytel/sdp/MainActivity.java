@@ -1,12 +1,12 @@
 package com.skytel.sdp;
 
+import android.app.Fragment;
+import android.app.FragmentTransaction;
 import android.content.Context;
 import android.content.Intent;
 import android.os.AsyncTask;
-import android.app.Fragment;
-import android.app.FragmentTransaction;
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.View;
@@ -18,12 +18,12 @@ import android.widget.Toast;
 import com.skytel.sdp.adapter.LeftMenuListAdapter;
 import com.skytel.sdp.database.DataManager;
 import com.skytel.sdp.ui.TabInformationFragment;
+import com.skytel.sdp.ui.TabNewNumberFragment;
 import com.skytel.sdp.ui.TabRegistrationFragment;
 import com.skytel.sdp.ui.TabServiceFragment;
 import com.skytel.sdp.ui.TabSettingsFragment;
 import com.skytel.sdp.ui.TabSkyDealerFragment;
 import com.skytel.sdp.ui.feedback.FeedbackFragment;
-import com.skytel.sdp.ui.TabNewNumberFragment;
 import com.skytel.sdp.ui.plan.PlanFragment;
 import com.skytel.sdp.ui.skydealer.ChargeCardFragment;
 import com.skytel.sdp.ui.skydealer.PostPaidPaymentFragment;
@@ -47,7 +47,6 @@ public class MainActivity extends AppCompatActivity implements BalanceUpdateList
     private TextView mDealerZone;
 
 
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -60,7 +59,6 @@ public class MainActivity extends AppCompatActivity implements BalanceUpdateList
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
         toolbar.setTitle(getTitle());
-
 
         if (savedInstanceState == null) {
             changeMenu(new TabNewNumberFragment());
@@ -80,6 +78,8 @@ public class MainActivity extends AppCompatActivity implements BalanceUpdateList
         mLeftMenuListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                sCurrentMenu = position;
+
                 switch (position) {
                     case Constants.MENU_NEWNUMBER:
                         changeMenu(new TabNewNumberFragment());
@@ -110,17 +110,17 @@ public class MainActivity extends AppCompatActivity implements BalanceUpdateList
                         //logoutDialog();
                         ConfirmDialog confirmDialog = new ConfirmDialog();
                         Bundle args = new Bundle();
-                        args.putInt("message", R.string.confirm);
+                        args.putInt("message", R.string.dialog_logout_confirm);
                         args.putInt("title", R.string.confirm);
 
                         confirmDialog.setArguments(args);
                         confirmDialog.registerCallback(dialogConfirmListener);
                         confirmDialog.show(getFragmentManager(), "dialog");
 
+                        sCurrentMenu = Constants.MENU_NEWNUMBER;
 
                         break;
                 }
-                sCurrentMenu = position;
                 mLeftMenuListAdapter.notifyDataSetChanged();
             }
         });
@@ -169,7 +169,7 @@ public class MainActivity extends AppCompatActivity implements BalanceUpdateList
 
     @Override
     public void onBalanceUpdate() {
-        Log.d(TAG, "BALANCE: "+mPrefManager.getDealerBalance());
+        Log.d(TAG, "BALANCE: " + mPrefManager.getDealerBalance());
         mDealerBalance.setText(mPrefManager.getDealerBalance());
     }
 

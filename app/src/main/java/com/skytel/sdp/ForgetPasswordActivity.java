@@ -3,6 +3,7 @@ package com.skytel.sdp;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
+import android.os.CountDownTimer;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.View;
@@ -73,7 +74,6 @@ public class ForgetPasswordActivity extends AppCompatActivity implements Constan
             public void onClick(View v) {
                 try {
                     if (ValidationChecker.isValidationPassed(mEtPhoneNumber)) {
-                        Toast.makeText(mContext, "Please wait", Toast.LENGTH_SHORT).show();
                         runForgetFunction();
                         mProgressDialog.show();
                     } else {
@@ -99,7 +99,6 @@ public class ForgetPasswordActivity extends AppCompatActivity implements Constan
                         confirmDialog.registerCallback(dialogConfirmListener);
                         confirmDialog.show(getFragmentManager(), "dialog");
 
-
                     } else {
                         Toast.makeText(mContext, "Please fill the field!", Toast.LENGTH_SHORT).show();
                     }
@@ -123,7 +122,7 @@ public class ForgetPasswordActivity extends AppCompatActivity implements Constan
         url.append(FUNCTION_FORGET);
         url.append("?login=" + mEtPhoneNumber.getText().toString());
 
-        Log.d(TAG, "send URL: "+url.toString());
+        Log.d(TAG, "send URL: " + url.toString());
 
         Request request = new Request.Builder()
                 .url(url.toString())
@@ -157,18 +156,13 @@ public class ForgetPasswordActivity extends AppCompatActivity implements Constan
 
                 if (!response.isSuccessful()) throw new IOException("Unexpected code " + response);
 
-                Headers responseHeaders = response.headers();
-                for (int i = 0; i < responseHeaders.size(); i++) {
-                    System.out.println(responseHeaders.name(i) + ": " + responseHeaders.value(i));
-                }
-
                 String resp = response.body().string();
                 System.out.println("resp " + resp);
 
                 try {
                     JSONObject jsonObj = new JSONObject(resp);
                     int result_code = jsonObj.getInt("result_code");
-                    String result_msg = jsonObj.getString("result_msg");
+                    final String result_msg = jsonObj.getString("result_msg");
 
 
                     if (result_code == RESULT_CODE_SUCCESS) {
@@ -188,11 +182,17 @@ public class ForgetPasswordActivity extends AppCompatActivity implements Constan
 
                         Log.d(TAG, "result_code " + result_code);
                         Log.d(TAG, "result_msg " + result_msg);
+                        runOnUiThread(new Runnable() {
+                            @Override
+                            public void run() {
+                                Toast.makeText(mContext, result_msg + "", Toast.LENGTH_SHORT).show();
+                            }
+                        });
+
                     }
 
-
                 } catch (JSONException e) {
-                  runOnUiThread(new Runnable() {
+                    runOnUiThread(new Runnable() {
                         @Override
                         public void run() {
                             Toast.makeText(mContext, "Алдаатай хариу ирлээ", Toast.LENGTH_LONG).show();
@@ -246,11 +246,6 @@ public class ForgetPasswordActivity extends AppCompatActivity implements Constan
 
                 if (!response.isSuccessful()) throw new IOException("Unexpected code " + response);
 
-                Headers responseHeaders = response.headers();
-                for (int i = 0; i < responseHeaders.size(); i++) {
-                    System.out.println(responseHeaders.name(i) + ": " + responseHeaders.value(i));
-                }
-
                 String resp = response.body().string();
                 System.out.println("resp " + resp);
 
@@ -259,27 +254,36 @@ public class ForgetPasswordActivity extends AppCompatActivity implements Constan
                     int result_code = jsonObj.getInt("result_code");
                     final String result_msg = jsonObj.getString("result_msg");
 
+                    runOnUiThread(new Runnable() {
+                        @Override
+                        public void run() {
+                            Toast.makeText(mContext, result_msg + "", Toast.LENGTH_LONG).show();
+                        }
+                    });
 
                     if (result_code == RESULT_CODE_SUCCESS) {
 
                         Log.d(TAG, "result_code " + result_code);
                         Log.d(TAG, "resul_msg " + result_msg);
-                        runOnUiThread(new Runnable() {
-                            @Override
-                            public void run() {
-//                                Toast.makeText(mContext, "Successfully changed!", Toast.LENGTH_LONG).show();
 
 
+                        new CountDownTimer(2000, 1000) {
+
+                            public void onTick(long millisUntilFinished) {
                             }
-                        });
-                        Intent intent = new Intent(ForgetPasswordActivity.this, LoginActivity.class);
-                        startActivity(intent);
-                        finish();
+
+                            public void onFinish() {
+                                Intent intent = new Intent(ForgetPasswordActivity.this, LoginActivity.class);
+                                startActivity(intent);
+                                finish();
+                            }
+                        }.start();
+
+
                     } else {
                         runOnUiThread(new Runnable() {
                             @Override
                             public void run() {
-//                                Toast.makeText(mContext, "" + result_msg, Toast.LENGTH_SHORT).show();
                                 mEtNewPassword.setText("");
                                 mEtConfirmCode.setText("");
 
@@ -287,7 +291,6 @@ public class ForgetPasswordActivity extends AppCompatActivity implements Constan
                         });
                         Log.d(TAG, "result_code " + result_code);
                         Log.d(TAG, "result_msg " + result_msg);
-
 
                     }
 

@@ -8,9 +8,12 @@ import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.graphics.Bitmap;
 import android.graphics.MaskFilter;
+import android.net.Uri;
 import android.os.Bundle;
+import android.os.CountDownTimer;
 import android.os.Environment;
 import android.provider.MediaStore;
+import android.support.v4.content.FileProvider;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.text.Editable;
@@ -112,15 +115,14 @@ public class NumberUserInfoActivity extends AppCompatActivity implements Constan
         Bundle extras = getIntent().getExtras();
         if (extras != null) {
             mReservationId = extras.getString("reservation_id");
-            mRegisterNumber= extras.getString("register_number");
+            mRegisterNumber = extras.getString("register_number");
             mPhoneNumber = extras.getString("phone_number");
 
-            Log.d(TAG, "Reservation ID: "+mReservationId );
+            Log.d(TAG, "Reservation ID: " + mReservationId);
         }
 
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
-
 
 
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
@@ -144,14 +146,13 @@ public class NumberUserInfoActivity extends AppCompatActivity implements Constan
         mOrderUserInfo.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if(ValidationChecker.isValidationPassed(mLastName) && ValidationChecker.isValidationPassed(mFirstName) && ValidationChecker.isValidationPassed(mRegistrationNumberEt) &&
+                if (ValidationChecker.isValidationPassed(mLastName) && ValidationChecker.isValidationPassed(mFirstName) && ValidationChecker.isValidationPassed(mRegistrationNumberEt) &&
                         ValidationChecker.isValidationPassed(mSimCardSerial) && ValidationChecker.isValidationPassed(mHobby) && ValidationChecker.isValidationPassed(mJob) &&
-                        ValidationChecker.isValidationPassed(mContactNumber) && ValidationChecker.isValidationPassed(mChosenNumber) && ValidationChecker.hasBitmapValue(bm)){
+                        ValidationChecker.isValidationPassed(mContactNumber) && ValidationChecker.isValidationPassed(mChosenNumber) && ValidationChecker.hasBitmapValue(bm)) {
 
                     mConfirmDialog.show(getFragmentManager(), "dialog");
 
-                }
-                else{
+                } else {
                     Toast.makeText(mContext, "Please fill fields!", Toast.LENGTH_SHORT).show();
                 }
             }
@@ -183,16 +184,16 @@ public class NumberUserInfoActivity extends AppCompatActivity implements Constan
         final StringBuilder url = new StringBuilder();
         url.append(Constants.SERVER_URL);
         url.append(Constants.FUNCTION_NEW_NUMBER_DETAIL);
-        url.append("?reservation_id="+mReservationId);
-        url.append("&last_name="+mLastName.getText().toString());
-        url.append("&first_name="+mFirstName.getText().toString());
-        url.append("&sim_serial="+mSimCardSerial.getText().toString());
-        url.append("&hobby="+mHobby.getText().toString());
-        url.append("&work="+mJob.getText().toString());
-        url.append("&contact="+mContactNumber.getText().toString());
-        url.append("&description="+mDescription.getText().toString());
+        url.append("?reservation_id=" + mReservationId);
+        url.append("&last_name=" + mLastName.getText().toString());
+        url.append("&first_name=" + mFirstName.getText().toString());
+        url.append("&sim_serial=" + mSimCardSerial.getText().toString());
+        url.append("&hobby=" + mHobby.getText().toString());
+        url.append("&work=" + mJob.getText().toString());
+        url.append("&contact=" + mContactNumber.getText().toString());
+        url.append("&description=" + mDescription.getText().toString());
 
-        Log.d(TAG, "sedn URL: "+url.toString());
+        Log.d(TAG, "sedn URL: " + url.toString());
 
         System.out.print(url + "\n");
         System.out.println(mPrefManager.getAuthToken());
@@ -218,7 +219,7 @@ public class NumberUserInfoActivity extends AppCompatActivity implements Constan
                 e.printStackTrace();
 
                 Toast.makeText(mContext, "Error on Failure!", Toast.LENGTH_LONG).show();
-                        // Used for debug
+                // Used for debug
 
             }
 
@@ -231,11 +232,6 @@ public class NumberUserInfoActivity extends AppCompatActivity implements Constan
                 if (!response.isSuccessful())
                     throw new IOException("Unexpected code " + response);
 
-                Headers responseHeaders = response.headers();
-                for (int i = 0; i < responseHeaders.size(); i++) {
-                    System.out.println(responseHeaders.name(i) + ": " + responseHeaders.value(i));
-                }
-
                 String resp = response.body().string();
                 System.out.println("resp " + resp);
 
@@ -246,22 +242,27 @@ public class NumberUserInfoActivity extends AppCompatActivity implements Constan
 
                     Log.d(TAG, "result_code " + result_code);
                     Log.d(TAG, "result_msg " + result_msg);
-                    if (result_code != RESULT_CODE_SUCCESS){
+                    runOnUiThread(new Runnable() {
+                        @Override
+                        public void run() {
+                            Toast.makeText(mContext, "" + result_msg, Toast.LENGTH_SHORT).show();
+                        }
+                    });
 
-                        runOnUiThread(new Runnable() {
-                            @Override
-                            public void run() {
-//                                Toast.makeText(mContext, "Result: "+result_msg, Toast.LENGTH_SHORT).show();
+                    if (result_code == RESULT_CODE_SUCCESS) {
+                        new CountDownTimer(2000, 1000) {
 
+                            public void onTick(long millisUntilFinished) {
                             }
-                        });
-                    }
-                    else{
-                        finish();
+
+                            public void onFinish() {
+                                finish();
+                            }
+                        }.start();
                     }
 
                 } catch (JSONException e) {
-                    Toast.makeText(mContext, "Алдаатай хариу ирлээ", Toast.LENGTH_LONG).show();
+                    Toast.makeText(mContext, getResources().getString(R.string.error_result), Toast.LENGTH_LONG).show();
                     e.printStackTrace();
                 }
             }
@@ -273,9 +274,9 @@ public class NumberUserInfoActivity extends AppCompatActivity implements Constan
         switch (requestCode) {
             case Utility.MY_PERMISSIONS_REQUEST_READ_EXTERNAL_STORAGE:
                 if (grantResults.length > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
-                    if(userChosenTask.equals(getString(R.string.take_photo)))
+                    if (userChosenTask.equals(getString(R.string.take_photo)))
                         cameraIntent();
-                    else if(userChosenTask.equals(getString(R.string.choose_from_library)))
+                    else if (userChosenTask.equals(getString(R.string.choose_from_library)))
                         galleryIntent();
                 } else {
                     //code for deny
@@ -300,12 +301,12 @@ public class NumberUserInfoActivity extends AppCompatActivity implements Constan
                     if (result)
                         cameraIntent();
 
-                } else if (items[item].equals( getString(R.string.choose_from_library))) {
-                    userChosenTask =  getString(R.string.choose_from_library);
+                } else if (items[item].equals(getString(R.string.choose_from_library))) {
+                    userChosenTask = getString(R.string.choose_from_library);
                     if (result)
                         galleryIntent();
 
-                } else if (items[item].equals( getString(R.string.cancel))) {
+                } else if (items[item].equals(getString(R.string.cancel))) {
                     dialog.dismiss();
                 }
             }
@@ -317,7 +318,7 @@ public class NumberUserInfoActivity extends AppCompatActivity implements Constan
         Intent intent = new Intent();
         intent.setType("image/*");
         intent.setAction(Intent.ACTION_GET_CONTENT);//
-        startActivityForResult(Intent.createChooser(intent,  getString(R.string.select_file)), SELECT_FILE);
+        startActivityForResult(Intent.createChooser(intent, getString(R.string.select_file)), SELECT_FILE);
     }
 
     private void cameraIntent() {
