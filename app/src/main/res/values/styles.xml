@@ -157,11 +157,11 @@
 
     <style name="MainViewCenterBoxEditText" parent="EditTextStyle">
         <item name="android:layout_width">match_parent</item>
-        <item name="android:maxLines">1</item>
+        <item name="android:singleLine">true</item>
     </style>
 
     <style name="PhoneNumberEdittextStyle" parent="MainViewCenterBoxEditText">
-        <item name="android:phoneNumber">true</item>
+        <item name="android:inputType">number</item>
         <item name="android:maxLength">8</item>
     </style>
     <!-- Right View -->
@@ -205,9 +205,9 @@
     <style name="RightViewTakePictureView">
         <item name="android:layout_width">100dp</item>
         <item name="android:layout_height">100dp</item>
-        <item name="android:background">@color/colorMenuText</item>
-        <item name="android:src">@android:drawable/ic_menu_camera</item>
-        <item name="android:padding">@dimen/second_padding</item>
+
+        <item name="android:src">@drawable/no_image_available</item>
+
     </style>
 
     <style name="DividerStyle">

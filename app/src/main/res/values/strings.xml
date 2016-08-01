@@ -43,7 +43,7 @@
 
     <!-- Dialog -->
     <string name="dialog_confirm">Та энэ захиалгыг баталгаажуулах уу</string>
-    <string name="dialog_logout_confirm">Та програмаас уу</string>
+    <string name="dialog_logout_confirm">Та програмаас гарах уу</string>
 
     <!-- Toast -->
     <string name="please_fill_the_field">Талбаруудыг бүрэн бөглөнө үү!</string>
@@ -134,7 +134,9 @@
     <string name="report_promt">[Сонгох...]</string>
 
     <!-- Service -->
-    <string name="take_epassport_picture">Цахим үнэмлэхний зургийг дарна уу</string>
+    <string name="take_epassport_picture">Цахим үнэмлэхний зургийг оруулна уу</string>
+    <string name="front">Урд тал</string>
+    <string name="back">Ард тал</string>
 
     <!-- Handset change -->
     <string name="choose_handset_change_type">Гар солилтын төрөл сонгоно уу</string>

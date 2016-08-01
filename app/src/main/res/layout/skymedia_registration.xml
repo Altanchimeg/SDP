@@ -65,7 +65,7 @@
 
                 <EditText
                     android:id="@+id/bag_khoroo"
-                    style="@style/EditTextStyle"
+                    style="@style/MainViewCenterBoxEditText"
                     android:layout_width="@dimen/leftmenu_width"
                     android:hint="@string/bag_khoroo" />
 
@@ -83,7 +83,7 @@
 
                 <EditText
                     android:id="@+id/door_fence"
-                    style="@style/EditTextStyle"
+                    style="@style/MainViewCenterBoxEditText"
                     android:layout_width="@dimen/leftmenu_width"
                     android:hint="@string/entrance_fence" />
 
@@ -126,15 +126,25 @@
                     android:text="@string/take_epassport_picture"></TextView>
             </LinearLayout>
 
-            <LinearLayout style="@style/RightViewGroupContainer">
-
+            <LinearLayout style="@style/RightViewGroupContainer"
+                android:orientation="horizontal"
+                >
+                <TextView
+                    style="@style/RightViewTextView"
+                    android:text="@string/front"
+                    android:layout_gravity="center_vertical"></TextView>
                 <ImageView
                     android:id="@+id/img_front"
                     style="@style/RightViewTakePictureView" />
             </LinearLayout>
 
-            <LinearLayout style="@style/RightViewGroupContainer">
-
+            <LinearLayout style="@style/RightViewGroupContainer"
+                android:orientation="horizontal"
+                >
+                <TextView
+                    style="@style/RightViewTextView"
+                    android:text="@string/back"
+                    android:layout_gravity="center_vertical"></TextView>
                 <ImageView
                     android:id="@+id/img_back"
                     style="@style/RightViewTakePictureView" />

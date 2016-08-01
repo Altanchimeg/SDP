@@ -152,6 +152,7 @@ public class SkyMediaRegistrationFragment extends Fragment implements Constants 
         });
 
         ArrayAdapter<CharSequence> adapterReport = ArrayAdapter.createFromResource(getActivity(), R.array.city_aimag_list, android.R.layout.simple_spinner_item);
+        adapterReport.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         mAimagCitySpinner.setAdapter(new NothingSelectedSpinnerAdapter(adapterReport,
                 R.layout.spinner_row_nothing_selected,
                 // R.layout.contact_spinner_nothing_selected_dropdown, // Option

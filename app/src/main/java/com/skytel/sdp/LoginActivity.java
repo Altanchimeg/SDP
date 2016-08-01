@@ -73,8 +73,9 @@ public class LoginActivity extends Activity implements Constants {
                 try {
                     if (ValidationChecker.isValidationPassed(mEtUserName) && ValidationChecker.isValidationPassed(mEtPassword)) {
 //                        Toast.makeText(context, "Please wait", Toast.LENGTH_SHORT).show();
-                        runLoginFunction();
                         mProgressDialog.show();
+                        runLoginFunction();
+
                     } else {
                         Toast.makeText(mContext, getResources().getString(R.string.please_fill_the_field), Toast.LENGTH_SHORT).show();
                     }

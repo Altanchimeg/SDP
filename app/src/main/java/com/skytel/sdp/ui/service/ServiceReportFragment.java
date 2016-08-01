@@ -141,6 +141,7 @@ public class ServiceReportFragment extends Fragment implements Constants{
 
         mReportTypeSpinner = (Spinner) rootView.findViewById(R.id.choose_service_report_type);
         ArrayAdapter<CharSequence> adapterReport = ArrayAdapter.createFromResource(getActivity(), R.array.service_report_type, android.R.layout.simple_spinner_item);
+        adapterReport.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         mReportTypeSpinner.setAdapter(new NothingSelectedSpinnerAdapter(adapterReport,
                 R.layout.spinner_row_nothing_selected,
                 // R.layout.contact_spinner_nothing_selected_dropdown, // Option
@@ -453,6 +454,7 @@ public class ServiceReportFragment extends Fragment implements Constants{
                         //VAS
                         else{
                             String is_activation  = jsonData.getString("is_activation");
+                            is_activation = (is_activation == "true") ? mContext.getString(R.string.active) : mContext.getString(R.string.decline);
                             serviceReport.setIsActivation(is_activation);
                             Log.d(TAG, "is_activation: " + is_activation);
                         }

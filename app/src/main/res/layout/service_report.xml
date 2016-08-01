@@ -63,6 +63,7 @@
                 </LinearLayout>
 
                 <EditText
+                    android:id="@+id/filterByOrderedNumber"
                     style="@style/PhoneNumberEdittextStyle"
                     android:hint="@string/ordered_number" />
 

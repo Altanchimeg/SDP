@@ -115,15 +115,25 @@
                     android:text="@string/take_epassport_picture"></TextView>
             </LinearLayout>
 
-            <LinearLayout style="@style/RightViewGroupContainer">
-
+            <LinearLayout style="@style/RightViewGroupContainer"
+                android:orientation="horizontal"
+                >
+                <TextView
+                    style="@style/RightViewTextView"
+                    android:text="@string/front"
+                    android:layout_gravity="center_vertical"></TextView>
                 <ImageView
                     android:id="@+id/img_front"
                     style="@style/RightViewTakePictureView" />
             </LinearLayout>
 
-            <LinearLayout style="@style/RightViewGroupContainer">
-
+            <LinearLayout style="@style/RightViewGroupContainer"
+                android:orientation="horizontal"
+                >
+                <TextView
+                    style="@style/RightViewTextView"
+                    android:text="@string/back"
+                    android:layout_gravity="center_vertical"></TextView>
                 <ImageView
                     android:id="@+id/img_back"
                     style="@style/RightViewTakePictureView" />
@@ -131,7 +141,7 @@
 
 
             <Button
-                android:id="@+id/btn_order"
+                android:id="@+id/send_order"
                 style="@style/ButtonStyle"
                 android:layout_marginBottom="@dimen/main_padding"
                 android:layout_marginLeft="@dimen/main_padding"

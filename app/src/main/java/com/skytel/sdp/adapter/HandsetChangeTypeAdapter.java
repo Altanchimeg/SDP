@@ -5,6 +5,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
+import android.widget.CheckedTextView;
 import android.widget.TextView;
 
 import com.skytel.sdp.R;
@@ -45,8 +46,8 @@ public class HandsetChangeTypeAdapter  extends ArrayAdapter<HandsetChangeType> {
         //return super.getView(position, convertView, parent);
 
         LayoutInflater li = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-        View row = li.inflate(R.layout.dealer_channel_type_item, parent, false);
-        TextView name = (TextView) row.findViewById(R.id.name);
+        View row = li.inflate(android.R.layout.simple_spinner_dropdown_item, parent, false);
+        CheckedTextView name = (CheckedTextView) row.findViewById(android.R.id.text1);
         name.setText(mList.get(position).getTypeName() + "");
 
         return row;

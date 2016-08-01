@@ -176,6 +176,7 @@ public class SalesReportFragment extends Fragment implements Constants {
         // TODO: Nothing selected state and then choose none abter selected
         mReportTypeSpinner = (Spinner) rootView.findViewById(R.id.choose_skydealer_report_type);
         ArrayAdapter<CharSequence> adapterReport = ArrayAdapter.createFromResource(getActivity(), R.array.skydealer_report_type, android.R.layout.simple_spinner_item);
+        adapterReport.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         mReportTypeSpinner.setAdapter(new NothingSelectedSpinnerAdapter(adapterReport,
                 R.layout.spinner_row_nothing_selected,
                 // R.layout.contact_spinner_nothing_selected_dropdown, // Option

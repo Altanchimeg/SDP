@@ -145,6 +145,7 @@ public class RegistrationReportFragment extends Fragment implements Constants {
         // TODO: Nothing selected state and then choose none abter selected
         mReportTypeSpinner = (Spinner) rootView.findViewById(R.id.choose_registration_report_type);
         ArrayAdapter<CharSequence> adapterReport = ArrayAdapter.createFromResource(getActivity(), R.array.registration_report_type, android.R.layout.simple_spinner_item);
+        adapterReport.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         mReportTypeSpinner.setAdapter(new NothingSelectedSpinnerAdapter(adapterReport,
                 R.layout.spinner_row_nothing_selected,
                 // R.layout.contact_spinner_nothing_selected_dropdown, // Option
@@ -433,16 +434,20 @@ public class RegistrationReportFragment extends Fragment implements Constants {
                         String date = jsonData.getString("date");
                         String order_status = jsonData.getString("order_status");
                         int service_type = jsonData.getInt("service_type");
-                        String description = jsonData.getString("description");
+                        String description;
+                        RegistrationReport registrationReport = new RegistrationReport();
+                        if(jsonData.has("description")){
+                            description = jsonData.getString("description");
+                            registrationReport.setDescription(description);
+                            Log.d(TAG, "description: " + description);
+                        }
                         String phone = jsonData.getString("phone");
 
-
-                        RegistrationReport registrationReport = new RegistrationReport();
                         registrationReport.setId(i);
                         registrationReport.setPhone(phone);
                         registrationReport.setOrderStatus(order_status);
                         registrationReport.setServiceType(service_type);
-                        registrationReport.setDescription(description);
+
                         registrationReport.setDate(date);
 
                         Log.d(TAG, "INDEX:       " + i);
@@ -450,7 +455,7 @@ public class RegistrationReportFragment extends Fragment implements Constants {
                         Log.d(TAG, "phone: " + phone);
                         Log.d(TAG, "order_status: " + order_status);
                         Log.d(TAG, "service_type: " + service_type);
-                        Log.d(TAG, "description: " + description);
+
                         Log.d(TAG, "date: " + date);
 
                         // if it is dealer get discpunt and dealer type

@@ -141,7 +141,7 @@ public class NumberUserInfoActivity extends AppCompatActivity implements Constan
         mFrontImage = (ImageView) findViewById(R.id.img_front);
         mBackImage = (ImageView) findViewById(R.id.img_back);
 
-        mOrderUserInfo = (Button) findViewById(R.id.btn_order);
+        mOrderUserInfo = (Button) findViewById(R.id.send_order);
 
         mOrderUserInfo.setOnClickListener(new View.OnClickListener() {
             @Override
