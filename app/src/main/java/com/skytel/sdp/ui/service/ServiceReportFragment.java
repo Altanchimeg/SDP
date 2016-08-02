@@ -340,7 +340,7 @@ public class ServiceReportFragment extends Fragment implements Constants{
         final StringBuilder url = new StringBuilder();
         url.append(Constants.SERVER_URL);
         url.append(Constants.FUNCTION_SERVICE_REPORT);
-        url.append("?serivce_status=" + order_status);
+        url.append("?service_status=" + order_status);
         url.append("&len=" + length);
         url.append("&from=" + from);
         url.append("&service_type=" + report_type);
@@ -444,7 +444,7 @@ public class ServiceReportFragment extends Fragment implements Constants{
                         Log.d(TAG, "service_type: " + service_type);
                         Log.d(TAG, "date: " + date);
 
-                        //Hnadset change
+                        //Handset change
                         if(report_type == 0){
                             String sim_serial = jsonData.getString("sim_serial");
                             serviceReport.setSimcardSerial(sim_serial);

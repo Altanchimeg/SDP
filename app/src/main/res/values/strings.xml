@@ -200,4 +200,6 @@
 
     <!-- Information and news fragment -->
     <string name="choose_info_type">Мэдээллийн төрөл сонгоно уу?</string>
+
+    <string name="coming_soon">Тун удахгүй!</string>
 </resources>

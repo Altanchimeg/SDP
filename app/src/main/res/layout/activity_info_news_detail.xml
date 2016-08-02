@@ -4,7 +4,6 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical"
     tools:context=".MainActivity">
 
     <android.support.design.widget.AppBarLayout
@@ -28,8 +27,9 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:gravity="center"
-            android:orientation="vertical">
+            android:layout_marginTop="@dimen/logo_height"
+            android:orientation="vertical"
+            android:gravity="center_horizontal">
 
             <TextView
                 android:id="@+id/content_title"
@@ -42,16 +42,19 @@
                 android:layout_height="wrap_content"
                 android:background="@drawable/bg_pattern" />
 
-            <!--
+
                         <TextView
                             android:id="@+id/content_body"
                             style="@style/MainViewTextViewGrey"
+                            android:textColor="@color/colorMenuBackgroundSelected"
                             android:text="body is here" />
-            -->
+
             <WebView
-                android:id="@+id/content_body"
+                android:id="@+id/content_body_web"
+                style="@style/MainViewTextViewGrey"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"></WebView>
+
 
         </LinearLayout>
     </ScrollView>

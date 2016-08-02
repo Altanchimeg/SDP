@@ -7,6 +7,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
 import android.text.Html;
+import android.text.Spannable;
 import android.text.Spanned;
 import android.util.Log;
 import android.webkit.WebView;
@@ -41,7 +42,7 @@ public class InfoNewsDetailActivity extends AppCompatActivity implements Constan
 
     private TextView mContentTitle;
     private ImageView mContentImage;
-//    private TextView mContentBodyText;
+    private TextView mContentBodyText;
 
     private WebView content_body;
 
@@ -70,9 +71,9 @@ public class InfoNewsDetailActivity extends AppCompatActivity implements Constan
 
         mContentTitle = (TextView) findViewById(R.id.content_title);
         mContentImage = (ImageView) findViewById(R.id.content_image);
-      //  mContentBodyText = (TextView) findViewById(R.id.content_body);
+        mContentBodyText = (TextView) findViewById(R.id.content_body);
 
-        content_body = (WebView) findViewById(R.id.content_body);
+        content_body = (WebView) findViewById(R.id.content_body_web);
 
         try {
             mProgressDialog.show();
@@ -176,12 +177,16 @@ public class InfoNewsDetailActivity extends AppCompatActivity implements Constan
                                                              mContentTitle.setText(title);
                                                              Picasso.with(mContext).load(image).into(mContentImage);
 
+                                                             String htmlBody = text.toString().replaceAll("(<(/)img>)|(<img.+?>)", "");
+
+
                                                              Spanned htmlSpanned = Html.fromHtml(text, new ImageGetter(mContext), null);
-  /*                                                           mContentBodyText.setText(htmlSpanned);
-*/
 
-                                                             content_body.loadDataWithBaseURL(null, htmlSpanned.toString(), "text/html", "utf-8", null);
+                                                             mContentBodyText.setText(htmlBody);
 
+
+                                                            /* content_body.loadDataWithBaseURL(null, htmlSpanned.toString(), "text/html", "utf-8", null);
+                                                             mContentBodyText.setText(content_body.);*/
 
                                                          }
                                                      });
