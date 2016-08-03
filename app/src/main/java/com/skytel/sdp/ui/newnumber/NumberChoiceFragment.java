@@ -116,6 +116,8 @@ public class NumberChoiceFragment extends Fragment {
         mNewNumbersGrid.setAdapter(mNumberChoiceAdapter);
 
         mPriceTypeInfoListAdapter = new PriceTypeInfoListAdapter(mContext, mPriceTypeInfoArrayList);
+
+
         mPriceTypeInfoListView.setAdapter(mPriceTypeInfoListAdapter);
 
         mPriceTypeInfoListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {

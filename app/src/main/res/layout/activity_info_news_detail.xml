@@ -43,12 +43,12 @@
                 android:background="@drawable/bg_pattern" />
 
 
-                        <TextView
+                  <!--      <TextView
                             android:id="@+id/content_body"
                             style="@style/MainViewTextViewGrey"
                             android:textColor="@color/colorMenuBackgroundSelected"
                             android:text="body is here" />
-
+-->
             <WebView
                 android:id="@+id/content_body_web"
                 style="@style/MainViewTextViewGrey"

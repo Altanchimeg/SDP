@@ -459,10 +459,14 @@ public class HandsetChangeFragment extends Fragment implements  Constants{
         super.onActivityResult(requestCode, resultCode, data);
 
         if (resultCode == Activity.RESULT_OK) {
-            if (requestCode == SELECT_FILE)
+            if (requestCode == SELECT_FILE) {
+                //mProgressDialog.show();
                 onSelectFromGalleryResult(data);
-            else if (requestCode == REQUEST_CAMERA)
+            }
+            else if (requestCode == REQUEST_CAMERA) {
+                //mProgressDialog.show();
                 onCaptureImageResult(data);
+            }
         }
     }
 
@@ -471,10 +475,13 @@ public class HandsetChangeFragment extends Fragment implements  Constants{
         if (isFirst) {
             mFrontImage.setImageBitmap(bm);
             BitmapSaver.saveBitmapToFile(bm, imageFront);
+
         } else {
             mBackImage.setImageBitmap(bm);
             BitmapSaver.saveBitmapToFile(bm, imageBack);
+
         }
+
     }
 
     @SuppressWarnings("deprecation")
@@ -496,6 +503,7 @@ public class HandsetChangeFragment extends Fragment implements  Constants{
             BitmapSaver.saveBitmapToFile(bm, imageBack);
 
         }
+
 
 
     }

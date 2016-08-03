@@ -71,7 +71,7 @@ public class InfoNewsDetailActivity extends AppCompatActivity implements Constan
 
         mContentTitle = (TextView) findViewById(R.id.content_title);
         mContentImage = (ImageView) findViewById(R.id.content_image);
-        mContentBodyText = (TextView) findViewById(R.id.content_body);
+       // mContentBodyText = (TextView) findViewById(R.id.content_body);
 
         content_body = (WebView) findViewById(R.id.content_body_web);
 
@@ -182,11 +182,11 @@ public class InfoNewsDetailActivity extends AppCompatActivity implements Constan
 
                                                              Spanned htmlSpanned = Html.fromHtml(text, new ImageGetter(mContext), null);
 
-                                                             mContentBodyText.setText(htmlBody);
+                                                             //mContentBodyText.setText(htmlBody);
 
 
-                                                            /* content_body.loadDataWithBaseURL(null, htmlSpanned.toString(), "text/html", "utf-8", null);
-                                                             mContentBodyText.setText(content_body.);*/
+                                                             content_body.loadDataWithBaseURL(null, htmlSpanned.toString(), "text/html", "utf-8", null);
+                                                             //mContentBodyText.setText(content_body.);*/
 
                                                          }
                                                      });
