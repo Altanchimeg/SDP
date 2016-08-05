@@ -115,11 +115,20 @@ public class DataManager implements Constants {
                     case CONST_COLOR_DATA_PACKAGE:
                         cardType.setPackageTypeEnum(PackageTypeEnum.COLOR_DATA_PACKAGE);
                         break;
+                    case CONST_COLOR_CALL_PACKAGE:
+                        cardType.setPackageTypeEnum(PackageTypeEnum.COLOR_CALL_PACKAGE);
+                        break;
                     case CONST_SKYTEL_NODAY_PACKAGE:
                         cardType.setPackageTypeEnum(PackageTypeEnum.SKYTEL_NODAY_PACKAGE);
                         break;
                     case CONST_SKYTEL_DAY_PACKAGE:
                         cardType.setPackageTypeEnum(PackageTypeEnum.SKYTEL_DAY_PACKAGE);
+                        break;
+                    case CONST_SKYTEL_DATA_PACKAGE:
+                        cardType.setPackageTypeEnum(PackageTypeEnum.SKYTEL_DATA_PACKAGE);
+                        break;
+                    case CONST_SKYMEDIA_IP76_PACKAGE:
+                        cardType.setPackageTypeEnum(PackageTypeEnum.SKYMEDIA_IP76_PACKAGE);
                         break;
                     case CONST_SMART_PACKAGE:
                         cardType.setPackageTypeEnum(PackageTypeEnum.SMART_PACKAGE);

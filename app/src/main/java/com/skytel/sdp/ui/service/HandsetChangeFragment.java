@@ -460,11 +460,9 @@ public class HandsetChangeFragment extends Fragment implements  Constants{
 
         if (resultCode == Activity.RESULT_OK) {
             if (requestCode == SELECT_FILE) {
-                //mProgressDialog.show();
                 onSelectFromGalleryResult(data);
             }
             else if (requestCode == REQUEST_CAMERA) {
-                //mProgressDialog.show();
                 onCaptureImageResult(data);
             }
         }

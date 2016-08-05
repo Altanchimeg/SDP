@@ -49,9 +49,12 @@
     </string-array>
 
     <string-array name="skydealer_charge_card_types">
-        <item>Өнгөлөг DATA/CALL</item>
-        <item>Скайтел хоноггүй</item>
-        <item>Скайтел хоногтой</item>
+        <item>ӨНГӨЛӨГ DATA</item>
+        <item>ӨНГӨЛӨГ CALL</item>
+        <item>СКАЙтел хоноггүй</item>
+        <item>СКАЙтел хоногтой</item>
+        <item>СКАЙтел дата карт</item>
+        <item>СКАЙмедиа IP76 карт</item>
         <item>Смарт карт/Олон улс</item>
     </string-array>
 

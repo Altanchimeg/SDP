@@ -103,11 +103,20 @@ public class ChargeCardFragment extends Fragment {
                     case Constants.CONST_COLOR_DATA_PACKAGE:
                         mPackageTypeEnum = PackageTypeEnum.COLOR_DATA_PACKAGE;
                         break;
+                    case Constants.CONST_COLOR_CALL_PACKAGE:
+                        mPackageTypeEnum = PackageTypeEnum.COLOR_CALL_PACKAGE;
+                        break;
                     case Constants.CONST_SKYTEL_NODAY_PACKAGE:
                         mPackageTypeEnum = PackageTypeEnum.SKYTEL_NODAY_PACKAGE;
                         break;
                     case Constants.CONST_SKYTEL_DAY_PACKAGE:
                         mPackageTypeEnum = PackageTypeEnum.SKYTEL_DAY_PACKAGE;
+                        break;
+                    case Constants.CONST_SKYTEL_DATA_PACKAGE:
+                        mPackageTypeEnum = PackageTypeEnum.SKYTEL_DATA_PACKAGE;
+                        break;
+                    case Constants.CONST_SKYMEDIA_IP76_PACKAGE:
+                        mPackageTypeEnum = PackageTypeEnum.SKYMEDIA_IP76_PACKAGE;
                         break;
                     case Constants.CONST_SMART_PACKAGE:
                         mPackageTypeEnum = PackageTypeEnum.SMART_PACKAGE;

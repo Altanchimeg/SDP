@@ -300,7 +300,7 @@ public class NumberChoiceFragment extends Fragment {
         RequestBody formBody = new FormBody.Builder()
                 .add("task", "2")
                 .add("mask", mSearchNumber.getText().toString())
-                .add("mode", "1")
+                .add("mode", "2")
                 .build();
         Request request = new Request.Builder()
                 .url(url.toString())
