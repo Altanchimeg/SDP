@@ -426,14 +426,16 @@ public class HandsetChangeFragment extends Fragment implements  Constants{
 
                 if (items[item].equals(getString(R.string.take_photo))) {
                     userChosenTask = getString(R.string.take_photo);
-                    if (result)
+                    if (result) {
+                        mProgressDialog.show();
                         cameraIntent();
-
+                    }
                 } else if (items[item].equals( getString(R.string.choose_from_library))) {
                     userChosenTask =  getString(R.string.choose_from_library);
-                    if (result)
+                    if (result) {
+                        mProgressDialog.show();
                         galleryIntent();
-
+                    }
                 } else if (items[item].equals( getString(R.string.cancel))) {
                     dialog.dismiss();
                 }
@@ -477,9 +479,8 @@ public class HandsetChangeFragment extends Fragment implements  Constants{
         } else {
             mBackImage.setImageBitmap(bm);
             BitmapSaver.saveBitmapToFile(bm, imageBack);
-
         }
-
+        mProgressDialog.dismiss();
     }
 
     @SuppressWarnings("deprecation")
@@ -502,7 +503,7 @@ public class HandsetChangeFragment extends Fragment implements  Constants{
 
         }
 
-
+        mProgressDialog.dismiss();
 
     }
     private ConfirmDialog.OnDialogConfirmListener dialogConfirmListener = new ConfirmDialog.OnDialogConfirmListener() {
