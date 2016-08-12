@@ -79,6 +79,7 @@
                 <EditText
                     android:id="@+id/charge_card_pin_code"
                     style="@style/MainViewCenterBoxEditText"
+                    android:inputType="number"
                     android:hint="@string/pin_code" />
 
             </LinearLayout>

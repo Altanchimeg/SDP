@@ -45,7 +45,7 @@ public class SortableNewNumberReportTableView extends SortableTableView<NewNumbe
         setColumnWeight(6, 3);
 
         setColumnComparator(6, NewNumberReportComparator.getNewNumberReportDateComparator());
-//        setColumnComparator(1, SalesReportComparator.getSalesReportPhoneComparator());
+        setColumnComparator(1, NewNumberReportComparator.getNewNumberReportPhoneComparator());
 
     }
 }

@@ -3,7 +3,8 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:gravity="center"
-    android:orientation="vertical">
+    android:orientation="vertical"
+>
 
     <ImageView
         android:id="@+id/animation"
@@ -17,4 +18,5 @@
         android:text="@string/please_wait"
         android:textColor="@android:color/white"
         android:textSize="18sp" />
+
 </LinearLayout>

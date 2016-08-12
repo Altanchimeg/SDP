@@ -457,13 +457,17 @@ public class DealerRegistrationFragment extends Fragment implements Constants {
 
                 if (items[item].equals(getString(R.string.take_photo))) {
                     userChosenTask = getString(R.string.take_photo);
-                    if (result)
+                    if (result) {
+                        mProgressDialog.show();
                         cameraIntent();
+                    }
 
                 } else if (items[item].equals( getString(R.string.choose_from_library))) {
                     userChosenTask =  getString(R.string.choose_from_library);
-                    if (result)
+                    if (result) {
+                        mProgressDialog.show();
                         galleryIntent();
+                    }
 
                 } else if (items[item].equals( getString(R.string.cancel))) {
                     dialog.dismiss();
@@ -495,6 +499,7 @@ public class DealerRegistrationFragment extends Fragment implements Constants {
             else if (requestCode == REQUEST_CAMERA)
                 onCaptureImageResult(data);
         }
+
     }
 
     private void onCaptureImageResult(Intent data) {
@@ -506,6 +511,7 @@ public class DealerRegistrationFragment extends Fragment implements Constants {
             mBackImage.setImageBitmap(bm);
             BitmapSaver.saveBitmapToFile(bm, imageBack);
         }
+        mProgressDialog.dismiss();
     }
 
     @SuppressWarnings("deprecation")
@@ -527,6 +533,7 @@ public class DealerRegistrationFragment extends Fragment implements Constants {
             BitmapSaver.saveBitmapToFile(bm, imageBack);
 
         }
+        mProgressDialog.dismiss();
 
 
     }
