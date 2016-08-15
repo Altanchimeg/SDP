@@ -43,7 +43,7 @@ public class SortableServiceReportHandsetChangeTableView  extends SortableTableV
 
 
         setColumnComparator(4, ServiceReportComparator.getServiceReportDateComparator());
-//        setColumnComparator(1, SalesReportComparator.getSalesReportPhoneComparator());
+        setColumnComparator(1, ServiceReportComparator.getServiceReportPhoneComparator());
 
     }
 }

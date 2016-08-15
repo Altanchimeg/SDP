@@ -43,7 +43,7 @@ public class SortableRegReportDealerTableView extends SortableTableView<Registra
 
 
         setColumnComparator(4, RegistrationReportComparator.getRegistrationReportDateComparator());
-//        setColumnComparator(1, SalesReportComparator.getSalesReportPhoneComparator());
+        setColumnComparator(0, RegistrationReportComparator.getRegistrationReportPhoneComparator());
 
     }
 }

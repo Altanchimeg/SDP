@@ -42,7 +42,7 @@ public class SortableRegReportSkymediaTableView extends SortableTableView<Regist
         setColumnWeight(3, 2);
 
         setColumnComparator(3, RegistrationReportComparator.getRegistrationReportDateComparator());
-//        setColumnComparator(1, SalesReportComparator.getSalesReportPhoneComparator());
+        setColumnComparator(0, RegistrationReportComparator.getRegistrationReportPhoneComparator());
 
     }
 }

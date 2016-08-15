@@ -28,7 +28,7 @@ public class NewNumberReportComparator {
 
         @Override
         public int compare(NewNumberReport newNumberReport1, NewNumberReport newNumberReport2) {
-            return newNumberReport1.getNumber().compareTo(newNumberReport2.getDate());
+            return newNumberReport1.getNumber().compareTo(newNumberReport2.getNumber());
         }
     }
 }

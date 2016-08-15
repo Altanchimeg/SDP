@@ -215,7 +215,7 @@ public class PostPaidPaymentFragment extends Fragment {
                             @Override
                             public void run() {
                                 try {
-//                                    Toast.makeText(mContext, "" + result_msg, Toast.LENGTH_LONG).show();
+                                    Toast.makeText(mContext, "" + result_msg, Toast.LENGTH_LONG).show();
 
 
                                 } catch (Exception e) {
