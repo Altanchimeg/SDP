@@ -31,6 +31,8 @@ import com.skytel.sdp.utils.BalanceUpdateListener;
 import com.skytel.sdp.utils.ConfirmDialog;
 import com.skytel.sdp.utils.Constants;
 import com.skytel.sdp.utils.PrefManager;
+import com.google.firebase.iid.FirebaseInstanceId;
+import com.google.firebase.messaging.FirebaseMessaging;
 
 public class MainActivity extends AppCompatActivity implements BalanceUpdateListener {
     String TAG = MainActivity.class.getName();
@@ -129,6 +131,13 @@ public class MainActivity extends AppCompatActivity implements BalanceUpdateList
 
         ChargeCardFragment.sBalanceUpdateListener = this;
         PostPaidPaymentFragment.sBalanceUpdateListener = this;
+
+        FirebaseMessaging.getInstance().subscribeToTopic("news");
+        String token = FirebaseInstanceId.getInstance().getToken();
+
+        // Log and toast
+        Log.d(TAG, "Token: "+token);
+        Toast.makeText(MainActivity.this, token, Toast.LENGTH_SHORT).show();
 
     }
 
