@@ -13,6 +13,15 @@ public class RegistrationReport {
     private String dealerType;
     private String phone;
     private int discount;
+    private String comment;
+
+    public String getComment() {
+        return comment;
+    }
+
+    public void setComment(String comment) {
+        this.comment = comment;
+    }
 
     public int getId() {
         return id;

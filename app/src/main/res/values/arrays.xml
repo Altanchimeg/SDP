@@ -83,6 +83,7 @@
         <item>Шалтгаан</item>
         <item>Төлөв</item>
         <item>Захиалсан огноо</item>
+        <item>Тайлбар</item>
     </string-array>
 
     <string-array name="dealer_report_column_names">
@@ -91,6 +92,7 @@
         <item>Хөнгөлөлтийн хувь</item>
         <item>Төлөв</item>
         <item>Захиалсан огноо</item>
+        <item>Тайлбар</item>
     </string-array>
 
     <string-array name="vas_report_column_names">
@@ -99,6 +101,7 @@
         <item>Идэвхижүүлэлт</item>
         <item>Төлөв</item>
         <item>Захиалсан огноо</item>
+        <item>Тайлбар</item>
     </string-array>
     <string-array name="handset_change_report_column_names">
         <item>Үйлчилгээний төрөл</item>
@@ -106,6 +109,7 @@
         <item>Сим картны сериал</item>
         <item>Төлөв</item>
         <item>Захиалсан огноо</item>
+        <item>Тайлбар</item>
     </string-array>
 
 
@@ -116,6 +120,7 @@
         <item>Үнэ</item>
         <item>Төлөв</item>
         <item>Цэнэглэсэн огноо</item>
+        <item>Тайлбар</item>
     </string-array>
 
     <string-array name="post_paid_payment_report_column_names">
@@ -123,6 +128,7 @@
         <item>Үнэ</item>
         <item>Төлөв</item>
         <item>Цэнэглэсэн огноо</item>
+        <item>Тайлбар</item>
     </string-array>
 
     <!-- New number Report  -->
@@ -134,6 +140,7 @@
         <item>Үнэ</item>
         <item>Төлөв</item>
         <item>Захиалсан огноо</item>
+        <item>Тайлбар</item>
     </string-array>
 
     <string-array name="skydealer_report_type_code">

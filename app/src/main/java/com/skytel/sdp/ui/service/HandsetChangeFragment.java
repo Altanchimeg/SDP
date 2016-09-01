@@ -144,10 +144,14 @@ public class HandsetChangeFragment extends Fragment implements  Constants{
             @Override
             public void onClick(View v) {
                 if(ValidationChecker.isValidationPassed(mPhonenumber) && ValidationChecker.isValidationPassed(mSimcardSerial)
-                        && ValidationChecker.hasBitmapValue(bm) && ValidationChecker.isSelected((int) mHandsetChangeTypeSpinner.getSelectedItemId())){
-                    mConfirmDialog.show(getFragmentManager(), "dialog");
-                }
-                else{
+                        && ValidationChecker.hasBitmapValue(bm) && ValidationChecker.isSelected((int) mHandsetChangeTypeSpinner.getSelectedItemId())) {
+                    if (ValidationChecker.isSimcardSerial(mSimcardSerial.length())) {
+                        mConfirmDialog.show(getFragmentManager(), "dialog");
+                    } else {
+                        Toast.makeText(mContext, getString(R.string.check_sim_serial), Toast.LENGTH_SHORT).show();
+                    }
+
+                }else{
                     Toast.makeText(mContext, getResources().getString(R.string.please_fill_the_field), Toast.LENGTH_SHORT).show();
                 }
             }

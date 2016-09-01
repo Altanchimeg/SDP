@@ -157,8 +157,10 @@ public class ServiceReportFragment extends Fragment implements Constants{
                         mProgressDialog.show();
 
                         String currentDateandTime = new SimpleDateFormat("yyyy-MM-dd").format(new Date());
-                        runServiceReportFunction(mSelectedItemId, 100, 0, mSelectedFilterButton, "1900-01-01", currentDateandTime,"");
+                        runServiceReportFunction(mSelectedItemId, 100, 0, mSelectedFilterButton, "2016-01-01", currentDateandTime,"");
                         Log.d(TAG, "Report Type: " + mSelectedItemId);
+                        mFilterByStartDate.setText("2016-01-01");
+                        mFilterByEndDate.setText(currentDateandTime);
                     } else {
                         Toast.makeText(mContext, getResources().getString(R.string.please_select_the_field), Toast.LENGTH_SHORT).show();
                     }
@@ -428,6 +430,7 @@ public class ServiceReportFragment extends Fragment implements Constants{
                         String order_status = jsonData.getString("order_status");
                         String service_type = jsonData.getString("service_type");
                         String phone = jsonData.getString("phone");
+                        String comment = jsonData.getString("operator_comment");
 
                         ServiceReport serviceReport = new ServiceReport();
                         serviceReport.setId(i);
@@ -435,6 +438,7 @@ public class ServiceReportFragment extends Fragment implements Constants{
                         serviceReport.setOrderStatus(order_status);
                         serviceReport.setServiceType(service_type);
                         serviceReport.setDate(date);
+                        serviceReport.setComment(comment);
 
 
                         Log.d(TAG, "INDEX:       " + i);
@@ -443,7 +447,7 @@ public class ServiceReportFragment extends Fragment implements Constants{
                         Log.d(TAG, "order_status: " + order_status);
                         Log.d(TAG, "service_type: " + service_type);
                         Log.d(TAG, "date: " + date);
-
+                        Log.d(TAG, "comment: " + comment);
                         //Handset change
                         if(report_type == 0){
                             String sim_serial = jsonData.getString("sim_serial");

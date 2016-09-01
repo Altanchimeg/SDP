@@ -43,6 +43,9 @@ public class RegReportSkymediaAdapter extends TableDataAdapter<RegistrationRepor
             case 3:
                 renderedView = renderDate(registrationReport);
                 break;
+            case 4:
+                renderedView = renderComment(registrationReport);
+                break;
         }
 
         return renderedView;
@@ -79,6 +82,14 @@ public class RegReportSkymediaAdapter extends TableDataAdapter<RegistrationRepor
         textView.setTextSize(18);
         return textView;
     }
+    private View renderComment(final RegistrationReport registrationReport) {
+        final TextView textView = new TextView(getContext());
+        textView.setText(registrationReport.getComment().toString() + "");
+        textView.setPadding(20, 10, 20, 10);
+        textView.setTextSize(18);
+        return textView;
+    }
+
 
 
 }

@@ -23,18 +23,20 @@
     <dimen name="leftmenu_margin">10dp</dimen>
     <dimen name="btn_yellow_width">120dp</dimen>
 
-    <integer name="chargecard_report_column">5</integer>
-    <integer name="postpaidpayment_report_column">4</integer>
-    <integer name="new_number_report_column">7</integer>
+    <integer name="chargecard_report_column">6</integer>
+    <integer name="postpaidpayment_report_column">5</integer>
+    <integer name="new_number_report_column">8</integer>
 
-    <integer name="skymedia_report_column">4</integer>
-    <integer name="dealer_report_column">5</integer>
+    <integer name="skymedia_report_column">5</integer>
+    <integer name="dealer_report_column">6</integer>
 
-    <integer name="handset_change_report_column">5</integer>
-    <integer name="vas_report_column">5</integer>
+    <integer name="handset_change_report_column">6</integer>
+    <integer name="vas_report_column">6</integer>
 
     <!-- Default screen margins, per the Android Design guidelines. -->
     <dimen name="activity_horizontal_margin">16dp</dimen>
     <dimen name="activity_vertical_margin">16dp</dimen>
+
+    <integer name="simcard_serial_length">20</integer>
 
 </resources>

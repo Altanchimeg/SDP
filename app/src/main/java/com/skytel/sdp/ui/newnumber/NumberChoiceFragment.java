@@ -68,6 +68,7 @@ public class NumberChoiceFragment extends Fragment {
     ArrayList<String> mPrefixArrayList;
     private Spinner mPrefixSpinner;
     private EditText mSearchNumber;
+    private TextView mNumberType;
     private Button mSearchButton;
     private Button mNumberChoiceOrder;
     private GridView mNewNumbersGrid;
@@ -111,6 +112,7 @@ public class NumberChoiceFragment extends Fragment {
         mPrefixSpinner = (Spinner) rootView.findViewById(R.id.prefix);
         mChosenNewNumber = (TextView) rootView.findViewById(R.id.chosen_new_number);
         mRegisterNumber = (EditText) rootView.findViewById(R.id.register_number);
+        mNumberType = (TextView) rootView.findViewById(R.id.numberType);
 
         mNumberChoiceAdapter = new NumberChoiceAdapter(mContext, mNumbersArrayList);
         mNewNumbersGrid.setAdapter(mNumberChoiceAdapter);
@@ -466,7 +468,7 @@ public class NumberChoiceFragment extends Fragment {
                             JSONObject jsonData = jArray.getJSONObject(i);
 
                             int price_type_id = jsonData.getInt("id");
-                            String name_mn = jsonData.getString("name_mn");
+                            String  name_mn = jsonData.getString("name_mn");
                             String price = jsonData.getString("price");
                             String unit = jsonData.getString("unit");
                             String days = jsonData.getString("days");
@@ -479,6 +481,7 @@ public class NumberChoiceFragment extends Fragment {
                                 mPriceType.setUnit(unit);
                                 mPriceType.setDays(days);
                                 mPriceType.setId(i);
+                                mPriceType.setNumberType(name_mn);
 
                                 mPriceTypeInfoArrayList.add(mPriceType);
 
@@ -493,9 +496,11 @@ public class NumberChoiceFragment extends Fragment {
                         getActivity().runOnUiThread(new Runnable() {
                             @Override
                             public void run() {
+
                                 PriceTypeInfoListAdapter mPriceTypeInfoListAdapter = new PriceTypeInfoListAdapter(mContext, mPriceTypeInfoArrayList);
                                 mPriceTypeInfoListView.setAdapter(mPriceTypeInfoListAdapter);
                                 mPriceTypeInfoListAdapter.notifyDataSetChanged();
+                                mNumberType.setText(mPriceTypeInfoArrayList.get(0).getNumberType());
                             }
                         });
                     }

@@ -161,7 +161,9 @@ public class RegistrationReportFragment extends Fragment implements Constants {
                         mProgressDialog.show();
 
                         String currentDateandTime = new SimpleDateFormat("yyyy-MM-dd").format(new Date());
-                        runRegistrationReportFunction(mSelectedItemId, 100, 0, mSelectedFilterButton, "", "1900-01-01", currentDateandTime);
+                        runRegistrationReportFunction(mSelectedItemId, 100, 0, mSelectedFilterButton, "", "2016-01-01", currentDateandTime);
+                        mFilterByStartDate.setText("2016-01-01");
+                        mFilterByEndDate.setText(currentDateandTime);
                         Log.d(TAG, "Report Type: " + mSelectedItemId);
                     } else {
                         Toast.makeText(mContext, getResources().getString(R.string.please_select_the_field), Toast.LENGTH_SHORT).show();
@@ -442,12 +444,13 @@ public class RegistrationReportFragment extends Fragment implements Constants {
                             Log.d(TAG, "description: " + description);
                         }
                         String phone = jsonData.getString("phone");
+                        String comment = jsonData.getString("operator_comment");
 
                         registrationReport.setId(i);
                         registrationReport.setPhone(phone);
                         registrationReport.setOrderStatus(order_status);
                         registrationReport.setServiceType(service_type);
-
+                        registrationReport.setComment(comment);
                         registrationReport.setDate(date);
 
                         Log.d(TAG, "INDEX:       " + i);
@@ -455,7 +458,7 @@ public class RegistrationReportFragment extends Fragment implements Constants {
                         Log.d(TAG, "phone: " + phone);
                         Log.d(TAG, "order_status: " + order_status);
                         Log.d(TAG, "service_type: " + service_type);
-
+                        Log.d(TAG, "comment: " + comment);
                         Log.d(TAG, "date: " + date);
 
                         // if it is dealer get discpunt and dealer type

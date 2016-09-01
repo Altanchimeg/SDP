@@ -19,14 +19,14 @@ import java.util.List;
 
 public class ChargeCardPackageTypeAdapter extends BaseAdapter implements Constants {
     String TAG = ChargeCardPackageTypeAdapter.class.getName();
-    private Context context;
+    private Context mContext;
     private String[] mPackageTypes;
     private LayoutInflater mInflater;
 
     public ChargeCardPackageTypeAdapter(Context context) {
-        this.context = context;
-        mPackageTypes = context.getResources().getStringArray(R.array.skydealer_charge_card_types);
-        mInflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+        this.mContext = context;
+        mPackageTypes = mContext.getResources().getStringArray(R.array.skydealer_charge_card_types);
+        mInflater = (LayoutInflater) mContext.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
     }
 
     @Override

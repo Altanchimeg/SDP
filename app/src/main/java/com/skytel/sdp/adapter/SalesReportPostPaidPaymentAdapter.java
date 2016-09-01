@@ -38,6 +38,9 @@ public class SalesReportPostPaidPaymentAdapter extends TableDataAdapter<SalesRep
             case 3:
                 renderedView = renderDate(salesReport);
                 break;
+            case 4:
+                renderedView = renderComment(salesReport);
+                break;
         }
 
         return renderedView;
@@ -73,12 +76,17 @@ public class SalesReportPostPaidPaymentAdapter extends TableDataAdapter<SalesRep
     private View renderDate(final SalesReport salesReport) {
         final TextView textView = new TextView(getContext());
         textView.setText(salesReport.getDate().toString() + "");
-        //textView.setText("2016/06/01 15:23");
         textView.setPadding(20, 10, 20, 10);
         textView.setTextSize(18);
         return textView;
     }
-
+    private View renderComment(final SalesReport salesReport) {
+        final TextView textView = new TextView(getContext());
+        textView.setText(salesReport.getComment().toString() + "");
+        textView.setPadding(20, 10, 20, 10);
+        textView.setTextSize(18);
+        return textView;
+    }
 
 
 }

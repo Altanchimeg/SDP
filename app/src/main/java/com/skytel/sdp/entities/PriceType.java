@@ -10,6 +10,15 @@ public class PriceType {
     private String price;
     private String unit;
     private String days;
+    private String numberType;
+
+    public String getNumberType() {
+        return numberType;
+    }
+
+    public void setNumberType(String numberType) {
+        this.numberType = numberType;
+    }
 
     public int getId() {
         return id;

@@ -77,7 +77,10 @@
                 <TextView
                     style="@style/RightViewTextViewYellow"
                     android:text="@string/chosen_number_tariff"></TextView>
-
+                <TextView
+                    android:id="@+id/numberType"
+                    style="@style/RightViewTextViewBold"
+                    ></TextView>
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"

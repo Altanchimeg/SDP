@@ -10,43 +10,43 @@
       "id": "2",
       "package_type": "0",
       "name": "E2000",
-      "description": "2.000₮ (2хоног + 1000)"
+      "description": "2.000₮ (3хоног + 1000)"
     },
     {
       "id": "3",
       "package_type": "0",
       "name": "E3000",
-      "description": "3.000₮ (3хоног + 2000)"
+      "description": "3.000₮ (5хоног + 2000)"
     },
     {
       "id": "4",
       "package_type": "0",
       "name": "E5000",
-      "description": "5.000₮ (5хоног + 2500)"
+      "description": "5.000₮ (15хоног + 2500)"
     },
     {
       "id": "5",
       "package_type": "0",
       "name": "E10000",
-      "description": "10.000₮ (15хоног + 5000)"
+      "description": "10.000₮ (30хоног + 5000)"
     },
     {
       "id": "6",
       "package_type": "0",
       "name": "E15000",
-      "description": "15.000₮ (30хоног + 5000)"
+      "description": "15.000₮ (45хоног + 5000)"
     },
     {
       "id": "7",
       "package_type": "0",
       "name": "E50000",
-      "description": "50.000₮ (120хоног + 10000)"
+      "description": "50.000₮ (180хоног + 10000)"
     },
     {
       "id": "8",
       "package_type": "0",
       "name": "E90000",
-      "description": "90.000₮ (270хоног + 10000)"
+      "description": "90.000₮ (360хоног + 10000)"
     },
     {
       "id": "9",
@@ -58,43 +58,43 @@
       "id": "10",
       "package_type": "1",
       "name": "E2000",
-      "description": "2.000₮ (2хоног + 1000)"
+      "description": "2.000₮ (3хоног + 2000)"
     },
     {
       "id": "11",
       "package_type": "1",
       "name": "E3000",
-      "description": "3.000₮ (3хоног + 2000)"
+      "description": "3.000₮ (5хоног + 3000)"
     },
     {
       "id": "12",
       "package_type": "1",
       "name": "E5000",
-      "description": "5.000₮ (5хоног + 2500)"
+      "description": "5.000₮ (15хоног + 5000)"
     },
     {
       "id": "13",
       "package_type": "1",
       "name": "E10000",
-      "description": "10.000₮ (15хоног + 5000)"
+      "description": "10.000₮ (30хоног + 10000)"
     },
     {
       "id": "14",
       "package_type": "1",
       "name": "E15000",
-      "description": "15.000₮ (30хоног + 5000)"
+      "description": "15.000₮ (45хоног + 15000)"
     },
     {
       "id": "15",
       "package_type": "1",
       "name": "E50000",
-      "description": "50.000₮ (120хоног + 10000)"
+      "description": "50.000₮ (180хоног + 50000)"
     },
     {
       "id": "16",
       "package_type": "1",
       "name": "E90000",
-      "description": "90.000₮ (270хоног + 10000)"
+      "description": "90.000₮ (360хоног + 90000)"
     },
     {
       "id": "17",
@@ -182,78 +182,84 @@
     },
     {
       "id": "31",
+      "package_type": "4",
+      "name": "NET30000",
+      "description": "30.000₮ (60хоног+10GB)"
+    },
+    {
+      "id": "32",
       "package_type": "5",
       "name": "IPRC3000",
       "description": "3.000₮ (хоноггүй)"
     },
     {
-      "id": "32",
+      "id": "33",
       "package_type": "5",
       "name": "IPRC8000",
       "description": "8.000₮ (хоноггүй)"
     },
     {
-      "id": "33",
+      "id": "34",
       "package_type": "5",
       "name": "IPRC5000",
       "description": "5.000₮ (30хоног)"
     },
     {
-      "id": "34",
+      "id": "35",
       "package_type": "5",
       "name": "IPRC10000",
       "description": "10.000₮ (30хоног)"
     },
     {
-      "id": "35",
+      "id": "36",
       "package_type": "5",
       "name": "IPRC15000",
       "description": "15.000₮ (60хоног)"
     },
     {
-      "id": "36",
+      "id": "37",
       "package_type": "5",
       "name": "IPRC25000",
       "description": "25.000₮ (90хоног)"
     },
     {
-      "id": "37",
+      "id": "38",
       "package_type": "5",
       "name": "IPRC60000",
       "description": "60.000₮ (180хоног)"
     },
     {
-      "id": "38",
+      "id": "39",
       "package_type": "5",
       "name": "IPRC100000",
       "description": "100.000₮ (365хоног)"
     },
     {
-      "id": "39",
+      "id": "40",
       "package_type": "6",
       "name": "SM3000",
       "description": "3.000₮ (Smart)"
     },
     {
-      "id": "40",
+      "id": "41",
       "package_type": "6",
       "name": "SM5000",
       "description": "5.000₮ (Smart)"
     },
     {
-      "id": "41",
+      "id": "42",
       "package_type": "6",
       "name": "SM10000",
       "description": "10.000₮ (Smart)"
     },
     {
-      "id": "42",
+      "id": "43",
       "package_type": "6",
       "name": "SMN3000",
       "description": "3.000₮ (Nihao)"
     },
     {
-      "id": "43",
+      "id": "44",
       "package_type": "6",
       "name": "SMN5000",
       "description": "5.000₮ (Nihao)"

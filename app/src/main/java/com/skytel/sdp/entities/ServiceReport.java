@@ -12,6 +12,15 @@ public class ServiceReport {
     private String isActivation;
     private String serviceType;
     private String simcardSerial;
+    private String comment;
+
+    public String getComment() {
+        return comment;
+    }
+
+    public void setComment(String comment) {
+        this.comment = comment;
+    }
 
     public int getId() {
         return id;

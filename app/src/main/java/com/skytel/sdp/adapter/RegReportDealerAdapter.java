@@ -44,6 +44,9 @@ public class RegReportDealerAdapter  extends TableDataAdapter<RegistrationReport
             case 4:
                 renderedView = renderDate(registrationReport);
                 break;
+            case 5:
+                renderedView = renderComment(registrationReport);
+                break;
         }
 
         return renderedView;
@@ -87,6 +90,14 @@ public class RegReportDealerAdapter  extends TableDataAdapter<RegistrationReport
         textView.setTextSize(18);
         return textView;
     }
+    private View renderComment(final RegistrationReport registrationReport) {
+        final TextView textView = new TextView(getContext());
+        textView.setText(registrationReport.getComment().toString() + "");
+        textView.setPadding(20, 10, 20, 10);
+        textView.setTextSize(18);
+        return textView;
+    }
+
 
 
 }

@@ -149,11 +149,14 @@ public class NumberUserInfoActivity extends AppCompatActivity implements Constan
                 if (ValidationChecker.isValidationPassed(mLastName) && ValidationChecker.isValidationPassed(mFirstName) && ValidationChecker.isValidationPassed(mRegistrationNumberEt) &&
                         ValidationChecker.isValidationPassed(mSimCardSerial) && ValidationChecker.isValidationPassed(mHobby) && ValidationChecker.isValidationPassed(mJob) &&
                         ValidationChecker.isValidationPassed(mContactNumber) && ValidationChecker.isValidationPassed(mChosenNumber) && ValidationChecker.hasBitmapValue(bm)) {
-
-                    mConfirmDialog.show(getFragmentManager(), "dialog");
+                    if(ValidationChecker.isSimcardSerial(mSimCardSerial.length())) {
+                        mConfirmDialog.show(getFragmentManager(), "dialog");
+                    }else{
+                        Toast.makeText(mContext, getString(R.string.check_sim_serial), Toast.LENGTH_SHORT).show();
+                    }
 
                 } else {
-                    Toast.makeText(mContext, "Please fill fields!", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(mContext, getString(R.string.please_fill_the_field), Toast.LENGTH_SHORT).show();
                 }
             }
         });

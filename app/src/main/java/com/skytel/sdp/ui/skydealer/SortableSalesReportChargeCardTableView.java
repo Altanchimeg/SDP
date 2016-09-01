@@ -37,6 +37,7 @@ public class SortableSalesReportChargeCardTableView extends SortableTableView<Sa
         setColumnWeight(2, 2);
         setColumnWeight(3, 2);
         setColumnWeight(4, 3);
+        setColumnWeight(5, 2);
 
         setColumnComparator(4, SalesReportComparator.getSalesReportDateComparator());
         setColumnComparator(0, SalesReportComparator.getSalesReportPhoneComparator());

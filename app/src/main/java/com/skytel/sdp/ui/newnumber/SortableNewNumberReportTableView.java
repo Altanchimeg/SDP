@@ -43,6 +43,7 @@ public class SortableNewNumberReportTableView extends SortableTableView<NewNumbe
         setColumnWeight(4, 3);
         setColumnWeight(5, 3);
         setColumnWeight(6, 3);
+        setColumnWeight(7, 2);
 
         setColumnComparator(6, NewNumberReportComparator.getNewNumberReportDateComparator());
         setColumnComparator(2, NewNumberReportComparator.getNewNumberReportPhoneComparator());

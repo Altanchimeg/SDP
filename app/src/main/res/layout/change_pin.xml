@@ -17,13 +17,13 @@
                 android:id="@+id/old_pin"
                 style="@style/MainViewCenterBoxEditText"
                 android:hint="@string/old_pin"
-                android:inputType="number"/>
+                android:inputType="numberPassword"/>
 
             <EditText
                 android:id="@+id/new_pin"
                 style="@style/MainViewCenterBoxEditText"
                 android:hint="@string/new_pin"
-                android:inputType="number"/>
+                android:inputType="numberPassword"/>
 
         </LinearLayout>
 

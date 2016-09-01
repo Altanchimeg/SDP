@@ -36,6 +36,7 @@ public class SortableSalesReportPostPaidPaymentTableView extends SortableTableVi
         setColumnWeight(1, 2);
         setColumnWeight(2, 2);
         setColumnWeight(3, 3);
+        setColumnWeight(4, 2);
 
         setColumnComparator(3, SalesReportComparator.getSalesReportDateComparator());
         setColumnComparator(0, SalesReportComparator.getSalesReportPhoneComparator());

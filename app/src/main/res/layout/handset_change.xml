@@ -41,7 +41,7 @@
             <EditText
                 android:id="@+id/sim_card_serial"
                 style="@style/MainViewCenterBoxEditText"
-                android:maxLength="16"
+                android:maxLength="@integer/simcard_serial_length"
                 android:inputType="number"
                 android:hint="@string/sim_card_serial" />
 

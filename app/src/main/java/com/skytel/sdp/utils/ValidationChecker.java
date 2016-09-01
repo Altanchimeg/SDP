@@ -39,4 +39,10 @@ public class ValidationChecker {
         }
         return true;
     }
+    public static boolean isSimcardSerial(int length){
+        if(length != 20){
+            return false;
+        }
+        return true;
+    }
 }

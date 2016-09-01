@@ -145,6 +145,7 @@
 
     <style name="MainViewTextViewYellow" parent="MainViewTextViewBlue">
         <item name="android:textColor">@color/colorSkytelYellow</item>
+
     </style>
 
     <style name="MainViewTextViewGrey" parent="MainViewTextViewBlue">

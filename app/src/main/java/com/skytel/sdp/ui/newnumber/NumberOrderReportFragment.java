@@ -146,7 +146,9 @@ public class NumberOrderReportFragment extends Fragment implements Constants {
 
         try {
             mProgressDialog.show();
-            runNewNumberReportFunction(100, 0, mSelectedFilterButton, "", "1900-01-01", currentDateandTime);
+            runNewNumberReportFunction(100, 0, mSelectedFilterButton, "", "2016-01-01", currentDateandTime);
+            mFilterByStartDate.setText("2016-01-01");
+            mFilterByEndDate.setText(currentDateandTime);
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -412,6 +414,7 @@ public class NumberOrderReportFragment extends Fragment implements Constants {
                         String unit_and_day = jsonData.getString("unit_and_day");
                         String price = jsonData.getString("price");
                         String number = jsonData.getString("number");
+                        String comment = jsonData.getString("operator_comment");
 
                         Log.d(TAG, "INDEX:       " + i);
 
@@ -421,6 +424,7 @@ public class NumberOrderReportFragment extends Fragment implements Constants {
                         Log.d(TAG, "unit_and_day: " + unit_and_day);
                         Log.d(TAG, "price: " + price);
                         Log.d(TAG, "number: " + number);
+                        Log.d(TAG, "comment: "+ comment);
 
                         NewNumberReport newNumberReport = new NewNumberReport();
                         newNumberReport.setId(i);
@@ -430,6 +434,7 @@ public class NumberOrderReportFragment extends Fragment implements Constants {
                         newNumberReport.setPrice(price);
                         newNumberReport.setNumber(number);
                         newNumberReport.setDate(date);
+                        newNumberReport.setComment(comment);
 
                         mNewNumberReportArrayList.add(i, newNumberReport);
                     }

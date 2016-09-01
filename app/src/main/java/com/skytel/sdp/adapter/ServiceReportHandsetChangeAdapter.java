@@ -44,6 +44,9 @@ public class ServiceReportHandsetChangeAdapter  extends TableDataAdapter<Service
             case 4:
                 renderedView = renderDate(serviceReport);
                 break;
+            case 5:
+                renderedView = renderComment(serviceReport);
+                break;
         }
 
         return renderedView;
@@ -83,6 +86,13 @@ public class ServiceReportHandsetChangeAdapter  extends TableDataAdapter<Service
     private View renderServiceType(final ServiceReport serviceReport) {
         final TextView textView = new TextView(getContext());
         textView.setText(serviceReport.getServiceType().toString() + "");
+        textView.setPadding(20, 10, 20, 10);
+        textView.setTextSize(18);
+        return textView;
+    }
+    private View renderComment(final ServiceReport serviceReport) {
+        final TextView textView = new TextView(getContext());
+        textView.setText(serviceReport.getComment().toString() + "");
         textView.setPadding(20, 10, 20, 10);
         textView.setTextSize(18);
         return textView;

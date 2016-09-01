@@ -40,6 +40,7 @@ public class SortableRegReportSkymediaTableView extends SortableTableView<Regist
         setColumnWeight(1, 2);
         setColumnWeight(2, 2);
         setColumnWeight(3, 2);
+        setColumnWeight(4, 2);
 
         setColumnComparator(3, RegistrationReportComparator.getRegistrationReportDateComparator());
         setColumnComparator(0, RegistrationReportComparator.getRegistrationReportPhoneComparator());

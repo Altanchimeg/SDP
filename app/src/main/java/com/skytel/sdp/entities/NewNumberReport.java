@@ -13,6 +13,15 @@ public class NewNumberReport {
     private String price;
     private String orderState;
     private String date;
+    private String comment;
+
+    public String getComment() {
+        return comment;
+    }
+
+    public void setComment(String comment) {
+        this.comment = comment;
+    }
 
     public int getId() {
         return id;

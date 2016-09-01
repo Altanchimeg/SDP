@@ -40,6 +40,7 @@ public class SortableRegReportDealerTableView extends SortableTableView<Registra
         setColumnWeight(2, 2);
         setColumnWeight(3, 2);
         setColumnWeight(4, 2);
+        setColumnWeight(5, 2);
 
 
         setColumnComparator(4, RegistrationReportComparator.getRegistrationReportDateComparator());

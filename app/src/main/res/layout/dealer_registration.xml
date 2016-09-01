@@ -52,12 +52,14 @@
 
                 <TextView
                     style="@style/RightViewTextView"
-                    android:text="@string/discount_percent" />
+                    android:text="@string/discount_percent"
+                 />
 
                 <EditText
                     android:id="@+id/discount_precent"
                     style="@style/MainViewCenterBoxEditText"
-                    android:hint="@string/discount_percent" />
+                    android:hint="@string/discount_percent"
+                    android:editable="false"/>
             </LinearLayout>
 
             <EditText

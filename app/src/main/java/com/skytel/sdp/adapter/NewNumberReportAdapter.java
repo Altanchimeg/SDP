@@ -52,6 +52,9 @@ public class NewNumberReportAdapter extends TableDataAdapter<NewNumberReport> {
             case 6:
                 renderedView = renderDate(newNumberReport);
                 break;
+            case 7:
+                renderedView = renderComment(newNumberReport);
+                break;
         }
 
         return renderedView;
@@ -105,6 +108,13 @@ public class NewNumberReportAdapter extends TableDataAdapter<NewNumberReport> {
     private View renderDate(final NewNumberReport newNumberReport) {
         final TextView textView = new TextView(getContext());
         textView.setText(newNumberReport.getDate().toString() + "");
+        textView.setPadding(20, 10, 20, 10);
+        textView.setTextSize(18);
+        return textView;
+    }
+    private View renderComment(final NewNumberReport newNumberReport) {
+        final TextView textView = new TextView(getContext());
+        textView.setText(newNumberReport.getComment().toString() + "");
         textView.setPadding(20, 10, 20, 10);
         textView.setTextSize(18);
         return textView;
