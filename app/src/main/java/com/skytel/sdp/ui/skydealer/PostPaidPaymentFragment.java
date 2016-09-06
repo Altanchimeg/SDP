@@ -2,6 +2,7 @@ package com.skytel.sdp.ui.skydealer;
 
 
 import android.content.Context;
+import android.content.Intent;
 import android.os.Bundle;
 import android.app.Fragment;
 import android.util.Log;
@@ -13,6 +14,8 @@ import android.widget.EditText;
 import android.widget.LinearLayout;
 import android.widget.Toast;
 
+import com.skytel.sdp.LoginActivity;
+import com.skytel.sdp.MainActivity;
 import com.skytel.sdp.R;
 import com.skytel.sdp.database.DataManager;
 import com.skytel.sdp.utils.BalanceUpdateListener;
@@ -210,7 +213,24 @@ public class PostPaidPaymentFragment extends Fragment {
                                 }
                             }
                         });
-                    } else {
+                    }else if (result_code == Constants.RESULT_CODE_UNREGISTERED_TOKEN) {
+                        getActivity().runOnUiThread(new Runnable() {
+                            @Override
+                            public void run() {
+                                MainActivity.sCurrentMenu = Constants.MENU_NEWNUMBER;
+                                mPrefManager.setIsLoggedIn(false);
+                                mDataManager.resetCardTypes();
+
+                                getActivity().finish();
+                                Intent intent = new Intent(mContext, LoginActivity.class);
+                                startActivity(intent);
+
+
+                            }
+                        });
+                    }
+
+                    else {
                         getActivity().runOnUiThread(new Runnable() {
                             @Override
                             public void run() {
@@ -322,6 +342,22 @@ public class PostPaidPaymentFragment extends Fragment {
 
                         Log.d(TAG, "Show the success message to user");
 
+                    }
+                    else if (result_code == Constants.RESULT_CODE_UNREGISTERED_TOKEN) {
+                        getActivity().runOnUiThread(new Runnable() {
+                            @Override
+                            public void run() {
+                                MainActivity.sCurrentMenu = Constants.MENU_NEWNUMBER;
+                                mPrefManager.setIsLoggedIn(false);
+                                mDataManager.resetCardTypes();
+
+                                getActivity().finish();
+                                Intent intent = new Intent(mContext, LoginActivity.class);
+                                startActivity(intent);
+
+
+                            }
+                        });
                     }
 
                 } catch (JSONException e) {

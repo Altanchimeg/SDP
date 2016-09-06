@@ -64,6 +64,7 @@ public interface Constants {
     String SERVER_NUMBER_SKYTEL_URL = "http://number.skytel.mn/server/client.php";
 
     int RESULT_CODE_SUCCESS = 0;
+    int RESULT_CODE_UNREGISTERED_TOKEN = 711;
     String RESULT_STATUS_SUCCESS = "success";
 
     int CONST_COLOR_DATA_PACKAGE = 0;

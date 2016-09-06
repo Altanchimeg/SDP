@@ -25,6 +25,7 @@ import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.Toast;
 
+import com.skytel.sdp.database.DataManager;
 import com.skytel.sdp.entities.Phonenumber;
 import com.skytel.sdp.utils.BitmapSaver;
 import com.skytel.sdp.utils.ConfirmDialog;
@@ -92,6 +93,7 @@ public class NumberUserInfoActivity extends AppCompatActivity implements Constan
     private ConfirmDialog mConfirmDialog;
     private CustomProgressDialog mProgressDialog;
     private Context mContext;
+    private DataManager mDataManager;
 
 
     @Override
@@ -102,6 +104,7 @@ public class NumberUserInfoActivity extends AppCompatActivity implements Constan
         mPrefManager = new PrefManager(this);
         mClient = new OkHttpClient();
         mContext = this;
+        mDataManager = new DataManager(mContext);
 
         mConfirmDialog = new ConfirmDialog();
         Bundle args = new Bundle();
@@ -267,6 +270,17 @@ public class NumberUserInfoActivity extends AppCompatActivity implements Constan
                                 }.start();
                             }
                         });
+                    }
+                    else if (result_code == Constants.RESULT_CODE_UNREGISTERED_TOKEN) {
+
+                                MainActivity.sCurrentMenu = Constants.MENU_NEWNUMBER;
+                                mPrefManager.setIsLoggedIn(false);
+                                mDataManager.resetCardTypes();
+
+                                finish();
+                                Intent intent = new Intent(mContext, LoginActivity.class);
+                                startActivity(intent);
+
                     }
 
                 } catch (JSONException e) {

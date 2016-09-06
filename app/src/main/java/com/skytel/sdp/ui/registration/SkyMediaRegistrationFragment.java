@@ -23,8 +23,11 @@ import android.widget.ImageView;
 import android.widget.Spinner;
 import android.widget.Toast;
 
+import com.skytel.sdp.LoginActivity;
+import com.skytel.sdp.MainActivity;
 import com.skytel.sdp.R;
 import com.skytel.sdp.adapter.NothingSelectedSpinnerAdapter;
+import com.skytel.sdp.database.DataManager;
 import com.skytel.sdp.entities.DealerChannelType;
 import com.skytel.sdp.utils.BitmapSaver;
 import com.skytel.sdp.utils.ConfirmDialog;
@@ -66,6 +69,7 @@ public class SkyMediaRegistrationFragment extends Fragment implements Constants 
     private PrefManager mPrefManager;
     private OkHttpClient mClient;
     private ConfirmDialog mConfirmDialog;
+    private DataManager mDataManager;
 
     private EditText mLastName;
     private EditText mFirstName;
@@ -111,6 +115,7 @@ public class SkyMediaRegistrationFragment extends Fragment implements Constants 
         mProgressDialog = new CustomProgressDialog(getActivity());
         mPrefManager = new PrefManager(mContext);
         mClient = new OkHttpClient();
+        mDataManager = new DataManager(mContext);
 
         mConfirmDialog = new ConfirmDialog();
         Bundle args = new Bundle();
@@ -291,12 +296,22 @@ public class SkyMediaRegistrationFragment extends Fragment implements Constants 
                         }
                     });
 
-                    getActivity().runOnUiThread(new Runnable() {
-                        @Override
-                        public void run() {
+                    if (result_code == Constants.RESULT_CODE_UNREGISTERED_TOKEN) {
+                        getActivity().runOnUiThread(new Runnable() {
+                            @Override
+                            public void run() {
+                                MainActivity.sCurrentMenu = Constants.MENU_NEWNUMBER;
+                                mPrefManager.setIsLoggedIn(false);
+                                mDataManager.resetCardTypes();
 
-                        }
-                    });
+                                getActivity().finish();
+                                Intent intent = new Intent(mContext, LoginActivity.class);
+                                startActivity(intent);
+
+
+                            }
+                        });
+                    }
 
 
                 } catch (JSONException e) {

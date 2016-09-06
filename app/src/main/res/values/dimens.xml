@@ -39,4 +39,6 @@
 
     <integer name="simcard_serial_length">20</integer>
 
+    <integer name="unregistered_token_err_code">711</integer>
+
 </resources>

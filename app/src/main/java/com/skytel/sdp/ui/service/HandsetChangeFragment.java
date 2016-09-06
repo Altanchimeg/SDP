@@ -23,10 +23,13 @@ import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.skytel.sdp.LoginActivity;
+import com.skytel.sdp.MainActivity;
 import com.skytel.sdp.R;
 import com.skytel.sdp.adapter.DealerChannelTypeAdapter;
 import com.skytel.sdp.adapter.HandsetChangeTypeAdapter;
 import com.skytel.sdp.adapter.NothingSelectedSpinnerAdapter;
+import com.skytel.sdp.database.DataManager;
 import com.skytel.sdp.entities.DealerChannelType;
 import com.skytel.sdp.entities.HandsetChangeType;
 import com.skytel.sdp.utils.BitmapSaver;
@@ -70,6 +73,7 @@ public class HandsetChangeFragment extends Fragment implements  Constants{
     private OkHttpClient mClient;
     private List<HandsetChangeType> mHandsetChangeType;
     private ConfirmDialog mConfirmDialog;
+    private DataManager mDataManager;
 
     private Spinner mHandsetChangeTypeSpinner;
     private EditText mPhonenumber;
@@ -109,6 +113,7 @@ public class HandsetChangeFragment extends Fragment implements  Constants{
         mPrefManager = new PrefManager(mContext);
         mClient = new OkHttpClient();
         mHandsetChangeType = new ArrayList<>();
+        mDataManager = new DataManager(mContext);
 
         mConfirmDialog = new ConfirmDialog();
         Bundle args = new Bundle();
@@ -234,6 +239,23 @@ public class HandsetChangeFragment extends Fragment implements  Constants{
 
                     Log.d(TAG, "result_code: " + result_code);
                     Log.d(TAG, "result_msg: " + result_msg);
+
+                    if (result_code == Constants.RESULT_CODE_UNREGISTERED_TOKEN) {
+                        getActivity().runOnUiThread(new Runnable() {
+                            @Override
+                            public void run() {
+                                MainActivity.sCurrentMenu = Constants.MENU_NEWNUMBER;
+                                mPrefManager.setIsLoggedIn(false);
+                                mDataManager.resetCardTypes();
+
+                                getActivity().finish();
+                                Intent intent = new Intent(mContext, LoginActivity.class);
+                                startActivity(intent);
+
+
+                            }
+                        });
+                    }
 
                     JSONArray jArray = jsonObj.getJSONArray("types");
 
@@ -395,12 +417,22 @@ public class HandsetChangeFragment extends Fragment implements  Constants{
                         }
                     });
 
-                    getActivity().runOnUiThread(new Runnable() {
-                        @Override
-                        public void run() {
+                    if (result_code == Constants.RESULT_CODE_UNREGISTERED_TOKEN) {
+                        getActivity().runOnUiThread(new Runnable() {
+                            @Override
+                            public void run() {
+                                MainActivity.sCurrentMenu = Constants.MENU_NEWNUMBER;
+                                mPrefManager.setIsLoggedIn(false);
+                                mDataManager.resetCardTypes();
 
-                        }
-                    });
+                                getActivity().finish();
+                                Intent intent = new Intent(mContext, LoginActivity.class);
+                                startActivity(intent);
+
+
+                            }
+                        });
+                    };
 
 
                 } catch (JSONException e) {

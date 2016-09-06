@@ -2,6 +2,7 @@ package com.skytel.sdp.ui.settings;
 
 
 import android.content.Context;
+import android.content.Intent;
 import android.os.Bundle;
 import android.app.Fragment;
 import android.util.Log;
@@ -12,6 +13,8 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
 
+import com.skytel.sdp.LoginActivity;
+import com.skytel.sdp.MainActivity;
 import com.skytel.sdp.R;
 import com.skytel.sdp.database.DataManager;
 import com.skytel.sdp.utils.ConfirmDialog;
@@ -40,7 +43,7 @@ public class ChangePasswordFragment extends Fragment implements Constants {
     private OkHttpClient mClient;
     private Context mContext;
     private DataManager mDataManager;
-    private PrefManager prefManager;
+    private PrefManager mPrefManager;
 
     // UI Widgets
     private Button mChangeBtn;
@@ -66,7 +69,7 @@ public class ChangePasswordFragment extends Fragment implements Constants {
         mContext = getActivity();
         mDataManager = new DataManager(mContext);
         mClient = new OkHttpClient();
-        prefManager = new PrefManager(mContext);
+        mPrefManager = new PrefManager(mContext);
         mProgressDialog = new CustomProgressDialog(mContext);
 
         mOldPassword = (EditText) rootView.findViewById(R.id.old_password);
@@ -118,11 +121,11 @@ public class ChangePasswordFragment extends Fragment implements Constants {
         });
 
         System.out.print(url + "\n");
-        System.out.println(prefManager.getAuthToken());
+        System.out.println(mPrefManager.getAuthToken());
 
         Request request = new Request.Builder()
                 .url(url.toString())
-                .addHeader(PREF_AUTH_TOKEN, prefManager.getAuthToken())
+                .addHeader(PREF_AUTH_TOKEN, mPrefManager.getAuthToken())
                 .build();
 
         mClient.newCall(request).enqueue(new Callback() {
@@ -168,7 +171,22 @@ public class ChangePasswordFragment extends Fragment implements Constants {
                             // Used for debug
                         }
                     });
+                    if (result_code == Constants.RESULT_CODE_UNREGISTERED_TOKEN) {
+                        getActivity().runOnUiThread(new Runnable() {
+                            @Override
+                            public void run() {
+                                MainActivity.sCurrentMenu = Constants.MENU_NEWNUMBER;
+                                mPrefManager.setIsLoggedIn(false);
+                                mDataManager.resetCardTypes();
 
+                                getActivity().finish();
+                                Intent intent = new Intent(mContext, LoginActivity.class);
+                                startActivity(intent);
+
+
+                            }
+                        });
+                    }
 
                     getActivity().runOnUiThread(new Runnable() {
                         @Override

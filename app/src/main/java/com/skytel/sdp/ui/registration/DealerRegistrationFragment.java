@@ -24,12 +24,15 @@ import android.widget.ImageView;
 import android.widget.Spinner;
 import android.widget.Toast;
 
+import com.skytel.sdp.LoginActivity;
+import com.skytel.sdp.MainActivity;
 import com.skytel.sdp.R;
 import com.skytel.sdp.adapter.DealerChannelTypeAdapter;
 import com.skytel.sdp.adapter.NothingSelectedSpinnerAdapter;
 import com.skytel.sdp.adapter.SalesReportCardTypeAdapter;
 import com.skytel.sdp.adapter.SalesReportChargeCardAdapter;
 import com.skytel.sdp.adapter.SalesReportPostPaidPaymentAdapter;
+import com.skytel.sdp.database.DataManager;
 import com.skytel.sdp.entities.CardType;
 import com.skytel.sdp.entities.DealerChannelType;
 import com.skytel.sdp.entities.SalesReport;
@@ -76,6 +79,7 @@ public class DealerRegistrationFragment extends Fragment implements Constants {
     private OkHttpClient mClient;
     private List<DealerChannelType> mDealerChannelType;
     private ConfirmDialog mConfirmDialog;
+    private DataManager mDataManager;
 
     private Spinner mChannelSalesType;
     private EditText mDiscountPercent;
@@ -117,6 +121,7 @@ public class DealerRegistrationFragment extends Fragment implements Constants {
         View rootView = inflater.inflate(R.layout.dealer_registration, container, false);
 
         mContext = getActivity();
+        mDataManager = new DataManager(mContext);
         mProgressDialog = new CustomProgressDialog(getActivity());
         mPrefManager = new PrefManager(mContext);
         mClient = new OkHttpClient();
@@ -253,6 +258,23 @@ public class DealerRegistrationFragment extends Fragment implements Constants {
                     Log.d(TAG, "result_code: " + result_code);
                     Log.d(TAG, "result_msg: " + result_msg);
 
+                    if (result_code == Constants.RESULT_CODE_UNREGISTERED_TOKEN) {
+                        getActivity().runOnUiThread(new Runnable() {
+                            @Override
+                            public void run() {
+                                MainActivity.sCurrentMenu = Constants.MENU_NEWNUMBER;
+                                mPrefManager.setIsLoggedIn(false);
+                                mDataManager.resetCardTypes();
+
+                                getActivity().finish();
+                                Intent intent = new Intent(mContext, LoginActivity.class);
+                                startActivity(intent);
+
+
+                            }
+                        });
+                    }
+
                     JSONArray jArray = jsonObj.getJSONArray("dealer_channel_types");
 
                     Log.d(TAG, "*****JARRAY*****" + jArray.length());
@@ -298,6 +320,13 @@ public class DealerRegistrationFragment extends Fragment implements Constants {
                                         mChosenDealerTypeCode = dealerChannelType.get(position - 1).getTypeCode().toString();
                                         mDiscountPercent.setText(dealerChannelType.get(position - 1).getDiscount().toString());
                                         Log.d(TAG, "Dealer channel type discount percent: " + dealerChannelType.get(position - 1).getDiscount()+"%");
+                                       if( dealerChannelType.get(position - 1).getId() == 0){
+                                           mSkydealerNumber.setVisibility(View.GONE);
+                                       }
+                                        else{
+                                           mSkydealerNumber.setVisibility(View.VISIBLE);
+                                       }
+
                                     } catch (ArrayIndexOutOfBoundsException e) {
 
                                     }
@@ -418,16 +447,27 @@ public class DealerRegistrationFragment extends Fragment implements Constants {
                         public void run() {
 
                             Toast.makeText(mContext, ""+ result_msg, Toast.LENGTH_LONG).show();
+                            mSkydealerNumber.setVisibility(View.VISIBLE);
                             // Used for debug
                         }
                     });
 
-                    getActivity().runOnUiThread(new Runnable() {
-                        @Override
-                        public void run() {
+                    if (result_code == Constants.RESULT_CODE_UNREGISTERED_TOKEN) {
+                        getActivity().runOnUiThread(new Runnable() {
+                            @Override
+                            public void run() {
+                                MainActivity.sCurrentMenu = Constants.MENU_NEWNUMBER;
+                                mPrefManager.setIsLoggedIn(false);
+                                mDataManager.resetCardTypes();
 
-                        }
-                    });
+                                getActivity().finish();
+                                Intent intent = new Intent(mContext, LoginActivity.class);
+                                startActivity(intent);
+
+
+                            }
+                        });
+                    }
 
 
                 } catch (JSONException e) {

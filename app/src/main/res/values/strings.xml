@@ -45,6 +45,8 @@
     <string name="dialog_confirm">Та энэ захиалгыг баталгаажуулах уу</string>
     <string name="dialog_logout_confirm">Та програмаас гарах уу</string>
 
+
+
     <!-- Toast -->
     <string name="please_fill_the_field">Талбаруудыг бүрэн бөглөнө үү!</string>
     <string name="please_select_the_field">Талбаруудыг бүрэн сонгоно уу!</string>

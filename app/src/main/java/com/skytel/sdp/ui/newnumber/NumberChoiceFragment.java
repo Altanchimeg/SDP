@@ -19,6 +19,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.skytel.sdp.LoginActivity;
+import com.skytel.sdp.MainActivity;
 import com.skytel.sdp.NumberUserInfoActivity;
 import com.skytel.sdp.R;
 import com.skytel.sdp.adapter.NumberChoiceAdapter;
@@ -160,7 +161,7 @@ public class NumberChoiceFragment extends Fragment {
                 try {
 
                     if (ValidationChecker.isSelected(mSelectedPriceId) && ValidationChecker.isValidationPassedTextView(mChosenNewNumber) && ValidationChecker.isValidationPassed(mRegisterNumber)) {
-                        Log.d(TAG, "price type info selected price id" + mPriceTypeInfoArrayList.get(mSelectedPriceId-1).getPriceTypeId());
+                        Log.d(TAG, "price type info selected price id" + mPriceTypeInfoArrayList.get(mSelectedPriceId - 1).getPriceTypeId());
 
                         ConfirmDialog confirmDialog = new ConfirmDialog();
                         Bundle args = new Bundle();
@@ -468,7 +469,7 @@ public class NumberChoiceFragment extends Fragment {
                             JSONObject jsonData = jArray.getJSONObject(i);
 
                             int price_type_id = jsonData.getInt("id");
-                            String  name_mn = jsonData.getString("name_mn");
+                            String name_mn = jsonData.getString("name_mn");
                             String price = jsonData.getString("price");
                             String unit = jsonData.getString("unit");
                             String days = jsonData.getString("days");
@@ -619,10 +620,10 @@ public class NumberChoiceFragment extends Fragment {
                     JSONObject jsonObj = new JSONObject(resp);
                     int result_code = jsonObj.getInt("result_code");
                     final String result_msg = jsonObj.getString("result_msg");
-                    final String reservation_id = jsonObj.getString("reservation_id");
+
                     Log.d(TAG, "result_code " + result_code);
                     Log.d(TAG, "result_msg " + result_msg);
-                    Log.d(TAG, "reservation_id " + reservation_id);
+
 
                     getActivity().runOnUiThread(new Runnable() {
                         @Override
@@ -631,6 +632,8 @@ public class NumberChoiceFragment extends Fragment {
                         }
                     });
                     if (result_code == Constants.RESULT_CODE_SUCCESS) {
+                        final String reservation_id = jsonObj.getString("reservation_id");
+                        Log.d(TAG, "reservation_id " + reservation_id);
                         getActivity().runOnUiThread(new Runnable() {
                             @Override
                             public void run() {
@@ -643,6 +646,21 @@ public class NumberChoiceFragment extends Fragment {
                                 mChosenNewNumber.setText("");
                                 mRegisterNumber.setText("");
                                 mPriceTypeInfoListView.setSelection(-1);
+                            }
+                        });
+
+                    } else if (result_code == Constants.RESULT_CODE_UNREGISTERED_TOKEN) {
+
+                        getActivity().runOnUiThread(new Runnable() {
+                            @Override
+                            public void run() {
+                                MainActivity.sCurrentMenu = Constants.MENU_NEWNUMBER;
+                                mPrefManager.setIsLoggedIn(false);
+                                mDataManager.resetCardTypes();
+
+                                getActivity().finish();
+                                Intent intent = new Intent(mContext, LoginActivity.class);
+                                startActivity(intent);
                             }
                         });
 
@@ -668,7 +686,7 @@ public class NumberChoiceFragment extends Fragment {
         public void onPositiveButton() {
             try {
                 mProgressDialog.show();
-                runReserveNumber(mSearchNumber.getText().toString(), mRegisterNumber.getText().toString(), mPriceTypeInfoArrayList.get(mSelectedPriceId-1).getPriceTypeId(), 1);
+                runReserveNumber(mSearchNumber.getText().toString(), mRegisterNumber.getText().toString(), mPriceTypeInfoArrayList.get(mSelectedPriceId - 1).getPriceTypeId(), 1);
             } catch (Exception e) {
                 e.printStackTrace();
             }
@@ -680,6 +698,4 @@ public class NumberChoiceFragment extends Fragment {
 
         }
     };
-
-
 }

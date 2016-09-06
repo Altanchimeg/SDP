@@ -96,7 +96,7 @@ public class InfoNewsDetailActivity extends AppCompatActivity implements Constan
         url.append(news_id);
         url.append(Constants.FUNCTION_GETINFO_NEWS_DETAIL_PART2);
 
-        Log.d(TAG, "sned URL: "+url.toString());
+        Log.d(TAG, "send URL: "+url.toString());
         Request request = new Request.Builder()
                 .url(url.toString())
                 .build();

@@ -3,6 +3,7 @@ package com.skytel.sdp.ui.skydealer;
 
 import android.app.Fragment;
 import android.content.Context;
+import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -14,6 +15,7 @@ import android.widget.EditText;
 import android.widget.ListView;
 import android.widget.Toast;
 
+import com.skytel.sdp.LoginActivity;
 import com.skytel.sdp.MainActivity;
 import com.skytel.sdp.R;
 import com.skytel.sdp.adapter.ChargeCardPackageTypeAdapter;
@@ -247,7 +249,24 @@ public class ChargeCardFragment extends Fragment {
                                                             ex.printStackTrace();
                                                         }
 
-                                                    } else {
+                                                    } else if (result_code == Constants.RESULT_CODE_UNREGISTERED_TOKEN) {
+                                                        getActivity().runOnUiThread(new Runnable() {
+                                                            @Override
+                                                            public void run() {
+                                                                MainActivity.sCurrentMenu = Constants.MENU_NEWNUMBER;
+                                                                mPrefManager.setIsLoggedIn(false);
+                                                                mDataManager.resetCardTypes();
+
+                                                                getActivity().finish();
+                                                                Intent intent = new Intent(mContext, LoginActivity.class);
+                                                                startActivity(intent);
+
+
+                                                            }
+                                                        });
+                                                    }
+                                                    else
+                                                    {
                                                         final String result_msg = jsonObj.getString("result_msg");
                                                         Log.d(TAG, "result_msg " + result_msg);
                                                         getActivity().runOnUiThread(new Runnable() {
