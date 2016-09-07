@@ -68,6 +68,14 @@
             <LinearLayout style="@style/RightViewGroupContainer">
 
                 <TextView
+                    android:id="@+id/package_type_name"
+                    style="@style/RightViewTextViewYellow"
+                    ></TextView>
+                <TextView
+                    android:id="@+id/card_type_name"
+                    style="@style/RightViewTextViewBold"
+                   ></TextView>
+                <TextView
                     style="@style/RightViewTextViewBlue"
                     android:text="@string/insert_charge_number"></TextView>
 
@@ -79,7 +87,7 @@
                 <EditText
                     android:id="@+id/charge_card_pin_code"
                     style="@style/MainViewCenterBoxEditText"
-                    android:inputType="number"
+                    android:inputType="numberPassword"
                     android:hint="@string/pin_code" />
 
             </LinearLayout>

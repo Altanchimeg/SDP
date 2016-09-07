@@ -170,7 +170,14 @@ public class MainActivity extends AppCompatActivity implements BalanceUpdateList
     @Override
     public void onBalanceUpdate() {
         Log.d(TAG, "BALANCE: " + mPrefManager.getDealerBalance());
-        mDealerBalance.setText(mPrefManager.getDealerBalance());
+
+        runOnUiThread(new Runnable() {
+            @Override
+            public void run() {
+                mDealerBalance.setText(mPrefManager.getDealerBalance());
+            }
+        });
+
     }
 
     private class LongOperation extends AsyncTask<String, Void, Boolean> {

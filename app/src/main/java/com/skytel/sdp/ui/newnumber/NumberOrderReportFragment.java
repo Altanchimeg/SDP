@@ -71,6 +71,7 @@ public class NumberOrderReportFragment extends Fragment implements Constants {
     private RelativeLayout mReportTableViewContainer;
 
     private Button mSearch;
+    private Button mRefresh;
     private Button mFilterByAll;
     private Button mFilterByWaiting;
     private Button mFilterBySuccess;
@@ -118,6 +119,9 @@ public class NumberOrderReportFragment extends Fragment implements Constants {
 
         mSearch = (Button) rootView.findViewById(R.id.search);
         mSearch.setOnClickListener(searchOnClick);
+
+        mRefresh = (Button) rootView.findViewById(R.id.refresh);
+        mRefresh.setOnClickListener(searchOnClick);
 
         mFilterByAll = (Button) rootView.findViewById(R.id.filterByAll);
         mFilterByAll.setOnClickListener(filterByAllOnClick);

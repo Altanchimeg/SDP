@@ -20,11 +20,14 @@ import android.text.Editable;
 import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
+import android.widget.Spinner;
 import android.widget.Toast;
 
+import com.skytel.sdp.adapter.NothingSelectedSpinnerAdapter;
 import com.skytel.sdp.database.DataManager;
 import com.skytel.sdp.entities.Phonenumber;
 import com.skytel.sdp.utils.BitmapSaver;
@@ -68,8 +71,8 @@ public class NumberUserInfoActivity extends AppCompatActivity implements Constan
     private EditText mFirstName;
     private EditText mRegistrationNumberEt;
     private EditText mSimCardSerial;
-    private EditText mHobby;
-    private EditText mJob;
+    private Spinner mHobby;
+    private Spinner mJob;
     private EditText mContactNumber;
     private EditText mDescription;
     private EditText mChosenNumber;
@@ -94,6 +97,9 @@ public class NumberUserInfoActivity extends AppCompatActivity implements Constan
     private CustomProgressDialog mProgressDialog;
     private Context mContext;
     private DataManager mDataManager;
+
+    private int mSelectedHobbyId = -1;
+    private int mSelectedJobId = -1;
 
 
     @Override
@@ -135,8 +141,8 @@ public class NumberUserInfoActivity extends AppCompatActivity implements Constan
         mFirstName = (EditText) findViewById(R.id.first_name);
         mRegistrationNumberEt = (EditText) findViewById(R.id.reg_number);
         mSimCardSerial = (EditText) findViewById(R.id.sim_card_serial);
-        mHobby = (EditText) findViewById(R.id.hobby);
-        mJob = (EditText) findViewById(R.id.job);
+        mHobby = (Spinner) findViewById(R.id.hobby);
+        mJob = (Spinner) findViewById(R.id.job);
         mContactNumber = (EditText) findViewById(R.id.contact_number);
         mDescription = (EditText) findViewById(R.id.description_order);
         mChosenNumber = (EditText) findViewById(R.id.chosen_number);
@@ -146,11 +152,60 @@ public class NumberUserInfoActivity extends AppCompatActivity implements Constan
 
         mOrderUserInfo = (Button) findViewById(R.id.send_order);
 
+        ArrayAdapter<CharSequence> adapterHobbyReport = ArrayAdapter.createFromResource(this, R.array.hobby_list, android.R.layout.simple_spinner_item);
+        adapterHobbyReport.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        mHobby.setAdapter(new NothingSelectedSpinnerAdapter(adapterHobbyReport,
+                R.layout.spinner_row_nothing_selected,
+                // R.layout.contact_spinner_nothing_selected_dropdown, // Option
+                this));
+        mHobby.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+                try {
+                    mSelectedHobbyId = (int) mHobby.getSelectedItemId();
+                    Log.d(TAG, "selected item id: "+mSelectedHobbyId);
+
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> parent) {
+
+            }
+        });
+
+        ArrayAdapter<CharSequence> adapterJobReport = ArrayAdapter.createFromResource(this, R.array.job_list, android.R.layout.simple_spinner_item);
+        adapterJobReport.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        mJob.setAdapter(new NothingSelectedSpinnerAdapter(adapterJobReport,
+                R.layout.spinner_row_nothing_selected,
+                // R.layout.contact_spinner_nothing_selected_dropdown, // Option
+                this));
+        mJob.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+                try {
+                    mSelectedJobId = (int) mJob.getSelectedItemId();
+                    Log.d(TAG, "selected item id: "+mSelectedJobId);
+
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> parent) {
+
+            }
+        });
+
+
         mOrderUserInfo.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 if (ValidationChecker.isValidationPassed(mLastName) && ValidationChecker.isValidationPassed(mFirstName) && ValidationChecker.isValidationPassed(mRegistrationNumberEt) &&
-                        ValidationChecker.isValidationPassed(mSimCardSerial) && ValidationChecker.isValidationPassed(mHobby) && ValidationChecker.isValidationPassed(mJob) &&
+                        ValidationChecker.isValidationPassed(mSimCardSerial) &&  ValidationChecker.isSelected((int )mHobby.getSelectedItemId()) &&  ValidationChecker.isSelected((int )mJob.getSelectedItemId()) &&
                         ValidationChecker.isValidationPassed(mContactNumber) && ValidationChecker.isValidationPassed(mChosenNumber) && ValidationChecker.hasBitmapValue(bm)) {
                     if(ValidationChecker.isSimcardSerial(mSimCardSerial.length())) {
                         mConfirmDialog.show(getFragmentManager(), "dialog");
@@ -194,8 +249,8 @@ public class NumberUserInfoActivity extends AppCompatActivity implements Constan
         url.append("&last_name=" + mLastName.getText().toString());
         url.append("&first_name=" + mFirstName.getText().toString());
         url.append("&sim_serial=" + mSimCardSerial.getText().toString());
-        url.append("&hobby=" + mHobby.getText().toString());
-        url.append("&work=" + mJob.getText().toString());
+        url.append("&hobby=" + String.valueOf(mSelectedHobbyId));
+        url.append("&work=" + String.valueOf(mSelectedJobId));
         url.append("&contact=" + mContactNumber.getText().toString());
         url.append("&description=" + mDescription.getText().toString());
 

@@ -161,6 +161,13 @@
 
                     android:text="@string/search"></Button>
 
+                <Button
+                    android:id="@+id/refresh"
+                    style="@style/ButtonStyle"
+                    android:layout_marginBottom="@dimen/main_padding"
+                    android:layout_marginLeft="@dimen/main_padding"
+                    android:layout_marginRight="@dimen/main_padding"
+                    android:text="@string/refresh"></Button>
 
 
 

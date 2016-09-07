@@ -174,5 +174,27 @@
         <item>Улаанбаатар</item>
     </string-array>
 
+    <string-array name="hobby_list">
+        <item>Спортоор хичээллэх</item>
+        <item>Ном унших</item>
+        <item>Дуу сонсох</item>
+        <item>Уран зураг</item>
+        <item>Аялах</item>
+        <item>Кино үзэх</item>
+        <item>Бусад</item>
+    </string-array>
+
+    <string-array name="job_list">
+        <item>Хувийн хэвшил</item>
+        <item>Төрийн албан хаагч</item>
+        <item>Оюутан</item>
+        <item>Сурагч</item>
+        <item>Тэтгэвэр</item>
+        <item>Группт</item>
+        <item>Малчин</item>
+        <item>Хувиараа</item>
+        <item>Бусад</item>
+    </string-array>
+
 
 </resources>

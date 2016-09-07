@@ -68,20 +68,19 @@
                 android:maxLength="@integer/simcard_serial_length"
                  />
 
-            <EditText
+
+            <Spinner
                 android:id="@+id/hobby"
                 style="@style/MainViewCenterBoxEditText"
-                android:hint="@string/hobby"
-
-                />
-
-            <EditText
+                android:backgroundTint="@color/colorMenuText"
+                android:focusable="false"
+                android:spinnerMode="dropdown"/>
+            <Spinner
                 android:id="@+id/job"
                 style="@style/MainViewCenterBoxEditText"
-                android:hint="@string/job"
-
-                 />
-
+                android:backgroundTint="@color/colorMenuText"
+                android:focusable="false"
+                android:spinnerMode="dropdown"/>
 
             <EditText
                 android:id="@+id/contact_number"

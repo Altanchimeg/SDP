@@ -13,6 +13,7 @@ import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ListView;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.skytel.sdp.LoginActivity;
@@ -34,6 +35,7 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.io.IOException;
+import java.util.List;
 
 import okhttp3.Call;
 import okhttp3.Callback;
@@ -58,6 +60,9 @@ public class ChargeCardFragment extends Fragment {
     private EditText mChargeCardPhoneNumber;
     private EditText mChargeCardPinCode;
 
+    private TextView mPackageTypeName;
+    private TextView mCardTypeName;
+
     private ListView mPackageTypeListView;
     private ListView mCardTypeListView;
 
@@ -68,6 +73,8 @@ public class ChargeCardFragment extends Fragment {
     private CustomProgressDialog mProgressDialog;
 
     public static BalanceUpdateListener sBalanceUpdateListener;
+    private String[] mPackageTypes;
+    private List<CardType> mCardList;
 
     public ChargeCardFragment() {
     }
@@ -95,6 +102,8 @@ public class ChargeCardFragment extends Fragment {
         mDataManager = new DataManager(mContext);
         mClient = new OkHttpClient();
         mPrefManager = new PrefManager(mContext);
+        mPackageTypes = mContext.getResources().getStringArray(R.array.skydealer_charge_card_types);
+
         // Set Package Type List
         mPackageTypeListView = (ListView) rootView.findViewById(R.id.package_type_list_view);
         mPackageTypeListView.setAdapter(new ChargeCardPackageTypeAdapter(getActivity()));
@@ -126,6 +135,9 @@ public class ChargeCardFragment extends Fragment {
                 }
                 mCardTypeListView.setAdapter(new ChargeCardTypeAdapter(getActivity(), mPackageTypeEnum));
 
+                mPackageTypeName.setText(mPackageTypes[position]);
+                mCardList = mDataManager.getCardTypeByPackageType(mPackageTypeEnum);
+
             }
         });
 
@@ -137,11 +149,17 @@ public class ChargeCardFragment extends Fragment {
                 mCardType = mDataManager.getCardType(view.getId());
                 Log.d(TAG, "PackageType: "+mPackageTypeEnum);
                 Log.d(TAG, "CardType: "+ mCardType.getName());
+               mCardTypeName.setText(mCardList.get(position).getDesciption());
+
             }
         });
 
         mChargeCardPhoneNumber = (EditText) rootView.findViewById(R.id.charge_card_phone_number);
         mChargeCardPinCode = (EditText) rootView.findViewById(R.id.charge_card_pin_code);
+        mPackageTypeName = (TextView) rootView.findViewById(R.id.package_type_name);
+        mCardTypeName = (TextView) rootView.findViewById(R.id.card_type_name);
+
+
 
         mChargeCardOrderBtn = (Button) rootView.findViewById(R.id.charge_card_order_btn);
         mChargeCardOrderBtn.setOnClickListener(new View.OnClickListener() {
@@ -220,8 +238,11 @@ public class ChargeCardFragment extends Fragment {
                                                 try {
                                                     JSONObject jsonObj = new JSONObject(resp);
                                                     int result_code = jsonObj.getInt("result_code");
-
+                                                    final String result_msg = jsonObj.getString("result_msg");
+                                                    Log.d(TAG, "result_msg " + result_msg);
                                                     Log.d(TAG, "result_code " + result_code);
+
+                                                    Toast.makeText(mContext, "" + result_msg, Toast.LENGTH_LONG).show();
 
                                                     if (result_code == Constants.RESULT_CODE_SUCCESS) {
 
@@ -231,18 +252,21 @@ public class ChargeCardFragment extends Fragment {
                                                         Log.d(TAG, "dealer_id " + dealer_id);
                                                         Log.d(TAG, "balance " + balance);
 
-                                                        mPrefManager.saveDealerBalance(balance);
-                                                        if (sBalanceUpdateListener != null) {
-                                                            sBalanceUpdateListener.onBalanceUpdate();
-                                                        }
-                                                        Log.d(TAG, "Show the success message to user");
+
                                                         try {
                                                             getActivity().runOnUiThread(new Runnable() {
                                                                 @Override
                                                                 public void run() {
-//                                                                    Toast.makeText(mContext, "Success!", Toast.LENGTH_LONG).show();
+                                                                    mPrefManager.saveDealerBalance(balance);
+                                                                    if (sBalanceUpdateListener != null) {
+                                                                        sBalanceUpdateListener.onBalanceUpdate();
+                                                                    }
+                                                                    Log.d(TAG, "Show the success message to user");
+
                                                                     mChargeCardPhoneNumber.setText("");
                                                                     mChargeCardPinCode.setText("");
+                                                                    mCardTypeName.setText("");
+                                                                    mPackageTypeName.setText("");
                                                                 }
                                                             });
                                                         } catch (Exception ex) {
@@ -267,12 +291,11 @@ public class ChargeCardFragment extends Fragment {
                                                     }
                                                     else
                                                     {
-                                                        final String result_msg = jsonObj.getString("result_msg");
-                                                        Log.d(TAG, "result_msg " + result_msg);
+
                                                         getActivity().runOnUiThread(new Runnable() {
                                                             @Override
                                                             public void run() {
-                                                                Toast.makeText(mContext, "" + result_msg, Toast.LENGTH_LONG).show();
+
                                                                 mChargeCardPhoneNumber.setText("");
                                                                 mChargeCardPinCode.setText("");
 
