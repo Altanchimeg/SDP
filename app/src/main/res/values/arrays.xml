@@ -120,7 +120,6 @@
         <item>Үнэ</item>
         <item>Төлөв</item>
         <item>Цэнэглэсэн огноо</item>
-        <item>Тайлбар</item>
     </string-array>
 
     <string-array name="post_paid_payment_report_column_names">
@@ -128,7 +127,6 @@
         <item>Үнэ</item>
         <item>Төлөв</item>
         <item>Цэнэглэсэн огноо</item>
-        <item>Тайлбар</item>
     </string-array>
 
     <!-- New number Report  -->

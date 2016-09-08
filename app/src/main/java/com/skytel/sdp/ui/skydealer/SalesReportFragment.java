@@ -49,6 +49,7 @@ import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
 import java.util.Locale;
+import java.util.concurrent.TimeUnit;
 
 import de.codecrafters.tableview.SortableTableView;
 import okhttp3.Call;
@@ -117,7 +118,12 @@ public class SalesReportFragment extends Fragment implements Constants {
 
         mContext = getActivity();
         mDataManager = new DataManager(mContext);
-        mClient = new OkHttpClient();
+        mClient = new OkHttpClient.Builder()
+                .connectTimeout(10, TimeUnit.SECONDS)
+                .writeTimeout(10, TimeUnit.SECONDS)
+                .readTimeout(100, TimeUnit.SECONDS)
+                .build();
+
         mPrefManager = new PrefManager(mContext);
         mSalesReportArrayList = new ArrayList<>();
         mProgressDialog = new CustomProgressDialog(getActivity());
@@ -208,9 +214,9 @@ public class SalesReportFragment extends Fragment implements Constants {
                         mProgressDialog.show();
 
                         String currentDateandTime = new SimpleDateFormat("yyyy-MM-dd").format(new Date());
-                        runSalesReportFunction(mReportTypeValue[mSelectedItemId], 100, 0, true, "", "2016-01-01", currentDateandTime, null);
+                        runSalesReportFunction(mReportTypeValue[mSelectedItemId], 100, 0, true, "", "2016-06-01", currentDateandTime, null);
                         Log.d(TAG, "Report Type: " + mReportTypeValue[mSelectedItemId]);
-                        mFilterByStartDate.setText("2016-01-01");
+                        mFilterByStartDate.setText("2016-06-01");
                         mFilterByEndDate.setText(currentDateandTime);
                     } else {
                         Toast.makeText(mContext, getResources().getString(R.string.please_select_the_field), Toast.LENGTH_SHORT).show();
@@ -425,8 +431,6 @@ public class SalesReportFragment extends Fragment implements Constants {
             url.append("&card_type=" + card_type);
         }
 
-
-
         getActivity().runOnUiThread(new Runnable() {
             @Override
             public void run() {
@@ -522,7 +526,6 @@ public class SalesReportFragment extends Fragment implements Constants {
                         String card_name = jsonData.getString("card_name");
                         String value = jsonData.getString("value");
                         String phone = jsonData.getString("phone");
-                        String comment = jsonData.getString("operator_comment");
 
                         Log.d(TAG, "INDEX:       " + i);
 
@@ -531,7 +534,6 @@ public class SalesReportFragment extends Fragment implements Constants {
                         Log.d(TAG, "card_name: " + card_name);
                         Log.d(TAG, "value: " + value);
                         Log.d(TAG, "phone: " + phone);
-                        Log.d(TAG, "comment: " + comment);
 
                         SalesReport salesReport = new SalesReport();
                         // DateTimeFormatter dtf = DateTimeFormat.forPattern("yyyy-MM-dd HH:mm:ss");
@@ -540,7 +542,6 @@ public class SalesReportFragment extends Fragment implements Constants {
                         salesReport.setValue(value);
                         salesReport.setSuccess(success);
                         salesReport.setCardName(card_name);
-                        salesReport.setComment(comment);
                         salesReport.setDate(date);
 
                         mSalesReportArrayList.add(i, salesReport);

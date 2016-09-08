@@ -41,9 +41,6 @@ public class SalesReportChargeCardAdapter extends TableDataAdapter<SalesReport> 
             case 4:
                 renderedView = renderDate(salesReport);
                 break;
-            case 5:
-                renderedView = renderComment(salesReport);
-                break;
         }
 
         return renderedView;
@@ -87,13 +84,6 @@ public class SalesReportChargeCardAdapter extends TableDataAdapter<SalesReport> 
     private View renderDate(final SalesReport salesReport) {
         final TextView textView = new TextView(getContext());
         textView.setText(salesReport.getDate().toString() + "");
-        textView.setPadding(20, 10, 20, 10);
-        textView.setTextSize(18);
-        return textView;
-    }
-    private View renderComment(final SalesReport salesReport) {
-        final TextView textView = new TextView(getContext());
-        textView.setText(salesReport.getComment().toString() + "");
         textView.setPadding(20, 10, 20, 10);
         textView.setTextSize(18);
         return textView;
