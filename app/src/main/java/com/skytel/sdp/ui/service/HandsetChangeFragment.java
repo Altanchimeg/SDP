@@ -64,7 +64,7 @@ import okhttp3.RequestBody;
 import okhttp3.Response;
 
 
-public class HandsetChangeFragment extends Fragment implements  Constants{
+public class HandsetChangeFragment extends Fragment implements Constants {
 
     String TAG = HandsetChangeFragment.class.getName();
     private CustomProgressDialog mProgressDialog;
@@ -98,6 +98,7 @@ public class HandsetChangeFragment extends Fragment implements  Constants{
 
     public HandsetChangeFragment() {
     }
+
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -148,7 +149,7 @@ public class HandsetChangeFragment extends Fragment implements  Constants{
         mSendOrder.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if(ValidationChecker.isValidationPassed(mPhonenumber) && ValidationChecker.isValidationPassed(mSimcardSerial)
+                if (ValidationChecker.isValidationPassed(mPhonenumber) && ValidationChecker.isValidationPassed(mSimcardSerial)
                         && ValidationChecker.hasBitmapValue(bm) && ValidationChecker.isSelected((int) mHandsetChangeTypeSpinner.getSelectedItemId())) {
                     if (ValidationChecker.isSimcardSerial(mSimcardSerial.length())) {
                         mConfirmDialog.show(getFragmentManager(), "dialog");
@@ -156,7 +157,7 @@ public class HandsetChangeFragment extends Fragment implements  Constants{
                         Toast.makeText(mContext, getString(R.string.check_sim_serial), Toast.LENGTH_SHORT).show();
                     }
 
-                }else{
+                } else {
                     Toast.makeText(mContext, getResources().getString(R.string.please_fill_the_field), Toast.LENGTH_SHORT).show();
                 }
             }
@@ -173,6 +174,7 @@ public class HandsetChangeFragment extends Fragment implements  Constants{
 
         return rootView;
     }
+
     public void runGetHandsetChangeInfo() throws Exception {
 
         final StringBuilder url = new StringBuilder();
@@ -183,7 +185,7 @@ public class HandsetChangeFragment extends Fragment implements  Constants{
         getActivity().runOnUiThread(new Runnable() {
             @Override
             public void run() {
-                Log.d(TAG, "send URL: "+url.toString());
+                Log.d(TAG, "send URL: " + url.toString());
             }
         });
 
@@ -197,7 +199,8 @@ public class HandsetChangeFragment extends Fragment implements  Constants{
 
         mClient.newCall(request).enqueue(new Callback() {
             @Override
-            public void onFailure(Call call, IOException e) {
+            public void onFailure(Call call, final
+            IOException e) {
                 mProgressDialog.dismiss();
                 System.out.println("onFailure");
                 e.printStackTrace();
@@ -205,7 +208,6 @@ public class HandsetChangeFragment extends Fragment implements  Constants{
                     getActivity().runOnUiThread(new Runnable() {
                         @Override
                         public void run() {
-
                             Toast.makeText(mContext, getResources().getString(R.string.check_internet_connection), Toast.LENGTH_LONG).show();
                             // Used for debug
                         }
@@ -213,7 +215,6 @@ public class HandsetChangeFragment extends Fragment implements  Constants{
                 } catch (Exception ex) {
                     ex.printStackTrace();
                 }
-
             }
 
             @Override
@@ -222,11 +223,6 @@ public class HandsetChangeFragment extends Fragment implements  Constants{
                 System.out.println("onResponse");
 
                 if (!response.isSuccessful()) throw new IOException("Unexpected code " + response);
-
-                Headers responseHeaders = response.headers();
-                for (int i = 0; i < responseHeaders.size(); i++) {
-                    System.out.println(responseHeaders.name(i) + ": " + responseHeaders.value(i));
-                }
 
                 String resp = response.body().string();
                 System.out.println("resp " + resp);
@@ -251,8 +247,6 @@ public class HandsetChangeFragment extends Fragment implements  Constants{
                                 getActivity().finish();
                                 Intent intent = new Intent(mContext, LoginActivity.class);
                                 startActivity(intent);
-
-
                             }
                         });
                     }
@@ -299,10 +293,10 @@ public class HandsetChangeFragment extends Fragment implements  Constants{
                                 public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
 
                                     try {
-                                        mChosenHandsetChangeTypeId = handsetChangeTypes.get(position-1).getSimChangeTypeId();
-                                        mPrice.setText(handsetChangeTypes.get(position-1).getPrice()+"₮");
-                                        Log.d(TAG, "Handset change price: "+mPrice.getText().toString());
-                                    } catch (ArrayIndexOutOfBoundsException e){
+                                        mChosenHandsetChangeTypeId = handsetChangeTypes.get(position - 1).getSimChangeTypeId();
+                                        mPrice.setText(handsetChangeTypes.get(position - 1).getPrice() + "₮");
+                                        Log.d(TAG, "Handset change price: " + mPrice.getText().toString());
+                                    } catch (ArrayIndexOutOfBoundsException e) {
 
                                     }
 
@@ -310,18 +304,18 @@ public class HandsetChangeFragment extends Fragment implements  Constants{
 
                                 @Override
                                 public void onNothingSelected(AdapterView<?> parent) {
-                                    Toast.makeText(getActivity(),"Nothing Selected",Toast.LENGTH_SHORT).show();
+                                    Toast.makeText(getActivity(), "Nothing Selected", Toast.LENGTH_SHORT).show();
                                 }
                             });
                         }
                     });
 
 
-                } catch (JSONException e) {
+                } catch (final JSONException e) {
                     getActivity().runOnUiThread(new Runnable() {
                         @Override
                         public void run() {
-                            Toast.makeText(mContext, "Алдаатай хариу ирлээ", Toast.LENGTH_LONG).show();
+                            Toast.makeText(mContext, "Алдаатай хариу ирлээ "+e.toString(), Toast.LENGTH_LONG).show();
                         }
                     });
                     e.printStackTrace();
@@ -329,7 +323,9 @@ public class HandsetChangeFragment extends Fragment implements  Constants{
             }
         });
     }
+
     final MediaType MEDIA_TYPE_PNG = MediaType.parse("image/png");
+
     public void runSendOrder() throws Exception {
 
         final StringBuilder url = new StringBuilder();
@@ -340,7 +336,7 @@ public class HandsetChangeFragment extends Fragment implements  Constants{
         getActivity().runOnUiThread(new Runnable() {
             @Override
             public void run() {
-                Log.d(TAG, "send URL: "+url.toString());
+                Log.d(TAG, "send URL: " + url.toString());
             }
         });
 
@@ -392,11 +388,6 @@ public class HandsetChangeFragment extends Fragment implements  Constants{
 
                 if (!response.isSuccessful()) throw new IOException("Unexpected code " + response);
 
-                Headers responseHeaders = response.headers();
-                for (int i = 0; i < responseHeaders.size(); i++) {
-                    System.out.println(responseHeaders.name(i) + ": " + responseHeaders.value(i));
-                }
-
                 String resp = response.body().string();
                 System.out.println("resp " + resp);
 
@@ -412,7 +403,7 @@ public class HandsetChangeFragment extends Fragment implements  Constants{
                         @Override
                         public void run() {
 
-                            Toast.makeText(mContext, ""+ result_msg, Toast.LENGTH_LONG).show();
+                            Toast.makeText(mContext, "" + result_msg, Toast.LENGTH_LONG).show();
                             // Used for debug
                         }
                     });
@@ -432,7 +423,8 @@ public class HandsetChangeFragment extends Fragment implements  Constants{
 
                             }
                         });
-                    };
+                    }
+                    ;
 
 
                 } catch (JSONException e) {
@@ -447,7 +439,6 @@ public class HandsetChangeFragment extends Fragment implements  Constants{
             }
         });
     }
-
 
     private void selectImage() {
         final CharSequence[] items = {getString(R.string.take_photo), getString(R.string.choose_from_library),
@@ -466,13 +457,13 @@ public class HandsetChangeFragment extends Fragment implements  Constants{
                         mProgressDialog.show();
                         cameraIntent();
                     }
-                } else if (items[item].equals( getString(R.string.choose_from_library))) {
-                    userChosenTask =  getString(R.string.choose_from_library);
+                } else if (items[item].equals(getString(R.string.choose_from_library))) {
+                    userChosenTask = getString(R.string.choose_from_library);
                     if (result) {
                         mProgressDialog.show();
                         galleryIntent();
                     }
-                } else if (items[item].equals( getString(R.string.cancel))) {
+                } else if (items[item].equals(getString(R.string.cancel))) {
                     dialog.dismiss();
                 }
             }
@@ -484,7 +475,7 @@ public class HandsetChangeFragment extends Fragment implements  Constants{
         Intent intent = new Intent();
         intent.setType("image/*");
         intent.setAction(Intent.ACTION_GET_CONTENT);//
-        startActivityForResult(Intent.createChooser(intent,  getString(R.string.select_file)), SELECT_FILE);
+        startActivityForResult(Intent.createChooser(intent, getString(R.string.select_file)), SELECT_FILE);
     }
 
     private void cameraIntent() {
@@ -495,12 +486,12 @@ public class HandsetChangeFragment extends Fragment implements  Constants{
     @Override
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
+        mProgressDialog.dismiss();
 
         if (resultCode == Activity.RESULT_OK) {
             if (requestCode == SELECT_FILE) {
                 onSelectFromGalleryResult(data);
-            }
-            else if (requestCode == REQUEST_CAMERA) {
+            } else if (requestCode == REQUEST_CAMERA) {
                 onCaptureImageResult(data);
             }
         }
@@ -542,6 +533,7 @@ public class HandsetChangeFragment extends Fragment implements  Constants{
         mProgressDialog.dismiss();
 
     }
+
     private ConfirmDialog.OnDialogConfirmListener dialogConfirmListener = new ConfirmDialog.OnDialogConfirmListener() {
 
         @Override

@@ -51,11 +51,11 @@ public class LoginActivity extends Activity implements Constants {
 
 /**
  * If code is running on Debug
- */
-        /*      Intent i = new Intent(LoginActivity.this, MainActivity.class);
+*/
+              Intent i = new Intent(LoginActivity.this, MainActivity.class);
         startActivity(i);
         finish();
-*/
+
 
         if (mPrefManager.getIsLoggedIn()) {
             Intent intent = new Intent(LoginActivity.this, MainActivity.class);
@@ -88,6 +88,7 @@ public class LoginActivity extends Activity implements Constants {
     }
 
     public void runLoginFunction() throws Exception {
+
         StringBuilder url = new StringBuilder();
         url.append(SERVER_URL);
         url.append(FUNCTION_LOGIN);
@@ -103,27 +104,31 @@ public class LoginActivity extends Activity implements Constants {
         mClient.newCall(request).enqueue(new Callback() {
             @Override
             public void onFailure(Call call, IOException e) {
-                mProgressDialog.dismiss();
                 System.out.println("onFailure");
                 e.printStackTrace();
                 runOnUiThread(new Runnable() {
                     @Override
                     public void run() {
-                        //     progressDialog.dismiss();
+                        mProgressDialog.dismiss();
                         Toast.makeText(mContext, getResources().getString(R.string.check_internet_connection), Toast.LENGTH_LONG).show();
                         // Used for debug
 //                        PrefManager.getSessionInstance().setIsLoggedIn(true);
 //                        Intent intent = new Intent(LoginActivity.this, MainActivity.class);
 //                        startActivity(intent);
 //                        finish();
-
                     }
                 });
             }
 
             @Override
             public void onResponse(Call call, Response response) throws IOException {
-                mProgressDialog.dismiss();
+                runOnUiThread(new Runnable() {
+                    @Override
+                    public void run() {
+                        mProgressDialog.dismiss();
+                    }
+                });
+
 
                 System.out.println("onResponse");
 

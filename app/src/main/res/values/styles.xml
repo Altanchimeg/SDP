@@ -101,6 +101,7 @@
         <item name="android:textColor">@color/colorBackground</item>
         <item name="android:textColorHint">@color/colorTabTextColor</item>
         <item name="android:background">@drawable/bg_et_login</item>
+        <item name="android:maxLength">20</item>
     </style>
 
     <!-- Tab Style-->

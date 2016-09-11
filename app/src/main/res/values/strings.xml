@@ -54,6 +54,7 @@
     <string name="check_internet_connection">Сервертэй холбогдож чадсангүй. Та интернэт холболтоо шалгаад дахин оролдоно уу!</string>
     <string name="error_result">Алдаатай хариу ирлээ!</string>
     <string name="check_sim_serial">Сим картны сериалаа шалгаад дахин оруулна уу!</string>
+    <string name="error">Алдаа гарлаа!</string>
 
 
     <!-- Feedback -->

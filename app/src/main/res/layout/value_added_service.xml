@@ -13,10 +13,12 @@
 
         <LinearLayout
             style="@style/MainViewCenterBoxContainer"
+            android:layout_width="300dp"
             android:layout_marginRight="@dimen/second_padding">
 
             <TextView
                 style="@style/MainViewTextViewBlue"
+                android:gravity="center_horizontal"
                 android:text="@string/service_select_vas_type" />
 
             <Spinner
@@ -31,6 +33,7 @@
                 style="@style/MainViewTextViewBlue"
                 android:layout_gravity="center"
                 android:layout_margin="@dimen/second_padding"
+                android:gravity="center_horizontal"
                 android:text="@string/service_select_service_status" />
 
             <LinearLayout
@@ -58,7 +61,7 @@
         <LinearLayout
             style="@style/MainViewCenterBoxContainer"
             android:layout_marginLeft="@dimen/second_padding"
-            android:layout_marginRight="500dp">
+            android:layout_marginRight="400dp">
 
             <RelativeLayout
                 android:layout_width="match_parent"

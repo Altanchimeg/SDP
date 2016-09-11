@@ -40,7 +40,6 @@ public class ForgetPasswordActivity extends AppCompatActivity implements Constan
     private EditText mEtPhoneNumber;
     private EditText mEtConfirmCode;
     private EditText mEtNewPassword;
-    private PrefManager prefManager;
 
     private LinearLayout mConfirmPassword;
     private LinearLayout mRecoverPassword;
@@ -53,7 +52,6 @@ public class ForgetPasswordActivity extends AppCompatActivity implements Constan
         setContentView(R.layout.activity_forget_password);
         this.mContext = this;
         mClient = new OkHttpClient();
-        prefManager = new PrefManager(this);
         mProgressDialog = new CustomProgressDialog(this);
 
         mConfirmPassword = (LinearLayout) findViewById(R.id.confirm_password);
@@ -131,13 +129,12 @@ public class ForgetPasswordActivity extends AppCompatActivity implements Constan
         mClient.newCall(request).enqueue(new Callback() {
             @Override
             public void onFailure(Call call, IOException e) {
-                mProgressDialog.dismiss();
                 System.out.println("onFailure");
                 e.printStackTrace();
                 runOnUiThread(new Runnable() {
                     @Override
                     public void run() {
-                        //     progressDialog.dismiss();
+                        mProgressDialog.dismiss();
                         Toast.makeText(mContext, getResources().getString(R.string.check_internet_connection), Toast.LENGTH_LONG).show();
                         // Used for debug
 //                        PrefManager.getSessionInstance().setIsLoggedIn(true);
@@ -151,8 +148,13 @@ public class ForgetPasswordActivity extends AppCompatActivity implements Constan
 
             @Override
             public void onResponse(Call call, Response response) throws IOException {
-                mProgressDialog.dismiss();
                 System.out.println("onResponse");
+                runOnUiThread(new Runnable() {
+                    @Override
+                    public void run() {
+                        mProgressDialog.dismiss();
+                    }
+                });
 
                 if (!response.isSuccessful()) throw new IOException("Unexpected code " + response);
 
