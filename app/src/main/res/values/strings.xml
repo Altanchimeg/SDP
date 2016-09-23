@@ -20,6 +20,7 @@
     <string name="phone_number">Утасны дугаар</string>
     <string name="pin_code">Пин код</string>
     <string name="code">Код</string>
+    <string name="amount_from_msg">Төлбөрийн дүн</string>
     <string name="charge">Цэнэглэх</string>
     <string name="do_payment">Төлбөр төлөх</string>
     <string name="contract_number">Гэрээний дугаар</string>
@@ -50,6 +51,7 @@
 
     <!-- Toast -->
     <string name="please_fill_the_field">Талбаруудыг бүрэн бөглөнө үү!</string>
+    <string name="please_insert_pic">Цахим үнэмлэхний 2 талын зургийг бүрэн оруулна уу!</string>
     <string name="please_select_the_field">Талбаруудыг бүрэн сонгоно уу!</string>
     <string name="check_internet_connection">Сервертэй холбогдож чадсангүй. Та интернэт холболтоо шалгаад дахин оролдоно уу!</string>
     <string name="error_result">Алдаатай хариу ирлээ!</string>
@@ -129,6 +131,7 @@
 
     <!-- SkyDealer Charge Card-->
     <string name="insert_charge_number">Цэнэглэх дугаар оруулна уу</string>
+    <string name="insert_charge_number_for_ip">Өөрийн дугаарыг оруулна уу</string>
     <string name="select_package_type">Багцын төрөл сонгоно уу</string>
     <string name="select_card_type">Картын төрөл сонгоно уу</string>
 

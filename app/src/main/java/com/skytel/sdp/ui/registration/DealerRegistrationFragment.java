@@ -36,6 +36,7 @@ import com.skytel.sdp.database.DataManager;
 import com.skytel.sdp.entities.CardType;
 import com.skytel.sdp.entities.DealerChannelType;
 import com.skytel.sdp.entities.SalesReport;
+import com.skytel.sdp.network.HttpClient;
 import com.skytel.sdp.ui.skydealer.SortableSalesReportChargeCardTableView;
 import com.skytel.sdp.ui.skydealer.SortableSalesReportPostPaidPaymentTableView;
 import com.skytel.sdp.utils.BitmapSaver;
@@ -80,8 +81,8 @@ public class DealerRegistrationFragment extends Fragment implements Constants {
     private List<DealerChannelType> mDealerChannelType;
     private ConfirmDialog mConfirmDialog;
     private DataManager mDataManager;
-
     private Spinner mChannelSalesType;
+
     private EditText mDiscountPercent;
     private EditText mLastName;
     private EditText mFirstName;
@@ -124,7 +125,7 @@ public class DealerRegistrationFragment extends Fragment implements Constants {
         mDataManager = new DataManager(mContext);
         mProgressDialog = new CustomProgressDialog(getActivity());
         mPrefManager = new PrefManager(mContext);
-        mClient = new OkHttpClient();
+        mClient = HttpClient.getInstance();
         mDealerChannelType = new ArrayList<>();
 
         mConfirmDialog = new ConfirmDialog();
@@ -168,10 +169,14 @@ public class DealerRegistrationFragment extends Fragment implements Constants {
             @Override
             public void onClick(View v) {
                 if (ValidationChecker.isValidationPassed(mLastName) && ValidationChecker.isValidationPassed(mFirstName) && ValidationChecker.isValidationPassed(mRegNumber) &&
-                        ValidationChecker.isValidationPassed(mCardSellAddress) && ValidationChecker.isSelected(mChannelSalesType.getId()) && ValidationChecker.isValidationPassed(mSkydealerNumber) &&
-                        ValidationChecker.isValidationPassed(mContactNumber) && ValidationChecker.hasBitmapValue(bm)) {
+                        ValidationChecker.isValidationPassed(mCardSellAddress) && ValidationChecker.isSelected(mChannelSalesType) && ValidationChecker.isValidationPassed(mSkydealerNumber) &&
+                        ValidationChecker.isValidationPassed(mContactNumber)) {
+                    if(ValidationChecker.hasBitmapValue(bm)){
+                        mConfirmDialog.show(getFragmentManager(), "dialog");
+                    }else{
+                        Toast.makeText(mContext, getResources().getString(R.string.please_insert_pic), Toast.LENGTH_LONG).show();
+                    }
 
-                    mConfirmDialog.show(getFragmentManager(), "dialog");
                 }
                 else{
                     Toast.makeText(mContext, getResources().getString(R.string.please_fill_the_field), Toast.LENGTH_SHORT).show();

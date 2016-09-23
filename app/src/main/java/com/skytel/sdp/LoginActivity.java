@@ -10,6 +10,7 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
 
+import com.skytel.sdp.network.HttpClient;
 import com.skytel.sdp.utils.Constants;
 import com.skytel.sdp.utils.CustomProgressDialog;
 import com.skytel.sdp.utils.PrefManager;
@@ -45,16 +46,16 @@ public class LoginActivity extends Activity implements Constants {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
         this.mContext = this;
-        mClient = new OkHttpClient();
+        mClient = HttpClient.getInstance();
         mPrefManager = new PrefManager(this);
         mProgressDialog = new CustomProgressDialog(this);
 
 /**
  * If code is running on Debug
 */
-              Intent i = new Intent(LoginActivity.this, MainActivity.class);
-        startActivity(i);
-        finish();
+//              Intent i = new Intent(LoginActivity.this, MainActivity.class);
+//        startActivity(i);
+//        finish();
 
 
         if (mPrefManager.getIsLoggedIn()) {

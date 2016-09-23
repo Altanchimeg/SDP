@@ -12,6 +12,7 @@ import android.widget.EditText;
 import android.widget.LinearLayout;
 import android.widget.Toast;
 
+import com.skytel.sdp.network.HttpClient;
 import com.skytel.sdp.utils.ConfirmDialog;
 import com.skytel.sdp.utils.Constants;
 import com.skytel.sdp.utils.CustomProgressDialog;
@@ -51,7 +52,7 @@ public class ForgetPasswordActivity extends AppCompatActivity implements Constan
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_forget_password);
         this.mContext = this;
-        mClient = new OkHttpClient();
+        mClient = HttpClient.getInstance();
         mProgressDialog = new CustomProgressDialog(this);
 
         mConfirmPassword = (LinearLayout) findViewById(R.id.confirm_password);

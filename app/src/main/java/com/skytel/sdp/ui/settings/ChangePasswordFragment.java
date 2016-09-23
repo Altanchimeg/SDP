@@ -17,6 +17,7 @@ import com.skytel.sdp.LoginActivity;
 import com.skytel.sdp.MainActivity;
 import com.skytel.sdp.R;
 import com.skytel.sdp.database.DataManager;
+import com.skytel.sdp.network.HttpClient;
 import com.skytel.sdp.utils.ConfirmDialog;
 import com.skytel.sdp.utils.Constants;
 import com.skytel.sdp.utils.CustomProgressDialog;
@@ -68,7 +69,7 @@ public class ChangePasswordFragment extends Fragment implements Constants {
 
         mContext = getActivity();
         mDataManager = new DataManager(mContext);
-        mClient = new OkHttpClient();
+        mClient = HttpClient.getInstance();
         mPrefManager = new PrefManager(mContext);
         mProgressDialog = new CustomProgressDialog(mContext);
 
@@ -106,11 +107,13 @@ public class ChangePasswordFragment extends Fragment implements Constants {
         return rootView;
     }
 
+//    Huuchin nuuts ugiig ilgeedeg bolgoson - Zolbayar
     public void runChangeFunction() throws Exception {
         final StringBuilder url = new StringBuilder();
         url.append(Constants.SERVER_URL);
         url.append(Constants.FUNCTION_CHANGE_PASSWORD);
-        url.append("?newpass=" + mNewPassword.getText().toString());
+        url.append("?oldpass=" + mOldPassword.getText().toString());
+        url.append("&newpass=" + mNewPassword.getText().toString());
 
 
         getActivity().runOnUiThread(new Runnable() {

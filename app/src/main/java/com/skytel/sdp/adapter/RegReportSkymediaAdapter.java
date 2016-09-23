@@ -1,6 +1,7 @@
 package com.skytel.sdp.adapter;
 
 import android.content.Context;
+import android.content.res.Configuration;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
@@ -19,10 +20,18 @@ import de.codecrafters.tableview.TableDataAdapter;
 
 public class RegReportSkymediaAdapter extends TableDataAdapter<RegistrationReport> {
     private Context mContext;
-
+    //    TODO uuniig shuud resource -s shiiddeg bolgoh /Zolbayar
+    private int textSize = 14;
     public RegReportSkymediaAdapter(Context context, List<RegistrationReport> data) {
         super(context, data);
         mContext = context;
+
+        if ((getResources().getConfiguration().screenLayout &
+                Configuration.SCREENLAYOUT_SIZE_MASK) ==
+                Configuration.SCREENLAYOUT_SIZE_XLARGE) {
+            textSize = 18;
+
+        }
     }
     // put columns to charge card table
     @Override
@@ -57,21 +66,21 @@ public class RegReportSkymediaAdapter extends TableDataAdapter<RegistrationRepor
         final TextView textView = new TextView(getContext());
         textView.setText(registrationReport.getPhone() + "");
         textView.setPadding(20, 10, 20, 10);
-        textView.setTextSize(18);
+        textView.setTextSize(textSize);
         return textView;
     }
     private View renderReason(final RegistrationReport registrationReport) {
         final TextView textView = new TextView(getContext());
         textView.setText(registrationReport.getDescription() + "");
         textView.setPadding(20, 10, 20, 10);
-        textView.setTextSize(18);
+        textView.setTextSize(textSize);
         return textView;
     }
     private View renderState(final RegistrationReport registrationReport) {
         final TextView textView = new TextView(getContext());
         textView.setText(registrationReport.getOrderStatus() + "");
         textView.setPadding(20, 10, 20, 10);
-        textView.setTextSize(18);
+        textView.setTextSize(textSize);
         return textView;
     }
 
@@ -79,14 +88,14 @@ public class RegReportSkymediaAdapter extends TableDataAdapter<RegistrationRepor
         final TextView textView = new TextView(getContext());
         textView.setText(registrationReport.getDate().toString() + "");
         textView.setPadding(20, 10, 20, 10);
-        textView.setTextSize(18);
+        textView.setTextSize(textSize);
         return textView;
     }
     private View renderComment(final RegistrationReport registrationReport) {
         final TextView textView = new TextView(getContext());
         textView.setText(registrationReport.getComment().toString() + "");
         textView.setPadding(20, 10, 20, 10);
-        textView.setTextSize(18);
+        textView.setTextSize(textSize);
         return textView;
     }
 

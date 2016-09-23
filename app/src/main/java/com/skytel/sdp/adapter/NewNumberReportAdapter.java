@@ -1,6 +1,7 @@
 package com.skytel.sdp.adapter;
 
 import android.content.Context;
+import android.content.res.Configuration;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
@@ -20,9 +21,19 @@ import de.codecrafters.tableview.TableDataAdapter;
 public class NewNumberReportAdapter extends TableDataAdapter<NewNumberReport> {
     private Context mContext;
 
+//    TODO uuniig shuud resource -s shiiddeg bolgoh /Zolbayar
+    private int textSize = 14;
+
     public NewNumberReportAdapter(Context context, List<NewNumberReport> data){
         super(context, data);
         mContext = context;
+
+        if ((getResources().getConfiguration().screenLayout &
+                Configuration.SCREENLAYOUT_SIZE_MASK) ==
+                Configuration.SCREENLAYOUT_SIZE_XLARGE) {
+            textSize = 18;
+
+        }
     }
     // put columns to charge card table
     @Override
@@ -66,42 +77,42 @@ public class NewNumberReportAdapter extends TableDataAdapter<NewNumberReport> {
         final TextView textView = new TextView(getContext());
         textView.setText(newNumberReport.getServiceType() + "");
         textView.setPadding(20, 10, 20, 10);
-        textView.setTextSize(18);
+        textView.setTextSize(textSize);
         return textView;
     }
     private View renderNumberType(final NewNumberReport newNumberReport) {
         final TextView textView = new TextView(getContext());
         textView.setText(newNumberReport.getNumberType() + "");
         textView.setPadding(20, 10, 20, 10);
-        textView.setTextSize(18);
+        textView.setTextSize(textSize);
         return textView;
     }
     private View renderNumber(final NewNumberReport newNumberReport) {
         final TextView textView = new TextView(getContext());
         textView.setText(newNumberReport.getNumber() + "");
         textView.setPadding(20, 10, 20, 10);
-        textView.setTextSize(18);
+        textView.setTextSize(textSize);
         return textView;
     }
     private View renderUnitAndDay(final NewNumberReport newNumberReport) {
         final TextView textView = new TextView(getContext());
         textView.setText(newNumberReport.getUnitAndDay() + "");
         textView.setPadding(20, 10, 20, 10);
-        textView.setTextSize(18);
+        textView.setTextSize(textSize);
         return textView;
     }
     private View renderPrice(final NewNumberReport newNumberReport) {
         final TextView textView = new TextView(getContext());
         textView.setText(newNumberReport.getPrice() + "");
         textView.setPadding(20, 10, 20, 10);
-        textView.setTextSize(18);
+        textView.setTextSize(textSize);
         return textView;
     }
     private View renderOrderState(final NewNumberReport newNumberReport) {
         final TextView textView = new TextView(getContext());
         textView.setText(newNumberReport.getOrderState() + "");
         textView.setPadding(20, 10, 20, 10);
-        textView.setTextSize(18);
+        textView.setTextSize(textSize);
         return textView;
     }
 
@@ -109,14 +120,14 @@ public class NewNumberReportAdapter extends TableDataAdapter<NewNumberReport> {
         final TextView textView = new TextView(getContext());
         textView.setText(newNumberReport.getDate().toString() + "");
         textView.setPadding(20, 10, 20, 10);
-        textView.setTextSize(18);
+        textView.setTextSize(textSize);
         return textView;
     }
     private View renderComment(final NewNumberReport newNumberReport) {
         final TextView textView = new TextView(getContext());
         textView.setText(newNumberReport.getComment().toString() + "");
         textView.setPadding(20, 10, 20, 10);
-        textView.setTextSize(18);
+        textView.setTextSize(textSize);
         return textView;
     }
 

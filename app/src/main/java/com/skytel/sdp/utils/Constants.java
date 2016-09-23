@@ -25,7 +25,9 @@ public interface Constants {
     String PREF_DEALER_ZONE = "dealer_zone";
 
     /* Service Dealer Service Functions */
-    String SERVER_URL = "http://10.1.90.65:8080/cosax-service-dealer/";
+    //old one
+    //String SERVER_URL = "http://10.1.90.65:8080/cosax-service-dealer/";
+    String SERVER_URL = "http://online.skytel.mn:8080/servicedealer/cosax-service-dealer/";
     String FUNCTION_LOGIN = "login.json";
     String FUNCTION_CHARGE = "charge.json";
     String FUNCTION_GET_INVOICE = "getinvoice.json";
@@ -65,6 +67,8 @@ public interface Constants {
 
     int RESULT_CODE_SUCCESS = 0;
     int RESULT_CODE_UNREGISTERED_TOKEN = 711;
+    //DB deer invoice negent uussen tohioldold dahin uusdeggui gesen - Zolbayar
+    int RESULT_CODE_INVOICE_ALREADY_CREATED = 799;
     String RESULT_STATUS_SUCCESS = "success";
 
     int CONST_COLOR_DATA_PACKAGE = 0;

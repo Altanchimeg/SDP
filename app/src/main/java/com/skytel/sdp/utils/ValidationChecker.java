@@ -1,6 +1,7 @@
 package com.skytel.sdp.utils;
 
 import android.graphics.Bitmap;
+import android.graphics.Color;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.Spinner;
@@ -13,9 +14,11 @@ public class ValidationChecker {
     public static boolean isValidationPassed(EditText editText) {
         String userInput = editText.getText().toString();
         if (userInput.isEmpty()) {
-
+            editText.setBackgroundColor(Color.RED);
             return false;
         }
+
+        editText.setBackgroundColor(Color.WHITE);
         return true;
     }
     public static boolean isValidationPassedTextView(TextView textView) {
@@ -26,13 +29,22 @@ public class ValidationChecker {
         }
         return true;
     }
-    public static boolean isSelected(int id) {
-        if (id<0) {
+    public static boolean isSelected(Spinner spinner) {
+        if (spinner.getSelectedItemId() < 0) {
+            spinner.setBackgroundColor(Color.RED);
+            return false;
+        }
+        spinner.setBackgroundColor(Color.WHITE);
+        return true;
+    }
 
+    public static boolean isSelected(int id) {
+        if (id < 0) {
             return false;
         }
         return true;
     }
+
     public static boolean hasBitmapValue(Bitmap bm){
         if(bm == null){
             return false;

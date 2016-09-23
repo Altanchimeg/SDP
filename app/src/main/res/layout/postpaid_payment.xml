@@ -52,6 +52,7 @@
             <EditText
                 android:id="@+id/confirm_code"
                 style="@style/MainViewCenterBoxEditText"
+                android:inputType="number"
                 android:hint="@string/code" />
 
             <Button

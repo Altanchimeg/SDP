@@ -18,6 +18,7 @@ import com.skytel.sdp.adapter.InfoNewsTypeAdapter;
 import com.skytel.sdp.adapter.NewsListAdapter;
 import com.skytel.sdp.entities.InfoNewsType;
 import com.skytel.sdp.entities.NewsListItem;
+import com.skytel.sdp.network.HttpClient;
 import com.skytel.sdp.utils.Constants;
 import com.skytel.sdp.utils.CustomProgressDialog;
 
@@ -66,7 +67,7 @@ public class InfoNewsFragment extends Fragment implements Constants {
                              Bundle savedInstanceState) {
         View rootView = inflater.inflate(R.layout.info_news, container, false);
         mContext = getActivity();
-        mClient = new OkHttpClient();
+        mClient = HttpClient.getInstance();
 
         mProgressDialog = new CustomProgressDialog(getActivity());
 

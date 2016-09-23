@@ -33,6 +33,7 @@ import com.skytel.sdp.database.DataManager;
 import com.skytel.sdp.entities.CardType;
 import com.skytel.sdp.entities.SalesReport;
 import com.skytel.sdp.enums.PackageTypeEnum;
+import com.skytel.sdp.network.HttpClient;
 import com.skytel.sdp.utils.Constants;
 import com.skytel.sdp.utils.CustomProgressDialog;
 import com.skytel.sdp.utils.PrefManager;
@@ -118,11 +119,7 @@ public class SalesReportFragment extends Fragment implements Constants {
 
         mContext = getActivity();
         mDataManager = new DataManager(mContext);
-        mClient = new OkHttpClient.Builder()
-                .connectTimeout(10, TimeUnit.SECONDS)
-                .writeTimeout(10, TimeUnit.SECONDS)
-                .readTimeout(100, TimeUnit.SECONDS)
-                .build();
+        mClient = HttpClient.getInstance();
 
         mPrefManager = new PrefManager(mContext);
         mSalesReportArrayList = new ArrayList<>();

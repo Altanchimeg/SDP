@@ -29,6 +29,7 @@ import com.skytel.sdp.R;
 import com.skytel.sdp.adapter.NothingSelectedSpinnerAdapter;
 import com.skytel.sdp.database.DataManager;
 import com.skytel.sdp.entities.DealerChannelType;
+import com.skytel.sdp.network.HttpClient;
 import com.skytel.sdp.utils.BitmapSaver;
 import com.skytel.sdp.utils.ConfirmDialog;
 import com.skytel.sdp.utils.Constants;
@@ -114,7 +115,7 @@ public class SkyMediaRegistrationFragment extends Fragment implements Constants 
         mContext = getActivity();
         mProgressDialog = new CustomProgressDialog(getActivity());
         mPrefManager = new PrefManager(mContext);
-        mClient = new OkHttpClient();
+        mClient = HttpClient.getInstance();
         mDataManager = new DataManager(mContext);
 
         mConfirmDialog = new ConfirmDialog();

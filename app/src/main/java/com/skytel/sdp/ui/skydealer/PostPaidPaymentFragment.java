@@ -18,6 +18,7 @@ import com.skytel.sdp.LoginActivity;
 import com.skytel.sdp.MainActivity;
 import com.skytel.sdp.R;
 import com.skytel.sdp.database.DataManager;
+import com.skytel.sdp.network.HttpClient;
 import com.skytel.sdp.utils.BalanceUpdateListener;
 import com.skytel.sdp.utils.ConfirmDialog;
 import com.skytel.sdp.utils.Constants;
@@ -89,12 +90,13 @@ public class PostPaidPaymentFragment extends Fragment {
 
         mContext = getActivity();
         mDataManager = new DataManager(mContext);
-        mClient = new OkHttpClient();
+        mClient = HttpClient.getInstance();
         mPrefManager = new PrefManager(mContext);
 
         mInvoicePhoneNumber = (EditText) rootView.findViewById(R.id.invoice_phone_number);
         mPincode = (EditText) rootView.findViewById(R.id.pin_code);
         mConfirmCode = (EditText) rootView.findViewById(R.id.confirm_code);
+
         mGetInvoiceBtn = (Button) rootView.findViewById(R.id.get_invoice_btn);
         mDoPaymentBtn = (Button) rootView.findViewById(R.id.do_payment_btn);
 
@@ -213,6 +215,24 @@ public class PostPaidPaymentFragment extends Fragment {
                                 }
                             }
                         });
+                    }else if (result_code == Constants.RESULT_CODE_INVOICE_ALREADY_CREATED) {
+//                        mBalance = jsonObj.getString("balance");
+//                        Log.d(TAG, "balance " + mBalance);
+                        Log.d(TAG, "RESULT_CODE_INVOICE_ALREADY_CREATED");
+                        getActivity().runOnUiThread(new Runnable() {
+                            @Override
+                            public void run() {
+                                try {
+//                                    Toast.makeText(mContext, "SUCCESSFUL!", Toast.LENGTH_LONG).show();
+                                    Toast.makeText(mContext, "Код хэрэглэгч рүү аль хэдийн илгээгдсэн байна!", Toast.LENGTH_LONG).show();
+                                    mInvoiceLayout.setVisibility(View.GONE);
+                                    mPaymentLayout.setVisibility(View.VISIBLE);
+
+                                } catch (Exception e) {
+                                    e.printStackTrace();
+                                }
+                            }
+                        });
                     }else if (result_code == Constants.RESULT_CODE_UNREGISTERED_TOKEN) {
                         getActivity().runOnUiThread(new Runnable() {
                             @Override
@@ -252,12 +272,12 @@ public class PostPaidPaymentFragment extends Fragment {
             }
         });
     }
-
+    // Amountiig yos todii yavuulj baigaa - Backend deer invoice_num -oor ni avchihaj bgaa yum bilee - Zolbayar
     public void runPaymentFunction() throws Exception {
         final StringBuilder url = new StringBuilder();
         url.append(Constants.SERVER_URL);
         url.append(Constants.FUNCTION_DO_PAYMENT);
-        url.append("?amount=" + Integer.parseInt(mBalance));
+        url.append("?amount=" + "-1");
         url.append("&phone=" + mInvoicePhoneNumber.getText().toString());
         url.append("&pin=" + mPincode.getText().toString());
         url.append("&invoice_num=" + mConfirmCode.getText().toString());
@@ -354,8 +374,16 @@ public class PostPaidPaymentFragment extends Fragment {
                                 getActivity().finish();
                                 Intent intent = new Intent(mContext, LoginActivity.class);
                                 startActivity(intent);
+                            }
+                        });
+                    }
 
-
+//                  Tuhain dugaar buhii hereglegchid ali hediin tan code ochchihson gsn ug
+                    else if (result_code == Constants.RESULT_CODE_INVOICE_ALREADY_CREATED) {
+                        getActivity().runOnUiThread(new Runnable() {
+                            @Override
+                            public void run() {
+                                Toast.makeText(mContext, "Код хэрэглэгч рүү аль хэдийн илгээгдсэн байна!", Toast.LENGTH_LONG).show();
                             }
                         });
                     }
@@ -384,6 +412,7 @@ public class PostPaidPaymentFragment extends Fragment {
 
             } catch (Exception e) {
                 Log.e(TAG, e.getMessage());
+                e.printStackTrace();
                 mProgressDialog.dismiss();
                 Toast.makeText(mContext, "Error on Failure!", Toast.LENGTH_LONG).show();
             }

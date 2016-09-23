@@ -30,6 +30,7 @@ import android.widget.Toast;
 import com.skytel.sdp.adapter.NothingSelectedSpinnerAdapter;
 import com.skytel.sdp.database.DataManager;
 import com.skytel.sdp.entities.Phonenumber;
+import com.skytel.sdp.network.HttpClient;
 import com.skytel.sdp.utils.BitmapSaver;
 import com.skytel.sdp.utils.ConfirmDialog;
 import com.skytel.sdp.utils.Constants;
@@ -108,7 +109,7 @@ public class NumberUserInfoActivity extends AppCompatActivity implements Constan
         setContentView(R.layout.activity_newuserinfo);
 
         mPrefManager = new PrefManager(this);
-        mClient = new OkHttpClient();
+        mClient = HttpClient.getInstance();
         mContext = this;
         mDataManager = new DataManager(mContext);
 

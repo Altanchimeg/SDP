@@ -15,6 +15,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.skytel.sdp.network.HttpClient;
 import com.skytel.sdp.utils.Constants;
 import com.skytel.sdp.utils.CustomProgressDialog;
 import com.squareup.picasso.Picasso;
@@ -50,7 +51,7 @@ public class InfoNewsDetailActivity extends AppCompatActivity implements Constan
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         mContext = this;
-        mClient = new OkHttpClient();
+        mClient = HttpClient.getInstance();
         mProgressDialog = new CustomProgressDialog(this);
         setContentView(R.layout.activity_info_news_detail);
 

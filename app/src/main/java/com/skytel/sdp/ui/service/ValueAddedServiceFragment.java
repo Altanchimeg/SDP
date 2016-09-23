@@ -26,6 +26,7 @@ import com.skytel.sdp.adapter.VasTypeAdapter;
 import com.skytel.sdp.database.DataManager;
 import com.skytel.sdp.entities.HandsetChangeType;
 import com.skytel.sdp.entities.VasType;
+import com.skytel.sdp.network.HttpClient;
 import com.skytel.sdp.utils.ConfirmDialog;
 import com.skytel.sdp.utils.Constants;
 import com.skytel.sdp.utils.CustomProgressDialog;
@@ -90,7 +91,7 @@ public class ValueAddedServiceFragment extends Fragment implements Constants {
         mContext = getActivity();
         mProgressDialog = new CustomProgressDialog(getActivity());
         mPrefManager = new PrefManager(mContext);
-        mClient = new OkHttpClient();
+        mClient = HttpClient.getInstance();
         mVastypeChange = new ArrayList<>();
         mDataManager = new DataManager(mContext);
 

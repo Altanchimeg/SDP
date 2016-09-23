@@ -31,6 +31,7 @@ import com.skytel.sdp.adapter.SalesReportPostPaidPaymentAdapter;
 import com.skytel.sdp.database.DataManager;
 import com.skytel.sdp.entities.RegistrationReport;
 import com.skytel.sdp.entities.SalesReport;
+import com.skytel.sdp.network.HttpClient;
 import com.skytel.sdp.ui.skydealer.SortableSalesReportChargeCardTableView;
 import com.skytel.sdp.ui.skydealer.SortableSalesReportPostPaidPaymentTableView;
 import com.skytel.sdp.utils.Constants;
@@ -111,7 +112,7 @@ public class RegistrationReportFragment extends Fragment implements Constants {
 
         mContext = getActivity();
         mDataManager = new DataManager(mContext);
-        mClient = new OkHttpClient();
+        mClient = HttpClient.getInstance();
         mPrefManager = new PrefManager(mContext);
         mRegistrationReportArrayList = new ArrayList<>();
         mProgressDialog = new CustomProgressDialog(getActivity());
@@ -468,7 +469,10 @@ public class RegistrationReportFragment extends Fragment implements Constants {
                             Log.d(TAG, "description: " + description);
                         }
                         String phone = jsonData.getString("phone");
-                        String comment = jsonData.getString("operator_comment");
+                        String comment = "";
+                        if(!jsonData.isNull("operator_comment")){
+                            comment = jsonData.getString("operator_comment");
+                        }
 
                         registrationReport.setId(i);
                         registrationReport.setPhone(phone);

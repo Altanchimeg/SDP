@@ -1,6 +1,7 @@
 package com.skytel.sdp.adapter;
 
 import android.content.Context;
+import android.content.res.Configuration;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
@@ -14,10 +15,19 @@ import de.codecrafters.tableview.TableDataAdapter;
 
 public class SalesReportChargeCardAdapter extends TableDataAdapter<SalesReport> {
     private Context mContext;
+    //    TODO uuniig shuud resource -s shiiddeg bolgoh /Zolbayar
+    private int textSize = 14;
 
     public SalesReportChargeCardAdapter(Context context, List<SalesReport> data) {
         super(context, data);
         mContext = context;
+
+        if ((getResources().getConfiguration().screenLayout &
+                Configuration.SCREENLAYOUT_SIZE_MASK) ==
+                Configuration.SCREENLAYOUT_SIZE_XLARGE) {
+            textSize = 18;
+
+        }
     }
     // put columns to charge card table
     @Override
@@ -52,21 +62,21 @@ public class SalesReportChargeCardAdapter extends TableDataAdapter<SalesReport> 
         final TextView textView = new TextView(getContext());
         textView.setText(salesReport.getPhone() + "");
         textView.setPadding(20, 10, 20, 10);
-        textView.setTextSize(18);
+        textView.setTextSize(textSize);
         return textView;
     }
     private View renderCardName(final SalesReport salesReport) {
         final TextView textView = new TextView(getContext());
         textView.setText(salesReport.getCardName() + "");
         textView.setPadding(20, 10, 20, 10);
-        textView.setTextSize(18);
+        textView.setTextSize(textSize);
         return textView;
     }
     private View renderValue(final SalesReport salesReport) {
         final TextView textView = new TextView(getContext());
         textView.setText(salesReport.getValue() + "");
         textView.setPadding(20, 10, 20, 10);
-        textView.setTextSize(18);
+        textView.setTextSize(textSize);
         return textView;
     }
     private View renderSuccess(final SalesReport salesReport) {
@@ -77,7 +87,7 @@ public class SalesReportChargeCardAdapter extends TableDataAdapter<SalesReport> 
             textView.setText(mContext.getResources().getString(R.string.unsuccessful));
         }
         textView.setPadding(20, 10, 20, 10);
-        textView.setTextSize(18);
+        textView.setTextSize(textSize);
         return textView;
     }
 
@@ -85,7 +95,7 @@ public class SalesReportChargeCardAdapter extends TableDataAdapter<SalesReport> 
         final TextView textView = new TextView(getContext());
         textView.setText(salesReport.getDate().toString() + "");
         textView.setPadding(20, 10, 20, 10);
-        textView.setTextSize(18);
+        textView.setTextSize(textSize);
         return textView;
     }
 

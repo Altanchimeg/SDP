@@ -40,7 +40,7 @@ public class SortableNewNumberReportTableView extends SortableTableView<NewNumbe
         setColumnWeight(1, 2);
         setColumnWeight(2, 2);
         setColumnWeight(3, 2);
-        setColumnWeight(4, 3);
+        setColumnWeight(4, 2);
         setColumnWeight(5, 3);
         setColumnWeight(6, 3);
         setColumnWeight(7, 2);

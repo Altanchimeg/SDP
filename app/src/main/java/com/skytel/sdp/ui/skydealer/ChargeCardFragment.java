@@ -24,6 +24,7 @@ import com.skytel.sdp.adapter.ChargeCardTypeAdapter;
 import com.skytel.sdp.database.DataManager;
 import com.skytel.sdp.entities.CardType;
 import com.skytel.sdp.enums.PackageTypeEnum;
+import com.skytel.sdp.network.HttpClient;
 import com.skytel.sdp.utils.BalanceUpdateListener;
 import com.skytel.sdp.utils.ConfirmDialog;
 import com.skytel.sdp.utils.Constants;
@@ -76,6 +77,9 @@ public class ChargeCardFragment extends Fragment {
     private String[] mPackageTypes;
     private List<CardType> mCardList;
 
+//    IP76 carduud deer tsenegleh dugaariig bish ooriin dugaariig oruulah uchir - Zolbayar
+    private TextView numberToSendLabel;
+
     public ChargeCardFragment() {
     }
 
@@ -100,9 +104,11 @@ public class ChargeCardFragment extends Fragment {
         View rootView = inflater.inflate(R.layout.charge_card, container, false);
         mContext = getActivity();
         mDataManager = new DataManager(mContext);
-        mClient = new OkHttpClient();
+        mClient = HttpClient.getInstance();
         mPrefManager = new PrefManager(mContext);
         mPackageTypes = mContext.getResources().getStringArray(R.array.skydealer_charge_card_types);
+
+        numberToSendLabel = (TextView) rootView.findViewById(R.id.number_to_send_label);
 
         // Set Package Type List
         mPackageTypeListView = (ListView) rootView.findViewById(R.id.package_type_list_view);
@@ -128,6 +134,7 @@ public class ChargeCardFragment extends Fragment {
                         break;
                     case Constants.CONST_SKYMEDIA_IP76_PACKAGE:
                         mPackageTypeEnum = PackageTypeEnum.SKYMEDIA_IP76_PACKAGE;
+                        numberToSendLabel.setText(getResources().getString(R.string.insert_charge_number_for_ip));
                         break;
                     case Constants.CONST_SMART_PACKAGE:
                         mPackageTypeEnum = PackageTypeEnum.SMART_PACKAGE;
@@ -242,7 +249,12 @@ public class ChargeCardFragment extends Fragment {
                                                     Log.d(TAG, "result_msg " + result_msg);
                                                     Log.d(TAG, "result_code " + result_code);
 
-                                                    Toast.makeText(mContext, "" + result_msg, Toast.LENGTH_LONG).show();
+                                                    getActivity().runOnUiThread(new Runnable() {
+                                                        @Override
+                                                        public void run() {
+                                                            Toast.makeText(mContext, "" + result_msg, Toast.LENGTH_LONG).show();
+                                                        }
+                                                    });
 
                                                     if (result_code == Constants.RESULT_CODE_SUCCESS) {
 

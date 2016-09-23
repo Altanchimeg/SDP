@@ -27,6 +27,7 @@ import com.skytel.sdp.adapter.PriceTypeInfoListAdapter;
 import com.skytel.sdp.database.DataManager;
 import com.skytel.sdp.entities.Phonenumber;
 import com.skytel.sdp.entities.PriceType;
+import com.skytel.sdp.network.HttpClient;
 import com.skytel.sdp.utils.ConfirmDialog;
 import com.skytel.sdp.utils.Constants;
 import com.skytel.sdp.utils.CustomProgressDialog;
@@ -100,7 +101,7 @@ public class NumberChoiceFragment extends Fragment {
 
         mContext = getActivity();
         mDataManager = new DataManager(mContext);
-        mClient = new OkHttpClient();
+        mClient = HttpClient.getInstance();
         mNumbersArrayList = new ArrayList<>();
         mPriceTypeInfoArrayList = new ArrayList<>();
         mPrefixArrayList = new ArrayList<>();
@@ -257,9 +258,9 @@ public class NumberChoiceFragment extends Fragment {
 
                         String pref = jsonData.getString("pref");
 
-                        Log.d(TAG, "INDEX:       " + i);
-
-                        Log.d(TAG, "pref: " + pref);
+//                        Log.d(TAG, "INDEX:       " + i);
+//
+//                        Log.d(TAG, "pref: " + pref);
 
 
                         mPrefixArrayList.add(pref);
@@ -340,53 +341,63 @@ public class NumberChoiceFragment extends Fragment {
                 try {
                     JSONObject jsonObj = new JSONObject(resp);
 
-                    JSONArray jArray = jsonObj.getJSONArray("data");
+//                  Haisan dugaar number.skytel.mn deer baihgui uyed data field hooson irj exception shidej baisniig boliulsan - Zolbayar
+                    if(!jsonObj.isNull("data")){
+                        JSONArray jArray = jsonObj.getJSONArray("data");
 
-                    Log.d(TAG, "*****JARRAY*****" + jArray.length());
-                    mNumbersArrayList.clear();
+                        Log.d(TAG, "*****JARRAY*****" + jArray.length());
+                        mNumbersArrayList.clear();
 
 
-                    for (int i = 0; i < jArray.length(); i++) {
-                        JSONObject jsonData = jArray.getJSONObject(i);
+                        for (int i = 0; i < jArray.length(); i++) {
+                            JSONObject jsonData = jArray.getJSONObject(i);
 
-                        String phonenumber = jsonData.getString("PhoneNumber");
-                        String price_type = jsonData.getString("priceType");
-                        mPhoneNumber = new Phonenumber();
-                        mPhoneNumber.setPhoneNumber(phonenumber);
-                        mPhoneNumber.setPriceType(price_type);
-                        mPhoneNumber.setId(i);
+                            String phonenumber = jsonData.getString("PhoneNumber");
+                            String price_type = jsonData.getString("priceType");
+                            mPhoneNumber = new Phonenumber();
+                            mPhoneNumber.setPhoneNumber(phonenumber);
+                            mPhoneNumber.setPriceType(price_type);
+                            mPhoneNumber.setId(i);
 
-                        Log.d(TAG, "Phonenumber:       " + phonenumber);
-                        Log.d(TAG, "price_type: " + price_type);
+                            Log.d(TAG, "Phonenumber:       " + phonenumber);
+                            Log.d(TAG, "price_type: " + price_type);
 
-                        mNumbersArrayList.add(mPhoneNumber);
-                    }
-
-                    getActivity().runOnUiThread(new Runnable() {
-                        @Override
-                        public void run() {
-                            mNewNumbersGrid.setAdapter(mNumberChoiceAdapter);
-
-                            mNewNumbersGrid.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-                                @Override
-                                public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                                    Log.d(TAG, "Selected: " + mNumbersArrayList.get(position));
-                                    mSelected_number = mNumbersArrayList.get(position).getPhoneNumber();
-                                    mSelected_price_type_id = mNumbersArrayList.get(position).getPriceType();
-                                    mSearchNumber.setText(mSelected_number);
-                                    mChosenNewNumber.setText(mSelected_number);
-                                    try {
-                                        mProgressDialog.show();
-                                        runGetPriceFunction(mSelected_price_type_id);
-                                    } catch (Exception e) {
-                                        e.printStackTrace();
-                                    }
-
-                                }
-                            });
+                            mNumbersArrayList.add(mPhoneNumber);
                         }
-                    });
 
+                        getActivity().runOnUiThread(new Runnable() {
+                            @Override
+                            public void run() {
+                                mNewNumbersGrid.setAdapter(mNumberChoiceAdapter);
+
+                                mNewNumbersGrid.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+                                    @Override
+                                    public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                                        Log.d(TAG, "Selected: " + mNumbersArrayList.get(position));
+                                        mSelected_number = mNumbersArrayList.get(position).getPhoneNumber();
+                                        mSelected_price_type_id = mNumbersArrayList.get(position).getPriceType();
+                                        mSearchNumber.setText(mSelected_number);
+                                        mChosenNewNumber.setText(mSelected_number);
+                                        try {
+                                            mProgressDialog.show();
+                                            runGetPriceFunction(mSelected_price_type_id);
+                                        } catch (Exception e) {
+                                            e.printStackTrace();
+                                        }
+
+                                    }
+                                });
+                            }
+                        });
+                    }else{
+                        getActivity().runOnUiThread(new Runnable() {
+                            @Override
+                            public void run() {
+                                Toast.makeText(mContext, "Хайсан дугаар байхгүй байна.", Toast.LENGTH_LONG).show();
+                            }
+                        });
+                        mNumbersArrayList.clear();
+                    }
 
                 } catch (JSONException e) {
                     getActivity().runOnUiThread(new Runnable() {

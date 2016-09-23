@@ -76,6 +76,7 @@
                     style="@style/RightViewTextViewBold"
                    ></TextView>
                 <TextView
+                    android:id="@+id/number_to_send_label"
                     style="@style/RightViewTextViewBlue"
                     android:text="@string/insert_charge_number"></TextView>
 

@@ -28,6 +28,7 @@ import com.skytel.sdp.adapter.SalesReportPostPaidPaymentAdapter;
 import com.skytel.sdp.database.DataManager;
 import com.skytel.sdp.entities.NewNumberReport;
 import com.skytel.sdp.entities.SalesReport;
+import com.skytel.sdp.network.HttpClient;
 import com.skytel.sdp.ui.skydealer.SortableSalesReportChargeCardTableView;
 import com.skytel.sdp.ui.skydealer.SortableSalesReportPostPaidPaymentTableView;
 import com.skytel.sdp.utils.Constants;
@@ -110,7 +111,7 @@ public class NumberOrderReportFragment extends Fragment implements Constants {
 
         mContext = getActivity();
         mDataManager = new DataManager(mContext);
-        mClient = new OkHttpClient();
+        mClient = HttpClient.getInstance();
         mPrefManager = new PrefManager(mContext);
         mNewNumberReportArrayList = new ArrayList<>();
         mProgressDialog = new CustomProgressDialog(getActivity());
@@ -425,42 +426,50 @@ public class NumberOrderReportFragment extends Fragment implements Constants {
                         });
                     }
 
-                    JSONArray jArray = jsonObj.getJSONArray("reservations");
 
-                    Log.d(TAG, "*****JARRAY*****" + jArray.length());
-                    mNewNumberReportArrayList.clear();
-                    for (int i = 0; i < jArray.length(); i++) {
-                        JSONObject jsonData = jArray.getJSONObject(i);
+//                  Udaan hugatsaanii daraa app -iig neeh uyed end exception shidej bsan tul.. - Zolbayar
+                    if(!jsonObj.isNull("reservations")) {
 
-                        String date = jsonData.getString("date");
-                        String order_status = jsonData.getString("order_status");
-                        String number_type = jsonData.getString("number_type");
-                        String unit_and_day = jsonData.getString("unit_and_day");
-                        String price = jsonData.getString("price");
-                        String number = jsonData.getString("number");
-                        String comment = jsonData.getString("operator_comment");
+                        JSONArray jArray = jsonObj.getJSONArray("reservations");
 
-                        Log.d(TAG, "INDEX:       " + i);
+                        Log.d(TAG, "*****JARRAY*****" + jArray.length());
+                        mNewNumberReportArrayList.clear();
+                        for (int i = 0; i < jArray.length(); i++) {
+                            JSONObject jsonData = jArray.getJSONObject(i);
 
-                        Log.d(TAG, "date: " + date);
-                        Log.d(TAG, "order_status: " + order_status);
-                        Log.d(TAG, "number_type: " + number_type);
-                        Log.d(TAG, "unit_and_day: " + unit_and_day);
-                        Log.d(TAG, "price: " + price);
-                        Log.d(TAG, "number: " + number);
-                        Log.d(TAG, "comment: "+ comment);
+                            String date = jsonData.getString("date");
+                            String order_status = jsonData.getString("order_status");
+                            String number_type = jsonData.getString("number_type");
+                            String unit_and_day = jsonData.getString("unit_and_day");
+                            String price = jsonData.getString("price");
+                            String number = jsonData.getString("number");
+                            String comment = "";
+                            if (!jsonData.isNull("operator_comment")) {
+                                comment = jsonData.getString("operator_comment");
+                            }
 
-                        NewNumberReport newNumberReport = new NewNumberReport();
-                        newNumberReport.setId(i);
-                        newNumberReport.setOrderState(order_status);
-                        newNumberReport.setNumberType(number_type);
-                        newNumberReport.setUnitAndDay(unit_and_day);
-                        newNumberReport.setPrice(price);
-                        newNumberReport.setNumber(number);
-                        newNumberReport.setDate(date);
-                        newNumberReport.setComment(comment);
+                            Log.d(TAG, "INDEX:       " + i);
 
-                        mNewNumberReportArrayList.add(i, newNumberReport);
+                            Log.d(TAG, "date: " + date);
+                            Log.d(TAG, "order_status: " + order_status);
+                            Log.d(TAG, "number_type: " + number_type);
+                            Log.d(TAG, "unit_and_day: " + unit_and_day);
+                            Log.d(TAG, "price: " + price);
+                            Log.d(TAG, "number: " + number);
+                            Log.d(TAG, "comment: " + comment);
+
+                            NewNumberReport newNumberReport = new NewNumberReport();
+                            newNumberReport.setId(i);
+                            newNumberReport.setOrderState(order_status);
+                            newNumberReport.setNumberType(number_type);
+                            newNumberReport.setUnitAndDay(unit_and_day);
+                            newNumberReport.setPrice(price);
+                            newNumberReport.setNumber(number);
+                            newNumberReport.setDate(date);
+                            newNumberReport.setComment(comment);
+
+                            mNewNumberReportArrayList.add(i, newNumberReport);
+                        }
                     }
 
                     getActivity().runOnUiThread(new Runnable() {

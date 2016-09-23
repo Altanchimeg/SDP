@@ -32,11 +32,15 @@
 
         </LinearLayout>
 
-        <RelativeLayout
-            android:id="@+id/reportTableViewContainer"
+        <android.widget.HorizontalScrollView
+            android:id="@+id/tableWrapperScrollView"
             android:layout_width="match_parent"
-            android:layout_height="match_parent"></RelativeLayout>
-
+            android:layout_height="match_parent">
+            <RelativeLayout
+                android:id="@+id/reportTableViewContainer"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"></RelativeLayout>
+        </android.widget.HorizontalScrollView>
     </LinearLayout>
 
     <ScrollView

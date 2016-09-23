@@ -1,6 +1,7 @@
 package com.skytel.sdp.adapter;
 
 import android.content.Context;
+import android.content.res.Configuration;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
@@ -17,10 +18,19 @@ import de.codecrafters.tableview.TableDataAdapter;
 
 public class ServiceReportHandsetChangeAdapter  extends TableDataAdapter<ServiceReport> {
     private Context mContext;
+//    TODO uuniig shuud resource -s shiiddeg bolgoh /Zolbayar
+    private int textSize = 14;
 
     public ServiceReportHandsetChangeAdapter(Context context, List<ServiceReport> data) {
         super(context, data);
         mContext = context;
+
+        if ((getResources().getConfiguration().screenLayout &
+                Configuration.SCREENLAYOUT_SIZE_MASK) ==
+                Configuration.SCREENLAYOUT_SIZE_XLARGE) {
+            textSize = 18;
+
+        }
     }
     // put columns to charge card table
     @Override
@@ -58,21 +68,21 @@ public class ServiceReportHandsetChangeAdapter  extends TableDataAdapter<Service
         final TextView textView = new TextView(getContext());
         textView.setText(serviceReport.getPhone() + "");
         textView.setPadding(20, 10, 20, 10);
-        textView.setTextSize(18);
+        textView.setTextSize(textSize);
         return textView;
     }
     private View renderSimcardSerial(final ServiceReport serviceReport) {
         final TextView textView = new TextView(getContext());
         textView.setText(serviceReport.getSimcardSerial() + "");
         textView.setPadding(20, 10, 20, 10);
-        textView.setTextSize(18);
+        textView.setTextSize(textSize);
         return textView;
     }
     private View renderState(final ServiceReport serviceReport) {
         final TextView textView = new TextView(getContext());
         textView.setText(serviceReport.getOrderStatus() + "");
         textView.setPadding(20, 10, 20, 10);
-        textView.setTextSize(18);
+        textView.setTextSize(textSize);
         return textView;
     }
 
@@ -80,21 +90,21 @@ public class ServiceReportHandsetChangeAdapter  extends TableDataAdapter<Service
         final TextView textView = new TextView(getContext());
         textView.setText(serviceReport.getDate().toString() + "");
         textView.setPadding(20, 10, 20, 10);
-        textView.setTextSize(18);
+        textView.setTextSize(textSize);
         return textView;
     }
     private View renderServiceType(final ServiceReport serviceReport) {
         final TextView textView = new TextView(getContext());
         textView.setText(serviceReport.getServiceType().toString() + "");
         textView.setPadding(20, 10, 20, 10);
-        textView.setTextSize(18);
+        textView.setTextSize(textSize);
         return textView;
     }
     private View renderComment(final ServiceReport serviceReport) {
         final TextView textView = new TextView(getContext());
         textView.setText(serviceReport.getComment().toString() + "");
         textView.setPadding(20, 10, 20, 10);
-        textView.setTextSize(18);
+        textView.setTextSize(textSize);
         return textView;
     }
 

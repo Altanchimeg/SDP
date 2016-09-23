@@ -31,6 +31,7 @@ import com.skytel.sdp.adapter.ServiceReportVasAdapter;
 import com.skytel.sdp.database.DataManager;
 import com.skytel.sdp.entities.RegistrationReport;
 import com.skytel.sdp.entities.ServiceReport;
+import com.skytel.sdp.network.HttpClient;
 import com.skytel.sdp.ui.registration.SortableRegReportDealerTableView;
 import com.skytel.sdp.ui.registration.SortableRegReportSkymediaTableView;
 import com.skytel.sdp.utils.Constants;
@@ -108,7 +109,7 @@ public class ServiceReportFragment extends Fragment implements Constants{
         View rootView = inflater.inflate(R.layout.service_report, container, false);
         mContext = getActivity();
         mDataManager = new DataManager(mContext);
-        mClient = new OkHttpClient();
+        mClient = HttpClient.getInstance();
         mPrefManager = new PrefManager(mContext);
         mServiceReportArrayList = new ArrayList<>();
         mProgressDialog = new CustomProgressDialog(getActivity());
@@ -454,7 +455,11 @@ public class ServiceReportFragment extends Fragment implements Constants{
                         String order_status = jsonData.getString("order_status");
                         String service_type = jsonData.getString("service_type");
                         String phone = jsonData.getString("phone");
-                        String comment = jsonData.getString("operator_comment");
+
+                        String comment = "";
+                        if(!jsonData.isNull("operator_comment")){
+                            comment = jsonData.getString("operator_comment");
+                        }
 
                         ServiceReport serviceReport = new ServiceReport();
                         serviceReport.setId(i);

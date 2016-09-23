@@ -15,6 +15,7 @@ import android.widget.Toast;
 
 import com.skytel.sdp.R;
 import com.skytel.sdp.database.DataManager;
+import com.skytel.sdp.network.HttpClient;
 import com.skytel.sdp.utils.Constants;
 import com.skytel.sdp.utils.CustomProgressDialog;
 import com.skytel.sdp.utils.PrefManager;
@@ -66,7 +67,7 @@ public class FeedbackFragment extends Fragment {
 
         mContext = getActivity();
         mDataManager = new DataManager(mContext);
-        mClient = new OkHttpClient();
+        mClient = HttpClient.getInstance();
         prefManager = new PrefManager(mContext);
         mProgressDialog = new CustomProgressDialog(mContext);
 
