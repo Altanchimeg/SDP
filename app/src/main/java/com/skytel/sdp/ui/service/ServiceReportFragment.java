@@ -39,6 +39,7 @@ import com.skytel.sdp.utils.CustomProgressDialog;
 import com.skytel.sdp.utils.PrefManager;
 import com.skytel.sdp.utils.ValidationChecker;
 
+import org.joda.time.DateTime;
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -164,11 +165,14 @@ public class ServiceReportFragment extends Fragment implements Constants{
                     if (ValidationChecker.isSelected(mSelectedItemId)) {
                         mProgressDialog.show();
 
-                        String currentDateandTime = new SimpleDateFormat("yyyy-MM-dd").format(new Date());
-                        runServiceReportFunction(mSelectedItemId, 100, 0, mSelectedFilterButton, "2016-01-01", currentDateandTime,"");
+                        DateTime currentDateJoda = DateTime.parse(new SimpleDateFormat("yyyy-MM-dd").format(new Date()));
+                        String startDate = new SimpleDateFormat("yyyy-MM-dd").format(currentDateJoda.minusMonths(3).toDate());
+                        String currentDateTime = new SimpleDateFormat("yyyy-MM-dd").format(currentDateJoda.toDate());
+
+                        runServiceReportFunction(mSelectedItemId, 100, 0, mSelectedFilterButton, startDate, currentDateTime,"");
                         Log.d(TAG, "Report Type: " + mSelectedItemId);
-                        mFilterByStartDate.setText("2016-01-01");
-                        mFilterByEndDate.setText(currentDateandTime);
+                        mFilterByStartDate.setText(startDate);
+                        mFilterByEndDate.setText(currentDateTime);
                     } else {
                         Toast.makeText(mContext, getResources().getString(R.string.please_select_the_field), Toast.LENGTH_SHORT).show();
                     }
@@ -423,7 +427,7 @@ public class ServiceReportFragment extends Fragment implements Constants{
                         public void run() {
 
                             Toast.makeText(mContext, ""+ result_msg, Toast.LENGTH_LONG).show();
-                            // Used for debug
+
                         }
                     });
 

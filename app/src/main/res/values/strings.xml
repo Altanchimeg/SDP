@@ -138,6 +138,7 @@
     <!-- SkyDealer Report-->
     <string name="card_package_type">Картын багцын төрөл</string>
     <string name="choose_report_type">Тайлангийн төрөл сонгоно уу?</string>
+    <string name="interval_error">Хугацаагаа 3 сараас багаар сонгоно уу?</string>
     <string name="show_report">Тайлан харах</string>
     <string name="report_promt">[Сонгох...]</string>
 

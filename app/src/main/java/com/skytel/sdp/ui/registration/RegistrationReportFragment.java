@@ -39,6 +39,7 @@ import com.skytel.sdp.utils.CustomProgressDialog;
 import com.skytel.sdp.utils.PrefManager;
 import com.skytel.sdp.utils.ValidationChecker;
 
+import org.joda.time.DateTime;
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -168,10 +169,13 @@ public class RegistrationReportFragment extends Fragment implements Constants {
                     if (ValidationChecker.isSelected(mSelectedItemId)) {
                         mProgressDialog.show();
 
-                        String currentDateandTime = new SimpleDateFormat("yyyy-MM-dd").format(new Date());
-                        runRegistrationReportFunction(mSelectedItemId, 100, 0, mSelectedFilterButton, "", "2016-01-01", currentDateandTime);
-                        mFilterByStartDate.setText("2016-01-01");
-                        mFilterByEndDate.setText(currentDateandTime);
+                        DateTime currentDateJoda = DateTime.parse(new SimpleDateFormat("yyyy-MM-dd").format(new Date()));
+                        String startDate = new SimpleDateFormat("yyyy-MM-dd").format(currentDateJoda.minusMonths(3).toDate());
+                        String currentDateTime = new SimpleDateFormat("yyyy-MM-dd").format(currentDateJoda.toDate());
+
+                        runRegistrationReportFunction(mSelectedItemId, 100, 0, mSelectedFilterButton, "", startDate, currentDateTime);
+                        mFilterByStartDate.setText(startDate);
+                        mFilterByEndDate.setText(currentDateTime);
                         Log.d(TAG, "Report Type: " + mSelectedItemId);
                     } else {
                         Toast.makeText(mContext, getResources().getString(R.string.please_select_the_field), Toast.LENGTH_SHORT).show();
@@ -430,7 +434,7 @@ public class RegistrationReportFragment extends Fragment implements Constants {
                         public void run() {
 
                             Toast.makeText(mContext, ""+ result_msg, Toast.LENGTH_LONG).show();
-                            // Used for debug
+
                         }
                     });
                     if (result_code == Constants.RESULT_CODE_UNREGISTERED_TOKEN) {

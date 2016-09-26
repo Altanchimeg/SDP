@@ -196,7 +196,14 @@ public class PostPaidPaymentFragment extends Fragment {
                     final String result_msg = jsonObj.getString("result_msg");
 
                     // Log.d(TAG, "result_code " + result_code);
+                    getActivity().runOnUiThread(new Runnable() {
+                        @Override
+                        public void run() {
 
+                            Toast.makeText(mContext, "" + result_msg, Toast.LENGTH_LONG).show();
+                            // Used for debug
+                        }
+                    });
 
                     if (result_code == Constants.RESULT_CODE_SUCCESS) {
                         mBalance = jsonObj.getString("balance");
@@ -249,22 +256,6 @@ public class PostPaidPaymentFragment extends Fragment {
                             }
                         });
                     }
-
-                    else {
-                        getActivity().runOnUiThread(new Runnable() {
-                            @Override
-                            public void run() {
-                                try {
-                                    Toast.makeText(mContext, "" + result_msg, Toast.LENGTH_LONG).show();
-
-
-                                } catch (Exception e) {
-                                    e.printStackTrace();
-                                }
-                            }
-                        });
-                    }
-
 
                 } catch (JSONException e) {
                     e.printStackTrace();
@@ -338,7 +329,7 @@ public class PostPaidPaymentFragment extends Fragment {
                         public void run() {
 
                             Toast.makeText(mContext, ""+ result_msg, Toast.LENGTH_LONG).show();
-                            // Used for debug
+
                         }
                     });
 

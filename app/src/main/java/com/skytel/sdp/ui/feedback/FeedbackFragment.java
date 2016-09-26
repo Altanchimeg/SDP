@@ -155,7 +155,7 @@ public class FeedbackFragment extends Fragment {
 
                 try {
                     JSONObject jsonObj = new JSONObject(resp);
-                    int result_code = jsonObj.getInt("result_code");
+                    final int result_code = jsonObj.getInt("result_code");
                     final String result_msg = jsonObj.getString("result_msg");
                     Log.d(TAG, "result_code " + result_code);
                     Log.d(TAG, "result_msg " + result_msg);

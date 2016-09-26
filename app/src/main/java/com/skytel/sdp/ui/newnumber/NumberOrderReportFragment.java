@@ -36,6 +36,7 @@ import com.skytel.sdp.utils.CustomProgressDialog;
 import com.skytel.sdp.utils.PrefManager;
 import com.skytel.sdp.utils.ValidationChecker;
 
+import org.joda.time.DateTime;
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -149,14 +150,17 @@ public class NumberOrderReportFragment extends Fragment implements Constants {
         mMonth = mCalendar.get(Calendar.MONTH);
         mDay = mCalendar.get(Calendar.DAY_OF_MONTH);
 
-
-        String currentDateandTime = new SimpleDateFormat("yyyy-MM-dd").format(new Date());
-
         try {
             mProgressDialog.show();
-            runNewNumberReportFunction(100, 0, mSelectedFilterButton, "", "2016-01-01", currentDateandTime);
-            mFilterByStartDate.setText("2016-01-01");
-            mFilterByEndDate.setText(currentDateandTime);
+
+            DateTime currentDateJoda = DateTime.parse(new SimpleDateFormat("yyyy-MM-dd").format(new Date()));
+            String startDate = new SimpleDateFormat("yyyy-MM-dd").format(currentDateJoda.minusMonths(3).toDate());
+            String currentDateTime = new SimpleDateFormat("yyyy-MM-dd").format(currentDateJoda.toDate());
+
+
+            runNewNumberReportFunction(100, 0, mSelectedFilterButton, "", startDate, currentDateTime);
+            mFilterByStartDate.setText(startDate);
+            mFilterByEndDate.setText(currentDateTime);
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -405,7 +409,6 @@ public class NumberOrderReportFragment extends Fragment implements Constants {
                         public void run() {
 
                             Toast.makeText(mContext, ""+ result_msg, Toast.LENGTH_LONG).show();
-                            // Used for debug
                         }
                     });
 

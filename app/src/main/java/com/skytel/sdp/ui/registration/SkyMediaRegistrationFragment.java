@@ -293,7 +293,7 @@ public class SkyMediaRegistrationFragment extends Fragment implements Constants 
                         public void run() {
 
                             Toast.makeText(mContext, ""+ result_msg, Toast.LENGTH_LONG).show();
-                            // Used for debug
+
                         }
                     });
 

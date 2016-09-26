@@ -229,11 +229,19 @@ public class ValueAddedServiceFragment extends Fragment implements Constants {
                 try {
                     JSONObject jsonObj = new JSONObject(resp);
                     int result_code = jsonObj.getInt("result_code");
-                    String result_msg = jsonObj.getString("result_msg");
+                    final String result_msg = jsonObj.getString("result_msg");
 
 
                     Log.d(TAG, "result_code: " + result_code);
                     Log.d(TAG, "result_msg: " + result_msg);
+                    getActivity().runOnUiThread(new Runnable() {
+                        @Override
+                        public void run() {
+
+                            Toast.makeText(mContext, "" + result_msg, Toast.LENGTH_LONG).show();
+
+                        }
+                    });
 
                     if (result_code == Constants.RESULT_CODE_UNREGISTERED_TOKEN) {
                         getActivity().runOnUiThread(new Runnable() {
@@ -307,9 +315,7 @@ public class ValueAddedServiceFragment extends Fragment implements Constants {
                                     } catch (ArrayIndexOutOfBoundsException e){
 
                                     }
-
                                 }
-
                                 @Override
                                 public void onNothingSelected(AdapterView<?> parent) {
                                     Toast.makeText(getActivity(),"Nothing Selected",Toast.LENGTH_SHORT).show();
@@ -409,7 +415,6 @@ public class ValueAddedServiceFragment extends Fragment implements Constants {
                         public void run() {
 
                             Toast.makeText(mContext, ""+ result_msg, Toast.LENGTH_LONG).show();
-                            // Used for debug
                         }
                     });
                     getActivity().runOnUiThread(new Runnable() {

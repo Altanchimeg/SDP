@@ -168,10 +168,18 @@ public class ForgetPasswordActivity extends AppCompatActivity implements Constan
                     final String result_msg = jsonObj.getString("result_msg");
 
 
+                    Log.d(TAG, "result_code " + result_code);
+                    Log.d(TAG, "resul_msg " + result_msg);
+
+                    runOnUiThread(new Runnable() {
+                        @Override
+                        public void run() {
+                            Toast.makeText(mContext, result_msg + "", Toast.LENGTH_SHORT).show();
+                        }
+                    });
+
                     if (result_code == RESULT_CODE_SUCCESS) {
 
-                        Log.d(TAG, "result_code " + result_code);
-                        Log.d(TAG, "resul_msg " + result_msg);
 
                         runOnUiThread(new Runnable() {
                             @Override
@@ -181,19 +189,7 @@ public class ForgetPasswordActivity extends AppCompatActivity implements Constan
                             }
                         });
 
-                    } else {
-
-                        Log.d(TAG, "result_code " + result_code);
-                        Log.d(TAG, "result_msg " + result_msg);
-                        runOnUiThread(new Runnable() {
-                            @Override
-                            public void run() {
-                                Toast.makeText(mContext, result_msg + "", Toast.LENGTH_SHORT).show();
-                            }
-                        });
-
                     }
-
                 } catch (JSONException e) {
                     runOnUiThread(new Runnable() {
                         @Override

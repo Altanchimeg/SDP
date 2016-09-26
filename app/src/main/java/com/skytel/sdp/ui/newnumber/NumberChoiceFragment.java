@@ -176,14 +176,6 @@ public class NumberChoiceFragment extends Fragment {
                     } else {
                         Toast.makeText(mContext, getResources().getString(R.string.please_fill_the_field), Toast.LENGTH_SHORT).show();
                     }
-
-                    //Debug
-
-                  /*  Intent intent = new Intent(mContext, NumberUserInfoActivity.class);
-                    intent.putExtra("reservation_id",108);
-                    intent.putExtra("phone_number","91109789");
-                    intent.putExtra("register_number","IU98875465");
-                    startActivity(intent);*/
                 } catch (Exception e) {
                     e.printStackTrace();
                 }
@@ -534,17 +526,6 @@ public class NumberChoiceFragment extends Fragment {
     View.OnClickListener SearchNewNumberOnClick = new View.OnClickListener() {
         @Override
         public void onClick(View v) {
-            // mNumbersArrayList.clear();
-            /*for (int i = 0; i < 1; i++) {
-                Phonenumber pn = new Phonenumber();
-                pn.setId(i + 1);
-                pn.setPhoneNumber("90109" + (i + 1));
-                pn.setPriceType("1");
-                mNumbersArrayList.add(pn);
-            }*/
-            // mNumberChoiceAdapter.notifyDataSetChanged();
-
-            // Comment for Test
 
             try {
                 mProgressDialog.show();

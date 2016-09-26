@@ -39,6 +39,8 @@ import com.skytel.sdp.utils.CustomProgressDialog;
 import com.skytel.sdp.utils.PrefManager;
 import com.skytel.sdp.utils.ValidationChecker;
 
+import org.joda.time.DateTime;
+import org.joda.time.Days;
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -210,11 +212,16 @@ public class SalesReportFragment extends Fragment implements Constants {
                     if (ValidationChecker.isSelected(mSelectedItemId)) {
                         mProgressDialog.show();
 
-                        String currentDateandTime = new SimpleDateFormat("yyyy-MM-dd").format(new Date());
-                        runSalesReportFunction(mReportTypeValue[mSelectedItemId], 100, 0, true, "", "2016-06-01", currentDateandTime, null);
+                        DateTime currentDateJoda = DateTime.parse(new SimpleDateFormat("yyyy-MM-dd").format(new Date()));
+                        String startDate = new SimpleDateFormat("yyyy-MM-dd").format(currentDateJoda.minusMonths(3).toDate());
+                        String currentDateTime = new SimpleDateFormat("yyyy-MM-dd").format(currentDateJoda.toDate());
+
+                       // Log.d(TAG,"Days Between: "+ Days.daysBetween(currentDateJoda.toDateMidnight(), DateTime.parse("2016-06-01")).getDays() + "TEST DATE: "+date);
+
+                        runSalesReportFunction(mReportTypeValue[mSelectedItemId], 100, 0, true, "", startDate, currentDateTime, null);
                         Log.d(TAG, "Report Type: " + mReportTypeValue[mSelectedItemId]);
-                        mFilterByStartDate.setText("2016-06-01");
-                        mFilterByEndDate.setText(currentDateandTime);
+                        mFilterByStartDate.setText(startDate);
+                        mFilterByEndDate.setText(currentDateTime);
                     } else {
                         Toast.makeText(mContext, getResources().getString(R.string.please_select_the_field), Toast.LENGTH_SHORT).show();
                     }
@@ -242,41 +249,6 @@ public class SalesReportFragment extends Fragment implements Constants {
         mMonth = mCalendar.get(Calendar.MONTH);
         mDay = mCalendar.get(Calendar.DAY_OF_MONTH);
 
-      /*  for (int i = 0; i < 100; i++) {
-            Date date = new Date();
-            boolean success = true;
-            String type = "1";
-            String value = "100";
-            String phone = "91109789";
-
-            Log.d(TAG, "INDEX:       " + i);
-
-            Log.d(TAG, "date: " + date);
-            Log.d(TAG, "success: " + success);
-            Log.d(TAG, "type: " + type);
-            Log.d(TAG, "value: " + value);
-            Log.d(TAG, "phone: " + phone);
-
-            SalesReport salesReport = new SalesReport();
-            salesReport.setId(i);
-            salesReport.setPhone(phone);
-            salesReport.setSuccess(success);
-            salesReport.setType(type);
-            salesReport.setValue(value);
-            salesReport.setDate(date);
-
-            salesReportArrayList.add(i, salesReport);
-        }
-
-/*
-        try {
-            String report_type = REPORT_DEALER_POSTPAIDPAYMENT_TYPE;
-            runChargeCardReportFunction(report_type);
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-*/
-
         return rootView;
     }
 
@@ -285,16 +257,22 @@ public class SalesReportFragment extends Fragment implements Constants {
         public void onClick(View v) {
             try {
                 mSelectedItemId = (int) mReportTypeSpinner.getSelectedItemId();
+                String phone_number = mFilterByPhoneNumber.getText().toString();
+                Boolean isSuccess = isSuccessFilter;
+
+                String start_date = mFilterByStartDate.getText().toString();
+                String end_date = mFilterByEndDate.getText().toString();
                 if (ValidationChecker.isSelected(mSelectedItemId)) {
-                    mProgressDialog.show();
-                    mSelectedItemId = (int) mReportTypeSpinner.getSelectedItemId();
-                    String phone_number = mFilterByPhoneNumber.getText().toString();
-                    Boolean isSuccess = isSuccessFilter;
+                    if(ValidationChecker.isOnInterval(Days.daysBetween(DateTime.parse(start_date), DateTime.parse(end_date)).getDays())){
+                        mProgressDialog.show();
+                        mSelectedItemId = (int) mReportTypeSpinner.getSelectedItemId();
 
-                    String start_date = mFilterByStartDate.getText().toString();
-                    String end_date = mFilterByEndDate.getText().toString();
+                        runSalesReportFunction(mReportTypeValue[mSelectedItemId], 100, 0, isSuccess, phone_number, start_date, end_date,mSelectedFilterByUnit);
+                    }
+                    else{
+                        Toast.makeText(getActivity(), getText(R.string.interval_error), Toast.LENGTH_SHORT).show();
+                    }
 
-                    runSalesReportFunction(mReportTypeValue[mSelectedItemId], 100, 0, isSuccess, phone_number, start_date, end_date,mSelectedFilterByUnit);
                 } else {
                     Toast.makeText(getActivity(), getText(R.string.choose_report_type), Toast.LENGTH_SHORT).show();
                 }

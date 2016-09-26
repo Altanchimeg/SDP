@@ -171,7 +171,7 @@ public class ChangePasswordFragment extends Fragment implements Constants {
                         public void run() {
 
                             Toast.makeText(mContext, ""+ result_msg, Toast.LENGTH_LONG).show();
-                            // Used for debug
+
                         }
                     });
                     if (result_code == Constants.RESULT_CODE_UNREGISTERED_TOKEN) {
