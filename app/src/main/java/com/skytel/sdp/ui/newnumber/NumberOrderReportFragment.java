@@ -90,6 +90,12 @@ public class NumberOrderReportFragment extends Fragment implements Constants {
     private int mSelectedItemId = -1;
     private String[] mReportTypeValue = null;
 
+    private int fromPage = 0;
+    private int lengthList = 2;
+    private TextView mPagerInfo;
+    private Button mPrevious;
+    private Button mNext;
+
     private int mYear;
     private int mMonth;
     private int mDay;
@@ -146,6 +152,12 @@ public class NumberOrderReportFragment extends Fragment implements Constants {
         mFilterButtonByEndDate = (Button) rootView.findViewById(R.id.btn_end_date);
         mFilterButtonByEndDate.setOnClickListener(filterByEndDateOnClick);
 
+        mPagerInfo = (TextView) rootView.findViewById(R.id.pager_info);
+        mPrevious = (Button) rootView.findViewById(R.id.btn_previous);
+        mNext = (Button) rootView.findViewById(R.id.btn_next);
+        mPrevious.setOnClickListener(previousOnClick);
+        mNext.setOnClickListener(nextOnClick);
+
         mYear = mCalendar.get(Calendar.YEAR);
         mMonth = mCalendar.get(Calendar.MONTH);
         mDay = mCalendar.get(Calendar.DAY_OF_MONTH);
@@ -157,7 +169,6 @@ public class NumberOrderReportFragment extends Fragment implements Constants {
             String startDate = new SimpleDateFormat("yyyy-MM-dd").format(currentDateJoda.minusMonths(3).toDate());
             String currentDateTime = new SimpleDateFormat("yyyy-MM-dd").format(currentDateJoda.toDate());
 
-
             runNewNumberReportFunction(100, 0, mSelectedFilterButton, "", startDate, currentDateTime);
             mFilterByStartDate.setText(startDate);
             mFilterByEndDate.setText(currentDateTime);
@@ -168,7 +179,18 @@ public class NumberOrderReportFragment extends Fragment implements Constants {
         return  rootView;
     }
 
+    View.OnClickListener previousOnClick = new View.OnClickListener() {
+        @Override
+        public void onClick(View v) {
 
+        }
+    };
+    View.OnClickListener nextOnClick = new View.OnClickListener() {
+        @Override
+        public void onClick(View v) {
+
+        }
+    };
     View.OnClickListener searchOnClick = new View.OnClickListener() {
         @Override
         public void onClick(View v) {
