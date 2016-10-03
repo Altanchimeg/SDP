@@ -42,6 +42,8 @@
     <string name="registration">Бүртгэл</string>
     <string name="service">Үйлчилгээ</string>
     <string name="register_number">Регистрийн дугаар</string>
+    <string name="previous">&lt;&lt; Өмнөх</string>
+    <string name="next">Дараа &gt;&gt;</string>
 
     <!-- Dialog -->
     <string name="dialog_confirm">Та энэ захиалгыг баталгаажуулах уу</string>

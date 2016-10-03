@@ -182,13 +182,13 @@ public class NumberOrderReportFragment extends Fragment implements Constants {
     View.OnClickListener previousOnClick = new View.OnClickListener() {
         @Override
         public void onClick(View v) {
-
+            Toast.makeText(mContext, "Previous button clicked", Toast.LENGTH_SHORT).show();
         }
     };
     View.OnClickListener nextOnClick = new View.OnClickListener() {
         @Override
         public void onClick(View v) {
-
+            Toast.makeText(mContext, "Next button clicked", Toast.LENGTH_SHORT).show();
         }
     };
     View.OnClickListener searchOnClick = new View.OnClickListener() {
