@@ -91,7 +91,8 @@ public class NumberOrderReportFragment extends Fragment implements Constants {
     private String[] mReportTypeValue = null;
 
     private int fromPage = 0;
-    private int lengthList = 2;
+    private int numRow = 50;
+
     private TextView mPagerInfo;
     private Button mPrevious;
     private Button mNext;
@@ -99,6 +100,8 @@ public class NumberOrderReportFragment extends Fragment implements Constants {
     private int mYear;
     private int mMonth;
     private int mDay;
+    String startDate;
+    String currentDateTime;
 
     private final Calendar mCalendar = Calendar.getInstance();
 
@@ -113,7 +116,7 @@ public class NumberOrderReportFragment extends Fragment implements Constants {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        View rootView =  inflater.inflate(R.layout.number_order_report, container, false);
+        View rootView = inflater.inflate(R.layout.number_order_report, container, false);
 
 
         mContext = getActivity();
@@ -166,29 +169,42 @@ public class NumberOrderReportFragment extends Fragment implements Constants {
             mProgressDialog.show();
 
             DateTime currentDateJoda = DateTime.parse(new SimpleDateFormat("yyyy-MM-dd").format(new Date()));
-            String startDate = new SimpleDateFormat("yyyy-MM-dd").format(currentDateJoda.minusMonths(3).toDate());
-            String currentDateTime = new SimpleDateFormat("yyyy-MM-dd").format(currentDateJoda.toDate());
+            startDate = new SimpleDateFormat("yyyy-MM-dd").format(currentDateJoda.minusMonths(3).toDate());
+            currentDateTime = new SimpleDateFormat("yyyy-MM-dd").format(currentDateJoda.toDate());
 
-            runNewNumberReportFunction(100, 0, mSelectedFilterButton, "", startDate, currentDateTime);
+            runNewNumberReportFunction(fromPage, mSelectedFilterButton, "", startDate, currentDateTime);
             mFilterByStartDate.setText(startDate);
             mFilterByEndDate.setText(currentDateTime);
         } catch (Exception e) {
             e.printStackTrace();
         }
 
-        return  rootView;
+        return rootView;
     }
 
     View.OnClickListener previousOnClick = new View.OnClickListener() {
         @Override
         public void onClick(View v) {
             Toast.makeText(mContext, "Previous button clicked", Toast.LENGTH_SHORT).show();
+            fromPage = fromPage - numRow - 1;
+            try {
+                runNewNumberReportFunction(fromPage, mSelectedFilterButton, "", startDate, currentDateTime);
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+
         }
     };
     View.OnClickListener nextOnClick = new View.OnClickListener() {
         @Override
         public void onClick(View v) {
             Toast.makeText(mContext, "Next button clicked", Toast.LENGTH_SHORT).show();
+            fromPage = numRow + 1;
+            try {
+                runNewNumberReportFunction(fromPage, mSelectedFilterButton, "", startDate, currentDateTime);
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
         }
     };
     View.OnClickListener searchOnClick = new View.OnClickListener() {
@@ -196,12 +212,12 @@ public class NumberOrderReportFragment extends Fragment implements Constants {
         public void onClick(View v) {
             try {
 
-                    String phone_number = mFilterByPhoneNumber.getText().toString();
-                    int order_status = mSelectedFilterButton;
-                    String start_date = mFilterByStartDate.getText().toString();
-                    String end_date = mFilterByEndDate.getText().toString();
-                    mProgressDialog.show();
-                    runNewNumberReportFunction(100, 0, order_status, phone_number, start_date, end_date);
+                String phone_number = mFilterByPhoneNumber.getText().toString();
+                int order_status = mSelectedFilterButton;
+                String start_date = mFilterByStartDate.getText().toString();
+                String end_date = mFilterByEndDate.getText().toString();
+                mProgressDialog.show();
+                runNewNumberReportFunction(fromPage, order_status, phone_number, start_date, end_date);
 
             } catch (Exception e) {
                 e.printStackTrace();
@@ -301,7 +317,7 @@ public class NumberOrderReportFragment extends Fragment implements Constants {
                 break;
             case FILTER_SUCCESS:
                 mFilterByAll.setBackground(getResources().getDrawable(R.drawable.btn_yellow));
-                 mFilterByAll.setTextColor(getResources().getColor(R.color.colorSkytelYellow));
+                mFilterByAll.setTextColor(getResources().getColor(R.color.colorSkytelYellow));
 
                 mFilterBySuccess.setBackground(getResources().getDrawable(R.drawable.btn_yellow_selected));
                 mFilterBySuccess.setTextColor(Color.WHITE);
@@ -343,9 +359,6 @@ public class NumberOrderReportFragment extends Fragment implements Constants {
     }
 
     /**
-     *
-     *
-     * @param length
      * @param from
      * @param order_status
      * @param phone
@@ -353,12 +366,12 @@ public class NumberOrderReportFragment extends Fragment implements Constants {
      * @param end_date
      * @throws Exception
      */
-    public void runNewNumberReportFunction(int length, int from, int order_status, String phone, String start_date, String end_date) throws Exception {
+    public void runNewNumberReportFunction(int from, int order_status, String phone, String start_date, String end_date) throws Exception {
         mProgressDialog.show();
         final StringBuilder url = new StringBuilder();
         url.append(Constants.SERVER_URL);
         url.append(Constants.FUNCTION_NEW_NUMBER_REPORT);
-        url.append("?len=" + length);
+        url.append("?len=" + numRow); //100,
         url.append("&from=" + from);
         url.append("&order_status=" + order_status);
         url.append("&phone=" + phone);
@@ -369,7 +382,7 @@ public class NumberOrderReportFragment extends Fragment implements Constants {
         getActivity().runOnUiThread(new Runnable() {
             @Override
             public void run() {
-                Log.d(TAG,"send URL: "+url.toString());
+                Log.d(TAG, "send URL: " + url.toString());
             }
         });
 
@@ -430,7 +443,7 @@ public class NumberOrderReportFragment extends Fragment implements Constants {
                         @Override
                         public void run() {
 
-                            Toast.makeText(mContext, ""+ result_msg, Toast.LENGTH_LONG).show();
+                            Toast.makeText(mContext, "" + result_msg, Toast.LENGTH_LONG).show();
                         }
                     });
 
@@ -453,7 +466,7 @@ public class NumberOrderReportFragment extends Fragment implements Constants {
 
 
 //                  Udaan hugatsaanii daraa app -iig neeh uyed end exception shidej bsan tul.. - Zolbayar
-                    if(!jsonObj.isNull("reservations")) {
+                    if (!jsonObj.isNull("reservations")) {
 
                         JSONArray jArray = jsonObj.getJSONArray("reservations");
 
@@ -501,9 +514,9 @@ public class NumberOrderReportFragment extends Fragment implements Constants {
                         @Override
                         public void run() {
 
-                                SortableNewNumberReportTableView sortableNewNumberReportTableView = new SortableNewNumberReportTableView(getActivity());
-                                mReportTableViewContainer.removeAllViews();
-                                mReportTableViewContainer.addView(sortableNewNumberReportTableView);
+                            SortableNewNumberReportTableView sortableNewNumberReportTableView = new SortableNewNumberReportTableView(getActivity());
+                            mReportTableViewContainer.removeAllViews();
+                            mReportTableViewContainer.addView(sortableNewNumberReportTableView);
                             sortableNewNumberReportTableView.setColumnCount(getResources().getInteger(R.integer.new_number_report_column));
                             sortableNewNumberReportTableView.setHeaderBackgroundColor(Color.TRANSPARENT);
                             sortableNewNumberReportTableView.setDataAdapter(new NewNumberReportAdapter(getActivity(), mNewNumberReportArrayList));

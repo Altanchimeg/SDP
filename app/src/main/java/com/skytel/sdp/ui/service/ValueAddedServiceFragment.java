@@ -51,7 +51,6 @@ import okhttp3.Request;
 import okhttp3.RequestBody;
 import okhttp3.Response;
 
-
 public class ValueAddedServiceFragment extends Fragment implements Constants {
 
     String TAG = ValueAddedServiceFragment.class.getName();

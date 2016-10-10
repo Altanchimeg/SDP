@@ -5,6 +5,13 @@
     android:orientation="vertical"
     android:gravity="center">
 
+    <RelativeLayout
+        android:id="@+id/planNewUserTableViewContainer"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+    </RelativeLayout>
+
+
     <ImageView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -14,14 +21,17 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="@string/coming_soon" />
+
     <TextView
         style="@style/MainViewTextViewGrey"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text= "Төлөвлөгөө хэсэг нь энэхүү хувилбарт ажиллахгүй байгаа тул" />
+
     <TextView
         style="@style/MainViewTextViewGrey"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text= "Та бусад хэсгийг сонгон тестэлнэ үү. Баярлалаа" />
+
 </LinearLayout>
