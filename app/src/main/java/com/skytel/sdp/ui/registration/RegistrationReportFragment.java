@@ -92,6 +92,9 @@ public class RegistrationReportFragment extends Fragment implements Constants {
     private int mSelectedItemId = -1;
     private String[] mReportTypeValue = null;
 
+    private int fromPage = 0;
+    private int numRow = 100;
+
     private int mYear;
     private int mMonth;
     private int mDay;
@@ -173,7 +176,7 @@ public class RegistrationReportFragment extends Fragment implements Constants {
                         String startDate = new SimpleDateFormat("yyyy-MM-dd").format(currentDateJoda.minusMonths(3).toDate());
                         String currentDateTime = new SimpleDateFormat("yyyy-MM-dd").format(currentDateJoda.toDate());
 
-                        runRegistrationReportFunction(mSelectedItemId, 100, 0, mSelectedFilterButton, "", startDate, currentDateTime);
+                        runRegistrationReportFunction(mSelectedItemId, mSelectedFilterButton, "", startDate, currentDateTime);
                         mFilterByStartDate.setText(startDate);
                         mFilterByEndDate.setText(currentDateTime);
                         Log.d(TAG, "Report Type: " + mSelectedItemId);
@@ -211,7 +214,7 @@ public class RegistrationReportFragment extends Fragment implements Constants {
                     String start_date = mFilterByStartDate.getText().toString();
                     String end_date = mFilterByEndDate.getText().toString();
 
-                    runRegistrationReportFunction(mSelectedItemId, 100, 0, order_status, phone_number, start_date, end_date);
+                    runRegistrationReportFunction(mSelectedItemId, order_status, phone_number, start_date, end_date);
 
                 } else {
                     Toast.makeText(getActivity(), getText(R.string.choose_report_type), Toast.LENGTH_SHORT).show();
@@ -355,14 +358,14 @@ public class RegistrationReportFragment extends Fragment implements Constants {
                 break;
         }
     }
-    public void runRegistrationReportFunction(int report_type, int length, int from, int order_status , String phone, String start_date, String end_date) throws Exception {
+    public void runRegistrationReportFunction(int report_type, int order_status , String phone, String start_date, String end_date) throws Exception {
         mProgressDialog.show();
         final StringBuilder url = new StringBuilder();
         url.append(Constants.SERVER_URL);
         url.append(Constants.FUNCTION_REGISTER_REPORT);
         url.append("?order_status=" + order_status);
-        url.append("&len=" + length);
-        url.append("&from=" + from);
+        url.append("&len=" + numRow);
+        url.append("&from=" + fromPage);
         url.append("&service_type=" + report_type);
         url.append("&phone=" + phone);
         url.append("&start_date=" + start_date);

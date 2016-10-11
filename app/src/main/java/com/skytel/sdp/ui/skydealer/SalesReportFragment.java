@@ -105,6 +105,9 @@ public class SalesReportFragment extends Fragment implements Constants {
     private int mMonth;
     private int mDay;
 
+    private int fromPage = 0;
+    private int numRow = 100;
+
 
     private final Calendar mCalendar = Calendar.getInstance();
 
@@ -218,7 +221,7 @@ public class SalesReportFragment extends Fragment implements Constants {
 
                        // Log.d(TAG,"Days Between: "+ Days.daysBetween(currentDateJoda.toDateMidnight(), DateTime.parse("2016-06-01")).getDays() + "TEST DATE: "+date);
 
-                        runSalesReportFunction(mReportTypeValue[mSelectedItemId], 100, 0, true, "", startDate, currentDateTime, null);
+                        runSalesReportFunction(mReportTypeValue[mSelectedItemId], true, "", startDate, currentDateTime, null);
                         Log.d(TAG, "Report Type: " + mReportTypeValue[mSelectedItemId]);
                         mFilterByStartDate.setText(startDate);
                         mFilterByEndDate.setText(currentDateTime);
@@ -267,7 +270,7 @@ public class SalesReportFragment extends Fragment implements Constants {
                         mProgressDialog.show();
                         mSelectedItemId = (int) mReportTypeSpinner.getSelectedItemId();
 
-                        runSalesReportFunction(mReportTypeValue[mSelectedItemId], 100, 0, isSuccess, phone_number, start_date, end_date,mSelectedFilterByUnit);
+                        runSalesReportFunction(mReportTypeValue[mSelectedItemId], isSuccess, phone_number, start_date, end_date,mSelectedFilterByUnit);
                     }
                     else{
                         Toast.makeText(getActivity(), getText(R.string.interval_error), Toast.LENGTH_SHORT).show();
@@ -390,14 +393,14 @@ public class SalesReportFragment extends Fragment implements Constants {
     }
 
 
-    public void runSalesReportFunction(String report_type, int length, int from, boolean isSuccess, String phone, String start_date, String end_date, String card_type) throws Exception {
+    public void runSalesReportFunction(String report_type, boolean isSuccess, String phone, String start_date, String end_date, String card_type) throws Exception {
         mProgressDialog.show();
         final StringBuilder url = new StringBuilder();
         url.append(Constants.SERVER_URL);
         url.append(Constants.FUNCTION_DEALER_REPORT);
         url.append("?trans_type=" + report_type);
-        url.append("&len=" + length);
-        url.append("&from=" + from);
+        url.append("&len=" + numRow);
+        url.append("&from=" + fromPage);
         url.append("&is_success=" + isSuccess);
         url.append("&phone=" + phone);
         url.append("&start_date=" + start_date);

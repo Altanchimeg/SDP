@@ -91,11 +91,7 @@ public class NumberOrderReportFragment extends Fragment implements Constants {
     private String[] mReportTypeValue = null;
 
     private int fromPage = 0;
-    private int numRow = 50;
-
-    private TextView mPagerInfo;
-    private Button mPrevious;
-    private Button mNext;
+    private int numRow = 100;
 
     private int mYear;
     private int mMonth;
@@ -155,12 +151,6 @@ public class NumberOrderReportFragment extends Fragment implements Constants {
         mFilterButtonByEndDate = (Button) rootView.findViewById(R.id.btn_end_date);
         mFilterButtonByEndDate.setOnClickListener(filterByEndDateOnClick);
 
-        mPagerInfo = (TextView) rootView.findViewById(R.id.pager_info);
-        mPrevious = (Button) rootView.findViewById(R.id.btn_previous);
-        mNext = (Button) rootView.findViewById(R.id.btn_next);
-        mPrevious.setOnClickListener(previousOnClick);
-        mNext.setOnClickListener(nextOnClick);
-
         mYear = mCalendar.get(Calendar.YEAR);
         mMonth = mCalendar.get(Calendar.MONTH);
         mDay = mCalendar.get(Calendar.DAY_OF_MONTH);
@@ -182,32 +172,7 @@ public class NumberOrderReportFragment extends Fragment implements Constants {
         return rootView;
     }
 
-    View.OnClickListener previousOnClick = new View.OnClickListener() {
-        @Override
-        public void onClick(View v) {
-            Toast.makeText(mContext, "Previous button clicked", Toast.LENGTH_SHORT).show();
-            fromPage = fromPage - numRow - 1;
-            try {
-                runNewNumberReportFunction(fromPage, mSelectedFilterButton, "", startDate, currentDateTime);
-            } catch (Exception e) {
-                e.printStackTrace();
-            }
-
-        }
-    };
-    View.OnClickListener nextOnClick = new View.OnClickListener() {
-        @Override
-        public void onClick(View v) {
-            Toast.makeText(mContext, "Next button clicked", Toast.LENGTH_SHORT).show();
-            fromPage = numRow + 1;
-            try {
-                runNewNumberReportFunction(fromPage, mSelectedFilterButton, "", startDate, currentDateTime);
-            } catch (Exception e) {
-                e.printStackTrace();
-            }
-        }
-    };
-    View.OnClickListener searchOnClick = new View.OnClickListener() {
+     View.OnClickListener searchOnClick = new View.OnClickListener() {
         @Override
         public void onClick(View v) {
             try {

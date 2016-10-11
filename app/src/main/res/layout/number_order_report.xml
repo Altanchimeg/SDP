@@ -7,36 +7,6 @@
     <LinearLayout
         style="@style/MainViewContainer"
         android:orientation="vertical">
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_margin="@dimen/main_padding"
-        android:orientation="horizontal">
-        <TextView
-            android:id="@+id/pager_info"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="test"/>
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:gravity="right"
-            android:orientation="horizontal">
-        <Button
-            android:id="@+id/btn_previous"
-            style="@style/ButtonStyle"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="@string/previous"/>
-        <Button
-            android:id="@+id/btn_next"
-            style="@style/ButtonStyle"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginLeft="@dimen/second_padding"
-            android:text="@string/next"/>
-            </LinearLayout>
-    </LinearLayout>
         <!-- Jijig delgets deer shahtsaldaj bgaa tul - Zolbayar -->
         <android.widget.HorizontalScrollView
             android:id="@+id/tableWrapperScrollView"
@@ -48,6 +18,7 @@
                 android:layout_height="match_parent">
             </RelativeLayout>
         </android.widget.HorizontalScrollView>
+
 
     </LinearLayout>
 

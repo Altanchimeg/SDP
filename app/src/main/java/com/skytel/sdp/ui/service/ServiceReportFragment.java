@@ -94,6 +94,9 @@ public class ServiceReportFragment extends Fragment implements Constants{
     private int mMonth;
     private int mDay;
 
+    private int fromPage = 0;
+    private int numRow = 100;
+
     private final Calendar mCalendar = Calendar.getInstance();
 
     public ServiceReportFragment() {
@@ -169,7 +172,7 @@ public class ServiceReportFragment extends Fragment implements Constants{
                         String startDate = new SimpleDateFormat("yyyy-MM-dd").format(currentDateJoda.minusMonths(3).toDate());
                         String currentDateTime = new SimpleDateFormat("yyyy-MM-dd").format(currentDateJoda.toDate());
 
-                        runServiceReportFunction(mSelectedItemId, 100, 0, mSelectedFilterButton, startDate, currentDateTime,"");
+                        runServiceReportFunction(mSelectedItemId,mSelectedFilterButton, startDate, currentDateTime,"");
                         Log.d(TAG, "Report Type: " + mSelectedItemId);
                         mFilterByStartDate.setText(startDate);
                         mFilterByEndDate.setText(currentDateTime);
@@ -206,7 +209,7 @@ public class ServiceReportFragment extends Fragment implements Constants{
                     String start_date = mFilterByStartDate.getText().toString();
                     String end_date = mFilterByEndDate.getText().toString();
 
-                    runServiceReportFunction(mSelectedItemId, 100, 0, order_status, start_date, end_date,phone_number);
+                    runServiceReportFunction(mSelectedItemId, order_status, start_date, end_date,phone_number);
 
                 } else {
                     Toast.makeText(getActivity(), getText(R.string.choose_report_type), Toast.LENGTH_SHORT).show();
@@ -349,14 +352,14 @@ public class ServiceReportFragment extends Fragment implements Constants{
                 break;
         }
     }
-    public void runServiceReportFunction(final int report_type, int length, int from, int order_status, String start_date, String end_date, String phone) throws Exception {
+    public void runServiceReportFunction(final int report_type, int order_status, String start_date, String end_date, String phone) throws Exception {
         mProgressDialog.show();
         final StringBuilder url = new StringBuilder();
         url.append(Constants.SERVER_URL);
         url.append(Constants.FUNCTION_SERVICE_REPORT);
         url.append("?service_status=" + order_status);
-        url.append("&len=" + length);
-        url.append("&from=" + from);
+        url.append("&len=" + numRow);
+        url.append("&from=" + fromPage);
         url.append("&service_type=" + report_type);
         url.append("&start_date=" + start_date);
         url.append("&end_date=" + end_date);

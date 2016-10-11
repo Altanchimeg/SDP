@@ -42,7 +42,7 @@ public class PlanFragment extends Fragment {
         mPlanNewUserTableViewContainer.addView(sortableNewNumberReportTableView);
         sortableNewNumberReportTableView.setColumnCount(getResources().getInteger(R.integer.new_number_report_column));
         sortableNewNumberReportTableView.setHeaderBackgroundColor(Color.TRANSPARENT);
-        sortableNewNumberReportTableView.setDataAdapter(new NewNumberReportAdapter(getActivity(), mNewNumberReportArrayList));
+       // sortableNewNumberReportTableView.setDataAdapter(new NewNumberReportAdapter(getActivity(), mNewNumberReportArrayList));
 
         return rootView;
     }

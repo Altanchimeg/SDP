@@ -36,10 +36,10 @@ public class SortableRegReportSkymediaTableView extends SortableTableView<Regist
         setDataRowColorizer(TableDataRowColorizers.alternatingRows(rowColorEven, rowColorOdd));
         setHeaderSortStateViewProvider(SortStateViewProviders.darkArrows());
 
-        setColumnWeight(0, 2);
-        setColumnWeight(1, 2);
+        setColumnWeight(0, 3);
+        setColumnWeight(1, 3);
         setColumnWeight(2, 2);
-        setColumnWeight(3, 2);
+        setColumnWeight(3, 3);
         setColumnWeight(4, 2);
 
         setColumnComparator(3, RegistrationReportComparator.getRegistrationReportDateComparator());

@@ -50,7 +50,6 @@
     <string name="dialog_logout_confirm">Та програмаас гарах уу</string>
 
 
-
     <!-- Toast -->
     <string name="please_fill_the_field">Талбаруудыг бүрэн бөглөнө үү!</string>
     <string name="please_insert_pic">Цахим үнэмлэхний 2 талын зургийг бүрэн оруулна уу!</string>
@@ -84,6 +83,11 @@
     <string name="info_news">Мэдээ, мэдээлэл</string>
     <string name="prepaid_info">УТҮ мэдээлэл</string>
     <string name="postpaid_info">ДТҮ мэдээлэл</string>
+
+    <!-- Plan Tabs -->
+    <string name="newuser_plan">Шинэ хэрэглэгчийн төлөвлөгөө</string>
+    <string name="money_plan">Мөнгөн дүнгийн төлөвлөгөө</string>
+    <string name="discount_info">Урамшууллын мэдээлэл</string>
 
     <!-- Sky dealer Tabs -->
     <string name="tab_skydealer_chargecard">Карт цэнэглэлт</string>
@@ -213,4 +217,7 @@
     <string name="choose_info_type">Мэдээллийн төрөл сонгоно уу?</string>
 
     <string name="coming_soon">Тун удахгүй!</string>
+
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
 </resources>
