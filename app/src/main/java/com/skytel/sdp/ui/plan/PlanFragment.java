@@ -17,7 +17,6 @@ import com.skytel.sdp.ui.newnumber.SortableNewNumberReportTableView;
 
 import java.util.List;
 
-
 public class PlanFragment extends Fragment {
 
     private RelativeLayout mPlanNewUserTableViewContainer;
