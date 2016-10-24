@@ -23,6 +23,7 @@ import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.mindorks.paracamera.Camera;
 import com.skytel.sdp.LoginActivity;
 import com.skytel.sdp.MainActivity;
 import com.skytel.sdp.R;
@@ -86,6 +87,7 @@ public class HandsetChangeFragment extends Fragment implements Constants {
     private ImageView mFrontImage;
     private ImageView mBackImage;
 
+    private Camera camera;
     private int REQUEST_CAMERA = 0, SELECT_FILE = 1;
     private String userChosenTask;
     private boolean isFirst = true;
@@ -109,7 +111,8 @@ public class HandsetChangeFragment extends Fragment implements Constants {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         View rootView = inflater.inflate(R.layout.handset_change, container, false);
-
+// Instantiate the camera
+        camera = new Camera(getActivity());
         mContext = getActivity();
         mProgressDialog = new CustomProgressDialog(getActivity());
         mPrefManager = new PrefManager(mContext);
@@ -490,13 +493,13 @@ public class HandsetChangeFragment extends Fragment implements Constants {
     private void cameraIntent() {
         Intent intent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
         startActivityForResult(intent, REQUEST_CAMERA);
+
     }
 
     @Override
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
         mProgressDialog.dismiss();
-
         if (resultCode == Activity.RESULT_OK) {
             if (requestCode == SELECT_FILE) {
                 onSelectFromGalleryResult(data);
