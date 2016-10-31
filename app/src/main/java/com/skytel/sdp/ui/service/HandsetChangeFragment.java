@@ -23,6 +23,7 @@ import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.mindorks.paracamera.Camera;
 import com.skytel.sdp.LoginActivity;
 import com.skytel.sdp.MainActivity;
 import com.skytel.sdp.R;
@@ -34,6 +35,7 @@ import com.skytel.sdp.entities.DealerChannelType;
 import com.skytel.sdp.entities.HandsetChangeType;
 import com.skytel.sdp.network.HttpClient;
 import com.skytel.sdp.utils.BitmapSaver;
+import com.skytel.sdp.utils.CameraActivity;
 import com.skytel.sdp.utils.ConfirmDialog;
 import com.skytel.sdp.utils.Constants;
 import com.skytel.sdp.utils.CustomProgressDialog;
@@ -324,7 +326,7 @@ public class HandsetChangeFragment extends Fragment implements Constants {
                     getActivity().runOnUiThread(new Runnable() {
                         @Override
                         public void run() {
-                            Toast.makeText(mContext, "Алдаатай хариу ирлээ "+e.toString(), Toast.LENGTH_LONG).show();
+                            Toast.makeText(mContext, "Алдаатай хариу ирлээ " + e.toString(), Toast.LENGTH_LONG).show();
                         }
                     });
                     e.printStackTrace();
@@ -463,7 +465,7 @@ public class HandsetChangeFragment extends Fragment implements Constants {
                 if (items[item].equals(getString(R.string.take_photo))) {
                     userChosenTask = getString(R.string.take_photo);
                     if (result) {
-                        mProgressDialog.show();
+                        // mProgressDialog.show();
                         cameraIntent();
                     }
                 } else if (items[item].equals(getString(R.string.choose_from_library))) {
@@ -487,16 +489,44 @@ public class HandsetChangeFragment extends Fragment implements Constants {
         startActivityForResult(Intent.createChooser(intent, getString(R.string.select_file)), SELECT_FILE);
     }
 
+    Camera camera;
+
     private void cameraIntent() {
+/*
         Intent intent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
         startActivityForResult(intent, REQUEST_CAMERA);
+*/
+        Intent i = new Intent(getActivity(), CameraActivity.class);
+        startActivityForResult(i, 2);
+
     }
 
     @Override
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
         mProgressDialog.dismiss();
+        if (requestCode == Camera.REQUEST_TAKE_PHOTO) {
+            Bitmap bitmap = camera.getCameraBitmap();
+            if (bitmap != null) {
+                //		picFrame.setImageBitmap(bitmap);
+//                Toast.makeText(this.getActivity(), "Picture taken!", Toast.LENGTH_SHORT).show();
+                if (isFirst) {
+                    mFrontImage.setImageBitmap(bitmap);
+                    BitmapSaver.saveBitmapToFile(bitmap, imageFront);
 
+                } else {
+                    mBackImage.setImageBitmap(bitmap);
+                    BitmapSaver.saveBitmapToFile(bitmap, imageBack);
+                }
+
+            } else {
+  //              Toast.makeText(this.getActivity(), "Picture not taken!", Toast.LENGTH_SHORT).show();
+            }
+        } else if(requestCode == 2){
+            onCaptureImageResult(data);
+        }
+
+/*
         if (resultCode == Activity.RESULT_OK) {
             if (requestCode == SELECT_FILE) {
                 onSelectFromGalleryResult(data);
@@ -504,7 +534,10 @@ public class HandsetChangeFragment extends Fragment implements Constants {
                 onCaptureImageResult(data);
             }
         }
+*/
+
     }
+
 
     private void onCaptureImageResult(Intent data) {
         bm = (Bitmap) data.getExtras().get("data");

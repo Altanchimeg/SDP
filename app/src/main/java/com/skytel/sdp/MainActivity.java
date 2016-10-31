@@ -98,7 +98,8 @@ public class MainActivity extends AppCompatActivity implements BalanceUpdateList
                         changeMenu(new TabInformationFragment());
                         break;
                     case Constants.MENU_PLAN:
-                        changeMenu(new TabPlanFragment());
+//                        changeMenu(new TabPlanFragment());
+                        changeMenu(new PlanFragment());
                         break;
                     case Constants.MENU_FEEDBACK:
                         changeMenu(new FeedbackFragment());

@@ -19,6 +19,11 @@ android {
     }
 }
 
+repositories {
+    maven { url "https://jitpack.io" }
+    mavenCentral()
+}
+
 dependencies {
     compile fileTree(dir: 'libs', include: ['*.jar'])
     testCompile 'junit:junit:4.12'
@@ -38,4 +43,6 @@ dependencies {
     compile 'com.android.support:cardview-v7:23.3.0'
     compile 'ch.acra:acra:4.9.0'
     compile 'com.mindorks:paracamera:0.0.2'
+    compile 'com.github.PhilJay:MPAndroidChart:v2.0.8'
+
 }

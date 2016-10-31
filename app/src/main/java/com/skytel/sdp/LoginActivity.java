@@ -53,9 +53,9 @@ public class LoginActivity extends Activity implements Constants {
 /**
  * If code is running on Debug
 */
-//              Intent i = new Intent(LoginActivity.this, MainActivity.class);
-//        startActivity(i);
-//        finish();
+              Intent i = new Intent(LoginActivity.this, MainActivity.class);
+        startActivity(i);
+        finish();
 
 
         if (mPrefManager.getIsLoggedIn()) {
