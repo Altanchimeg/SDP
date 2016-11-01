@@ -1,42 +1,52 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical"
-    android:gravity="center">
+    android:orientation="vertical">
 
-    <RelativeLayout
-        android:id="@+id/planNewUserTableViewContainer"
+
+
+    <LinearLayout
+        style="@style/MainViewContainer"
+        android:orientation="vertical">
+
+    <TextView
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
-    </RelativeLayout>
+        android:layout_height="match_parent"
+        android:text="Hello"/>
 
-    <com.github.mikephil.charting.charts.PieChart
-        android:id="@+id/pieChart"
-        android:layout_width="300dp"
-        android:layout_height="300dp" />
+        <com.github.mikephil.charting.charts.BarChart
+            android:id="@+id/barChart"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+
+    </LinearLayout>
+
+    <LinearLayout style="@style/RightViewContainer">
+
+        <View style="@style/DividerStyle"></View>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:gravity="center"
+            android:orientation="vertical">
+
+            <LinearLayout style="@style/RightViewGroupContainer">
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:text="Hello"/>
+                <com.github.mikephil.charting.charts.PieChart
+                    android:id="@+id/pieChart"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content" />
+                </LinearLayout>
 
 
-    <ImageView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:background="@drawable/skytel_logo" />
-    <TextView
-        style="@style/MainViewTextViewBlue"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="@string/coming_soon" />
+        </LinearLayout>
 
-    <TextView
-        style="@style/MainViewTextViewGrey"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text= "Төлөвлөгөө хэсэг нь энэхүү хувилбарт ажиллахгүй байгаа тул" />
+    </LinearLayout>
 
-    <TextView
-        style="@style/MainViewTextViewGrey"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text= "Та бусад хэсгийг сонгон тестэлнэ үү. Баярлалаа" />
 
-</LinearLayout>
+</RelativeLayout>

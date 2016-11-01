@@ -88,7 +88,7 @@ public class HandsetChangeFragment extends Fragment implements Constants {
     private ImageView mFrontImage;
     private ImageView mBackImage;
 
-    private Camera camera;
+   // private Camera camera;
     private int REQUEST_CAMERA = 0, SELECT_FILE = 1;
     private String userChosenTask;
     private boolean isFirst = true;
@@ -501,8 +501,7 @@ public class HandsetChangeFragment extends Fragment implements Constants {
 */
         Intent i = new Intent(getActivity(), CameraActivity.class);
         startActivityForResult(i, 2);
-=======
->>>>>>> origin/master
+
 
     }
 
@@ -510,7 +509,6 @@ public class HandsetChangeFragment extends Fragment implements Constants {
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
         mProgressDialog.dismiss();
-<<<<<<< HEAD
         if (requestCode == Camera.REQUEST_TAKE_PHOTO) {
             Bitmap bitmap = camera.getCameraBitmap();
             if (bitmap != null) {

@@ -19,7 +19,6 @@ import com.skytel.sdp.adapter.LeftMenuListAdapter;
 import com.skytel.sdp.database.DataManager;
 import com.skytel.sdp.ui.TabInformationFragment;
 import com.skytel.sdp.ui.TabNewNumberFragment;
-import com.skytel.sdp.ui.TabPlanFragment;
 import com.skytel.sdp.ui.TabRegistrationFragment;
 import com.skytel.sdp.ui.TabServiceFragment;
 import com.skytel.sdp.ui.TabSettingsFragment;
@@ -98,7 +97,6 @@ public class MainActivity extends AppCompatActivity implements BalanceUpdateList
                         changeMenu(new TabInformationFragment());
                         break;
                     case Constants.MENU_PLAN:
-//                        changeMenu(new TabPlanFragment());
                         changeMenu(new PlanFragment());
                         break;
                     case Constants.MENU_FEEDBACK:
