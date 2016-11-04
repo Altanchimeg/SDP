@@ -88,6 +88,7 @@
     <string name="newuser_plan">Шинэ хэрэглэгчийн төлөвлөгөө</string>
     <string name="money_plan">Мөнгөн дүнгийн төлөвлөгөө</string>
     <string name="discount_info">Урамшууллын мэдээлэл</string>
+    <string name="performance">Гүйцэтгэл</string>
 
     <!-- Sky dealer Tabs -->
     <string name="tab_skydealer_chargecard">Карт цэнэглэлт</string>

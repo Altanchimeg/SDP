@@ -1,5 +1,7 @@
 package com.skytel.sdp.utils;
 
+import android.graphics.Color;
+
 import java.text.SimpleDateFormat;
 
 /**
@@ -85,6 +87,10 @@ public interface Constants {
     int FILTER_SUCCESS = 2;
     int FILTER_FAILED = 3;
 
+    public static final int[] MATERIAL_COLORS = {
+            Color.rgb(46 , 204, 113),  Color.rgb(52, 152, 219), Color.rgb(241, 196, 15), Color.rgb(231, 76, 60),
+
+    };
 
 
 }

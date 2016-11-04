@@ -18,8 +18,10 @@ import com.github.mikephil.charting.data.Entry;
 import com.github.mikephil.charting.data.PieData;
 import com.github.mikephil.charting.data.PieDataSet;
 import com.github.mikephil.charting.utils.ColorTemplate;
+import com.github.mikephil.charting.utils.DefaultValueFormatter;
 import com.github.mikephil.charting.utils.PercentFormatter;
 import com.skytel.sdp.R;
+import com.skytel.sdp.utils.Constants;
 
 import java.util.ArrayList;
 
@@ -45,14 +47,19 @@ public class PlanFragment extends Fragment {
         View rootView = inflater.inflate(R.layout.plan, container, false);
 
         pieChart = (PieChart) rootView.findViewById(R.id.pieChart);
-        setData(4, 100);
         barChart = (BarChart) rootView.findViewById(R.id.barChart);
+
+        setPieData(4, 100);
+        pieChart.animateY(3000);
         setBarData();
+        barChart.animateY(3000);
+        barChart.setPinchZoom(false);
+        barChart.setDrawBarShadow(false);
 
         return rootView;
     }
 
-    private void setData(int count, float range) {
+    private void setPieData(int count, float range) {
 
         ArrayList<Entry> values = new ArrayList<Entry>();
         ArrayList<String> xVals = new ArrayList<String>();
@@ -78,46 +85,46 @@ public class PlanFragment extends Fragment {
         ArrayList<BarEntry> yVals1 = new ArrayList<BarEntry>();
 
         for (int i = 0; i < 10; i++) {
-            float mult = 10;
-            float val1 = (float) (Math.random() * mult) + mult / 3;
-            float val2 = (float) (Math.random() * mult) + mult / 3;
-            float val3 = (float) (Math.random() * mult) + mult / 3;
+            int mult = 10;
+            int val1 = (int) (Math.random() * mult) + mult;
+            int val2 = (int) (Math.random() * mult) + mult;
 
-            yVals1.add(new BarEntry(new float[]{val1, val2, val3}, i));
+            yVals1.add(new BarEntry(new float[]{val1, val2}, i));
         }
         ArrayList<String> xVals = new ArrayList<String>();
-        for (int i = 0; i < 10; i++) {
-            xVals.add(i+"");
+        for (int i = 1; i <= 10; i++) {
+            xVals.add(i+"сар");
         }
 
 
         BarDataSet set1;
 
-            set1 = new BarDataSet(yVals1, "Statistics Vienna 2014");
+            set1 = new BarDataSet(yVals1, "");
             set1.setColors(getColors());
-            set1.setStackLabels(new String[]{"Births", "Divorces", "Marriages"});
+            set1.setStackLabels(new String[]{getString(R.string.money_plan), getString(R.string.performance)});
 
             ArrayList<BarDataSet> dataSets = new ArrayList<BarDataSet>();
             dataSets.add(set1);
 
             BarData data = new BarData(xVals,dataSets);
-//            data.setValueFormatter(new MyValueFormatter());
-            data.setValueTextColor(Color.WHITE);
+            data.setValueFormatter(new DefaultValueFormatter(10));
+            data.setValueTextColor(getResources().getColor(R.color.colorBackground));
 
             barChart.setData(data);
 
+        barChart.setFitsSystemWindows(true);
         barChart.invalidate();
     }
 
     private int[] getColors() {
 
-        int stacksize = 3;
+        int stacksize = 2;
 
         // have as many colors as stack-values per entry
         int[] colors = new int[stacksize];
 
         for (int i = 0; i < colors.length; i++) {
-            colors[i] = ColorTemplate.VORDIPLOM_COLORS[i];
+            colors[i] = Constants.MATERIAL_COLORS[i];
         }
 
         return colors;
